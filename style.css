@@ -1,0 +1,54 @@
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  /* 좌우 빈 공간 색 */
+  background: #202020;
+
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* 세로로 긴 게임 영역 */
+#game-container {
+  position: relative;
+  height: 100vh;
+  aspect-ratio: 10 / 16;
+  width: min(62.5vh, 100vw);
+  background: black;
+  overflow: hidden;
+}
+
+/* Three.js 캔버스 */
+#game-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* 가상 조이스틱 */
+#joystick {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.35);
+  display: none;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+#stick {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  left: 35px;
+  top: 35px;
+}
