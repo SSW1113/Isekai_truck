@@ -3,7 +3,7 @@ import { CAMERA_CONFIG } from './config.js';
 
 export function createCameraController(camera, truck) {
     camera.position.set(CAMERA_CONFIG.x, CAMERA_CONFIG.y, CAMERA_CONFIG.z);
-    camera.lookAt(0, 4, -5);
+    camera.lookAt(0, 8, 0);
 
     const offset = new THREE.Vector3(
         CAMERA_CONFIG.x,

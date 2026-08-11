@@ -59,24 +59,33 @@ export function createMonsterSystem(scene, onDefeat) {
     // 몬스터 AI
     // =============================
     function updateAI(truck) {
-        for (const monster of monsters) {
-            const mesh = monster.mesh;
-            const type = monsterTypes[monster.typeId];
+    const truckScale = truck.userData.sizeScale ?? 1;
 
-            const dx = mesh.position.x - truck.position.x;
-            const dz = mesh.position.z - truck.position.z;
-            const distance = Math.hypot(dx, dz);
+    // 트럭이 기본 크기보다 커진 만큼 인식 거리 추가
+    const extraFleeDistance =
+        MONSTER_CONFIG.collisionDistance * (truckScale - 1);
 
-            // 트럭에게서 도망
-            if (distance < type.fleeDistance && distance > 0.001) {
-                const dirX = dx / distance;
-                const dirZ = dz / distance;
+    for (const monster of monsters) {
+        const mesh = monster.mesh;
+        const type = monsterTypes[monster.typeId];
 
-                mesh.position.x += dirX * type.speed;
-                mesh.position.z += dirZ * type.speed;
-            }
+        const dx = mesh.position.x - truck.position.x;
+        const dz = mesh.position.z - truck.position.z;
+        const distance = Math.hypot(dx, dz);
+
+        // 트럭 크기를 반영한 실제 도망 거리
+        const fleeDistance = type.fleeDistance + extraFleeDistance;
+
+        // 트럭에게서 도망
+        if (distance < fleeDistance && distance > 0.001) {
+            const dirX = dx / distance;
+            const dirZ = dz / distance;
+
+            mesh.position.x += dirX * type.speed;
+            mesh.position.z += dirZ * type.speed;
         }
     }
+}
 
     // =============================
     // 트럭 충돌
