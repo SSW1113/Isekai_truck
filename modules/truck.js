@@ -9,6 +9,7 @@ export function createTruck(scene) {
 
     mesh.position.y = 0.5;
     mesh.userData.sizeScale = 1;
+
     scene.add(mesh);
 
     let speed = 0;
@@ -16,8 +17,10 @@ export function createTruck(scene) {
 
     let speedLevel = 0;
     let sizeLevel = 0;
+
     let maxSpeed = TRUCK_CONFIG.baseMaxSpeed;
 
+    // 트럭 이동
     function update(move) {
         const inputLength = Math.hypot(move.x, move.z);
 
@@ -25,6 +28,7 @@ export function createTruck(scene) {
             const dirX = move.x / inputLength;
             const dirZ = move.z / inputLength;
 
+            // 목표 방향으로 천천히 회전
             const targetRotation = Math.atan2(dirX, dirZ);
             let angleDiff = targetRotation - mesh.rotation.y;
 
@@ -33,9 +37,11 @@ export function createTruck(scene) {
 
             mesh.rotation.y += angleDiff * TRUCK_CONFIG.turnSpeed;
 
+            // 가속
             speed += TRUCK_CONFIG.acceleration * inputLength;
             speed = Math.min(speed, maxSpeed);
 
+            // 트럭이 바라보는 방향으로 이동
             const forwardX = Math.sin(mesh.rotation.y);
             const forwardZ = Math.cos(mesh.rotation.y);
 
@@ -45,6 +51,7 @@ export function createTruck(scene) {
             mesh.position.x += forwardX * speed;
             mesh.position.z += forwardZ * speed;
         } else {
+            // 조이스틱을 놓으면 관성
             speed *= TRUCK_CONFIG.friction;
 
             mesh.position.x += lastDirX * speed;
@@ -54,19 +61,25 @@ export function createTruck(scene) {
         }
     }
 
+    // 속도 업그레이드
     function upgradeSpeed() {
         speedLevel++;
-        maxSpeed = TRUCK_CONFIG.baseMaxSpeed +
+
+        maxSpeed =
+            TRUCK_CONFIG.baseMaxSpeed +
             speedLevel * TRUCK_CONFIG.speedPerUpgrade;
     }
 
+    // 크기 업그레이드
     function upgradeSize() {
         sizeLevel++;
 
-        const scale = 1 + sizeLevel * TRUCK_CONFIG.sizePerUpgrade;
+        const scale =
+            1 + sizeLevel * TRUCK_CONFIG.sizePerUpgrade;
 
         mesh.scale.setScalar(scale);
         mesh.position.y = 0.5 * scale;
+
         mesh.userData.sizeScale = scale;
     }
 

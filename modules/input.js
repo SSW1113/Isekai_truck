@@ -3,8 +3,7 @@ export function createJoystick(container) {
     const stick = document.getElementById('stick');
 
     let dragging = false;
-    let startX = 0;
-    let startY = 0;
+    let startX = 0, startY = 0;
 
     const move = { x: 0, z: 0 };
 
@@ -15,6 +14,7 @@ export function createJoystick(container) {
         dragging = true;
 
         const rect = container.getBoundingClientRect();
+
         startX = e.clientX - rect.left;
         startY = e.clientY - rect.top;
 

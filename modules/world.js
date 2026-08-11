@@ -4,9 +4,7 @@ import { WORLD_CONFIG } from './config.js';
 export function createWorld(container) {
     const scene = new THREE.Scene();
 
-    // =============================
-    // 하늘 + Fog
-    // =============================
+    // 하늘과 안개
     scene.background = new THREE.Color(WORLD_CONFIG.fogColor);
     scene.fog = new THREE.Fog(
         WORLD_CONFIG.fogColor,
@@ -14,9 +12,7 @@ export function createWorld(container) {
         WORLD_CONFIG.fogFar
     );
 
-    // =============================
     // 카메라
-    // =============================
     const camera = new THREE.PerspectiveCamera(
         75,
         container.clientWidth / container.clientHeight,
@@ -24,17 +20,13 @@ export function createWorld(container) {
         1000
     );
 
-    // =============================
     // 렌더러
-    // =============================
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
-    // =============================
     // 무한 바닥
-    // =============================
     const tileSize = WORLD_CONFIG.tileSize;
     const tileRadius = WORLD_CONFIG.tileRadius;
 
@@ -54,18 +46,14 @@ export function createWorld(container) {
         }
     }
 
-    // 현재 트럭이 위치한 타일
     let currentTileX = 0;
     let currentTileZ = 0;
 
-    // =============================
-    // 무한맵 업데이트
-    // =============================
+    // 플레이어가 새로운 타일로 넘어가면 바닥 재배치
     function update(player) {
         const newTileX = Math.round(player.position.x / tileSize);
         const newTileZ = Math.round(player.position.z / tileSize);
 
-        // 같은 타일 안에 있다면 아무것도 하지 않음
         if (newTileX === currentTileX && newTileZ === currentTileZ) return;
 
         currentTileX = newTileX;
@@ -83,9 +71,7 @@ export function createWorld(container) {
         }
     }
 
-    // =============================
     // 조명
-    // =============================
     const dirLight = new THREE.DirectionalLight(0xffffff, 1);
     dirLight.position.set(5, 10, 5);
     scene.add(dirLight);
@@ -93,9 +79,7 @@ export function createWorld(container) {
     const ambient = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambient);
 
-    // =============================
-    // 반응형
-    // =============================
+    // 화면 크기 변경
     window.addEventListener('resize', () => {
         const width = container.clientWidth;
         const height = container.clientHeight;

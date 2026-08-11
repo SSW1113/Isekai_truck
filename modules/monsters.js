@@ -5,9 +5,7 @@ export function createMonsterSystem(scene, onDefeat) {
     let monsterTypes = {};
     const monsters = [];
 
-    // =============================
-    // JSON 로딩
-    // =============================
+    // 몬스터 데이터 로딩
     async function loadData() {
         const response = await fetch('./data/monsters.json');
 
@@ -16,13 +14,12 @@ export function createMonsterSystem(scene, onDefeat) {
         }
 
         monsterTypes = await response.json();
+
         console.log('몬스터 데이터 로딩 완료:', monsterTypes);
     }
 
-    // =============================
     // 몬스터 생성
-    // =============================
-    function spawn(typeId, x, z) {
+    function createMonster(typeId, x, z) {
         const type = monsterTypes[typeId];
 
         if (!type) {
@@ -38,6 +35,7 @@ export function createMonsterSystem(scene, onDefeat) {
         mesh.position.set(x, type.size, z);
         scene.add(mesh);
 
+        // 몬스터 개별 상태
         const monster = {
             typeId,
             mesh,
@@ -51,11 +49,10 @@ export function createMonsterSystem(scene, onDefeat) {
         return monster;
     }
 
-    // =============================
     // 몬스터 제거
-    // =============================
     function remove(monster) {
         const index = monsters.indexOf(monster);
+
         if (index === -1) return;
 
         scene.remove(monster.mesh);
@@ -66,7 +63,7 @@ export function createMonsterSystem(scene, onDefeat) {
     function updateAI(truck) {
         const truckScale = truck.userData.sizeScale ?? 1;
 
-        // 트럭 크기에 따른 추가 인식 거리
+        // 트럭 크기에 따라 감지 거리 증가
         const extraFleeDistance =
             MONSTER_CONFIG.collisionDistance * (truckScale - 1);
 
@@ -80,9 +77,10 @@ export function createMonsterSystem(scene, onDefeat) {
             const dz = mesh.position.z - truck.position.z;
             const distance = Math.hypot(dx, dz);
 
-            const fleeDistance = type.fleeDistance + extraFleeDistance;
+            const fleeDistance =
+                type.fleeDistance + extraFleeDistance;
 
-            // 트럭을 인식하면 도망
+            // 트럭을 감지하면 도망
             if (distance < fleeDistance && distance > 0.001) {
                 const dirX = dx / distance;
                 const dirZ = dz / distance;
@@ -93,30 +91,37 @@ export function createMonsterSystem(scene, onDefeat) {
                 continue;
             }
 
-            // 일정 시간마다 배회 방향 변경
+            // 배회 방향 변경
             if (now >= monster.nextWanderChange) {
                 monster.wanderAngle = Math.random() * Math.PI * 2;
-                monster.nextWanderChange = now + 1500 + Math.random() * 2000;
+
+                monster.nextWanderChange =
+                    now + 1500 + Math.random() * 2000;
             }
 
-            // 평상시에는 천천히 이동 --> 나중에 json으로 빼도 됨
+            // 평상시 이동
             const wanderSpeed = type.speed * 0.2;
 
-            mesh.position.x += Math.cos(monster.wanderAngle) * wanderSpeed;
-            mesh.position.z += Math.sin(monster.wanderAngle) * wanderSpeed;
+            mesh.position.x +=
+                Math.cos(monster.wanderAngle) * wanderSpeed;
+
+            mesh.position.z +=
+                Math.sin(monster.wanderAngle) * wanderSpeed;
         }
     }
 
-    // =============================
-    // 트럭 충돌
-    // =============================
+    // 트럭과 몬스터 충돌
     function checkCollisions(truck) {
+        const truckScale = truck.userData.sizeScale ?? 1;
+
+        const collisionDistance =
+            MONSTER_CONFIG.collisionDistance * truckScale;
+
         for (let i = monsters.length - 1; i >= 0; i--) {
             const monster = monsters[i];
-            const distance = truck.position.distanceTo(monster.mesh.position);
 
-            const truckScale = truck.userData.sizeScale ?? 1;
-            const collisionDistance = MONSTER_CONFIG.collisionDistance * truckScale;
+            const distance =
+                truck.position.distanceTo(monster.mesh.position);
 
             if (distance < collisionDistance) {
                 const type = monsterTypes[monster.typeId];
@@ -148,7 +153,7 @@ export function createMonsterSystem(scene, onDefeat) {
 
     return {
         loadData,
-        spawn,
+        createMonster,
         remove,
         update,
         getMonsters,

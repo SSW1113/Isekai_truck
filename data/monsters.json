@@ -4,13 +4,13 @@
     "color": "#f5e0c1",
     "size": 0.6,
 
-    "speed": 0.035,
+    "speed": 0.04,
     "fleeDistance": 7,
 
     "exp": 50,
     "soul": 2,
 
-    "spawnweight": 60
+    "spawnweight": 75
   },
 
   "salesman": {
@@ -18,13 +18,13 @@
     "color": "#606060",
     "size": 0.6,
 
-    "speed": 0.05,
+    "speed": 0.08,
     "fleeDistance": 9,
 
     "exp": 60,
     "soul": 3,
 
-    "spawnweight": 30
+    "spawnweight": 20
   },
 
   "policeman": {
@@ -32,12 +32,12 @@
     "color": "#0256f2",
     "size": 0.9,
 
-    "speed": 0.06,
+    "speed": 0.14,
     "fleeDistance": 11,
 
     "exp": 300,
     "soul": 15,
 
-    "spawnweight": 10
+    "spawnweight": 5
   }
 }
