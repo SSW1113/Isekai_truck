@@ -81,8 +81,11 @@ scene.add(ambient);
 // =============================
 // 카메라 설정
 // =============================
-camera.position.set(0, 18, 0);
+camera.position.set(0, 13, 9);
 camera.lookAt(0, 0, 0);
+
+// 카메라 오프셋
+const cameraOffset = new THREE.Vector3(0, 13, 9);
 
 // =============================
 // 가상 조이스틱
@@ -102,8 +105,15 @@ const move = { x: 0, z: 0 };
 // =============================
 let speed = 0;
 
-const maxSpeed = 0.18;
-const friction = 0.90;
+const maxSpeed = 0.15;      // 최고 속도
+const acceleration = 0.001; // 가속도
+const friction = 0.94;      // 감속
+const turnSpeed = 0.03;
+
+// 마지막 이동 방향
+let lastDirX = 0;
+let lastDirZ = 0;
+
 // =============================
 // 조이스틱 생성
 // =============================
@@ -169,51 +179,69 @@ window.addEventListener('pointerup', () => {
 function animate() {
     requestAnimationFrame(animate);
 
-    // ============================
-    // 조이스틱 기반 이동
-    // ============================
-
-    // 입력 세기
     const inputLength = Math.hypot(move.x, move.z);
 
-    if (inputLength > 0.05) {
-        // 조이스틱 방향 정규화
-        const dirX = move.x / inputLength;
-        const dirZ = move.z / inputLength;
+if (inputLength > 0.05) {
 
-        // 목표 속도
-        const targetSpeed = maxSpeed * inputLength;
+    // ============================
+    // 조이스틱 입력 방향
+    // ============================
+    const dirX = move.x / inputLength;
+    const dirZ = move.z / inputLength;
 
-        // 부드러운 가속
-        speed += (targetSpeed - speed) * 0.12;
 
-        // 이동
-        truck.position.x += dirX * speed;
-        truck.position.z += dirZ * speed;
+    // ============================
+    // 트럭 회전
+    // ============================
+    const targetRotation = Math.atan2(dirX, dirZ);
 
-        // 트럭이 이동 방향을 바라보게 회전
-        const targetRotation = Math.atan2(dirX, dirZ);
+    let angleDiff = targetRotation - truck.rotation.y;
 
-        // 부드러운 회전 보간
-        let angleDiff = targetRotation - truck.rotation.y;
+    while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+    while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
 
-        while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
-        while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+    truck.rotation.y += angleDiff * turnSpeed;
 
-        truck.rotation.y += angleDiff * 0.18;
 
-        // ============================
-        // 약한 드리프트 효과
-        // ============================
+    // ============================
+    // 가속
+    // ============================
+    speed += acceleration * inputLength;
 
-        const driftStrength = 0.06;
+    speed = Math.min(speed, maxSpeed);
 
-        truck.position.x += Math.cos(truck.rotation.y) * speed * driftStrength;
-        truck.position.z -= Math.sin(truck.rotation.y) * speed * driftStrength;
-    } else {
-        // 입력 없으면 자연 감속
-        speed *= friction;
+
+    // ============================
+    // 실제 트럭 진행 방향
+    // ============================
+    const forwardX = Math.sin(truck.rotation.y);
+    const forwardZ = Math.cos(truck.rotation.y);
+
+    // 현재 진행 방향 저장
+    lastDirX = forwardX;
+    lastDirZ = forwardZ;
+
+    // 정상 주행
+    truck.position.x += forwardX * speed;
+    truck.position.z += forwardZ * speed;
+
+} else {
+
+    // ============================
+    // 조이스틱을 놓았을 때만 관성
+    // ============================
+
+    speed *= friction;
+
+    truck.position.x += lastDirX * speed;
+    truck.position.z += lastDirZ * speed;
+
+
+    // 거의 멈췄다면 완전 정지
+    if (speed < 0.001) {
+        speed = 0;
     }
+}
 
     // ============================
     // 맵 경계 제한
@@ -242,6 +270,19 @@ function animate() {
             console.log('몬스터 처치!');
         }
     }
+
+    // ============================
+    // 카메라 추적
+    // ============================
+
+    const targetCameraX = truck.position.x + cameraOffset.x;
+    const targetCameraY = truck.position.y + cameraOffset.y;
+    const targetCameraZ = truck.position.z + cameraOffset.z;
+
+    // 위치만 부드럽게 따라감
+    camera.position.x += (targetCameraX - camera.position.x) * 0.08;
+    camera.position.y += (targetCameraY - camera.position.y) * 0.08;
+    camera.position.z += (targetCameraZ - camera.position.z) * 0.08;
 
     // ============================
     // 렌더링
