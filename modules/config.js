@@ -6,17 +6,20 @@ export const TRUCK_CONFIG = {
     turnSpeed: 0.03,
 
     speedPerUpgrade: 0.01,
-    sizePerUpgrade: 0.12
+    sizePerUpgrade: 0.1
 };
 
 // 월드 설정
 export const WORLD_CONFIG = {
     tileSize: 50,
-    tileRadius: 2,
+    baseTileRadius: 2,      // 기본 5x5
+    maxTileRadius: 18,
 
     fogColor: 0x87ceeb,
-    fogNear: 55,
-    fogFar: 90
+    baseFogNear: 55,
+    baseFogFar: 90,
+
+    fogScaleStrength: 0.7
 };
 
 // 카메라 설정
@@ -24,7 +27,12 @@ export const CAMERA_CONFIG = {
     x: 0,
     y: 20,
     z: 12,
-    followSpeed: 0.08
+
+    followSpeed: 0.08,
+
+    zoomStartScale: 1.2,
+    zoomStrength: 0.8,
+    maxZoomMultiplier: 10
 };
 
 // 몬스터 설정

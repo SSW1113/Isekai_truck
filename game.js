@@ -53,15 +53,21 @@ const cameraController = createCameraController(camera, truck.mesh);
 function animate() {
     requestAnimationFrame(animate);
 
-    // 업그레이드 창이 열려 있으면 게임 정지
     if (!upgradeUI.isOpen()) {
         truck.update(move);
-        world.update(truck.mesh);
+
+        // 카메라 줌 상태 계산
+        const zoomMultiplier = cameraController.update();
+
+        // 줌에 맞춰 Fog와 타일 범위 조절
+        world.update(
+            truck.mesh,
+            camera,
+            zoomMultiplier
+        );
 
         monsterSystem.update(truck.mesh);
         spawnSystem.update(truck.mesh);
-
-        cameraController.update();
     }
 
     renderer.render(scene, camera);
