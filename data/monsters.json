@@ -5,7 +5,7 @@
     "size": 0.6,
 
     "speed": 0.04,
-    "feelDistance": 7,
+    "fleeDistance": 7,
 
     "exp": 50,
     "soul": 2,
@@ -19,7 +19,7 @@
     "size": 0.6,
 
     "speed": 0.08,
-    "feelDistance": 9,
+    "fleeDistance": 9,
 
     "exp": 60,
     "soul": 3,
@@ -33,7 +33,7 @@
     "size": 0.9,
 
     "speed": 0.14,
-    "feelDistance": 11,
+    "fleeDistance": 11,
 
     "exp": 300,
     "soul": 15,

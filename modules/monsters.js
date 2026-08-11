@@ -64,7 +64,7 @@ export function createMonsterSystem(scene, onDefeat) {
         const truckScale = truck.userData.sizeScale ?? 1;
 
         // 트럭 크기에 따라 감지 거리 증가
-        const extrafeelDistance =
+        const extrafleeDistance =
             MONSTER_CONFIG.collisionDistance * (truckScale - 1);
 
         const now = performance.now();
@@ -77,11 +77,11 @@ export function createMonsterSystem(scene, onDefeat) {
             const dz = mesh.position.z - truck.position.z;
             const distance = Math.hypot(dx, dz);
 
-            const feelDistance =
-                type.feelDistance + extrafeelDistance;
+            const fleeDistance =
+                type.fleeDistance + extrafleeDistance;
 
             // 트럭을 감지하면 도망
-            if (distance < feelDistance && distance > 0.001) {
+            if (distance < fleeDistance && distance > 0.001) {
                 const dirX = dx / distance;
                 const dirZ = dz / distance;
 
