@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>이세계 트럭 키우기</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <!-- 세로형 게임 컨테이너 -->
   <div id="game-container">
+
+    <!-- 플레이어 상태 -->
+    <div id="player-hud">
+      <div id="level-text">Lv. 1</div>
+
+      <div id="exp-container">
+        <div id="exp-text">EXP 0 / 100</div>
+
+        <div id="exp-bar">
+          <div id="exp-fill"></div>
+        </div>
+      </div>
+
+      <div id="soul-text">영혼 0</div>
+    </div>
+
     <div id="joystick">
       <div id="stick"></div>
     </div>
+
   </div>
 
   <script type="module" src="game.js"></script>
 </body>
+
 </html>
