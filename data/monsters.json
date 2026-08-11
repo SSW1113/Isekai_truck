@@ -5,12 +5,12 @@
     "size": 0.6,
 
     "speed": 0.04,
-    "fleeDistance": 7,
+    "feelDistance": 7,
 
     "exp": 50,
     "soul": 2,
 
-    "spawnweight": 75
+    "spawnWeight": 75
   },
 
   "salesman": {
@@ -19,12 +19,12 @@
     "size": 0.6,
 
     "speed": 0.08,
-    "fleeDistance": 9,
+    "feelDistance": 9,
 
     "exp": 60,
     "soul": 3,
 
-    "spawnweight": 20
+    "spawnWeight": 20
   },
 
   "policeman": {
@@ -33,11 +33,11 @@
     "size": 0.9,
 
     "speed": 0.14,
-    "fleeDistance": 11,
+    "feelDistance": 11,
 
     "exp": 300,
     "soul": 15,
 
-    "spawnweight": 5
+    "spawnWeight": 5
   }
 }
