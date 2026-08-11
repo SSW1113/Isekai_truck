@@ -7,7 +7,7 @@
     "speed": 0.035,
     "fleeDistance": 7,
 
-    "exp": 5,
+    "exp": 50,
     "soul": 2,
 
     "spawnweight": 60
@@ -21,7 +21,7 @@
     "speed": 0.05,
     "fleeDistance": 9,
 
-    "exp": 6,
+    "exp": 60,
     "soul": 3,
 
     "spawnweight": 30
@@ -35,7 +35,7 @@
     "speed": 0.06,
     "fleeDistance": 11,
 
-    "exp": 30,
+    "exp": 300,
     "soul": 15,
 
     "spawnweight": 10

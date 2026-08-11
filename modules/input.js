@@ -10,6 +10,8 @@ export function createJoystick(container) {
 
     // 조이스틱 시작
     container.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('[data-game-ui]')) return;
+
         dragging = true;
 
         const rect = container.getBoundingClientRect();

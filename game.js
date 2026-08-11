@@ -5,7 +5,7 @@ import { createMonsterSystem } from './modules/monsters.js';
 import { createSpawnSystem } from './modules/spawn.js';
 import { createCameraController } from './modules/camera.js';
 import { createPlayer } from './modules/player.js';
-import { createPlayerHUD } from './modules/ui.js';
+import { createPlayerHUD, createUpgradeUI } from './modules/ui.js';
 
 const container = document.getElementById('game-container');
 
@@ -13,12 +13,16 @@ const world = createWorld(container);
 const { scene, camera, renderer } = world;
 
 const player = createPlayer();
-const playerHUD = createPlayerHUD();
 
+const playerHUD = createPlayerHUD();
 playerHUD.update(player.getState());
 
 const move = createJoystick(container);
 const truck = createTruck(scene);
+
+const upgradeUI = createUpgradeUI(player, truck, () => {
+    playerHUD.update(player.getState());
+});
 
 const monsterSystem = createMonsterSystem(scene, (type) => {
     const expGain = type.exp ?? 0;
@@ -29,6 +33,7 @@ const monsterSystem = createMonsterSystem(scene, (type) => {
     console.log(`경험치 +${expGain}, 영혼 +${soulGain}`);
 
     playerHUD.update(result.state);
+    upgradeUI.update();
 });
 const spawnSystem = createSpawnSystem(monsterSystem);
 
@@ -40,14 +45,16 @@ const cameraController = createCameraController(camera, truck.mesh);
 function animate() {
     requestAnimationFrame(animate);
 
-    truck.update(move);
+    if (!upgradeUI.isOpen()) {
+        truck.update(move);
 
-    world.update(truck.mesh);
+        world.update(truck.mesh);
 
-    monsterSystem.update(truck.mesh);
-    spawnSystem.update(truck.mesh);
+        monsterSystem.update(truck.mesh);
+        spawnSystem.update(truck.mesh);
 
-    cameraController.update();
+        cameraController.update();
+    }
 
     renderer.render(scene, camera);
 }

@@ -2,38 +2,97 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>이세계 트럭 키우기</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>이세계 트럭 키우기</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- 세로형 게임 컨테이너 -->
-  <div id="game-container">
 
-    <!-- 플레이어 상태 -->
-    <div id="player-hud">
-      <div id="level-text">Lv. 1</div>
+    <!-- 전체 게임 화면 -->
+    <div id="game-container">
 
-      <div id="exp-container">
-        <div id="exp-text">EXP 0 / 100</div>
+        <!-- 플레이어 상태 HUD -->
+        <div id="player-hud" data-game-ui>
 
-        <div id="exp-bar">
-          <div id="exp-fill"></div>
+            <div id="level-text">Lv. 1</div>
+
+            <!-- 경험치 -->
+            <div id="exp-container">
+                <div id="exp-text">EXP 0 / 100</div>
+
+                <div id="exp-bar">
+                    <div id="exp-fill"></div>
+                </div>
+            </div>
+
+            <!-- 보유 재화 -->
+            <div id="soul-text">영혼 0</div>
+            <div id="point-text">포인트 0</div>
+
+            <!-- 업그레이드 창 열기 -->
+            <button id="upgrade-open" type="button">
+                업그레이드
+            </button>
+
         </div>
-      </div>
 
-      <div id="soul-text">영혼 0</div>
+
+        <!-- 트럭 업그레이드 창 -->
+        <div id="upgrade-panel" data-game-ui>
+
+            <div id="upgrade-box">
+
+                <h2>트럭 업그레이드</h2>
+
+                <div id="upgrade-point-text">
+                    남은 포인트: 0
+                </div>
+
+                <!-- 속도 업그레이드 -->
+                <button id="speed-upgrade" type="button">
+                    속도 업그레이드
+                    <span id="speed-level">Lv.0</span>
+                </button>
+
+                <div id="speed-stat">
+                    최대 속도: 0.120
+                </div>
+
+                <!-- 크기 업그레이드 -->
+                <button id="size-upgrade" type="button">
+                    크기 업그레이드
+                    <span id="size-level">Lv.0</span>
+                </button>
+
+                <div id="size-stat">
+                    트럭 크기: 100%
+                </div>
+
+                <!-- 닫기 -->
+                <button id="upgrade-close" type="button">
+                    닫기
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- 가상 조이스틱 -->
+        <div id="joystick">
+            <div id="stick"></div>
+        </div>
+
     </div>
 
-    <div id="joystick">
-      <div id="stick"></div>
-    </div>
 
-  </div>
+    <!-- 게임 실행 -->
+    <script type="module" src="game.js"></script>
 
-  <script type="module" src="game.js"></script>
 </body>
 
 </html>

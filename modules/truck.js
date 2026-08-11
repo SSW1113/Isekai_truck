@@ -8,11 +8,15 @@ export function createTruck(scene) {
     );
 
     mesh.position.y = 0.5;
+    mesh.userData.sizeScale = 1;
     scene.add(mesh);
 
     let speed = 0;
-    let lastDirX = 0;
-    let lastDirZ = 0;
+    let lastDirX = 0, lastDirZ = 0;
+
+    let speedLevel = 0;
+    let sizeLevel = 0;
+    let maxSpeed = TRUCK_CONFIG.baseMaxSpeed;
 
     function update(move) {
         const inputLength = Math.hypot(move.x, move.z);
@@ -21,7 +25,6 @@ export function createTruck(scene) {
             const dirX = move.x / inputLength;
             const dirZ = move.z / inputLength;
 
-            // 회전
             const targetRotation = Math.atan2(dirX, dirZ);
             let angleDiff = targetRotation - mesh.rotation.y;
 
@@ -30,11 +33,9 @@ export function createTruck(scene) {
 
             mesh.rotation.y += angleDiff * TRUCK_CONFIG.turnSpeed;
 
-            // 가속
             speed += TRUCK_CONFIG.acceleration * inputLength;
-            speed = Math.min(speed, TRUCK_CONFIG.maxSpeed);
+            speed = Math.min(speed, maxSpeed);
 
-            // 진행 방향
             const forwardX = Math.sin(mesh.rotation.y);
             const forwardZ = Math.cos(mesh.rotation.y);
 
@@ -43,9 +44,7 @@ export function createTruck(scene) {
 
             mesh.position.x += forwardX * speed;
             mesh.position.z += forwardZ * speed;
-
         } else {
-            // 조이스틱을 놓았을 때 관성
             speed *= TRUCK_CONFIG.friction;
 
             mesh.position.x += lastDirX * speed;
@@ -55,5 +54,36 @@ export function createTruck(scene) {
         }
     }
 
-    return { mesh, update };
+    function upgradeSpeed() {
+        speedLevel++;
+        maxSpeed = TRUCK_CONFIG.baseMaxSpeed +
+            speedLevel * TRUCK_CONFIG.speedPerUpgrade;
+    }
+
+    function upgradeSize() {
+        sizeLevel++;
+
+        const scale = 1 + sizeLevel * TRUCK_CONFIG.sizePerUpgrade;
+
+        mesh.scale.setScalar(scale);
+        mesh.position.y = 0.5 * scale;
+        mesh.userData.sizeScale = scale;
+    }
+
+    function getStats() {
+        return {
+            speedLevel,
+            sizeLevel,
+            maxSpeed,
+            sizeScale: mesh.userData.sizeScale
+        };
+    }
+
+    return {
+        mesh,
+        update,
+        upgradeSpeed,
+        upgradeSize,
+        getStats
+    };
 }

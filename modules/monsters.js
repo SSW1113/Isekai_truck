@@ -86,7 +86,10 @@ export function createMonsterSystem(scene, onDefeat) {
             const monster = monsters[i];
             const distance = truck.position.distanceTo(monster.mesh.position);
 
-            if (distance < MONSTER_CONFIG.collisionDistance) {
+            const truckScale = truck.userData.sizeScale ?? 1;
+            const collisionDistance = MONSTER_CONFIG.collisionDistance * truckScale;
+
+            if (distance < collisionDistance) {
                 const type = monsterTypes[monster.typeId];
 
                 scene.remove(monster.mesh);

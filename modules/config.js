@@ -2,22 +2,24 @@
 // 트럭 설정
 // =============================
 export const TRUCK_CONFIG = {
-    maxSpeed: 0.15,
+    baseMaxSpeed: 0.12,
     acceleration: 0.001,
     friction: 0.94,
     turnSpeed: 0.03,
+
+    speedPerUpgrade: 0.01,
+    sizePerUpgrade: 0.12
 };
 
-// =============================
-// 플레이어 설정
-// =============================
 export const PLAYER_CONFIG = {
     startLevel: 1,
     startExp: 0,
     startSoul: 0,
 
     baseRequiredExp: 100,
-    expGrowth: 1.5
+    expGrowth: 1.5,
+
+    upgradePointPerLevel: 1
 };
 
 // =============================
