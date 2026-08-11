@@ -38,7 +38,14 @@ export function createMonsterSystem(scene, onDefeat) {
         mesh.position.set(x, type.size, z);
         scene.add(mesh);
 
-        const monster = { typeId, mesh };
+        const monster = {
+            typeId,
+            mesh,
+
+            wanderAngle: Math.random() * Math.PI * 2,
+            nextWanderChange: performance.now() + 1000 + Math.random() * 2000
+        };
+
         monsters.push(monster);
 
         return monster;
@@ -55,37 +62,50 @@ export function createMonsterSystem(scene, onDefeat) {
         monsters.splice(index, 1);
     }
 
-    // =============================
     // 몬스터 AI
-    // =============================
     function updateAI(truck) {
-    const truckScale = truck.userData.sizeScale ?? 1;
+        const truckScale = truck.userData.sizeScale ?? 1;
 
-    // 트럭이 기본 크기보다 커진 만큼 인식 거리 추가
-    const extraFleeDistance =
-        MONSTER_CONFIG.collisionDistance * (truckScale - 1);
+        // 트럭 크기에 따른 추가 인식 거리
+        const extraFleeDistance =
+            MONSTER_CONFIG.collisionDistance * (truckScale - 1);
 
-    for (const monster of monsters) {
-        const mesh = monster.mesh;
-        const type = monsterTypes[monster.typeId];
+        const now = performance.now();
 
-        const dx = mesh.position.x - truck.position.x;
-        const dz = mesh.position.z - truck.position.z;
-        const distance = Math.hypot(dx, dz);
+        for (const monster of monsters) {
+            const mesh = monster.mesh;
+            const type = monsterTypes[monster.typeId];
 
-        // 트럭 크기를 반영한 실제 도망 거리
-        const fleeDistance = type.fleeDistance + extraFleeDistance;
+            const dx = mesh.position.x - truck.position.x;
+            const dz = mesh.position.z - truck.position.z;
+            const distance = Math.hypot(dx, dz);
 
-        // 트럭에게서 도망
-        if (distance < fleeDistance && distance > 0.001) {
-            const dirX = dx / distance;
-            const dirZ = dz / distance;
+            const fleeDistance = type.fleeDistance + extraFleeDistance;
 
-            mesh.position.x += dirX * type.speed;
-            mesh.position.z += dirZ * type.speed;
+            // 트럭을 인식하면 도망
+            if (distance < fleeDistance && distance > 0.001) {
+                const dirX = dx / distance;
+                const dirZ = dz / distance;
+
+                mesh.position.x += dirX * type.speed;
+                mesh.position.z += dirZ * type.speed;
+
+                continue;
+            }
+
+            // 일정 시간마다 배회 방향 변경
+            if (now >= monster.nextWanderChange) {
+                monster.wanderAngle = Math.random() * Math.PI * 2;
+                monster.nextWanderChange = now + 1500 + Math.random() * 2000;
+            }
+
+            // 평상시에는 천천히 이동 --> 나중에 json으로 빼도 됨
+            const wanderSpeed = type.speed * 0.2;
+
+            mesh.position.x += Math.cos(monster.wanderAngle) * wanderSpeed;
+            mesh.position.z += Math.sin(monster.wanderAngle) * wanderSpeed;
         }
     }
-}
 
     // =============================
     // 트럭 충돌
