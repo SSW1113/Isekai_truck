@@ -37,7 +37,8 @@ export const CAMERA_CONFIG = {
 
 // 몬스터 설정
 export const MONSTER_CONFIG = {
-    collisionDistance: 1.8
+    collisionDistance: 1.8,
+    directionLockMultiplier: 1.72
 };
 
 // 몬스터 스폰 설정

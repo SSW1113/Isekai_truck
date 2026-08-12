@@ -35,13 +35,17 @@ export function createMonsterSystem(scene, onDefeat) {
         mesh.position.set(x, type.size, z);
         scene.add(mesh);
 
-        // 몬스터 개별 상태
+        // 몬스터 상태
         const monster = {
             typeId,
             mesh,
 
             wanderAngle: Math.random() * Math.PI * 2,
-            nextWanderChange: performance.now() + 1000 + Math.random() * 2000
+            nextWanderChange: performance.now() + 1000 + Math.random() * 2000,
+
+            fleeDirX: 0,
+            fleeDirZ: 0,
+            hasFleeDirection: false
         };
 
         monsters.push(monster);
@@ -63,9 +67,15 @@ export function createMonsterSystem(scene, onDefeat) {
     function updateAI(truck) {
         const truckScale = truck.userData.sizeScale ?? 1;
 
-        // 트럭 크기에 따라 감지 거리 증가
-        const extrafleeDistance =
+        // 트럭 크기에 따른 추가 인식 거리
+        const extraFleeDistance =
             MONSTER_CONFIG.collisionDistance * (truckScale - 1);
+
+        const collisionDistance =
+            MONSTER_CONFIG.collisionDistance * truckScale;
+
+        const directionLockDistance =
+            collisionDistance * MONSTER_CONFIG.directionLockMultiplier;
 
         const now = performance.now();
 
@@ -77,36 +87,38 @@ export function createMonsterSystem(scene, onDefeat) {
             const dz = mesh.position.z - truck.position.z;
             const distance = Math.hypot(dx, dz);
 
-            const fleeDistance =
-                type.fleeDistance + extrafleeDistance;
+            const fleeDistance = type.fleeDistance + extraFleeDistance;
 
-            // 트럭을 감지하면 도망
+            // 트럭을 인식하면 도망
             if (distance < fleeDistance && distance > 0.001) {
-                const dirX = dx / distance;
-                const dirZ = dz / distance;
 
-                mesh.position.x += dirX * type.speed;
-                mesh.position.z += dirZ * type.speed;
+                // 충분히 멀면 계속 도망 방향 갱신
+                if (distance > directionLockDistance || !monster.hasFleeDirection) {
+                    monster.fleeDirX = dx / distance;
+                    monster.fleeDirZ = dz / distance;
+                    monster.hasFleeDirection = true;
+                }
+
+                // 가까우면 마지막 도망 방향 유지
+                mesh.position.x += monster.fleeDirX * type.speed;
+                mesh.position.z += monster.fleeDirZ * type.speed;
 
                 continue;
             }
 
+            monster.hasFleeDirection = false;
+
             // 배회 방향 변경
             if (now >= monster.nextWanderChange) {
                 monster.wanderAngle = Math.random() * Math.PI * 2;
-
-                monster.nextWanderChange =
-                    now + 1500 + Math.random() * 2000;
+                monster.nextWanderChange = now + 1500 + Math.random() * 2000;
             }
 
             // 평상시 이동
             const wanderSpeed = type.speed * 0.2;
 
-            mesh.position.x +=
-                Math.cos(monster.wanderAngle) * wanderSpeed;
-
-            mesh.position.z +=
-                Math.sin(monster.wanderAngle) * wanderSpeed;
+            mesh.position.x += Math.cos(monster.wanderAngle) * wanderSpeed;
+            mesh.position.z += Math.sin(monster.wanderAngle) * wanderSpeed;
         }
     }
 
