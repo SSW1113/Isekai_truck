@@ -65,7 +65,7 @@ export function createMonsterSystem(scene, onDefeat) {
 
     // 몬스터 AI
     function updateAI(truck) {
-        const truckScale = truck.userData.sizeScale ?? 1;
+        const truckScale = Math.max(truck.scale.x, truck.scale.z);
 
         // 트럭 크기에 따른 추가 인식 거리
         const extraFleeDistance =
@@ -124,7 +124,7 @@ export function createMonsterSystem(scene, onDefeat) {
 
     // 트럭과 몬스터 충돌
     function checkCollisions(truck) {
-        const truckScale = truck.userData.sizeScale ?? 1;
+        const truckScale = Math.max(truck.scale.x, truck.scale.z);
 
         const collisionDistance =
             MONSTER_CONFIG.collisionDistance * truckScale;
@@ -132,8 +132,9 @@ export function createMonsterSystem(scene, onDefeat) {
         for (let i = monsters.length - 1; i >= 0; i--) {
             const monster = monsters[i];
 
-            const distance =
-                truck.position.distanceTo(monster.mesh.position);
+            const dx = monster.mesh.position.x - truck.position.x;
+            const dz = monster.mesh.position.z - truck.position.z;
+            const distance = Math.hypot(dx, dz);
 
             if (distance < collisionDistance) {
                 const type = monsterTypes[monster.typeId];
@@ -143,9 +144,7 @@ export function createMonsterSystem(scene, onDefeat) {
 
                 console.log(`${type.name} 처치!`);
 
-                if (onDefeat) {
-                    onDefeat(type);
-                }
+                if (onDefeat) onDefeat(type);
             }
         }
     }
