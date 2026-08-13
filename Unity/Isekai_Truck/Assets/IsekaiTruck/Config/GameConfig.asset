@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fab137d37fd1343a45453b27fb0b54, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Config.GameConfig
+  truck:
+    baseMaxSpeed: 0.1
+    acceleration: 0.001
+    friction: 0.94
+    turnSpeed: 0.03
+    speedPerUpgrade: 0.01
+    sizePerUpgrade: 0.1
+  world:
+    tileSize: 50
+    baseTileRadius: 2
+    maxTileRadius: 18
+    fogColor: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+    baseFogNear: 55
+    baseFogFar: 90
+    fogScaleStrength: 0.7
+    groundColor: {r: 0.22745098, g: 0.47843137, b: 0.16470589, a: 1}
+    groundPatternColor: {r: 0.18431373, g: 0.4, b: 0.13333334, a: 1}
+    groundPatternSize: 5
+  cameraSettings:
+    offset: {x: 0, y: 18, z: 12}
+    lookTarget: {x: 0, y: 4, z: -2}
+    followSpeed: 0.08
+    zoomStartScale: 1.2
+    zoomStrength: 0.8
+    maxZoomMultiplier: 10
+    viewportAspect: {x: 9, y: 16}
+    fieldOfView: 75
+    nearClipPlane: 0.1
+    farClipPlane: 1000
+  monster:
+    collisionDistance: 1.8
+    directionLockMultiplier: 1.72
+  spawn:
+    targetCount: 100
+    minDistance: 35
+    maxDistance: 70
+    despawnDistance: 80
+    spawnIntervalMilliseconds: 10
+    spawnPerInterval: 1
+  player:
+    startLevel: 1
+    startExp: 0
+    startSoul: 0
+    baseRequiredExp: 100
+    expGrowth: 1.5
+    upgradePointPerLevel: 1
