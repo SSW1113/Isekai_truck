@@ -10,6 +10,7 @@ namespace IsekaiTruck.Truck
         private const float StopSpeedThreshold = 0.001f;
 
         private GameConfig.TruckSettings settings;
+        private float referenceFrameRate;
         private float speed;
         private float lastDirX;
         private float lastDirZ;
@@ -25,16 +26,31 @@ namespace IsekaiTruck.Truck
         public void Initialize(GameConfig gameConfig)
         {
             settings = gameConfig.Truck;
+            referenceFrameRate = gameConfig.ReferenceFrameRate;
             maxSpeed = settings.BaseMaxSpeed + speedLevel * settings.SpeedPerUpgrade;
         }
 
-        public void UpdateTruck(Vector2 move)
+        public void UpdateTruck(Vector2 move, float deltaTime)
         {
-            // Three.js와 동일한 프레임 기반 이동
             Vector3 startPosition = transform.position;
+            float frameScale = Mathf.Max(deltaTime, 0f) * referenceFrameRate;
             float inputLength = Mathf.Sqrt(move.x * move.x + move.y * move.y);
             CurrentInputMagnitude = inputLength;
 
+            float remainingFrameScale = frameScale;
+            while (remainingFrameScale > 0f)
+            {
+                float stepFrameScale = Mathf.Min(remainingFrameScale, 1f);
+                UpdateStep(move, inputLength, stepFrameScale);
+                remainingFrameScale -= stepFrameScale;
+            }
+
+            CurrentFrameDistance = Vector3.Distance(startPosition, transform.position);
+            CurrentSpeedPerSecond = deltaTime > 0f ? CurrentFrameDistance / deltaTime : 0f;
+        }
+
+        private void UpdateStep(Vector2 move, float inputLength, float frameScale)
+        {
             if (inputLength > InputThreshold)
             {
                 float dirX = move.x / inputLength;
@@ -44,12 +60,10 @@ namespace IsekaiTruck.Truck
                 // Three.js와 Unity의 화면 좌우 축 차이 보정
                 float targetRotation = Mathf.Atan2(-dirX, dirZ);
                 float angleDiff = Mathf.DeltaAngle(currentRotation * Mathf.Rad2Deg, targetRotation * Mathf.Rad2Deg) * Mathf.Deg2Rad;
-                currentRotation += angleDiff * settings.TurnSpeed;
+                float turnFactor = GetFrameAdjustedFactor(settings.TurnSpeed, frameScale);
+                currentRotation += angleDiff * turnFactor;
 
                 transform.rotation = Quaternion.Euler(0f, currentRotation * Mathf.Rad2Deg, 0f);
-
-                speed += settings.Acceleration * inputLength;
-                speed = Mathf.Min(speed, maxSpeed);
 
                 float forwardX = Mathf.Sin(currentRotation);
                 float forwardZ = Mathf.Cos(currentRotation);
@@ -57,21 +71,59 @@ namespace IsekaiTruck.Truck
                 lastDirX = forwardX;
                 lastDirZ = forwardZ;
 
-                transform.position += new Vector3(forwardX * speed, 0f, forwardZ * speed);
+                float distance = GetAcceleratedDistance(settings.Acceleration * inputLength, frameScale);
+                transform.position += new Vector3(forwardX * distance, 0f, forwardZ * distance);
             }
             else
             {
-                speed *= settings.Friction;
-                transform.position += new Vector3(lastDirX * speed, 0f, lastDirZ * speed);
+                float distance = GetFrictionDistance(frameScale);
+                transform.position += new Vector3(lastDirX * distance, 0f, lastDirZ * distance);
 
                 if (speed < StopSpeedThreshold)
                 {
                     speed = 0f;
                 }
             }
+        }
 
-            CurrentFrameDistance = Vector3.Distance(startPosition, transform.position);
-            CurrentSpeedPerSecond = Time.deltaTime > 0f ? CurrentFrameDistance / Time.deltaTime : 0f;
+        private float GetAcceleratedDistance(float acceleration, float frameScale)
+        {
+            float startSpeed = speed;
+            speed = Mathf.Min(startSpeed + acceleration * frameScale, maxSpeed);
+
+            float distance = startSpeed * frameScale + acceleration * frameScale * (frameScale + 1f) * 0.5f;
+            return Mathf.Min(distance, maxSpeed * frameScale);
+        }
+
+        private float GetFrictionDistance(float frameScale)
+        {
+            float startSpeed = speed;
+
+            if (settings.Friction >= 1f)
+            {
+                return startSpeed * frameScale;
+            }
+
+            float frictionFactor = Mathf.Pow(settings.Friction, frameScale);
+            speed = startSpeed * frictionFactor;
+            return settings.Friction <= 0f
+                ? 0f
+                : startSpeed * settings.Friction * (1f - frictionFactor) / (1f - settings.Friction);
+        }
+
+        private static float GetFrameAdjustedFactor(float perFrameFactor, float frameScale)
+        {
+            if (perFrameFactor <= 0f || frameScale <= 0f)
+            {
+                return 0f;
+            }
+
+            if (perFrameFactor >= 1f)
+            {
+                return 1f;
+            }
+
+            return 1f - Mathf.Pow(1f - perFrameFactor, frameScale);
         }
 
         public void UpgradeSpeed()

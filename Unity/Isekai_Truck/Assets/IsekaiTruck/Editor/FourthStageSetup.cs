@@ -85,13 +85,14 @@ namespace IsekaiTruck.Editor
             MonsterManager manager = managerObject.AddComponent<MonsterManager>();
             manager.SetDataFile(monsterDataFile);
             manager.Initialize(config, truckObject.transform);
+            float referenceDeltaTime = 1f / config.ReferenceFrameRate;
 
             PlayerState playerState = playerObject.AddComponent<PlayerState>();
             playerState.Initialize(config);
             manager.MonsterDefeated += type => playerState.AddRewards(type.Exp, type.Soul);
 
             MonsterController escapingMonster = manager.CreateMonster("man", 1.77f, 0f);
-            manager.UpdateMonsters();
+            manager.UpdateMonsters(referenceDeltaTime);
 
             if (manager.Monsters.Count != 1)
             {
@@ -103,11 +104,11 @@ namespace IsekaiTruck.Editor
 
             truckObject.transform.localScale = Vector3.one * 2f;
             manager.CreateMonster("man", 3.5f, 0f);
-            manager.UpdateMonsters();
+            manager.UpdateMonsters(referenceDeltaTime);
             AssertPlayerState(playerState, 1, 50, 100, 2, 0, "첫 처치 보상");
 
             manager.CreateMonster("man", 3.5f, 0f);
-            manager.UpdateMonsters();
+            manager.UpdateMonsters(referenceDeltaTime);
             AssertPlayerState(playerState, 2, 0, 283, 4, 1, "레벨업 보상");
 
             GameObject multiLevelObject = new GameObject("Multi Level Verification Player");

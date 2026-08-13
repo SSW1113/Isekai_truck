@@ -7,6 +7,8 @@ namespace IsekaiTruck.Monsters
     {
         private MonsterData type;
         private Transform truck;
+        private MonsterView monsterView;
+        private float referenceFrameRate;
         private float wanderAngle;
         private float nextWanderChange;
         private float fleeDirX;
@@ -15,10 +17,13 @@ namespace IsekaiTruck.Monsters
 
         public MonsterData Type => type;
 
-        public void Initialize(MonsterData monsterType, Transform truckTransform, float nowMilliseconds)
+        public void Initialize(MonsterData monsterType, Transform truckTransform, float nowMilliseconds, float frameRate)
         {
             type = monsterType;
             truck = truckTransform;
+            monsterView = GetComponent<MonsterView>();
+            referenceFrameRate = frameRate;
+            monsterView?.Initialize(type.Color);
             wanderAngle = Random.value * Mathf.PI * 2f;
             nextWanderChange = nowMilliseconds + 1000f + Random.value * 2000f;
             fleeDirX = 0f;
@@ -26,7 +31,7 @@ namespace IsekaiTruck.Monsters
             hasFleeDirection = false;
         }
 
-        public void UpdateMonster(float nowMilliseconds, float extraFleeDistance, float directionLockDistance)
+        public void UpdateMonster(float nowMilliseconds, float extraFleeDistance, float directionLockDistance, float frameScale)
         {
             float dx = transform.position.x - truck.position.x;
             float dz = transform.position.z - truck.position.z;
@@ -43,7 +48,9 @@ namespace IsekaiTruck.Monsters
                     hasFleeDirection = true;
                 }
 
-                transform.position += new Vector3(fleeDirX * type.Speed, 0f, fleeDirZ * type.Speed);
+                Vector3 fleeDirection = new Vector3(fleeDirX, 0f, fleeDirZ);
+                transform.position += fleeDirection * type.Speed * frameScale;
+                monsterView?.SetMovement(fleeDirection, type.Speed * referenceFrameRate, true);
                 return;
             }
 
@@ -57,7 +64,13 @@ namespace IsekaiTruck.Monsters
             }
 
             float wanderSpeed = type.Speed * 0.2f;
-            transform.position += new Vector3(Mathf.Cos(wanderAngle) * wanderSpeed, 0f, Mathf.Sin(wanderAngle) * wanderSpeed);
+            Vector3 wanderDirection = new Vector3(
+                Mathf.Cos(wanderAngle),
+                0f,
+                Mathf.Sin(wanderAngle)
+            );
+            transform.position += wanderDirection * wanderSpeed * frameScale;
+            monsterView?.SetMovement(wanderDirection, wanderSpeed * referenceFrameRate, false);
         }
     }
 }

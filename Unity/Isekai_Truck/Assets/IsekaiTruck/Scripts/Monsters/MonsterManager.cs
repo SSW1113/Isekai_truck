@@ -9,15 +9,18 @@ namespace IsekaiTruck.Monsters
     [DisallowMultipleComponent]
     public sealed class MonsterManager : MonoBehaviour
     {
+        [SerializeField] private MonsterPrefabCatalog monsterCatalog;
         [SerializeField] private TextAsset monsterDataFile;
         [SerializeField] private Transform monsterRoot;
 
         private readonly List<MonsterController> monsters = new List<MonsterController>();
         private readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
+        private readonly Dictionary<string, MonsterController> monsterPrefabs = new Dictionary<string, MonsterController>();
 
         private Dictionary<string, MonsterData> monsterTypes;
         private GameConfig.MonsterSettings settings;
         private Transform truck;
+        private float referenceFrameRate;
 
         public IReadOnlyList<MonsterController> Monsters => monsters;
         public IReadOnlyDictionary<string, MonsterData> Types => monsterTypes;
@@ -26,15 +29,16 @@ namespace IsekaiTruck.Monsters
 
         public void Initialize(GameConfig gameConfig, Transform truckTransform)
         {
-            if (monsterDataFile == null)
+            if ((monsterCatalog == null || monsterCatalog.MonsterPrefabs.Count == 0) && monsterDataFile == null)
             {
-                throw new MissingReferenceException("MonsterManager에 monsters.json이 연결되지 않았습니다.");
+                throw new MissingReferenceException("MonsterManager에 몬스터 프리팹 카탈로그가 연결되지 않았습니다.");
             }
 
             settings = gameConfig.Monster;
+            referenceFrameRate = gameConfig.ReferenceFrameRate;
             truck = truckTransform;
             monsterRoot = monsterRoot == null ? transform : monsterRoot;
-            monsterTypes = MonsterJsonLoader.Load(monsterDataFile.text);
+            LoadMonsterTypes();
         }
 
         public MonsterController CreateMonster(string typeId, float x, float z)
@@ -45,21 +49,14 @@ namespace IsekaiTruck.Monsters
                 return null;
             }
 
-            GameObject monsterObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            monsterObject.name = $"Monster ({typeId})";
-            monsterObject.transform.SetParent(monsterRoot, false);
-            monsterObject.transform.position = new Vector3(x, type.Size, z);
-            monsterObject.transform.localScale = Vector3.one * type.Size * 2f;
+            MonsterController monster = monsterPrefabs.TryGetValue(typeId, out MonsterController prefab)
+                ? Instantiate(prefab, monsterRoot, false)
+                : CreateLegacyMonster(type);
 
-            MeshRenderer meshRenderer = monsterObject.GetComponent<MeshRenderer>();
-            meshRenderer.sharedMaterial = GetMaterial(type);
-
-            Collider monsterCollider = monsterObject.GetComponent<Collider>();
-            monsterCollider.enabled = false;
-            DestroyRuntimeObject(monsterCollider);
-
-            MonsterController monster = monsterObject.AddComponent<MonsterController>();
-            monster.Initialize(type, truck, Time.realtimeSinceStartup * 1000f);
+            monster.name = $"Monster ({typeId})";
+            monster.transform.position = new Vector3(x, type.Size, z);
+            monster.transform.localScale = Vector3.one * type.Size * 2f;
+            monster.Initialize(type, truck, Time.realtimeSinceStartup * 1000f, referenceFrameRate);
             monsters.Add(monster);
 
             return monster;
@@ -75,20 +72,80 @@ namespace IsekaiTruck.Monsters
             DestroyRuntimeObject(monster.gameObject);
         }
 
-        public void UpdateMonsters()
+        public void UpdateMonsters(float deltaTime)
         {
             float truckScale = Mathf.Max(truck.localScale.x, truck.localScale.z);
             float extraFleeDistance = settings.CollisionDistance * (truckScale - 1f);
             float collisionDistance = settings.CollisionDistance * truckScale;
             float directionLockDistance = collisionDistance * settings.DirectionLockMultiplier;
             float nowMilliseconds = Time.realtimeSinceStartup * 1000f;
+            float frameScale = Mathf.Max(deltaTime, 0f) * referenceFrameRate;
 
             for (int i = 0; i < monsters.Count; i++)
             {
-                monsters[i].UpdateMonster(nowMilliseconds, extraFleeDistance, directionLockDistance);
+                monsters[i].UpdateMonster(nowMilliseconds, extraFleeDistance, directionLockDistance, frameScale);
             }
 
             CheckCollisions(collisionDistance);
+        }
+
+        private void LoadMonsterTypes()
+        {
+            monsterPrefabs.Clear();
+
+            if (monsterCatalog == null || monsterCatalog.MonsterPrefabs.Count == 0)
+            {
+                monsterTypes = MonsterJsonLoader.Load(monsterDataFile.text);
+                return;
+            }
+
+            monsterTypes = new Dictionary<string, MonsterData>();
+            IReadOnlyList<MonsterController> prefabs = monsterCatalog.MonsterPrefabs;
+
+            for (int i = 0; i < prefabs.Count; i++)
+            {
+                MonsterController prefab = prefabs[i];
+                if (prefab == null)
+                {
+                    throw new MissingReferenceException($"몬스터 카탈로그의 {i}번 프리팹이 비어 있습니다.");
+                }
+
+                MonsterDefinition definition = prefab.GetComponent<MonsterDefinition>();
+                if (definition == null)
+                {
+                    throw new MissingComponentException($"몬스터 프리팹에 MonsterDefinition이 없습니다: {prefab.name}");
+                }
+
+                MonsterData type = definition.CreateData();
+                if (string.IsNullOrWhiteSpace(type.Id))
+                {
+                    throw new InvalidOperationException($"몬스터 프리팹의 Type ID가 비어 있습니다: {prefab.name}");
+                }
+
+                if (monsterTypes.ContainsKey(type.Id))
+                {
+                    throw new InvalidOperationException($"몬스터 프리팹의 Type ID가 중복되었습니다: {type.Id}");
+                }
+
+                monsterTypes.Add(type.Id, type);
+                monsterPrefabs.Add(type.Id, prefab);
+            }
+        }
+
+        private MonsterController CreateLegacyMonster(MonsterData type)
+        {
+            GameObject monsterObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            monsterObject.transform.SetParent(monsterRoot, false);
+
+            MeshRenderer meshRenderer = monsterObject.GetComponent<MeshRenderer>();
+            meshRenderer.sharedMaterial = GetMaterial(type);
+
+            Collider monsterCollider = monsterObject.GetComponent<Collider>();
+            monsterCollider.enabled = false;
+            DestroyRuntimeObject(monsterCollider);
+
+            monsterObject.AddComponent<MonsterView>();
+            return monsterObject.AddComponent<MonsterController>();
         }
 
         private void CheckCollisions(float collisionDistance)
@@ -160,6 +217,11 @@ namespace IsekaiTruck.Monsters
         }
 
 #if UNITY_EDITOR
+        public void SetCatalog(MonsterPrefabCatalog catalog)
+        {
+            monsterCatalog = catalog;
+        }
+
         public void SetDataFile(TextAsset dataFile)
         {
             monsterDataFile = dataFile;

@@ -87,9 +87,10 @@ namespace IsekaiTruck.Editor
             testObject.transform.position = new Vector3(0f, 0.5f, 0f);
             TruckController controller = testObject.AddComponent<TruckController>();
             controller.Initialize(config);
+            float referenceDeltaTime = 1f / config.ReferenceFrameRate;
 
             float firstFrameSpeed = Mathf.Min(config.Truck.Acceleration, config.Truck.BaseMaxSpeed);
-            controller.UpdateTruck(new Vector2(0f, 1f));
+            controller.UpdateTruck(new Vector2(0f, 1f), referenceDeltaTime);
             AssertApproximately(testObject.transform.position.z, firstFrameSpeed, "첫 프레임 가속");
             AssertApproximately(controller.CurrentSpeed, firstFrameSpeed, "첫 프레임 표시 속도");
             AssertApproximately(controller.CurrentFrameDistance, firstFrameSpeed, "첫 프레임 실제 이동거리");
@@ -97,7 +98,7 @@ namespace IsekaiTruck.Editor
 
             float frictionSpeed = firstFrameSpeed * config.Truck.Friction;
             float expectedStoppedSpeed = frictionSpeed < 0.001f ? 0f : frictionSpeed;
-            controller.UpdateTruck(Vector2.zero);
+            controller.UpdateTruck(Vector2.zero, referenceDeltaTime);
             AssertApproximately(testObject.transform.position.z, firstFrameSpeed + frictionSpeed, "조이스틱 해제 관성");
             AssertApproximately(controller.CurrentSpeed, expectedStoppedSpeed, "정지 임계값 적용 후 표시 속도");
             AssertApproximately(controller.CurrentFrameDistance, frictionSpeed, "관성 실제 이동거리");
@@ -106,13 +107,13 @@ namespace IsekaiTruck.Editor
             testObject.transform.position = new Vector3(0f, 0.5f, 0f);
             testObject.transform.rotation = Quaternion.identity;
             controller = ResetController(testObject, config);
-            controller.UpdateTruck(new Vector2(1f, 0f));
+            controller.UpdateTruck(new Vector2(1f, 0f), referenceDeltaTime);
             AssertApproximately(Mathf.DeltaAngle(0f, testObject.transform.eulerAngles.y), -90f * config.Truck.TurnSpeed, "오른쪽 회전 보간");
 
             testObject.transform.position = new Vector3(0f, 0.5f, 0f);
             testObject.transform.rotation = Quaternion.identity;
             controller = ResetController(testObject, config);
-            controller.UpdateTruck(new Vector2(-1f, 0f));
+            controller.UpdateTruck(new Vector2(-1f, 0f), referenceDeltaTime);
             AssertApproximately(Mathf.DeltaAngle(0f, testObject.transform.eulerAngles.y), 90f * config.Truck.TurnSpeed, "왼쪽 회전 보간");
 
             controller.UpgradeSpeed();
@@ -123,9 +124,9 @@ namespace IsekaiTruck.Editor
             AssertApproximately(testObject.transform.localScale.x, expectedScale, "크기 업그레이드");
             AssertApproximately(testObject.transform.position.y, 0.5f * expectedScale, "크기 업그레이드 높이");
 
-            Rect landscapeViewport = CameraController.CalculateViewportRect(16f / 9f, 9f / 16f);
-            AssertApproximately(landscapeViewport.width, 0.31640625f, "16:9 화면의 9:16 뷰포트 너비");
-            AssertApproximately(landscapeViewport.x, 0.341796875f, "9:16 뷰포트 중앙 정렬");
+            Rect landscapeViewport = CameraController.CalculateViewportRect(16f / 9f, 10f / 16f);
+            AssertApproximately(landscapeViewport.width, 0.3515625f, "16:9 화면의 10:16 뷰포트 너비");
+            AssertApproximately(landscapeViewport.x, 0.32421875f, "10:16 뷰포트 중앙 정렬");
 
             Object.DestroyImmediate(testObject);
             Debug.Log("Truck movement stage verification passed.");

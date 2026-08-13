@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fab137d37fd1343a45453b27fb0b54, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Config.GameConfig
+  referenceFrameRate: 60
   truck:
-    baseMaxSpeed: 0.1
-    acceleration: 0.001
+    baseMaxSpeed: 0.3
+    acceleration: 0.003
     friction: 0.94
-    turnSpeed: 0.03
+    turnSpeed: 0.08
     speedPerUpgrade: 0.01
     sizePerUpgrade: 0.1
   world:
@@ -37,7 +38,7 @@ MonoBehaviour:
     zoomStartScale: 1.2
     zoomStrength: 0.8
     maxZoomMultiplier: 10
-    viewportAspect: {x: 9, y: 16}
+    viewportAspect: {x: 10, y: 16}
     fieldOfView: 75
     nearClipPlane: 0.1
     farClipPlane: 1000

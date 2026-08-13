@@ -19,6 +19,8 @@ namespace IsekaiTruck.Player
         public int UpgradePoints => upgradePoints;
         public int RequiredExp => GetRequiredExp();
 
+        public event Action<PlayerSnapshot> StateChanged;
+
         public void Initialize(GameConfig gameConfig)
         {
             settings = gameConfig.Player;
@@ -51,7 +53,9 @@ namespace IsekaiTruck.Player
                 Debug.Log($"레벨 업! Lv.{level} / 업그레이드 포인트 +{gainedPoints}", this);
             }
 
-            return new RewardResult(levelUpCount, GetState());
+            PlayerSnapshot state = GetState();
+            StateChanged?.Invoke(state);
+            return new RewardResult(levelUpCount, state);
         }
 
         public bool SpendUpgradePoint()
@@ -62,6 +66,7 @@ namespace IsekaiTruck.Player
             }
 
             upgradePoints--;
+            StateChanged?.Invoke(GetState());
             return true;
         }
 

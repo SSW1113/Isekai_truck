@@ -90,6 +90,7 @@ namespace IsekaiTruck.Editor
             MonsterManager manager = managerObject.AddComponent<MonsterManager>();
             manager.SetDataFile(monsterDataFile);
             manager.Initialize(config, truckObject.transform);
+            float referenceDeltaTime = 1f / config.ReferenceFrameRate;
 
             if (manager.Types.Count != 3 || manager.Types["man"].Name != "평범한 사람")
             {
@@ -103,16 +104,16 @@ namespace IsekaiTruck.Editor
             AssertApproximately(fleeingMonster.transform.position.y, 0.6f, "몬스터 높이");
             AssertApproximately(fleeingMonster.transform.localScale.x, 1.2f, "몬스터 지름");
 
-            manager.UpdateMonsters();
+            manager.UpdateMonsters(referenceDeltaTime);
             AssertApproximately(fleeingMonster.transform.position.x, 5.04f, "몬스터 도망 속도");
 
             fleeingMonster.transform.position = new Vector3(-2f, 0.6f, 0f);
-            manager.UpdateMonsters();
+            manager.UpdateMonsters(referenceDeltaTime);
             AssertApproximately(fleeingMonster.transform.position.x, -1.96f, "근거리 도망 방향 고정");
 
             MonsterController wanderingMonster = manager.CreateMonster("man", 100f, 0f);
             Vector3 wanderStart = wanderingMonster.transform.position;
-            manager.UpdateMonsters();
+            manager.UpdateMonsters(referenceDeltaTime);
             float wanderDistance = Vector3.Distance(wanderStart, wanderingMonster.transform.position);
             AssertApproximately(wanderDistance, 0.008f, "몬스터 배회 속도");
 

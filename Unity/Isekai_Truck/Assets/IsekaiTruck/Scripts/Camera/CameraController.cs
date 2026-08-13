@@ -11,6 +11,7 @@ namespace IsekaiTruck.Camera
 
         private GameConfig.CameraSettings settings;
         private Transform target;
+        private float referenceFrameRate;
         private float currentZoomMultiplier = 1f;
         private int currentScreenWidth = -1;
         private int currentScreenHeight = -1;
@@ -21,6 +22,7 @@ namespace IsekaiTruck.Camera
         public void Initialize(GameConfig gameConfig, Transform followTarget)
         {
             settings = gameConfig.Camera;
+            referenceFrameRate = gameConfig.ReferenceFrameRate;
             target = followTarget;
 
             if (targetCamera == null)
@@ -39,20 +41,37 @@ namespace IsekaiTruck.Camera
             transform.LookAt(settings.LookTarget);
         }
 
-        public float UpdateCamera()
+        public float UpdateCamera(float deltaTime)
         {
             UpdateViewport();
 
             float truckScale = target.localScale.x;
             float growth = Mathf.Max(0f, truckScale - settings.ZoomStartScale);
             float targetZoomMultiplier = Mathf.Min(1f + growth * settings.ZoomStrength, settings.MaxZoomMultiplier);
+            float frameScale = Mathf.Max(deltaTime, 0f) * referenceFrameRate;
+            float followFactor = GetFrameAdjustedFactor(settings.FollowSpeed, frameScale);
 
-            currentZoomMultiplier += (targetZoomMultiplier - currentZoomMultiplier) * settings.FollowSpeed;
+            currentZoomMultiplier += (targetZoomMultiplier - currentZoomMultiplier) * followFactor;
 
             Vector3 targetPosition = target.position + settings.Offset * currentZoomMultiplier;
-            transform.position += (targetPosition - transform.position) * settings.FollowSpeed;
+            transform.position += (targetPosition - transform.position) * followFactor;
 
             return currentZoomMultiplier;
+        }
+
+        private static float GetFrameAdjustedFactor(float perFrameFactor, float frameScale)
+        {
+            if (perFrameFactor <= 0f || frameScale <= 0f)
+            {
+                return 0f;
+            }
+
+            if (perFrameFactor >= 1f)
+            {
+                return 1f;
+            }
+
+            return 1f - Mathf.Pow(1f - perFrameFactor, frameScale);
         }
 
         public static Rect CalculateViewportRect(float screenAspect, float targetAspect)

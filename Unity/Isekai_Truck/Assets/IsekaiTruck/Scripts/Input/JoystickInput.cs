@@ -33,6 +33,20 @@ namespace IsekaiTruck.Input
             inputArea.offsetMax = Vector2.zero;
         }
 
+        public void SetInputEnabled(bool isEnabled)
+        {
+            if (enabled == isEnabled)
+            {
+                return;
+            }
+
+            enabled = isEnabled;
+            if (!isEnabled)
+            {
+                ResetJoystick();
+            }
+        }
+
         private void Awake()
         {
             ResetJoystick();

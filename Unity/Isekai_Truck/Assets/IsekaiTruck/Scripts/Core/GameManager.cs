@@ -5,6 +5,8 @@ using IsekaiTruck.Monsters;
 using IsekaiTruck.Player;
 using IsekaiTruck.Spawn;
 using IsekaiTruck.Truck;
+using IsekaiTruck.Upgrades;
+using IsekaiTruck.UI;
 using IsekaiTruck.World;
 using UnityEngine;
 
@@ -22,10 +24,12 @@ namespace IsekaiTruck.Core
         [SerializeField] private MonsterManager monsterManager;
         [SerializeField] private PlayerState playerState;
         [SerializeField] private MonsterSpawner monsterSpawner;
+        [SerializeField] private TruckUpgradeSystem truckUpgradeSystem;
+        [SerializeField] private GameUIController gameUIController;
 
         private void Awake()
         {
-            if (config == null || playerTarget == null || joystickInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null)
+            if (config == null || playerTarget == null || joystickInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null)
             {
                 Debug.LogError("GameManager references are not configured.", this);
                 enabled = false;
@@ -38,6 +42,8 @@ namespace IsekaiTruck.Core
             worldManager.Initialize(config, playerTarget, cameraController.TargetCamera);
             monsterManager.Initialize(config, playerTarget);
             playerState.Initialize(config);
+            truckUpgradeSystem.Initialize(playerState, truckController);
+            gameUIController.Initialize(playerState, truckController, truckUpgradeSystem, joystickInput, cameraController);
             monsterManager.MonsterDefeated += HandleMonsterDefeated;
             monsterSpawner.Initialize(config, monsterManager, playerTarget);
             monsterSpawner.FillInitial();
@@ -45,12 +51,19 @@ namespace IsekaiTruck.Core
 
         private void Update()
         {
-            truckController.UpdateTruck(joystickInput.Move);
+            if (gameUIController.IsUpgradePanelOpen)
+            {
+                return;
+            }
 
-            float zoomMultiplier = cameraController.UpdateCamera();
+            float deltaTime = Time.deltaTime;
+            truckController.UpdateTruck(joystickInput.Move, deltaTime);
+
+            float zoomMultiplier = cameraController.UpdateCamera(deltaTime);
             joystickInput.SetViewport(cameraController.ViewportRect);
+            gameUIController.SetViewport(cameraController.ViewportRect);
             worldManager.UpdateWorld(zoomMultiplier);
-            monsterManager.UpdateMonsters();
+            monsterManager.UpdateMonsters(deltaTime);
             monsterSpawner.UpdateSpawner(Time.realtimeSinceStartup * 1000f);
         }
 
@@ -93,6 +106,16 @@ namespace IsekaiTruck.Core
         public void SetSpawnSystem(MonsterSpawner spawner)
         {
             monsterSpawner = spawner;
+        }
+
+        public void SetUpgradeSystem(TruckUpgradeSystem upgradeSystem)
+        {
+            truckUpgradeSystem = upgradeSystem;
+        }
+
+        public void SetUISystem(GameUIController uiController)
+        {
+            gameUIController = uiController;
         }
 #endif
     }

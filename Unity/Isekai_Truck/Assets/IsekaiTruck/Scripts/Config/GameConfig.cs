@@ -6,6 +6,7 @@ namespace IsekaiTruck.Config
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Isekai Truck/Game Config")]
     public sealed class GameConfig : ScriptableObject
     {
+        [SerializeField, Min(1f)] private float referenceFrameRate = 60f;
         [SerializeField] private TruckSettings truck = new TruckSettings();
         [SerializeField] private WorldSettings world = new WorldSettings();
         [SerializeField] private CameraSettings cameraSettings = new CameraSettings();
@@ -13,6 +14,7 @@ namespace IsekaiTruck.Config
         [SerializeField] private SpawnSettings spawn = new SpawnSettings();
         [SerializeField] private PlayerSettings player = new PlayerSettings();
 
+        public float ReferenceFrameRate => referenceFrameRate;
         public TruckSettings Truck => truck;
         public WorldSettings World => world;
         public CameraSettings Camera => cameraSettings;
@@ -73,7 +75,7 @@ namespace IsekaiTruck.Config
             [SerializeField, Min(0f)] private float zoomStartScale = 1.2f;
             [SerializeField, Min(0f)] private float zoomStrength = 0.8f;
             [SerializeField, Min(1f)] private float maxZoomMultiplier = 10f;
-            [SerializeField] private Vector2Int viewportAspect = new Vector2Int(9, 16);
+            [SerializeField] private Vector2Int viewportAspect = new Vector2Int(10, 16);
             [SerializeField, Range(1f, 179f)] private float fieldOfView = 75f;
             [SerializeField, Min(0.001f)] private float nearClipPlane = 0.1f;
             [SerializeField, Min(0.01f)] private float farClipPlane = 1000f;
