@@ -68,6 +68,14 @@ namespace IsekaiTruck.Monsters
             }
         }
 
+        public void SetPaused(bool isPaused)
+        {
+            if (animator != null)
+            {
+                animator.speed = isPaused ? 0f : 1f;
+            }
+        }
+
         private void InitializeAnimator()
         {
             if (animator == null)

@@ -13,6 +13,8 @@ namespace IsekaiTruck.Config
         [SerializeField] private MonsterSettings monster = new MonsterSettings();
         [SerializeField] private SpawnSettings spawn = new SpawnSettings();
         [SerializeField] private PlayerSettings player = new PlayerSettings();
+        [SerializeField] private RebirthSettings rebirth = new RebirthSettings();
+        [SerializeField] private BlessingSettings blessing = new BlessingSettings();
 
         public float ReferenceFrameRate => referenceFrameRate;
         public TruckSettings Truck => truck;
@@ -21,6 +23,8 @@ namespace IsekaiTruck.Config
         public MonsterSettings Monster => monster;
         public SpawnSettings Spawn => spawn;
         public PlayerSettings Player => player;
+        public RebirthSettings Rebirth => rebirth;
+        public BlessingSettings Blessing => blessing;
 
         [Serializable]
         public sealed class TruckSettings
@@ -136,6 +140,72 @@ namespace IsekaiTruck.Config
             public int BaseRequiredExp => baseRequiredExp;
             public float ExpGrowth => expGrowth;
             public int UpgradePointPerLevel => upgradePointPerLevel;
+        }
+
+        [Serializable]
+        public sealed class RebirthSettings
+        {
+            [SerializeField, Min(0f)] private float rewardMultiplierPerMaxRebirth = 0.1f;
+            [SerializeField, Min(1)] private int blessingCandidateCount = 3;
+            [SerializeField] private RebirthTierSettings[] tiers =
+            {
+                new RebirthTierSettings(10, 90f, 9f, 1f, 0f),
+                new RebirthTierSettings(20, 80f, 18f, 1f, 1f),
+                new RebirthTierSettings(30, 70f, 27f, 1f, 2f),
+                new RebirthTierSettings(40, 60f, 36f, 1f, 3f),
+                new RebirthTierSettings(50, 50f, 45f, 1f, 4f),
+                new RebirthTierSettings(60, 40f, 54f, 1f, 5f),
+                new RebirthTierSettings(70, 30f, 63f, 1f, 6f),
+                new RebirthTierSettings(80, 20f, 72f, 1f, 7f),
+                new RebirthTierSettings(90, 10f, 81f, 1f, 8f),
+                new RebirthTierSettings(100, 0f, 90f, 1f, 9f)
+            };
+
+            public float RewardMultiplierPerMaxRebirth => rewardMultiplierPerMaxRebirth;
+            public int BlessingCandidateCount => blessingCandidateCount;
+            public RebirthTierSettings[] Tiers => tiers;
+        }
+
+        [Serializable]
+        public sealed class RebirthTierSettings
+        {
+            [SerializeField, Min(1)] private int requiredLevel;
+            [SerializeField, Min(0f)] private float cWeight;
+            [SerializeField, Min(0f)] private float uWeight;
+            [SerializeField, Min(0f)] private float rWeight;
+            [SerializeField, Min(0f)] private float srWeight;
+
+            public RebirthTierSettings(int level, float c, float u, float r, float sr)
+            {
+                requiredLevel = level;
+                cWeight = c;
+                uWeight = u;
+                rWeight = r;
+                srWeight = sr;
+            }
+
+            public int RequiredLevel => requiredLevel;
+            public float CWeight => cWeight;
+            public float UWeight => uWeight;
+            public float RWeight => rWeight;
+            public float SrWeight => srWeight;
+            public float TotalWeight => cWeight + uWeight + rWeight + srWeight;
+        }
+
+        [Serializable]
+        public sealed class BlessingSettings
+        {
+            [SerializeField, Min(1)] private int slotCount = 3;
+            [SerializeField, Min(0)] private int cDismantleSoul = 200;
+            [SerializeField, Min(0)] private int uDismantleSoul = 300;
+            [SerializeField, Min(0)] private int rDismantleSoul = 400;
+            [SerializeField, Min(0)] private int srDismantleSoul = 600;
+
+            public int SlotCount => slotCount;
+            public int CDismantleSoul => cDismantleSoul;
+            public int UDismantleSoul => uDismantleSoul;
+            public int RDismantleSoul => rDismantleSoul;
+            public int SrDismantleSoul => srDismantleSoul;
         }
     }
 }

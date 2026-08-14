@@ -1,8 +1,11 @@
+using IsekaiTruck.Blessings;
 using IsekaiTruck.Camera;
 using IsekaiTruck.Config;
 using IsekaiTruck.Input;
 using IsekaiTruck.Monsters;
 using IsekaiTruck.Player;
+using IsekaiTruck.Rebirth;
+using IsekaiTruck.Save;
 using IsekaiTruck.Spawn;
 using IsekaiTruck.Truck;
 using IsekaiTruck.Upgrades;
@@ -26,10 +29,14 @@ namespace IsekaiTruck.Core
         [SerializeField] private MonsterSpawner monsterSpawner;
         [SerializeField] private TruckUpgradeSystem truckUpgradeSystem;
         [SerializeField] private GameUIController gameUIController;
+        [SerializeField] private BlessingSystem blessingSystem;
+        [SerializeField] private RebirthSystem rebirthSystem;
+        [SerializeField] private PlayerProgressSaveSystem saveSystem;
+        [SerializeField] private RebirthUIController rebirthUIController;
 
         private void Awake()
         {
-            if (config == null || playerTarget == null || joystickInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null)
+            if (config == null || playerTarget == null || joystickInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null)
             {
                 Debug.LogError("GameManager references are not configured.", this);
                 enabled = false;
@@ -37,13 +44,17 @@ namespace IsekaiTruck.Core
             }
 
             truckController.Initialize(config);
+            playerState.Initialize(config);
+            blessingSystem.Initialize();
+            rebirthSystem.Initialize(config, playerState, truckController, blessingSystem);
+            truckUpgradeSystem.Initialize(playerState, truckController);
+            saveSystem.Initialize(playerState, truckController, rebirthSystem, blessingSystem, truckUpgradeSystem);
             cameraController.Initialize(config, playerTarget);
             joystickInput.SetViewport(cameraController.ViewportRect);
             worldManager.Initialize(config, playerTarget, cameraController.TargetCamera);
             monsterManager.Initialize(config, playerTarget);
-            playerState.Initialize(config);
-            truckUpgradeSystem.Initialize(playerState, truckController);
             gameUIController.Initialize(playerState, truckController, truckUpgradeSystem, joystickInput, cameraController);
+            rebirthUIController.Initialize(rebirthSystem, blessingSystem, playerState, joystickInput, cameraController);
             monsterManager.MonsterDefeated += HandleMonsterDefeated;
             monsterSpawner.Initialize(config, monsterManager, playerTarget);
             monsterSpawner.FillInitial();
@@ -51,7 +62,7 @@ namespace IsekaiTruck.Core
 
         private void Update()
         {
-            if (gameUIController.IsUpgradePanelOpen)
+            if (gameUIController.IsUpgradePanelOpen || rebirthUIController.IsPanelOpen)
             {
                 return;
             }
@@ -62,6 +73,7 @@ namespace IsekaiTruck.Core
             float zoomMultiplier = cameraController.UpdateCamera(deltaTime);
             joystickInput.SetViewport(cameraController.ViewportRect);
             gameUIController.SetViewport(cameraController.ViewportRect);
+            rebirthUIController.SetViewport(cameraController.ViewportRect);
             worldManager.UpdateWorld(zoomMultiplier);
             monsterManager.UpdateMonsters(deltaTime);
             monsterSpawner.UpdateSpawner(Time.realtimeSinceStartup * 1000f);
@@ -69,8 +81,8 @@ namespace IsekaiTruck.Core
 
         private void HandleMonsterDefeated(MonsterData type)
         {
-            playerState.AddRewards(type.Exp, type.Soul);
-            Debug.Log($"경험치 +{type.Exp}, 영혼 +{type.Soul}", this);
+            RewardResult reward = playerState.AddRewards(type.Exp, type.Soul, rebirthSystem.RewardMultiplier);
+            Debug.Log($"경험치 +{reward.AppliedExp}, 영혼 +{reward.AppliedSoul}", this);
         }
 
         private void OnDestroy()
@@ -116,6 +128,14 @@ namespace IsekaiTruck.Core
         public void SetUISystem(GameUIController uiController)
         {
             gameUIController = uiController;
+        }
+
+        public void SetRebirthSystems(BlessingSystem blessings, RebirthSystem rebirth, PlayerProgressSaveSystem progressSave, RebirthUIController rebirthUI)
+        {
+            blessingSystem = blessings;
+            rebirthSystem = rebirth;
+            saveSystem = progressSave;
+            rebirthUIController = rebirthUI;
         }
 #endif
     }

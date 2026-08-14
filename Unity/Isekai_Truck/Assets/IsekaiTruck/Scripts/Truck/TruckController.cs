@@ -17,6 +17,8 @@ namespace IsekaiTruck.Truck
         private int speedLevel;
         private int sizeLevel;
         private float maxSpeed;
+        private float blessingSpeedMultiplier = 1f;
+        private float blessingSizeMultiplier = 1f;
 
         public float CurrentSpeed => speed;
         public float CurrentFrameDistance { get; private set; }
@@ -27,7 +29,7 @@ namespace IsekaiTruck.Truck
         {
             settings = gameConfig.Truck;
             referenceFrameRate = gameConfig.ReferenceFrameRate;
-            maxSpeed = settings.BaseMaxSpeed + speedLevel * settings.SpeedPerUpgrade;
+            ApplyProgressionStats();
         }
 
         public void UpdateTruck(Vector2 move, float deltaTime)
@@ -129,16 +131,64 @@ namespace IsekaiTruck.Truck
         public void UpgradeSpeed()
         {
             speedLevel++;
-            maxSpeed = settings.BaseMaxSpeed + speedLevel * settings.SpeedPerUpgrade;
+            ApplyProgressionStats();
         }
 
         public void UpgradeSize()
         {
             sizeLevel++;
+            ApplyProgressionStats();
+        }
 
-            float scale = 1f + sizeLevel * settings.SizePerUpgrade;
+        public void ResetUpgrades()
+        {
+            speedLevel = 0;
+            sizeLevel = 0;
+            ResetMovement();
+            ApplyProgressionStats();
+        }
+
+        public void RestoreProgress(int savedSpeedLevel, int savedSizeLevel, Vector3 savedPosition, float savedYaw)
+        {
+            speedLevel = Mathf.Max(0, savedSpeedLevel);
+            sizeLevel = Mathf.Max(0, savedSizeLevel);
+            ResetMovement();
+            ApplyProgressionStats();
+            transform.position = new Vector3(savedPosition.x, transform.position.y, savedPosition.z);
+            transform.rotation = Quaternion.Euler(0f, savedYaw, 0f);
+        }
+
+        private void ApplyProgressionStats()
+        {
+            maxSpeed = (settings.BaseMaxSpeed + speedLevel * settings.SpeedPerUpgrade) * blessingSpeedMultiplier;
+            speed = Mathf.Min(speed, maxSpeed);
+            float scale = (1f + sizeLevel * settings.SizePerUpgrade) * blessingSizeMultiplier;
             transform.localScale = Vector3.one * scale;
             transform.position = new Vector3(transform.position.x, 0.5f * scale, transform.position.z);
+        }
+
+        public void SetBlessingMultipliers(float speedMultiplier, float sizeMultiplier)
+        {
+            float newSpeedMultiplier = Mathf.Max(0f, speedMultiplier);
+            float newSizeMultiplier = Mathf.Max(0.01f, sizeMultiplier);
+            if (Mathf.Approximately(blessingSpeedMultiplier, newSpeedMultiplier) && Mathf.Approximately(blessingSizeMultiplier, newSizeMultiplier))
+            {
+                return;
+            }
+
+            blessingSpeedMultiplier = newSpeedMultiplier;
+            blessingSizeMultiplier = newSizeMultiplier;
+            ApplyProgressionStats();
+        }
+
+        private void ResetMovement()
+        {
+            speed = 0f;
+            lastDirX = 0f;
+            lastDirZ = 0f;
+            CurrentFrameDistance = 0f;
+            CurrentSpeedPerSecond = 0f;
+            CurrentInputMagnitude = 0f;
         }
 
         public TruckStats GetStats()

@@ -21,6 +21,10 @@ namespace IsekaiTruck.Monsters
         private GameConfig.MonsterSettings settings;
         private Transform truck;
         private float referenceFrameRate;
+        private float areaSlowRadius;
+        private float areaSlowMultiplier = 1f;
+        private bool isWorldPaused;
+        private float pausedTimeMilliseconds;
 
         public IReadOnlyList<MonsterController> Monsters => monsters;
         public IReadOnlyDictionary<string, MonsterData> Types => monsterTypes;
@@ -56,7 +60,7 @@ namespace IsekaiTruck.Monsters
             monster.name = $"Monster ({typeId})";
             monster.transform.position = new Vector3(x, type.Size, z);
             monster.transform.localScale = Vector3.one * type.Size * 2f;
-            monster.Initialize(type, truck, Time.realtimeSinceStartup * 1000f, referenceFrameRate);
+            monster.Initialize(type, truck, GetMonsterTimeMilliseconds(), referenceFrameRate);
             monsters.Add(monster);
 
             return monster;
@@ -78,15 +82,67 @@ namespace IsekaiTruck.Monsters
             float extraFleeDistance = settings.CollisionDistance * (truckScale - 1f);
             float collisionDistance = settings.CollisionDistance * truckScale;
             float directionLockDistance = collisionDistance * settings.DirectionLockMultiplier;
-            float nowMilliseconds = Time.realtimeSinceStartup * 1000f;
+            if (isWorldPaused)
+            {
+                pausedTimeMilliseconds += Mathf.Max(0f, deltaTime) * 1000f;
+            }
+
+            float nowMilliseconds = GetMonsterTimeMilliseconds();
             float frameScale = Mathf.Max(deltaTime, 0f) * referenceFrameRate;
 
             for (int i = 0; i < monsters.Count; i++)
             {
-                monsters[i].UpdateMonster(nowMilliseconds, extraFleeDistance, directionLockDistance, frameScale);
+                monsters[i].UpdateMonster(nowMilliseconds, extraFleeDistance, directionLockDistance, frameScale, deltaTime, areaSlowRadius, areaSlowMultiplier, isWorldPaused);
             }
 
             CheckCollisions(collisionDistance);
+        }
+
+        public void SetAreaSpeedModifier(float radius, float speedMultiplier)
+        {
+            areaSlowRadius = Mathf.Max(0f, radius);
+            areaSlowMultiplier = Mathf.Max(0f, speedMultiplier);
+        }
+
+        public void SetWorldPaused(bool isPaused)
+        {
+            isWorldPaused = isPaused;
+        }
+
+        public bool StunNearest(Vector3 position, float radius, float duration)
+        {
+            MonsterController nearest = null;
+            float nearestDistanceSquared = radius * radius;
+
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                MonsterController monster = monsters[i];
+                if (monster.IsStunned)
+                {
+                    continue;
+                }
+
+                Vector3 offset = monster.transform.position - position;
+                float distanceSquared = offset.x * offset.x + offset.z * offset.z;
+                if (distanceSquared <= nearestDistanceSquared)
+                {
+                    nearest = monster;
+                    nearestDistanceSquared = distanceSquared;
+                }
+            }
+
+            if (nearest == null)
+            {
+                return false;
+            }
+
+            nearest.ApplyStun(duration);
+            return true;
+        }
+
+        private float GetMonsterTimeMilliseconds()
+        {
+            return Time.realtimeSinceStartup * 1000f - pausedTimeMilliseconds;
         }
 
         private void LoadMonsterTypes()

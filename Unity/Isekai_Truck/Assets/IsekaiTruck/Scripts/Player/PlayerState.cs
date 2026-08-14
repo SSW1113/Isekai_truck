@@ -12,12 +12,16 @@ namespace IsekaiTruck.Player
         private int exp;
         private int soul;
         private int upgradePoints;
+        private float expRewardRemainder;
+        private float soulRewardRemainder;
 
         public int Level => level;
         public int Exp => exp;
         public int Soul => soul;
         public int UpgradePoints => upgradePoints;
         public int RequiredExp => GetRequiredExp();
+        public float ExpRewardRemainder => expRewardRemainder;
+        public float SoulRewardRemainder => soulRewardRemainder;
 
         public event Action<PlayerSnapshot> StateChanged;
 
@@ -28,12 +32,21 @@ namespace IsekaiTruck.Player
             exp = settings.StartExp;
             soul = settings.StartSoul;
             upgradePoints = 0;
+            expRewardRemainder = 0f;
+            soulRewardRemainder = 0f;
         }
 
-        public RewardResult AddRewards(int expGain = 0, int soulGain = 0)
+        public RewardResult AddRewards(int expGain = 0, int soulGain = 0, float rewardMultiplier = 1f)
         {
-            exp += expGain;
-            soul += soulGain;
+            float scaledExp = Mathf.Max(0, expGain) * Mathf.Max(0f, rewardMultiplier) + expRewardRemainder;
+            float scaledSoul = Mathf.Max(0, soulGain) * Mathf.Max(0f, rewardMultiplier) + soulRewardRemainder;
+            int appliedExp = Mathf.FloorToInt(scaledExp + 0.00001f);
+            int appliedSoul = Mathf.FloorToInt(scaledSoul + 0.00001f);
+
+            expRewardRemainder = scaledExp - appliedExp;
+            soulRewardRemainder = scaledSoul - appliedSoul;
+            exp += appliedExp;
+            soul += appliedSoul;
 
             int levelUpCount = 0;
 
@@ -55,7 +68,26 @@ namespace IsekaiTruck.Player
 
             PlayerSnapshot state = GetState();
             StateChanged?.Invoke(state);
-            return new RewardResult(levelUpCount, state);
+            return new RewardResult(levelUpCount, appliedExp, appliedSoul, state);
+        }
+
+        public void ResetForRebirth()
+        {
+            level = settings.StartLevel;
+            exp = settings.StartExp;
+            upgradePoints = 0;
+            StateChanged?.Invoke(GetState());
+        }
+
+        public void RestoreState(int savedLevel, int savedExp, int savedSoul, int savedUpgradePoints, float savedExpRemainder, float savedSoulRemainder)
+        {
+            level = Mathf.Max(settings.StartLevel, savedLevel);
+            exp = Mathf.Max(0, savedExp);
+            soul = Mathf.Max(0, savedSoul);
+            upgradePoints = Mathf.Max(0, savedUpgradePoints);
+            expRewardRemainder = Mathf.Clamp(savedExpRemainder, 0f, 0.99999f);
+            soulRewardRemainder = Mathf.Clamp(savedSoulRemainder, 0f, 0.99999f);
+            StateChanged?.Invoke(GetState());
         }
 
         public bool SpendUpgradePoint()
@@ -68,6 +100,17 @@ namespace IsekaiTruck.Player
             upgradePoints--;
             StateChanged?.Invoke(GetState());
             return true;
+        }
+
+        public void AddSoul(int soulGain)
+        {
+            if (soulGain <= 0)
+            {
+                return;
+            }
+
+            soul += soulGain;
+            StateChanged?.Invoke(GetState());
         }
 
         public PlayerSnapshot GetState()
@@ -84,13 +127,17 @@ namespace IsekaiTruck.Player
 
     public readonly struct RewardResult
     {
-        public RewardResult(int levelUpCount, PlayerSnapshot state)
+        public RewardResult(int levelUpCount, int appliedExp, int appliedSoul, PlayerSnapshot state)
         {
             LevelUpCount = levelUpCount;
+            AppliedExp = appliedExp;
+            AppliedSoul = appliedSoul;
             State = state;
         }
 
         public int LevelUpCount { get; }
+        public int AppliedExp { get; }
+        public int AppliedSoul { get; }
         public PlayerSnapshot State { get; }
     }
 

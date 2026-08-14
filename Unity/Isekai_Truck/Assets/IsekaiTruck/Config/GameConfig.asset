@@ -59,3 +59,57 @@ MonoBehaviour:
     baseRequiredExp: 100
     expGrowth: 1.5
     upgradePointPerLevel: 1
+  rebirth:
+    rewardMultiplierPerMaxRebirth: 0.1
+    blessingCandidateCount: 3
+    tiers:
+    - requiredLevel: 10
+      cWeight: 90
+      uWeight: 9
+      rWeight: 1
+      srWeight: 0
+    - requiredLevel: 20
+      cWeight: 80
+      uWeight: 18
+      rWeight: 1
+      srWeight: 1
+    - requiredLevel: 30
+      cWeight: 70
+      uWeight: 27
+      rWeight: 1
+      srWeight: 2
+    - requiredLevel: 40
+      cWeight: 60
+      uWeight: 36
+      rWeight: 1
+      srWeight: 3
+    - requiredLevel: 50
+      cWeight: 50
+      uWeight: 45
+      rWeight: 1
+      srWeight: 4
+    - requiredLevel: 60
+      cWeight: 40
+      uWeight: 54
+      rWeight: 1
+      srWeight: 5
+    - requiredLevel: 70
+      cWeight: 30
+      uWeight: 63
+      rWeight: 1
+      srWeight: 6
+    - requiredLevel: 80
+      cWeight: 20
+      uWeight: 72
+      rWeight: 1
+      srWeight: 7
+    - requiredLevel: 90
+      cWeight: 10
+      uWeight: 81
+      rWeight: 1
+      srWeight: 8
+    - requiredLevel: 100
+      cWeight: 0
+      uWeight: 90
+      rWeight: 1
+      srWeight: 9

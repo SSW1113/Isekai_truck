@@ -15,6 +15,7 @@ namespace IsekaiTruck.Camera
         private float currentZoomMultiplier = 1f;
         private int currentScreenWidth = -1;
         private int currentScreenHeight = -1;
+        private float blessingViewMultiplier = 1f;
 
         public UnityEngine.Camera TargetCamera => targetCamera;
         public Rect ViewportRect { get; private set; } = new Rect(0f, 0f, 1f, 1f);
@@ -48,6 +49,7 @@ namespace IsekaiTruck.Camera
             float truckScale = target.localScale.x;
             float growth = Mathf.Max(0f, truckScale - settings.ZoomStartScale);
             float targetZoomMultiplier = Mathf.Min(1f + growth * settings.ZoomStrength, settings.MaxZoomMultiplier);
+            targetZoomMultiplier = Mathf.Min(targetZoomMultiplier * blessingViewMultiplier, settings.MaxZoomMultiplier);
             float frameScale = Mathf.Max(deltaTime, 0f) * referenceFrameRate;
             float followFactor = GetFrameAdjustedFactor(settings.FollowSpeed, frameScale);
 
@@ -57,6 +59,11 @@ namespace IsekaiTruck.Camera
             transform.position += (targetPosition - transform.position) * followFactor;
 
             return currentZoomMultiplier;
+        }
+
+        public void SetBlessingViewMultiplier(float viewMultiplier)
+        {
+            blessingViewMultiplier = Mathf.Max(1f, viewMultiplier);
         }
 
         private static float GetFrameAdjustedFactor(float perFrameFactor, float frameScale)
