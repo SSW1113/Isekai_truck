@@ -1,0 +1,142 @@
+﻿category,event_id,korean_name,variant,file,source,license
+01_Vehicle,engine_start,엔진 시동,1,01_Vehicle/engine_start_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_start,엔진 시동,2,01_Vehicle/engine_start_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_start,엔진 시동,3,01_Vehicle/engine_start_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_idle_loop,엔진 공회전 루프,1,01_Vehicle/engine_idle_loop_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_idle_loop,엔진 공회전 루프,2,01_Vehicle/engine_idle_loop_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_idle_loop,엔진 공회전 루프,3,01_Vehicle/engine_idle_loop_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_drive_loop,주행 엔진 루프,1,01_Vehicle/engine_drive_loop_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_drive_loop,주행 엔진 루프,2,01_Vehicle/engine_drive_loop_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_drive_loop,주행 엔진 루프,3,01_Vehicle/engine_drive_loop_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_accelerate,가속,1,01_Vehicle/engine_accelerate_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_accelerate,가속,2,01_Vehicle/engine_accelerate_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,engine_accelerate,가속,3,01_Vehicle/engine_accelerate_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,brake_skid,브레이크/타이어 스키드,1,01_Vehicle/brake_skid_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,brake_skid,브레이크/타이어 스키드,2,01_Vehicle/brake_skid_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,brake_skid,브레이크/타이어 스키드,3,01_Vehicle/brake_skid_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,truck_horn,트럭 경적,1,01_Vehicle/truck_horn_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,truck_horn,트럭 경적,2,01_Vehicle/truck_horn_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+01_Vehicle,truck_horn,트럭 경적,3,01_Vehicle/truck_horn_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_hit_light,가벼운 주민 충돌,1,02_Resident_Impact/resident_hit_light_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_hit_light,가벼운 주민 충돌,2,02_Resident_Impact/resident_hit_light_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_hit_light,가벼운 주민 충돌,3,02_Resident_Impact/resident_hit_light_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_hit_heavy,강한 주민 충돌,1,02_Resident_Impact/resident_hit_heavy_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_hit_heavy,강한 주민 충돌,2,02_Resident_Impact/resident_hit_heavy_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_hit_heavy,강한 주민 충돌,3,02_Resident_Impact/resident_hit_heavy_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_launch_whoosh,주민이 날아가는 효과,1,02_Resident_Impact/resident_launch_whoosh_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_launch_whoosh,주민이 날아가는 효과,2,02_Resident_Impact/resident_launch_whoosh_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_launch_whoosh,주민이 날아가는 효과,3,02_Resident_Impact/resident_launch_whoosh_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_reaction_cartoon,비언어적 코믹 반응,1,02_Resident_Impact/resident_reaction_cartoon_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_reaction_cartoon,비언어적 코믹 반응,2,02_Resident_Impact/resident_reaction_cartoon_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,resident_reaction_cartoon,비언어적 코믹 반응,3,02_Resident_Impact/resident_reaction_cartoon_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,soul_release,영혼 방출,1,02_Resident_Impact/soul_release_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,soul_release,영혼 방출,2,02_Resident_Impact/soul_release_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,soul_release,영혼 방출,3,02_Resident_Impact/soul_release_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,soul_collect,영혼 획득,1,02_Resident_Impact/soul_collect_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,soul_collect,영혼 획득,2,02_Resident_Impact/soul_collect_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,soul_collect,영혼 획득,3,02_Resident_Impact/soul_collect_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,xp_collect,경험치 획득,1,02_Resident_Impact/xp_collect_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,xp_collect,경험치 획득,2,02_Resident_Impact/xp_collect_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,xp_collect,경험치 획득,3,02_Resident_Impact/xp_collect_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,combo_step,연속 충돌 콤보,1,02_Resident_Impact/combo_step_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,combo_step,연속 충돌 콤보,2,02_Resident_Impact/combo_step_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+02_Resident_Impact,combo_step,연속 충돌 콤보,3,02_Resident_Impact/combo_step_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,level_up,레벨업,1,03_Progression/level_up_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,level_up,레벨업,2,03_Progression/level_up_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,level_up,레벨업,3,03_Progression/level_up_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_point,업그레이드 포인트 획득,1,03_Progression/upgrade_point_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_point,업그레이드 포인트 획득,2,03_Progression/upgrade_point_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_point,업그레이드 포인트 획득,3,03_Progression/upgrade_point_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_health,체력 업그레이드,1,03_Progression/upgrade_health_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_health,체력 업그레이드,2,03_Progression/upgrade_health_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_health,체력 업그레이드,3,03_Progression/upgrade_health_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_speed,속도 업그레이드,1,03_Progression/upgrade_speed_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_speed,속도 업그레이드,2,03_Progression/upgrade_speed_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_speed,속도 업그레이드,3,03_Progression/upgrade_speed_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_size,크기 업그레이드,1,03_Progression/upgrade_size_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_size,크기 업그레이드,2,03_Progression/upgrade_size_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,upgrade_size,크기 업그레이드,3,03_Progression/upgrade_size_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,custom_unlock,커스터마이징 해금,1,03_Progression/custom_unlock_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,custom_unlock,커스터마이징 해금,2,03_Progression/custom_unlock_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,custom_unlock,커스터마이징 해금,3,03_Progression/custom_unlock_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,insufficient_resource,재화 부족,1,03_Progression/insufficient_resource_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,insufficient_resource,재화 부족,2,03_Progression/insufficient_resource_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,insufficient_resource,재화 부족,3,03_Progression/insufficient_resource_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,permanent_point,영구 포인트 획득,1,03_Progression/permanent_point_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,permanent_point,영구 포인트 획득,2,03_Progression/permanent_point_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+03_Progression,permanent_point,영구 포인트 획득,3,03_Progression/permanent_point_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,wanted_level_up,지명수배 등급 상승,1,04_Wanted_Combat/wanted_level_up_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,wanted_level_up,지명수배 등급 상승,2,04_Wanted_Combat/wanted_level_up_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,wanted_level_up,지명수배 등급 상승,3,04_Wanted_Combat/wanted_level_up_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,enemy_spawn,적 출현,1,04_Wanted_Combat/enemy_spawn_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,enemy_spawn,적 출현,2,04_Wanted_Combat/enemy_spawn_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,enemy_spawn,적 출현,3,04_Wanted_Combat/enemy_spawn_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,police_siren_loop,경찰 사이렌 루프,1,04_Wanted_Combat/police_siren_loop_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,police_siren_loop,경찰 사이렌 루프,2,04_Wanted_Combat/police_siren_loop_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,police_siren_loop,경찰 사이렌 루프,3,04_Wanted_Combat/police_siren_loop_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,truck_damage,트럭 피격,1,04_Wanted_Combat/truck_damage_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,truck_damage,트럭 피격,2,04_Wanted_Combat/truck_damage_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,truck_damage,트럭 피격,3,04_Wanted_Combat/truck_damage_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,low_health_warning,체력 부족 경고,1,04_Wanted_Combat/low_health_warning_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,low_health_warning,체력 부족 경고,2,04_Wanted_Combat/low_health_warning_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,low_health_warning,체력 부족 경고,3,04_Wanted_Combat/low_health_warning_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,truck_destroy,트럭 파괴,1,04_Wanted_Combat/truck_destroy_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,truck_destroy,트럭 파괴,2,04_Wanted_Combat/truck_destroy_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,truck_destroy,트럭 파괴,3,04_Wanted_Combat/truck_destroy_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,respawn,리스폰,1,04_Wanted_Combat/respawn_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,respawn,리스폰,2,04_Wanted_Combat/respawn_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+04_Wanted_Combat,respawn,리스폰,3,04_Wanted_Combat/respawn_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_available,포탈 사용 가능,1,05_Portal_Rebirth/portal_available_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_available,포탈 사용 가능,2,05_Portal_Rebirth/portal_available_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_available,포탈 사용 가능,3,05_Portal_Rebirth/portal_available_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_summon,포탈 소환,1,05_Portal_Rebirth/portal_summon_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_summon,포탈 소환,2,05_Portal_Rebirth/portal_summon_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_summon,포탈 소환,3,05_Portal_Rebirth/portal_summon_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_loop,포탈 유지 루프,1,05_Portal_Rebirth/portal_loop_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_loop,포탈 유지 루프,2,05_Portal_Rebirth/portal_loop_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_loop,포탈 유지 루프,3,05_Portal_Rebirth/portal_loop_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_enter,포탈 진입,1,05_Portal_Rebirth/portal_enter_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_enter,포탈 진입,2,05_Portal_Rebirth/portal_enter_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,portal_enter,포탈 진입,3,05_Portal_Rebirth/portal_enter_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,world_arrival,새 세계 도착,1,05_Portal_Rebirth/world_arrival_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,world_arrival,새 세계 도착,2,05_Portal_Rebirth/world_arrival_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,world_arrival,새 세계 도착,3,05_Portal_Rebirth/world_arrival_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rebirth_available,환생 가능,1,05_Portal_Rebirth/rebirth_available_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rebirth_available,환생 가능,2,05_Portal_Rebirth/rebirth_available_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rebirth_available,환생 가능,3,05_Portal_Rebirth/rebirth_available_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rebirth_execute,환생 실행,1,05_Portal_Rebirth/rebirth_execute_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rebirth_execute,환생 실행,2,05_Portal_Rebirth/rebirth_execute_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rebirth_execute,환생 실행,3,05_Portal_Rebirth/rebirth_execute_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,blessing_reveal,축복 공개,1,05_Portal_Rebirth/blessing_reveal_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,blessing_reveal,축복 공개,2,05_Portal_Rebirth/blessing_reveal_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,blessing_reveal,축복 공개,3,05_Portal_Rebirth/blessing_reveal_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,blessing_select,축복 선택,1,05_Portal_Rebirth/blessing_select_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,blessing_select,축복 선택,2,05_Portal_Rebirth/blessing_select_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,blessing_select,축복 선택,3,05_Portal_Rebirth/blessing_select_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rare_blessing,고등급 축복,1,05_Portal_Rebirth/rare_blessing_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rare_blessing,고등급 축복,2,05_Portal_Rebirth/rare_blessing_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,rare_blessing,고등급 축복,3,05_Portal_Rebirth/rare_blessing_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,skill_ready,액티브 스킬 준비,1,05_Portal_Rebirth/skill_ready_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,skill_ready,액티브 스킬 준비,2,05_Portal_Rebirth/skill_ready_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,skill_ready,액티브 스킬 준비,3,05_Portal_Rebirth/skill_ready_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,skill_activate,축복 스킬 발동,1,05_Portal_Rebirth/skill_activate_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,skill_activate,축복 스킬 발동,2,05_Portal_Rebirth/skill_activate_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+05_Portal_Rebirth,skill_activate,축복 스킬 발동,3,05_Portal_Rebirth/skill_activate_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_select,UI 선택,1,06_UI/ui_select_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_select,UI 선택,2,06_UI/ui_select_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_select,UI 선택,3,06_UI/ui_select_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_confirm,UI 확인,1,06_UI/ui_confirm_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_confirm,UI 확인,2,06_UI/ui_confirm_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_confirm,UI 확인,3,06_UI/ui_confirm_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_cancel,UI 취소,1,06_UI/ui_cancel_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_cancel,UI 취소,2,06_UI/ui_cancel_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_cancel,UI 취소,3,06_UI/ui_cancel_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_menu_open,메뉴 열기,1,06_UI/ui_menu_open_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_menu_open,메뉴 열기,2,06_UI/ui_menu_open_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_menu_open,메뉴 열기,3,06_UI/ui_menu_open_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_error,UI 오류,1,06_UI/ui_error_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_error,UI 오류,2,06_UI/ui_error_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,ui_error,UI 오류,3,06_UI/ui_error_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,game_start,게임 시작,1,06_UI/game_start_v01.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,game_start,게임 시작,2,06_UI/game_start_v02.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
+06_UI,game_start,게임 시작,3,06_UI/game_start_v03.wav,Original procedural synthesis for Isekai_truck,Project-owned original / no external samples
