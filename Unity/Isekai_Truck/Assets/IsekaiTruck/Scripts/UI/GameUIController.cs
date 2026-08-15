@@ -77,7 +77,10 @@ namespace IsekaiTruck.UI
 
             levelText.text = $"Lv. {player.Level}";
             expText.text = $"EXP {player.Exp} / {player.RequiredExp}";
-            expFill.fillAmount = Mathf.Clamp01(expRatio);
+            RectTransform expFillRect = expFill.rectTransform;
+            Vector2 expFillAnchorMax = expFillRect.anchorMax;
+            expFillAnchorMax.x = Mathf.Clamp01(expRatio);
+            expFillRect.anchorMax = expFillAnchorMax;
             soulText.text = $"영혼 {player.Soul}";
             pointText.text = $"포인트 {player.UpgradePoints}";
             upgradePointText.text = $"남은 포인트: {player.UpgradePoints}";

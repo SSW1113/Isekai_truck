@@ -20,6 +20,10 @@ namespace IsekaiTruck.UI
         [SerializeField] private Button openButton;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button confirmButton;
+        [SerializeField] private GameObject confirmationPopup;
+        [SerializeField] private Text confirmationText;
+        [SerializeField] private Button confirmPopupButton;
+        [SerializeField] private Button cancelPopupButton;
         [SerializeField] private Button[] tierButtons;
         [SerializeField] private Text[] tierLabels;
         [SerializeField] private Button[] candidateButtons;
@@ -30,8 +34,10 @@ namespace IsekaiTruck.UI
         private PlayerState playerState;
         private JoystickInput joystickInput;
         private int selectedTierIndex = -1;
+        private int originalSiblingIndex;
 
         public bool IsPanelOpen => rebirthPanel != null && rebirthPanel.activeSelf;
+        public bool IsConfirmationOpen => confirmationPopup != null && confirmationPopup.activeSelf;
 
         public void Initialize(RebirthSystem rebirth, BlessingSystem blessings, PlayerState player, JoystickInput input, CameraController cameraController)
         {
@@ -39,6 +45,7 @@ namespace IsekaiTruck.UI
             blessingSystem = blessings;
             playerState = player;
             joystickInput = input;
+            originalSiblingIndex = transform.GetSiblingIndex();
 
             playerState.StateChanged += HandlePlayerStateChanged;
             rebirthSystem.StateChanged += Refresh;
@@ -46,6 +53,8 @@ namespace IsekaiTruck.UI
             openButton.onClick.AddListener(OpenPanel);
             closeButton.onClick.AddListener(ClosePanel);
             confirmButton.onClick.AddListener(ConfirmRebirth);
+            confirmPopupButton.onClick.AddListener(BeginConfirmedRebirth);
+            cancelPopupButton.onClick.AddListener(CancelRebirth);
 
             for (int i = 0; i < tierButtons.Length; i++)
             {
@@ -59,9 +68,11 @@ namespace IsekaiTruck.UI
                 candidateButtons[i].onClick.AddListener(() => ChooseBlessing(candidateIndex));
             }
 
+            confirmationPopup.SetActive(false);
             rebirthPanel.SetActive(rebirthSystem.HasPendingRebirth);
             if (rebirthSystem.HasPendingRebirth)
             {
+                BringToFront();
                 joystickInput.SetInputEnabled(false);
             }
 
@@ -94,6 +105,7 @@ namespace IsekaiTruck.UI
 
             if (hasPending)
             {
+                confirmationPopup.SetActive(false);
                 RefreshCandidates();
                 guideText.text = "여신의 축복을 하나 선택하세요. 후보는 다시 뽑을 수 없습니다.";
                 return;
@@ -173,6 +185,8 @@ namespace IsekaiTruck.UI
 
         private void OpenPanel()
         {
+            BringToFront();
+            confirmationPopup.SetActive(false);
             rebirthPanel.SetActive(true);
             joystickInput.SetInputEnabled(false);
             selectedTierIndex = FindHighestEligibleTier();
@@ -186,7 +200,9 @@ namespace IsekaiTruck.UI
                 return;
             }
 
+            confirmationPopup.SetActive(false);
             rebirthPanel.SetActive(false);
+            RestoreSiblingOrder();
             joystickInput.SetInputEnabled(true);
         }
 
@@ -203,10 +219,25 @@ namespace IsekaiTruck.UI
 
         private void ConfirmRebirth()
         {
-            if (rebirthSystem.BeginRebirth(selectedTierIndex))
+            if (!rebirthSystem.CanBeginRebirth(selectedTierIndex))
             {
-                Refresh();
+                return;
             }
+
+            int requiredLevel = rebirthSystem.Tiers[selectedTierIndex].RequiredLevel;
+            confirmationText.text = $"Lv.{requiredLevel} 환생을 진행합니다.\n레벨과 트럭 업그레이드가 초기화됩니다.\n정말 환생하시겠습니까?";
+            confirmationPopup.SetActive(true);
+        }
+
+        private void BeginConfirmedRebirth()
+        {
+            confirmationPopup.SetActive(false);
+            if (rebirthSystem.BeginRebirth(selectedTierIndex)) Refresh();
+        }
+
+        private void CancelRebirth()
+        {
+            confirmationPopup.SetActive(false);
         }
 
         private void ChooseBlessing(int candidateIndex)
@@ -218,9 +249,25 @@ namespace IsekaiTruck.UI
 
             Debug.Log($"환생 완료: [{result.Blessing.Grade}] {result.Blessing.DisplayName}, 획득 배율 x{result.RewardMultiplier:F1}", this);
             rebirthPanel.SetActive(false);
+            RestoreSiblingOrder();
             joystickInput.SetInputEnabled(true);
             selectedTierIndex = -1;
             Refresh();
+        }
+
+        private void BringToFront()
+        {
+            transform.SetAsLastSibling();
+        }
+
+        private void RestoreSiblingOrder()
+        {
+            if (transform.parent == null)
+            {
+                return;
+            }
+
+            transform.SetSiblingIndex(Mathf.Min(originalSiblingIndex, transform.parent.childCount - 1));
         }
 
         private void HandlePlayerStateChanged(PlayerSnapshot state)
@@ -236,6 +283,8 @@ namespace IsekaiTruck.UI
             if (openButton != null) openButton.onClick.RemoveListener(OpenPanel);
             if (closeButton != null) closeButton.onClick.RemoveListener(ClosePanel);
             if (confirmButton != null) confirmButton.onClick.RemoveListener(ConfirmRebirth);
+            if (confirmPopupButton != null) confirmPopupButton.onClick.RemoveListener(BeginConfirmedRebirth);
+            if (cancelPopupButton != null) cancelPopupButton.onClick.RemoveListener(CancelRebirth);
         }
 
 #if UNITY_EDITOR
@@ -249,6 +298,10 @@ namespace IsekaiTruck.UI
             Button targetOpenButton,
             Button targetCloseButton,
             Button targetConfirmButton,
+            GameObject targetConfirmationPopup,
+            Text targetConfirmationText,
+            Button targetConfirmPopupButton,
+            Button targetCancelPopupButton,
             Button[] targetTierButtons,
             Text[] targetTierLabels,
             Button[] targetCandidateButtons,
@@ -264,10 +317,22 @@ namespace IsekaiTruck.UI
             openButton = targetOpenButton;
             closeButton = targetCloseButton;
             confirmButton = targetConfirmButton;
+            confirmationPopup = targetConfirmationPopup;
+            confirmationText = targetConfirmationText;
+            confirmPopupButton = targetConfirmPopupButton;
+            cancelPopupButton = targetCancelPopupButton;
             tierButtons = targetTierButtons;
             tierLabels = targetTierLabels;
             candidateButtons = targetCandidateButtons;
             candidateLabels = targetCandidateLabels;
+        }
+
+        public void SetConfirmationReferences(GameObject targetConfirmationPopup, Text targetConfirmationText, Button targetConfirmPopupButton, Button targetCancelPopupButton)
+        {
+            confirmationPopup = targetConfirmationPopup;
+            confirmationText = targetConfirmationText;
+            confirmPopupButton = targetConfirmPopupButton;
+            cancelPopupButton = targetCancelPopupButton;
         }
 #endif
     }

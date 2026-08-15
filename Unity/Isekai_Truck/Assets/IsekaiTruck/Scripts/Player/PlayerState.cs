@@ -38,8 +38,13 @@ namespace IsekaiTruck.Player
 
         public RewardResult AddRewards(int expGain = 0, int soulGain = 0, float rewardMultiplier = 1f)
         {
-            float scaledExp = Mathf.Max(0, expGain) * Mathf.Max(0f, rewardMultiplier) + expRewardRemainder;
-            float scaledSoul = Mathf.Max(0, soulGain) * Mathf.Max(0f, rewardMultiplier) + soulRewardRemainder;
+            return AddRewards(expGain, soulGain, rewardMultiplier, rewardMultiplier);
+        }
+
+        public RewardResult AddRewards(int expGain, int soulGain, float expMultiplier, float soulMultiplier)
+        {
+            float scaledExp = Mathf.Max(0, expGain) * Mathf.Max(0f, expMultiplier) + expRewardRemainder;
+            float scaledSoul = Mathf.Max(0, soulGain) * Mathf.Max(0f, soulMultiplier) + soulRewardRemainder;
             int appliedExp = Mathf.FloorToInt(scaledExp + 0.00001f);
             int appliedSoul = Mathf.FloorToInt(scaledSoul + 0.00001f);
 

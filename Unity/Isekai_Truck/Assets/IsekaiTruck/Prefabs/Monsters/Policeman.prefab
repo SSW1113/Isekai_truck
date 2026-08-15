@@ -36,6 +36,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1950366111743342090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334241949915091576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c132347ac579848abe3a0be55bfe90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Monsters.MonsterDefinition
+  typeId: policeman
+  displayName: "\uACBD\uCC30"
+  color: {r: 0.007843138, g: 0.3372549, b: 0.9490196, a: 1}
+  size: 0.9
+  speed: 0.14
+  fleeDistance: 11
+  exp: 300
+  soul: 15
+  spawnWeight: 5
 --- !u!33 &3605643383018789734
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -93,27 +114,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1950366111743342090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334241949915091576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92c132347ac579848abe3a0be55bfe90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Monsters.MonsterDefinition
-  typeId: policeman
-  displayName: "\uACBD\uCC30"
-  color: {r: 0.007843138, g: 0.3372549, b: 0.9490196, a: 1}
-  size: 0.9
-  speed: 0.14
-  fleeDistance: 11
-  exp: 300
-  soul: 15
-  spawnWeight: 5
 --- !u!114 &1738106972918245565
 MonoBehaviour:
   m_ObjectHideFlags: 0

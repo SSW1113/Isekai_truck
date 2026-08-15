@@ -42,6 +42,10 @@ namespace IsekaiTruck.Monsters
             referenceFrameRate = gameConfig.ReferenceFrameRate;
             truck = truckTransform;
             monsterRoot = monsterRoot == null ? transform : monsterRoot;
+            areaSlowRadius = 0f;
+            areaSlowMultiplier = 1f;
+            isWorldPaused = false;
+            pausedTimeMilliseconds = 0f;
             LoadMonsterTypes();
         }
 

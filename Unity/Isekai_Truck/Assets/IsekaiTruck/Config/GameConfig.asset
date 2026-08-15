@@ -17,7 +17,7 @@ MonoBehaviour:
     baseMaxSpeed: 0.3
     acceleration: 0.003
     friction: 0.94
-    turnSpeed: 0.08
+    turnSpeed: 0.12
     speedPerUpgrade: 0.01
     sizePerUpgrade: 0.1
   world:
@@ -59,8 +59,11 @@ MonoBehaviour:
     baseRequiredExp: 100
     expGrowth: 1.5
     upgradePointPerLevel: 1
+  wanted:
+    killsPerLevel: 50
+    maxLevel: 10
   rebirth:
-    rewardMultiplierPerMaxRebirth: 0.1
+    rewardMultiplierPerMaxRebirth: 0.5
     blessingCandidateCount: 3
     tiers:
     - requiredLevel: 10
@@ -113,3 +116,9 @@ MonoBehaviour:
       uWeight: 90
       rWeight: 1
       srWeight: 9
+  blessing:
+    slotCount: 3
+    cDismantleSoul: 200
+    uDismantleSoul: 300
+    rDismantleSoul: 400
+    srDismantleSoul: 600

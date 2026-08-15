@@ -87,6 +87,40 @@ namespace IsekaiTruck.Editor
             }
         }
 
+        [MenuItem("Isekai Truck/Setup Rebirth Confirmation Popup")]
+        public static void SetupConfirmationPopup()
+        {
+            Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            RebirthUIController controller = Object.FindFirstObjectByType<RebirthUIController>();
+            if (controller == null)
+            {
+                throw new InvalidOperationException("RebirthUIController was not found.");
+            }
+
+            SerializedObject serializedUI = new SerializedObject(controller);
+            GameObject rebirthPanel = (GameObject)serializedUI.FindProperty("rebirthPanel").objectReferenceValue;
+            if (rebirthPanel == null)
+            {
+                throw new InvalidOperationException("Rebirth Panel reference is missing.");
+            }
+
+            Transform existingPopup = rebirthPanel.transform.Find("Rebirth Confirmation Popup");
+            if (existingPopup != null)
+            {
+                Object.DestroyImmediate(existingPopup.gameObject);
+            }
+
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            GameObject confirmationPopup = CreateConfirmationPopup(rebirthPanel.transform, font, out Text confirmationText, out Button confirmPopupButton, out Button cancelPopupButton);
+            controller.SetConfirmationReferences(confirmationPopup, confirmationText, confirmPopupButton, cancelPopupButton);
+            EditorUtility.SetDirty(controller);
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene, ScenePath);
+            AssetDatabase.SaveAssets();
+            Verify();
+        }
+
         public static void Verify()
         {
             GameConfig config = AssetDatabase.LoadAssetAtPath<GameConfig>(ConfigPath);
@@ -118,7 +152,8 @@ namespace IsekaiTruck.Editor
             string[] uiReferences =
             {
                 "gameArea", "rebirthPanel", "tierPanel", "candidatePanel", "statusText", "guideText",
-                "openButton", "closeButton", "confirmButton", "tierButtons", "tierLabels", "candidateButtons", "candidateLabels"
+                "openButton", "closeButton", "confirmButton", "confirmationPopup", "confirmationText", "confirmPopupButton",
+                "cancelPopupButton", "tierButtons", "tierLabels", "candidateButtons", "candidateLabels"
             };
             for (int i = 0; i < uiReferences.Length; i++)
             {
@@ -128,6 +163,13 @@ namespace IsekaiTruck.Editor
                 {
                     throw new InvalidOperationException($"RebirthUIController reference is missing: {uiReferences[i]}");
                 }
+            }
+
+            GameObject rebirthPanel = (GameObject)serializedUI.FindProperty("rebirthPanel").objectReferenceValue;
+            GameObject confirmationPopup = (GameObject)serializedUI.FindProperty("confirmationPopup").objectReferenceValue;
+            if (confirmationPopup.transform.parent != rebirthPanel.transform || confirmationPopup.activeSelf)
+            {
+                throw new InvalidOperationException("Rebirth confirmation popup hierarchy or initial state is incorrect.");
             }
 
             VerifyRuntimeFlow(config, catalog);
@@ -239,7 +281,8 @@ namespace IsekaiTruck.Editor
                     throw new InvalidOperationException("Rebirth reset or retained-state rules are incorrect.");
                 }
 
-                if (!firstResult.IsMaximumTier || !Mathf.Approximately(rebirth.RewardMultiplier, 1.1f) || rebirth.MaxUnlockedTierIndex != 1 || blessings.TotalOwnedCount != 1)
+                float expectedRewardMultiplier = 1f + config.Rebirth.RewardMultiplierPerMaxRebirth;
+                if (!firstResult.IsMaximumTier || !Mathf.Approximately(rebirth.RewardMultiplier, expectedRewardMultiplier) || rebirth.MaxUnlockedTierIndex != 1 || blessings.TotalOwnedCount != 1)
                 {
                     throw new InvalidOperationException("Maximum-tier rebirth progression is incorrect.");
                 }
@@ -247,7 +290,7 @@ namespace IsekaiTruck.Editor
                 player.RestoreState(20, 0, 50, 0, 0f, 0f);
                 rebirth.BeginRebirth(0);
                 rebirth.CompleteRebirth(0, out RebirthResult lowerResult);
-                if (lowerResult.IsMaximumTier || !Mathf.Approximately(rebirth.RewardMultiplier, 1.1f) || rebirth.MaxUnlockedTierIndex != 1)
+                if (lowerResult.IsMaximumTier || !Mathf.Approximately(rebirth.RewardMultiplier, expectedRewardMultiplier) || rebirth.MaxUnlockedTierIndex != 1)
                 {
                     throw new InvalidOperationException("Lower-tier rebirth changed the multiplier or maximum tier.");
                 }
@@ -374,9 +417,9 @@ namespace IsekaiTruck.Editor
                     {
                         definition = ScriptableObject.CreateInstance<BlessingDefinition>();
                         AssetDatabase.CreateAsset(definition, path);
+                        definition.Configure(id, $"{grade} 축복 {index}", grade, "효과는 다음 단계에서 설정됩니다.");
                     }
 
-                    definition.Configure(id, $"{grade} 축복 {index}", grade, "효과는 다음 단계에서 설정됩니다.");
                     EditorUtility.SetDirty(definition);
                     definitions.Add(definition);
                 }
@@ -459,9 +502,38 @@ namespace IsekaiTruck.Editor
             Button closeButton = CreateButton("Close Rebirth Button", box.transform, font, "닫기", 21);
             SetBottomRect(closeButton.GetComponent<RectTransform>(), 15f, 46f, 190f);
 
-            controller.SetReferences(gameArea, panel, tierPanel, candidatePanel, statusText, guideText, openButton, closeButton, confirmButton, tierButtons, tierLabels, candidateButtons, candidateLabels);
+            GameObject confirmationPopup = CreateConfirmationPopup(panel.transform, font, out Text confirmationText, out Button confirmPopupButton, out Button cancelPopupButton);
+            controller.SetReferences(gameArea, panel, tierPanel, candidatePanel, statusText, guideText, openButton, closeButton, confirmButton, confirmationPopup, confirmationText, confirmPopupButton, cancelPopupButton, tierButtons, tierLabels, candidateButtons, candidateLabels);
             panel.SetActive(false);
             return controller;
+        }
+
+        private static GameObject CreateConfirmationPopup(Transform parent, Font font, out Text confirmationText, out Button confirmPopupButton, out Button cancelPopupButton)
+        {
+            GameObject popup = CreatePanel("Rebirth Confirmation Popup", parent, new Color(0f, 0f, 0f, 0.78f));
+            Stretch(popup.GetComponent<RectTransform>());
+
+            GameObject box = CreatePanel("Confirmation Box", popup.transform, new Color(0.08f, 0.08f, 0.1f, 1f));
+            RectTransform boxRect = box.GetComponent<RectTransform>();
+            boxRect.anchorMin = new Vector2(0.5f, 0.5f);
+            boxRect.anchorMax = new Vector2(0.5f, 0.5f);
+            boxRect.pivot = new Vector2(0.5f, 0.5f);
+            boxRect.sizeDelta = new Vector2(520f, 340f);
+
+            Text title = CreateText("Confirmation Title", box.transform, font, "환생 확인", 30, TextAnchor.MiddleCenter);
+            SetTopRect(title.rectTransform, 22f, 52f, 24f);
+            confirmationText = CreateText("Confirmation Text", box.transform, font, string.Empty, 21, TextAnchor.MiddleCenter);
+            confirmationText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            confirmationText.verticalOverflow = VerticalWrapMode.Overflow;
+            SetTopRect(confirmationText.rectTransform, 82f, 140f, 32f);
+
+            confirmPopupButton = CreateButton("Confirm Rebirth Popup Button", box.transform, font, "환생하기", 23);
+            SetRect(confirmPopupButton.GetComponent<RectTransform>(), Vector2.zero, new Vector2(0.5f, 0f), new Vector2(26f, 26f), new Vector2(-8f, 88f));
+            cancelPopupButton = CreateButton("Cancel Rebirth Popup Button", box.transform, font, "취소", 23);
+            SetRect(cancelPopupButton.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(1f, 0f), new Vector2(8f, 26f), new Vector2(-26f, 88f));
+
+            popup.SetActive(false);
+            return popup;
         }
 
         private static void EnsureFolder(string path)

@@ -13,6 +13,7 @@ namespace IsekaiTruck.Config
         [SerializeField] private MonsterSettings monster = new MonsterSettings();
         [SerializeField] private SpawnSettings spawn = new SpawnSettings();
         [SerializeField] private PlayerSettings player = new PlayerSettings();
+        [SerializeField] private WantedSettings wanted = new WantedSettings();
         [SerializeField] private RebirthSettings rebirth = new RebirthSettings();
         [SerializeField] private BlessingSettings blessing = new BlessingSettings();
 
@@ -23,6 +24,7 @@ namespace IsekaiTruck.Config
         public MonsterSettings Monster => monster;
         public SpawnSettings Spawn => spawn;
         public PlayerSettings Player => player;
+        public WantedSettings Wanted => wanted;
         public RebirthSettings Rebirth => rebirth;
         public BlessingSettings Blessing => blessing;
 
@@ -140,6 +142,16 @@ namespace IsekaiTruck.Config
             public int BaseRequiredExp => baseRequiredExp;
             public float ExpGrowth => expGrowth;
             public int UpgradePointPerLevel => upgradePointPerLevel;
+        }
+
+        [Serializable]
+        public sealed class WantedSettings
+        {
+            [SerializeField, Min(1)] private int killsPerLevel = 50;
+            [SerializeField, Range(1, 10)] private int maxLevel = 10;
+
+            public int KillsPerLevel => killsPerLevel;
+            public int MaxLevel => maxLevel;
         }
 
         [Serializable]

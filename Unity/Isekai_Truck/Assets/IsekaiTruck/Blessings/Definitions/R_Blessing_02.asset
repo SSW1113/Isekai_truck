@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: R_Blessing_02
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Blessings.BlessingDefinition
   id: r_blessing_02
-  displayName: "R \uCD95\uBCF5 2"
+  displayName: "\uC2A4\uD53C\uB4DC\uC5C5"
   grade: 2
-  description: "\uD6A8\uACFC\uB294 \uB2E4\uC74C \uB2E8\uACC4\uC5D0\uC11C \uC124\uC815\uB429\uB2C8\uB2E4."
+  activationType: 0
+  effectType: 6
+  effectValue: 1.1
+  duration: 0
+  interval: 0
+  radius: 0
+  description: "\uD2B8\uB7ED\uC758 \uC18D\uB3C4\uAC00 1.1\uBC30 \uC99D\uAC00\uD569\uB2C8\uB2E4."

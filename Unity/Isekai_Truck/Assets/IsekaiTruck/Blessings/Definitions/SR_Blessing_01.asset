@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: SR_Blessing_01
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Blessings.BlessingDefinition
   id: sr_blessing_01
-  displayName: "SR \uCD95\uBCF5 1"
+  displayName: "\uC2DC\uAC04 \uC815\uC9C0"
   grade: 3
-  description: "\uD6A8\uACFC\uB294 \uB2E4\uC74C \uB2E8\uACC4\uC5D0\uC11C \uC124\uC815\uB429\uB2C8\uB2E4."
+  activationType: 1
+  effectType: 8
+  effectValue: 1
+  duration: 9
+  interval: 0
+  radius: 0
+  description: "9\uCD08 \uB3D9\uC548 \uD2B8\uB7ED\uC744 \uC81C\uC678\uD55C \uAC8C\uC784
+    \uC624\uBE0C\uC81D\uD2B8\uC758 \uC2DC\uAC04\uC744 \uC815\uC9C0\uD569\uB2C8\uB2E4."

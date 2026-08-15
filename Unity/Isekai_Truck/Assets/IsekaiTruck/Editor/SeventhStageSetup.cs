@@ -124,8 +124,18 @@ namespace IsekaiTruck.Editor
                 Button speedButton = (Button)serializedUI.FindProperty("speedButton").objectReferenceValue;
                 Text levelText = (Text)serializedUI.FindProperty("levelText").objectReferenceValue;
                 Text pointText = (Text)serializedUI.FindProperty("pointText").objectReferenceValue;
+                Image expFill = (Image)serializedUI.FindProperty("expFill").objectReferenceValue;
 
-                player.AddRewards(player.RequiredExp);
+                int requiredExp = player.RequiredExp;
+                int halfExp = requiredExp / 2;
+                player.AddRewards(halfExp);
+                float expectedExpRatio = (float)halfExp / requiredExp;
+                if (!Mathf.Approximately(expFill.rectTransform.anchorMax.x, expectedExpRatio))
+                {
+                    throw new InvalidOperationException("EXP bar does not match the current EXP ratio.");
+                }
+
+                player.AddRewards(requiredExp - halfExp);
                 openButton.onClick.Invoke();
 
                 if (!uiController.IsUpgradePanelOpen || joystickInput.enabled)
@@ -193,11 +203,11 @@ namespace IsekaiTruck.Editor
             SetRect(expBar.GetComponent<RectTransform>(), new Vector2(0f, 0.10f), new Vector2(1f, 0.25f), new Vector2(12f, 0f), new Vector2(-12f, 0f));
 
             GameObject expFillObject = CreatePanel("EXP Fill", expBar.transform, new Color(1f, 0.83f, 0.23f, 1f));
-            Stretch(expFillObject.GetComponent<RectTransform>());
+            RectTransform expFillRect = expFillObject.GetComponent<RectTransform>();
+            Stretch(expFillRect);
+            expFillRect.anchorMax = new Vector2(0f, 1f);
             Image expFill = expFillObject.GetComponent<Image>();
-            expFill.type = Image.Type.Filled;
-            expFill.fillMethod = Image.FillMethod.Horizontal;
-            expFill.fillAmount = 0f;
+            expFill.type = Image.Type.Simple;
 
             GameObject upgradePanel = CreatePanel("Upgrade Panel", gameArea, new Color(0f, 0f, 0f, 0.62f));
             Stretch(upgradePanel.GetComponent<RectTransform>());
