@@ -1,5 +1,6 @@
 using System;
 using IsekaiTruck.Camera;
+using IsekaiTruck.Enemies;
 using IsekaiTruck.Monsters;
 using IsekaiTruck.Truck;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace IsekaiTruck.Blessings
         private TruckController truckController;
         private CameraController cameraController;
         private MonsterManager monsterManager;
+        private EnemyManager enemyManager;
         private Transform truck;
         private float[] activeRemaining;
         private float[] periodicRemaining;
@@ -26,10 +28,16 @@ namespace IsekaiTruck.Blessings
 
         public void Initialize(BlessingLoadoutSystem loadout, TruckController truckControllerTarget, CameraController cameraControllerTarget, MonsterManager monsterManagerTarget)
         {
+            Initialize(loadout, truckControllerTarget, cameraControllerTarget, monsterManagerTarget, null);
+        }
+
+        public void Initialize(BlessingLoadoutSystem loadout, TruckController truckControllerTarget, CameraController cameraControllerTarget, MonsterManager monsterManagerTarget, EnemyManager enemyManagerTarget)
+        {
             loadoutSystem = loadout;
             truckController = truckControllerTarget;
             cameraController = cameraControllerTarget;
             monsterManager = monsterManagerTarget;
+            enemyManager = enemyManagerTarget;
             truck = truckController.transform;
             activeRemaining = new float[loadoutSystem.SlotCount];
             periodicRemaining = new float[loadoutSystem.SlotCount];
@@ -191,6 +199,7 @@ namespace IsekaiTruck.Blessings
             cameraController.SetBlessingViewMultiplier(viewMultiplier);
             monsterManager.SetAreaSpeedModifier(monsterSlowRadius, monsterSpeedMultiplier);
             monsterManager.SetWorldPaused(isTimeStopped);
+            enemyManager?.SetWorldPaused(isTimeStopped);
         }
 
         private void OnDestroy()

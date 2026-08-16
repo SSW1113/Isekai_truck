@@ -22,6 +22,7 @@ namespace IsekaiTruck.Save
         private BlessingSystem blessingSystem;
         private BlessingLoadoutSystem loadoutSystem;
         private WantedLevelSystem wantedLevelSystem;
+        private TruckHealthController truckHealthController;
         private TruckUpgradeSystem upgradeSystem;
         private float nextAutosaveTime;
         private bool isInitialized;
@@ -32,15 +33,20 @@ namespace IsekaiTruck.Save
 
         public void Initialize(PlayerState player, TruckController truck, RebirthSystem rebirth, BlessingSystem blessings, TruckUpgradeSystem upgrades)
         {
-            Initialize(player, truck, rebirth, blessings, null, null, upgrades);
+            Initialize(player, truck, rebirth, blessings, null, null, null, upgrades);
         }
 
         public void Initialize(PlayerState player, TruckController truck, RebirthSystem rebirth, BlessingSystem blessings, BlessingLoadoutSystem loadout, TruckUpgradeSystem upgrades)
         {
-            Initialize(player, truck, rebirth, blessings, loadout, null, upgrades);
+            Initialize(player, truck, rebirth, blessings, loadout, null, null, upgrades);
         }
 
         public void Initialize(PlayerState player, TruckController truck, RebirthSystem rebirth, BlessingSystem blessings, BlessingLoadoutSystem loadout, WantedLevelSystem wanted, TruckUpgradeSystem upgrades)
+        {
+            Initialize(player, truck, rebirth, blessings, loadout, wanted, null, upgrades);
+        }
+
+        public void Initialize(PlayerState player, TruckController truck, RebirthSystem rebirth, BlessingSystem blessings, BlessingLoadoutSystem loadout, WantedLevelSystem wanted, TruckHealthController health, TruckUpgradeSystem upgrades)
         {
             playerState = player;
             truckController = truck;
@@ -48,6 +54,7 @@ namespace IsekaiTruck.Save
             blessingSystem = blessings;
             loadoutSystem = loadout;
             wantedLevelSystem = wanted;
+            truckHealthController = health;
             upgradeSystem = upgrades;
 
             Load();
@@ -57,6 +64,7 @@ namespace IsekaiTruck.Save
             blessingSystem.StateChanged += HandleStateChanged;
             if (loadoutSystem != null) loadoutSystem.StateChanged += HandleStateChanged;
             if (wantedLevelSystem != null) wantedLevelSystem.StateChanged += HandleWantedStateChanged;
+            if (truckHealthController != null) truckHealthController.StateChanged += HandleTruckHealthStateChanged;
             upgradeSystem.UpgradeApplied += HandleUpgradeApplied;
             nextAutosaveTime = Time.realtimeSinceStartup + AutosaveInterval;
             lastSavedTruckPosition = truckController.transform.position;
@@ -94,7 +102,7 @@ namespace IsekaiTruck.Save
 
             PlayerProgressData data = new PlayerProgressData
             {
-                version = 3,
+                version = 4,
                 level = player.Level,
                 exp = player.Exp,
                 soul = player.Soul,
@@ -113,7 +121,8 @@ namespace IsekaiTruck.Save
                 ownedBlessings = blessingSystem.GetOwnedSnapshot(),
                 pendingCandidateIds = blessingSystem.GetPendingCandidateIds(),
                 equippedBlessingIds = loadoutSystem?.GetSnapshot() ?? new List<string>(),
-                totalKills = wantedLevelSystem?.TotalKills ?? 0
+                totalKills = wantedLevelSystem?.TotalKills ?? 0,
+                truckHealth = truckHealthController?.CurrentHealth ?? 0
             };
 
             PlayerPrefs.SetString(saveKey, JsonUtility.ToJson(data));
@@ -132,7 +141,7 @@ namespace IsekaiTruck.Save
 
             string json = PlayerPrefs.GetString(saveKey);
             PlayerProgressData data = JsonUtility.FromJson<PlayerProgressData>(json);
-            if (data == null || data.version < 1 || data.version > 3)
+            if (data == null || data.version < 1 || data.version > 4)
             {
                 Debug.LogWarning("Player progress save is invalid or unsupported.", this);
                 return false;
@@ -144,6 +153,11 @@ namespace IsekaiTruck.Save
             loadoutSystem?.RestoreState(data.equippedBlessingIds);
             rebirthSystem.RestoreState(data.totalRebirthCount, data.maxRebirthCount, data.maxUnlockedTierIndex, data.pendingTierIndex);
             wantedLevelSystem?.RestoreState(data.totalKills);
+            if (truckHealthController != null)
+            {
+                int restoredHealth = data.version >= 4 ? data.truckHealth : truckHealthController.MaxHealth;
+                truckHealthController.RestoreState(restoredHealth);
+            }
             return true;
         }
 
@@ -158,6 +172,11 @@ namespace IsekaiTruck.Save
         }
 
         private void HandleWantedStateChanged(WantedLevelSnapshot state)
+        {
+            isDirty = true;
+        }
+
+        private void HandleTruckHealthStateChanged(TruckHealthSnapshot state)
         {
             isDirty = true;
         }
@@ -192,6 +211,7 @@ namespace IsekaiTruck.Save
             if (blessingSystem != null) blessingSystem.StateChanged -= HandleStateChanged;
             if (loadoutSystem != null) loadoutSystem.StateChanged -= HandleStateChanged;
             if (wantedLevelSystem != null) wantedLevelSystem.StateChanged -= HandleWantedStateChanged;
+            if (truckHealthController != null) truckHealthController.StateChanged -= HandleTruckHealthStateChanged;
             if (upgradeSystem != null) upgradeSystem.UpgradeApplied -= HandleUpgradeApplied;
         }
 
@@ -232,5 +252,6 @@ namespace IsekaiTruck.Save
         public List<string> pendingCandidateIds = new List<string>();
         public List<string> equippedBlessingIds = new List<string>();
         public int totalKills;
+        public int truckHealth;
     }
 }

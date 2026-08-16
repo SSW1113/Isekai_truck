@@ -158,6 +158,14 @@ namespace IsekaiTruck.Truck
             transform.rotation = Quaternion.Euler(0f, savedYaw, 0f);
         }
 
+        public void Respawn(Vector3 respawnPosition, float respawnYaw)
+        {
+            ResetMovement();
+            float scale = transform.localScale.y;
+            transform.position = new Vector3(respawnPosition.x, 0.5f * scale, respawnPosition.z);
+            transform.rotation = Quaternion.Euler(0f, respawnYaw, 0f);
+        }
+
         private void ApplyProgressionStats()
         {
             maxSpeed = (settings.BaseMaxSpeed + speedLevel * settings.SpeedPerUpgrade) * blessingSpeedMultiplier;

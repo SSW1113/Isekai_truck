@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace IsekaiTruck.Config
 {
@@ -11,6 +12,7 @@ namespace IsekaiTruck.Config
         [SerializeField] private WorldSettings world = new WorldSettings();
         [SerializeField] private CameraSettings cameraSettings = new CameraSettings();
         [SerializeField] private MonsterSettings monster = new MonsterSettings();
+        [SerializeField] private EnemySettings enemy = new EnemySettings();
         [SerializeField] private SpawnSettings spawn = new SpawnSettings();
         [SerializeField] private PlayerSettings player = new PlayerSettings();
         [SerializeField] private WantedSettings wanted = new WantedSettings();
@@ -22,6 +24,7 @@ namespace IsekaiTruck.Config
         public WorldSettings World => world;
         public CameraSettings Camera => cameraSettings;
         public MonsterSettings Monster => monster;
+        public EnemySettings Enemy => enemy;
         public SpawnSettings Spawn => spawn;
         public PlayerSettings Player => player;
         public WantedSettings Wanted => wanted;
@@ -37,6 +40,9 @@ namespace IsekaiTruck.Config
             [SerializeField, Range(0f, 1f)] private float turnSpeed = 0.03f;
             [SerializeField, Min(0f)] private float speedPerUpgrade = 0.01f;
             [SerializeField, Min(0f)] private float sizePerUpgrade = 0.1f;
+            [SerializeField, Min(1)] private int maxHealth = 3;
+            [SerializeField, Min(0f)] private float damageInvulnerabilityDuration = 2f;
+            [SerializeField, Min(0.01f)] private float damageFlashInterval = 0.12f;
 
             public float BaseMaxSpeed => baseMaxSpeed;
             public float Acceleration => acceleration;
@@ -44,6 +50,9 @@ namespace IsekaiTruck.Config
             public float TurnSpeed => turnSpeed;
             public float SpeedPerUpgrade => speedPerUpgrade;
             public float SizePerUpgrade => sizePerUpgrade;
+            public int MaxHealth => maxHealth;
+            public float DamageInvulnerabilityDuration => damageInvulnerabilityDuration;
+            public float DamageFlashInterval => damageFlashInterval;
         }
 
         [Serializable]
@@ -106,6 +115,23 @@ namespace IsekaiTruck.Config
 
             public float CollisionDistance => collisionDistance;
             public float DirectionLockMultiplier => directionLockMultiplier;
+        }
+
+        [Serializable]
+        public sealed class EnemySettings
+        {
+            [SerializeField, Min(0)] private int countPerWantedLevel = 2;
+            [SerializeField, Min(0)] private int minimumCountForTesting = 1;
+            [SerializeField, Min(0f)] private float truckCollisionRadius = 1.3f;
+            [FormerlySerializedAs("lowerScreenWarningDistance")]
+            [SerializeField, Min(0f)] private float offscreenWarningDistance = 25f;
+            [SerializeField, Min(0.05f)] private float warningBlinkInterval = 0.35f;
+
+            public int CountPerWantedLevel => countPerWantedLevel;
+            public int MinimumCountForTesting => minimumCountForTesting;
+            public float TruckCollisionRadius => truckCollisionRadius;
+            public float OffscreenWarningDistance => offscreenWarningDistance;
+            public float WarningBlinkInterval => warningBlinkInterval;
         }
 
         [Serializable]

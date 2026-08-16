@@ -84,6 +84,13 @@ namespace IsekaiTruck.Player
             StateChanged?.Invoke(GetState());
         }
 
+        public void ForfeitCurrentExperience()
+        {
+            exp = 0;
+            expRewardRemainder = 0f;
+            StateChanged?.Invoke(GetState());
+        }
+
         public void RestoreState(int savedLevel, int savedExp, int savedSoul, int savedUpgradePoints, float savedExpRemainder, float savedSoulRemainder)
         {
             level = Mathf.Max(settings.StartLevel, savedLevel);
