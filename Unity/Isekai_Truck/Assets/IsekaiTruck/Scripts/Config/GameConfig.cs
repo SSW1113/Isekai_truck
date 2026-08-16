@@ -175,9 +175,11 @@ namespace IsekaiTruck.Config
         {
             [SerializeField, Min(1)] private int killsPerLevel = 50;
             [SerializeField, Range(1, 10)] private int maxLevel = 10;
+            [SerializeField, Range(0, 10)] private int worldTravelUnlockLevel = 5;
 
             public int KillsPerLevel => killsPerLevel;
             public int MaxLevel => maxLevel;
+            public int WorldTravelUnlockLevel => worldTravelUnlockLevel;
         }
 
         [Serializable]

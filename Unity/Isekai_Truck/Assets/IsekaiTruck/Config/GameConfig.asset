@@ -50,7 +50,7 @@ MonoBehaviour:
     directionLockMultiplier: 1.72
   enemy:
     countPerWantedLevel: 2
-    minimumCountForTesting: 1
+    minimumCountForTesting: 0
     truckCollisionRadius: 1.3
     offscreenWarningDistance: 25
     warningBlinkInterval: 0.35
@@ -69,8 +69,9 @@ MonoBehaviour:
     expGrowth: 1.5
     upgradePointPerLevel: 1
   wanted:
-    killsPerLevel: 50
+    killsPerLevel: 5
     maxLevel: 10
+    worldTravelUnlockLevel: 5
   rebirth:
     rewardMultiplierPerMaxRebirth: 0.5
     blessingCandidateCount: 3

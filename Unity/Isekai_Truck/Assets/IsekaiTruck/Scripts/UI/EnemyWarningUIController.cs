@@ -17,10 +17,13 @@ namespace IsekaiTruck.UI
         private EnemyManager enemyManager;
         private UnityEngine.Camera targetCamera;
         private Transform truck;
+        private RectTransform[] warningIcons;
         private float blinkElapsed;
+        private int visibleWarningCount;
 
         public bool IsWarningVisible => gameObject.activeSelf;
         public Vector2 IconPosition => warningIcon.anchoredPosition;
+        public int VisibleWarningCount => visibleWarningCount;
 
         public void Initialize(GameConfig gameConfig, EnemyManager manager, UnityEngine.Camera cameraTarget, Transform truckTransform)
         {
@@ -30,12 +33,32 @@ namespace IsekaiTruck.UI
             truck = truckTransform;
             warningGroup.interactable = false;
             warningGroup.blocksRaycasts = false;
+            CreateIconPool(gameConfig);
             Hide();
         }
 
         public void UpdateWarning(float deltaTime)
         {
-            if (!TryGetNearestOffscreenDirection(out Vector2 direction))
+            visibleWarningCount = 0;
+            IReadOnlyList<EnemyController> enemies = enemyManager.Enemies;
+            for (int i = 0; i < enemies.Count && visibleWarningCount < warningIcons.Length; i++)
+            {
+                if (!TryGetOffscreenDirection(enemies[i], out Vector2 direction))
+                {
+                    continue;
+                }
+
+                RectTransform icon = warningIcons[visibleWarningCount++];
+                icon.anchoredPosition = CalculateEdgePosition(direction);
+                icon.gameObject.SetActive(true);
+            }
+
+            for (int i = visibleWarningCount; i < warningIcons.Length; i++)
+            {
+                warningIcons[i].gameObject.SetActive(false);
+            }
+
+            if (visibleWarningCount == 0)
             {
                 Hide();
                 return;
@@ -46,7 +69,6 @@ namespace IsekaiTruck.UI
                 gameObject.SetActive(true);
             }
 
-            warningIcon.anchoredPosition = CalculateEdgePosition(direction);
             blinkElapsed += Mathf.Max(0f, deltaTime);
             float interval = settings.WarningBlinkInterval;
             float phase = Mathf.Repeat(blinkElapsed, interval * 2f);
@@ -56,54 +78,72 @@ namespace IsekaiTruck.UI
         public void Hide()
         {
             blinkElapsed = 0f;
+            visibleWarningCount = 0;
             warningGroup.alpha = 1f;
+            if (warningIcons != null)
+            {
+                for (int i = 0; i < warningIcons.Length; i++)
+                {
+                    warningIcons[i].gameObject.SetActive(false);
+                }
+            }
             gameObject.SetActive(false);
         }
 
-        private bool TryGetNearestOffscreenDirection(out Vector2 nearestDirection)
+        public Vector2 GetIconPosition(int index)
         {
-            nearestDirection = Vector2.zero;
-            float warningDistanceSquared = settings.OffscreenWarningDistance * settings.OffscreenWarningDistance;
-            float nearestDistanceSquared = float.MaxValue;
-            IReadOnlyList<EnemyController> enemies = enemyManager.Enemies;
+            return index >= 0 && index < visibleWarningCount
+                ? warningIcons[index].anchoredPosition
+                : Vector2.zero;
+        }
 
-            for (int i = 0; i < enemies.Count; i++)
+        private void CreateIconPool(GameConfig gameConfig)
+        {
+            int targetCount = Mathf.Max(
+                1,
+                Mathf.Max(
+                    gameConfig.Enemy.MinimumCountForTesting,
+                    gameConfig.Wanted.MaxLevel * gameConfig.Enemy.CountPerWantedLevel));
+            warningIcons = new RectTransform[targetCount];
+            warningIcons[0] = warningIcon;
+
+            for (int i = 1; i < warningIcons.Length; i++)
             {
-                EnemyController enemy = enemies[i];
-                Vector3 offset = enemy.transform.position - truck.position;
-                float distanceSquared = offset.x * offset.x + offset.z * offset.z;
-                if (distanceSquared > warningDistanceSquared || distanceSquared >= nearestDistanceSquared)
-                {
-                    continue;
-                }
+                RectTransform icon = Instantiate(warningIcon, warningArea, false);
+                icon.name = $"Warning Icon {i + 1}";
+                warningIcons[i] = icon;
+            }
+        }
 
-                Vector3 viewportPosition = targetCamera.WorldToViewportPoint(enemy.transform.position);
-                bool isInFront = viewportPosition.z > 0f;
-                bool isOnScreen = isInFront
-                    && viewportPosition.x >= 0f && viewportPosition.x <= 1f
-                    && viewportPosition.y >= 0f && viewportPosition.y <= 1f;
-                if (isOnScreen)
-                {
-                    continue;
-                }
-
-                if (!isInFront)
-                {
-                    viewportPosition.x = 1f - viewportPosition.x;
-                    viewportPosition.y = 1f - viewportPosition.y;
-                }
-
-                Vector2 direction = new Vector2(viewportPosition.x - 0.5f, viewportPosition.y - 0.5f);
-                if (direction.sqrMagnitude <= 0.0001f)
-                {
-                    continue;
-                }
-
-                nearestDistanceSquared = distanceSquared;
-                nearestDirection = direction;
+        private bool TryGetOffscreenDirection(EnemyController enemy, out Vector2 direction)
+        {
+            direction = Vector2.zero;
+            float warningDistanceSquared = settings.OffscreenWarningDistance * settings.OffscreenWarningDistance;
+            Vector3 offset = enemy.transform.position - truck.position;
+            float distanceSquared = offset.x * offset.x + offset.z * offset.z;
+            if (distanceSquared > warningDistanceSquared)
+            {
+                return false;
             }
 
-            return nearestDistanceSquared < float.MaxValue;
+            Vector3 viewportPosition = targetCamera.WorldToViewportPoint(enemy.transform.position);
+            bool isInFront = viewportPosition.z > 0f;
+            bool isOnScreen = isInFront
+                && viewportPosition.x >= 0f && viewportPosition.x <= 1f
+                && viewportPosition.y >= 0f && viewportPosition.y <= 1f;
+            if (isOnScreen)
+            {
+                return false;
+            }
+
+            if (!isInFront)
+            {
+                viewportPosition.x = 1f - viewportPosition.x;
+                viewportPosition.y = 1f - viewportPosition.y;
+            }
+
+            direction = new Vector2(viewportPosition.x - 0.5f, viewportPosition.y - 0.5f);
+            return direction.sqrMagnitude > 0.0001f;
         }
 
         private Vector2 CalculateEdgePosition(Vector2 direction)

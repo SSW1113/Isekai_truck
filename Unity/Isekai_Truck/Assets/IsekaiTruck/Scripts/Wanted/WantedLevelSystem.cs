@@ -13,6 +13,7 @@ namespace IsekaiTruck.Wanted
 
         public int TotalKills => totalKills;
         public int Level => level;
+        public int MaxLevel => settings.MaxLevel;
 
         public event Action<WantedLevelSnapshot> StateChanged;
 
@@ -44,6 +45,13 @@ namespace IsekaiTruck.Wanted
         {
             totalKills = Mathf.Max(0, savedTotalKills);
             level = CalculateLevel(totalKills);
+            StateChanged?.Invoke(GetState());
+        }
+
+        public void ResetForWorldTravel()
+        {
+            totalKills = 0;
+            level = 0;
             StateChanged?.Invoke(GetState());
         }
 

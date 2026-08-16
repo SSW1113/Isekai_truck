@@ -38,6 +38,12 @@ namespace IsekaiTruck.Spawn
             }
         }
 
+        public void ReconcileCount()
+        {
+            RemoveExcessEnemies();
+            FillInitial();
+        }
+
         public void UpdateSpawner(float nowMilliseconds)
         {
             RemoveFarEnemies();

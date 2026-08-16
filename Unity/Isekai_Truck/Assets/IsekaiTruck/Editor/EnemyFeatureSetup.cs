@@ -434,6 +434,17 @@ namespace IsekaiTruck.Editor
                     throw new InvalidOperationException("Enemy warning did not appear at the lower edge.");
                 }
 
+                EnemyController leftEnemy = manager.CreateEnemy("basic_enemy", new Vector3(-6f, 0f, 0f));
+                EnemyController rightEnemy = manager.CreateEnemy("basic_enemy", new Vector3(6f, 0f, 0f));
+                warningUI.UpdateWarning(0.01f);
+                if (warningUI.VisibleWarningCount != 3 || warningUI.GetIconPosition(0).y >= 0f || warningUI.GetIconPosition(1).x >= 0f || warningUI.GetIconPosition(2).x <= 0f)
+                {
+                    throw new InvalidOperationException("Warnings for enemies approaching from multiple directions were not displayed together.");
+                }
+
+                manager.Remove(leftEnemy);
+                manager.Remove(rightEnemy);
+
                 warningUI.UpdateWarning(config.Enemy.WarningBlinkInterval);
                 if (Mathf.Approximately(warningGroup.alpha, 1f))
                 {

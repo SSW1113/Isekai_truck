@@ -15,26 +15,62 @@ namespace IsekaiTruck.World
         private Mesh groundMesh;
         private Material groundMaterial;
         private Texture2D groundTexture;
+        private WorldDefinition currentWorld;
         private int currentTileX;
         private int currentTileZ;
         private int currentTileRadius = -1;
 
+        public WorldDefinition CurrentWorld => currentWorld;
+
         public void Initialize(GameConfig gameConfig, Transform playerTransform, UnityEngine.Camera worldCamera)
+        {
+            Initialize(gameConfig, playerTransform, worldCamera, null);
+        }
+
+        public void Initialize(GameConfig gameConfig, Transform playerTransform, UnityEngine.Camera worldCamera, WorldDefinition initialWorld)
         {
             settings = gameConfig.World;
             player = playerTransform;
             targetCamera = worldCamera;
+            currentWorld = initialWorld;
 
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.Linear;
-            RenderSettings.fogColor = settings.FogColor;
             RenderSettings.fogStartDistance = settings.BaseFogNear;
             RenderSettings.fogEndDistance = settings.BaseFogFar;
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
             RenderSettings.ambientLight = Color.white * 0.4f;
 
             CreateGroundResources();
+            ApplyWorld(initialWorld);
             UpdateGround(currentTileX, currentTileZ, settings.BaseTileRadius);
+        }
+
+        public void ApplyWorld(WorldDefinition worldDefinition)
+        {
+            currentWorld = worldDefinition;
+            Color fogColor = currentWorld != null ? currentWorld.FogColor : settings.FogColor;
+            Color skyColor = currentWorld != null ? currentWorld.SkyColor : settings.FogColor;
+            Color groundColor = currentWorld != null ? currentWorld.GroundColor : settings.GroundColor;
+            Color groundPatternColor = currentWorld != null ? currentWorld.GroundPatternColor : settings.GroundPatternColor;
+
+            RenderSettings.fogColor = fogColor;
+            if (targetCamera != null)
+            {
+                targetCamera.backgroundColor = skyColor;
+            }
+
+            if (groundTexture != null)
+            {
+                groundTexture.SetPixels(new[]
+                {
+                    groundColor,
+                    groundPatternColor,
+                    groundPatternColor,
+                    groundColor
+                });
+                groundTexture.Apply(false, false);
+            }
         }
 
         public void UpdateWorld(float zoomMultiplier)
@@ -95,10 +131,10 @@ namespace IsekaiTruck.World
             };
             groundTexture.SetPixels(new[]
             {
-                settings.GroundColor,
-                settings.GroundPatternColor,
-                settings.GroundPatternColor,
-                settings.GroundColor
+                Color.white,
+                Color.white,
+                Color.white,
+                Color.white
             });
             groundTexture.Apply(false, false);
 
