@@ -51,9 +51,11 @@ namespace IsekaiTruck.Editor
             }
 
             JoystickInput joystickInput = GetOrCreateJoystick();
+            PlayerMoveInput playerMoveInput = GetOrCreatePlayerMoveInput(joystickInput);
             GetOrCreateEventSystem();
 
             gameManager.SetTruckSystems(joystickInput, truckController);
+            gameManager.SetMoveInput(playerMoveInput);
             EditorUtility.SetDirty(gameManager);
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -129,7 +131,35 @@ namespace IsekaiTruck.Editor
             AssertApproximately(landscapeViewport.x, 0.32421875f, "10:16 뷰포트 중앙 정렬");
 
             Object.DestroyImmediate(testObject);
+            VerifyInputPriority();
             Debug.Log("Truck movement stage verification passed.");
+        }
+
+        private static void VerifyInputPriority()
+        {
+            GameObject inputObject = new GameObject("Player Input Verification", typeof(RectTransform));
+            JoystickInput joystickInput = inputObject.AddComponent<JoystickInput>();
+            KeyboardMoveInput keyboardInput = inputObject.AddComponent<KeyboardMoveInput>();
+            PlayerMoveInput playerMoveInput = inputObject.AddComponent<PlayerMoveInput>();
+            playerMoveInput.SetReferences(joystickInput, keyboardInput);
+
+            joystickInput.SetMoveForVerification(new Vector2(0.5f, 0.25f));
+            AssertVector(playerMoveInput.Move, new Vector2(0.5f, 0.25f), "조이스틱 입력 선택");
+
+            keyboardInput.SetMoveForVerification(new Vector2(0f, -1f));
+            AssertVector(playerMoveInput.Move, new Vector2(0f, -1f), "WASD 입력 우선 전환");
+
+            joystickInput.SetMoveForVerification(new Vector2(-0.75f, 0f));
+            AssertVector(playerMoveInput.Move, new Vector2(-0.75f, 0f), "조이스틱 재입력 우선 전환");
+
+            keyboardInput.SetMoveForVerification(new Vector2(-1f, 0f));
+            AssertVector(playerMoveInput.Move, new Vector2(-1f, 0f), "WASD 재입력 우선 전환");
+
+            joystickInput.SetInputEnabled(false);
+            AssertVector(playerMoveInput.Move, Vector2.zero, "UI 표시 중 전체 이동 입력 차단");
+            joystickInput.SetInputEnabled(true);
+
+            Object.DestroyImmediate(inputObject);
         }
 
         private static TruckController ResetController(GameObject testObject, GameConfig config)
@@ -204,6 +234,24 @@ namespace IsekaiTruck.Editor
             return joystickInput;
         }
 
+        private static PlayerMoveInput GetOrCreatePlayerMoveInput(JoystickInput joystickInput)
+        {
+            KeyboardMoveInput keyboardInput = joystickInput.GetComponent<KeyboardMoveInput>();
+            if (keyboardInput == null)
+            {
+                keyboardInput = joystickInput.gameObject.AddComponent<KeyboardMoveInput>();
+            }
+
+            PlayerMoveInput playerMoveInput = joystickInput.GetComponent<PlayerMoveInput>();
+            if (playerMoveInput == null)
+            {
+                playerMoveInput = joystickInput.gameObject.AddComponent<PlayerMoveInput>();
+            }
+
+            playerMoveInput.SetReferences(joystickInput, keyboardInput);
+            return playerMoveInput;
+        }
+
         private static void GetOrCreateEventSystem()
         {
             EventSystem eventSystem = Object.FindFirstObjectByType<EventSystem>();
@@ -232,9 +280,11 @@ namespace IsekaiTruck.Editor
         {
             GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
             JoystickInput joystickInput = Object.FindFirstObjectByType<JoystickInput>();
+            KeyboardMoveInput keyboardInput = Object.FindFirstObjectByType<KeyboardMoveInput>();
+            PlayerMoveInput playerMoveInput = Object.FindFirstObjectByType<PlayerMoveInput>();
             TruckController truckController = Object.FindFirstObjectByType<TruckController>();
 
-            if (gameManager == null || joystickInput == null || truckController == null)
+            if (gameManager == null || joystickInput == null || keyboardInput == null || playerMoveInput == null || truckController == null)
             {
                 throw new InvalidOperationException("트럭 이동 시스템 씬 연결을 확인하지 못했습니다.");
             }
@@ -243,10 +293,29 @@ namespace IsekaiTruck.Editor
             gameManagerSerializedObject.Update();
 
             if (gameManagerSerializedObject.FindProperty("joystickInput").objectReferenceValue == null ||
+                gameManagerSerializedObject.FindProperty("playerMoveInput").objectReferenceValue == null ||
                 gameManagerSerializedObject.FindProperty("truckController").objectReferenceValue == null)
             {
                 throw new InvalidOperationException("GameManager의 트럭 이동 참조가 비어 있습니다.");
             }
+
+            SerializedObject playerMoveInputObject = new SerializedObject(playerMoveInput);
+            playerMoveInputObject.Update();
+            if (playerMoveInputObject.FindProperty("joystickInput").objectReferenceValue != joystickInput ||
+                playerMoveInputObject.FindProperty("keyboardInput").objectReferenceValue != keyboardInput)
+            {
+                throw new InvalidOperationException("PlayerMoveInput의 입력 소스 참조가 비어 있습니다.");
+            }
+        }
+
+        private static void AssertVector(Vector2 actual, Vector2 expected, string label)
+        {
+            if ((actual - expected).sqrMagnitude <= 0.000001f)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException($"{label} 검증 실패: expected {expected}, actual {actual}");
         }
 
         private static void AssertApproximately(float actual, float expected, string label)

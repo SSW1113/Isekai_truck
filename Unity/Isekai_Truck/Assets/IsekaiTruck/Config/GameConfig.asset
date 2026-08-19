@@ -38,7 +38,7 @@ MonoBehaviour:
     zoomStartScale: 1.2
     zoomStrength: 0.8
     maxZoomMultiplier: 10
-    viewportAspect: {x: 10, y: 16}
+    viewportAspect: {x: 11, y: 16}
     fieldOfView: 75
     nearClipPlane: 0.1
     farClipPlane: 1000

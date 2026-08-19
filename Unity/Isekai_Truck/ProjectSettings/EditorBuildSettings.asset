@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/IsekaiTruck/Scenes/Entry.unity
+    guid: 39e58c5fae4d6955b93d406f15ff2849
+  - enabled: 1
     path: Assets/IsekaiTruck/Scenes/Main.unity
     guid: bee44da12412fe24582f1d095c9ddc1e
   - enabled: 1

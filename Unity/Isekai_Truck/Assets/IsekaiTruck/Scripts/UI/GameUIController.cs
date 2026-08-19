@@ -3,6 +3,7 @@ using IsekaiTruck.Input;
 using IsekaiTruck.Player;
 using IsekaiTruck.Truck;
 using IsekaiTruck.Upgrades;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,18 +12,21 @@ namespace IsekaiTruck.UI
     [DisallowMultipleComponent]
     public sealed class GameUIController : MonoBehaviour
     {
+        [SerializeField] private RectTransform leftPanel;
         [SerializeField] private RectTransform gameArea;
+        [SerializeField] private RectTransform rightPanel;
         [SerializeField] private GameObject upgradePanel;
-        [SerializeField] private Text levelText;
-        [SerializeField] private Text expText;
+        [SerializeField] private TMP_Text levelText;
+        [SerializeField] private TMP_Text expText;
         [SerializeField] private Image expFill;
-        [SerializeField] private Text soulText;
-        [SerializeField] private Text pointText;
-        [SerializeField] private Text upgradePointText;
-        [SerializeField] private Text speedLevelText;
-        [SerializeField] private Text sizeLevelText;
-        [SerializeField] private Text speedStatText;
-        [SerializeField] private Text sizeStatText;
+        [SerializeField] private TMP_Text soulText;
+        [SerializeField] private TMP_Text speedText;
+        [SerializeField] private TMP_Text pointText;
+        [SerializeField] private TMP_Text upgradePointText;
+        [SerializeField] private TMP_Text speedLevelText;
+        [SerializeField] private TMP_Text sizeLevelText;
+        [SerializeField] private TMP_Text speedStatText;
+        [SerializeField] private TMP_Text sizeStatText;
         [SerializeField] private Button openButton;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button speedButton;
@@ -32,6 +36,7 @@ namespace IsekaiTruck.UI
         private TruckController truckController;
         private TruckUpgradeSystem upgradeSystem;
         private JoystickInput joystickInput;
+        private int displayedSpeedKmh = int.MinValue;
 
         public bool IsUpgradePanelOpen => upgradePanel != null && upgradePanel.activeSelf;
 
@@ -67,6 +72,23 @@ namespace IsekaiTruck.UI
             gameArea.anchorMax = viewport.max;
             gameArea.offsetMin = Vector2.zero;
             gameArea.offsetMax = Vector2.zero;
+
+            leftPanel.anchorMin = Vector2.zero;
+            leftPanel.anchorMax = new Vector2(viewport.xMin, 1f);
+            leftPanel.offsetMin = Vector2.zero;
+            leftPanel.offsetMax = Vector2.zero;
+            leftPanel.gameObject.SetActive(viewport.xMin > 0.001f);
+
+            rightPanel.anchorMin = new Vector2(viewport.xMax, 0f);
+            rightPanel.anchorMax = Vector2.one;
+            rightPanel.offsetMin = Vector2.zero;
+            rightPanel.offsetMax = Vector2.zero;
+            rightPanel.gameObject.SetActive(viewport.xMax < 0.999f);
+        }
+
+        private void Update()
+        {
+            RefreshSpeed();
         }
 
         public void Refresh()
@@ -77,8 +99,8 @@ namespace IsekaiTruck.UI
 
             levelText.text = $"Lv. {player.Level}";
             expText.text = $"EXP {player.Exp} / {player.RequiredExp}";
-            expFill.fillAmount = Mathf.Clamp01(expRatio);
-            soulText.text = $"영혼 {player.Soul}";
+            expFill.rectTransform.anchorMax = new Vector2(Mathf.Clamp01(expRatio), 1f);
+            soulText.text = player.Soul.ToString();
             pointText.text = $"포인트 {player.UpgradePoints}";
             upgradePointText.text = $"남은 포인트: {player.UpgradePoints}";
             speedLevelText.text = $"Lv.{truck.SpeedLevel}";
@@ -89,6 +111,24 @@ namespace IsekaiTruck.UI
             bool canUpgrade = player.UpgradePoints > 0;
             speedButton.interactable = canUpgrade;
             sizeButton.interactable = canUpgrade;
+            RefreshSpeed();
+        }
+
+        private void RefreshSpeed()
+        {
+            if (truckController == null || speedText == null)
+            {
+                return;
+            }
+
+            int speedKmh = Mathf.Max(0, Mathf.RoundToInt(truckController.CurrentSpeedPerSecond * 3.6f));
+            if (speedKmh == displayedSpeedKmh)
+            {
+                return;
+            }
+
+            displayedSpeedKmh = speedKmh;
+            speedText.text = $"{speedKmh} km/h";
         }
 
         private void OpenUpgradePanel()
@@ -146,30 +186,36 @@ namespace IsekaiTruck.UI
 
 #if UNITY_EDITOR
         public void SetReferences(
+            RectTransform targetLeftPanel,
             RectTransform targetGameArea,
+            RectTransform targetRightPanel,
             GameObject targetUpgradePanel,
-            Text targetLevelText,
-            Text targetExpText,
+            TMP_Text targetLevelText,
+            TMP_Text targetExpText,
             Image targetExpFill,
-            Text targetSoulText,
-            Text targetPointText,
-            Text targetUpgradePointText,
-            Text targetSpeedLevelText,
-            Text targetSizeLevelText,
-            Text targetSpeedStatText,
-            Text targetSizeStatText,
+            TMP_Text targetSoulText,
+            TMP_Text targetSpeedText,
+            TMP_Text targetPointText,
+            TMP_Text targetUpgradePointText,
+            TMP_Text targetSpeedLevelText,
+            TMP_Text targetSizeLevelText,
+            TMP_Text targetSpeedStatText,
+            TMP_Text targetSizeStatText,
             Button targetOpenButton,
             Button targetCloseButton,
             Button targetSpeedButton,
             Button targetSizeButton
         )
         {
+            leftPanel = targetLeftPanel;
             gameArea = targetGameArea;
+            rightPanel = targetRightPanel;
             upgradePanel = targetUpgradePanel;
             levelText = targetLevelText;
             expText = targetExpText;
             expFill = targetExpFill;
             soulText = targetSoulText;
+            speedText = targetSpeedText;
             pointText = targetPointText;
             upgradePointText = targetUpgradePointText;
             speedLevelText = targetSpeedLevelText;

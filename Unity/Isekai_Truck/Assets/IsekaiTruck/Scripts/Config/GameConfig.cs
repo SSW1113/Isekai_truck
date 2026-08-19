@@ -79,7 +79,7 @@ namespace IsekaiTruck.Config
             [SerializeField, Min(0f)] private float zoomStartScale = 1.2f;
             [SerializeField, Min(0f)] private float zoomStrength = 0.8f;
             [SerializeField, Min(1f)] private float maxZoomMultiplier = 10f;
-            [SerializeField] private Vector2Int viewportAspect = new Vector2Int(10, 16);
+            [SerializeField] private Vector2Int viewportAspect = new Vector2Int(11, 16);
             [SerializeField, Range(1f, 179f)] private float fieldOfView = 75f;
             [SerializeField, Min(0.001f)] private float nearClipPlane = 0.1f;
             [SerializeField, Min(0.01f)] private float farClipPlane = 1000f;
