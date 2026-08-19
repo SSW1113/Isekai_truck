@@ -1,0 +1,4810 @@
+fileFormatVersion: 2
+guid: 9b46be3e2ee44868a69301e39c945b70
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2400000000000000001
+    second: Truck_Down_0
+  - first:
+      213: 2400000000000000002
+    second: Truck_Down_1
+  - first:
+      213: 2400000000000000003
+    second: Truck_Down_2
+  - first:
+      213: 2400000000000000004
+    second: Truck_Down_3
+  - first:
+      213: 2400000000000000005
+    second: Truck_Down_4
+  - first:
+      213: 2400000000000000006
+    second: Truck_Down_5
+  - first:
+      213: 2400000000000000007
+    second: Truck_Down_6
+  - first:
+      213: 2400000000000000008
+    second: Truck_Down_7
+  - first:
+      213: 2400000000000000009
+    second: Truck_Down_8
+  - first:
+      213: 2400000000000000010
+    second: Truck_Down_9
+  - first:
+      213: 2400000000000000011
+    second: Truck_Down_10
+  - first:
+      213: 2400000000000000012
+    second: Truck_Down_11
+  - first:
+      213: 2400000000000000013
+    second: Truck_Down_12
+  - first:
+      213: 2400000000000000014
+    second: Truck_Down_13
+  - first:
+      213: 2400000000000000015
+    second: Truck_Down_14
+  - first:
+      213: 2400000000000000016
+    second: Truck_Down_15
+  - first:
+      213: 2400000000000000017
+    second: Truck_Down_16
+  - first:
+      213: 2400000000000000018
+    second: Truck_Down_17
+  - first:
+      213: 2400000000000000019
+    second: Truck_Down_18
+  - first:
+      213: 2400000000000000020
+    second: Truck_Down_19
+  - first:
+      213: 2400000000000000021
+    second: Truck_Down_20
+  - first:
+      213: 2400000000000000022
+    second: Truck_Down_21
+  - first:
+      213: 2400000000000000023
+    second: Truck_Down_22
+  - first:
+      213: 2400000000000000024
+    second: Truck_Down_23
+  - first:
+      213: 2400000000000000025
+    second: Truck_Down_24
+  - first:
+      213: 2400000000000000026
+    second: Truck_Down_25
+  - first:
+      213: 2400000000000000027
+    second: Truck_Down_26
+  - first:
+      213: 2400000000000000028
+    second: Truck_Down_27
+  - first:
+      213: 2400000000000000029
+    second: Truck_Down_28
+  - first:
+      213: 2400000000000000030
+    second: Truck_Down_29
+  - first:
+      213: 2400000000000000031
+    second: Truck_Down_30
+  - first:
+      213: 2400000000000000032
+    second: Truck_Down_31
+  - first:
+      213: 2400000000000000033
+    second: Truck_Down_32
+  - first:
+      213: 2400000000000000034
+    second: Truck_Down_33
+  - first:
+      213: 2400000000000000035
+    second: Truck_Down_34
+  - first:
+      213: 2400000000000000036
+    second: Truck_Down_35
+  - first:
+      213: 2400000000000000037
+    second: Truck_DownRight_0
+  - first:
+      213: 2400000000000000038
+    second: Truck_DownRight_1
+  - first:
+      213: 2400000000000000039
+    second: Truck_DownRight_2
+  - first:
+      213: 2400000000000000040
+    second: Truck_DownRight_3
+  - first:
+      213: 2400000000000000041
+    second: Truck_DownRight_4
+  - first:
+      213: 2400000000000000042
+    second: Truck_DownRight_5
+  - first:
+      213: 2400000000000000043
+    second: Truck_DownRight_6
+  - first:
+      213: 2400000000000000044
+    second: Truck_DownRight_7
+  - first:
+      213: 2400000000000000045
+    second: Truck_DownRight_8
+  - first:
+      213: 2400000000000000046
+    second: Truck_DownRight_9
+  - first:
+      213: 2400000000000000047
+    second: Truck_DownRight_10
+  - first:
+      213: 2400000000000000048
+    second: Truck_DownRight_11
+  - first:
+      213: 2400000000000000049
+    second: Truck_DownRight_12
+  - first:
+      213: 2400000000000000050
+    second: Truck_DownRight_13
+  - first:
+      213: 2400000000000000051
+    second: Truck_DownRight_14
+  - first:
+      213: 2400000000000000052
+    second: Truck_DownRight_15
+  - first:
+      213: 2400000000000000053
+    second: Truck_DownRight_16
+  - first:
+      213: 2400000000000000054
+    second: Truck_DownRight_17
+  - first:
+      213: 2400000000000000055
+    second: Truck_DownRight_18
+  - first:
+      213: 2400000000000000056
+    second: Truck_DownRight_19
+  - first:
+      213: 2400000000000000057
+    second: Truck_DownRight_20
+  - first:
+      213: 2400000000000000058
+    second: Truck_DownRight_21
+  - first:
+      213: 2400000000000000059
+    second: Truck_DownRight_22
+  - first:
+      213: 2400000000000000060
+    second: Truck_DownRight_23
+  - first:
+      213: 2400000000000000061
+    second: Truck_DownRight_24
+  - first:
+      213: 2400000000000000062
+    second: Truck_DownRight_25
+  - first:
+      213: 2400000000000000063
+    second: Truck_DownRight_26
+  - first:
+      213: 2400000000000000064
+    second: Truck_DownRight_27
+  - first:
+      213: 2400000000000000065
+    second: Truck_DownRight_28
+  - first:
+      213: 2400000000000000066
+    second: Truck_DownRight_29
+  - first:
+      213: 2400000000000000067
+    second: Truck_DownRight_30
+  - first:
+      213: 2400000000000000068
+    second: Truck_DownRight_31
+  - first:
+      213: 2400000000000000069
+    second: Truck_DownRight_32
+  - first:
+      213: 2400000000000000070
+    second: Truck_DownRight_33
+  - first:
+      213: 2400000000000000071
+    second: Truck_DownRight_34
+  - first:
+      213: 2400000000000000072
+    second: Truck_DownRight_35
+  - first:
+      213: 2400000000000000073
+    second: Truck_Right_0
+  - first:
+      213: 2400000000000000074
+    second: Truck_Right_1
+  - first:
+      213: 2400000000000000075
+    second: Truck_Right_2
+  - first:
+      213: 2400000000000000076
+    second: Truck_Right_3
+  - first:
+      213: 2400000000000000077
+    second: Truck_Right_4
+  - first:
+      213: 2400000000000000078
+    second: Truck_Right_5
+  - first:
+      213: 2400000000000000079
+    second: Truck_Right_6
+  - first:
+      213: 2400000000000000080
+    second: Truck_Right_7
+  - first:
+      213: 2400000000000000081
+    second: Truck_Right_8
+  - first:
+      213: 2400000000000000082
+    second: Truck_Right_9
+  - first:
+      213: 2400000000000000083
+    second: Truck_Right_10
+  - first:
+      213: 2400000000000000084
+    second: Truck_Right_11
+  - first:
+      213: 2400000000000000085
+    second: Truck_Right_12
+  - first:
+      213: 2400000000000000086
+    second: Truck_Right_13
+  - first:
+      213: 2400000000000000087
+    second: Truck_Right_14
+  - first:
+      213: 2400000000000000088
+    second: Truck_Right_15
+  - first:
+      213: 2400000000000000089
+    second: Truck_Right_16
+  - first:
+      213: 2400000000000000090
+    second: Truck_Right_17
+  - first:
+      213: 2400000000000000091
+    second: Truck_Right_18
+  - first:
+      213: 2400000000000000092
+    second: Truck_Right_19
+  - first:
+      213: 2400000000000000093
+    second: Truck_Right_20
+  - first:
+      213: 2400000000000000094
+    second: Truck_Right_21
+  - first:
+      213: 2400000000000000095
+    second: Truck_Right_22
+  - first:
+      213: 2400000000000000096
+    second: Truck_Right_23
+  - first:
+      213: 2400000000000000097
+    second: Truck_Right_24
+  - first:
+      213: 2400000000000000098
+    second: Truck_Right_25
+  - first:
+      213: 2400000000000000099
+    second: Truck_Right_26
+  - first:
+      213: 2400000000000000100
+    second: Truck_Right_27
+  - first:
+      213: 2400000000000000101
+    second: Truck_Right_28
+  - first:
+      213: 2400000000000000102
+    second: Truck_Right_29
+  - first:
+      213: 2400000000000000103
+    second: Truck_Right_30
+  - first:
+      213: 2400000000000000104
+    second: Truck_Right_31
+  - first:
+      213: 2400000000000000105
+    second: Truck_Right_32
+  - first:
+      213: 2400000000000000106
+    second: Truck_Right_33
+  - first:
+      213: 2400000000000000107
+    second: Truck_Right_34
+  - first:
+      213: 2400000000000000108
+    second: Truck_Right_35
+  - first:
+      213: 2400000000000000109
+    second: Truck_UpRight_0
+  - first:
+      213: 2400000000000000110
+    second: Truck_UpRight_1
+  - first:
+      213: 2400000000000000111
+    second: Truck_UpRight_2
+  - first:
+      213: 2400000000000000112
+    second: Truck_UpRight_3
+  - first:
+      213: 2400000000000000113
+    second: Truck_UpRight_4
+  - first:
+      213: 2400000000000000114
+    second: Truck_UpRight_5
+  - first:
+      213: 2400000000000000115
+    second: Truck_UpRight_6
+  - first:
+      213: 2400000000000000116
+    second: Truck_UpRight_7
+  - first:
+      213: 2400000000000000117
+    second: Truck_UpRight_8
+  - first:
+      213: 2400000000000000118
+    second: Truck_UpRight_9
+  - first:
+      213: 2400000000000000119
+    second: Truck_UpRight_10
+  - first:
+      213: 2400000000000000120
+    second: Truck_UpRight_11
+  - first:
+      213: 2400000000000000121
+    second: Truck_UpRight_12
+  - first:
+      213: 2400000000000000122
+    second: Truck_UpRight_13
+  - first:
+      213: 2400000000000000123
+    second: Truck_UpRight_14
+  - first:
+      213: 2400000000000000124
+    second: Truck_UpRight_15
+  - first:
+      213: 2400000000000000125
+    second: Truck_UpRight_16
+  - first:
+      213: 2400000000000000126
+    second: Truck_UpRight_17
+  - first:
+      213: 2400000000000000127
+    second: Truck_UpRight_18
+  - first:
+      213: 2400000000000000128
+    second: Truck_UpRight_19
+  - first:
+      213: 2400000000000000129
+    second: Truck_UpRight_20
+  - first:
+      213: 2400000000000000130
+    second: Truck_UpRight_21
+  - first:
+      213: 2400000000000000131
+    second: Truck_UpRight_22
+  - first:
+      213: 2400000000000000132
+    second: Truck_UpRight_23
+  - first:
+      213: 2400000000000000133
+    second: Truck_UpRight_24
+  - first:
+      213: 2400000000000000134
+    second: Truck_UpRight_25
+  - first:
+      213: 2400000000000000135
+    second: Truck_UpRight_26
+  - first:
+      213: 2400000000000000136
+    second: Truck_UpRight_27
+  - first:
+      213: 2400000000000000137
+    second: Truck_UpRight_28
+  - first:
+      213: 2400000000000000138
+    second: Truck_UpRight_29
+  - first:
+      213: 2400000000000000139
+    second: Truck_UpRight_30
+  - first:
+      213: 2400000000000000140
+    second: Truck_UpRight_31
+  - first:
+      213: 2400000000000000141
+    second: Truck_UpRight_32
+  - first:
+      213: 2400000000000000142
+    second: Truck_UpRight_33
+  - first:
+      213: 2400000000000000143
+    second: Truck_UpRight_34
+  - first:
+      213: 2400000000000000144
+    second: Truck_UpRight_35
+  - first:
+      213: 2400000000000000145
+    second: Truck_Up_0
+  - first:
+      213: 2400000000000000146
+    second: Truck_Up_1
+  - first:
+      213: 2400000000000000147
+    second: Truck_Up_2
+  - first:
+      213: 2400000000000000148
+    second: Truck_Up_3
+  - first:
+      213: 2400000000000000149
+    second: Truck_Up_4
+  - first:
+      213: 2400000000000000150
+    second: Truck_Up_5
+  - first:
+      213: 2400000000000000151
+    second: Truck_Up_6
+  - first:
+      213: 2400000000000000152
+    second: Truck_Up_7
+  - first:
+      213: 2400000000000000153
+    second: Truck_Up_8
+  - first:
+      213: 2400000000000000154
+    second: Truck_Up_9
+  - first:
+      213: 2400000000000000155
+    second: Truck_Up_10
+  - first:
+      213: 2400000000000000156
+    second: Truck_Up_11
+  - first:
+      213: 2400000000000000157
+    second: Truck_Up_12
+  - first:
+      213: 2400000000000000158
+    second: Truck_Up_13
+  - first:
+      213: 2400000000000000159
+    second: Truck_Up_14
+  - first:
+      213: 2400000000000000160
+    second: Truck_Up_15
+  - first:
+      213: 2400000000000000161
+    second: Truck_Up_16
+  - first:
+      213: 2400000000000000162
+    second: Truck_Up_17
+  - first:
+      213: 2400000000000000163
+    second: Truck_Up_18
+  - first:
+      213: 2400000000000000164
+    second: Truck_Up_19
+  - first:
+      213: 2400000000000000165
+    second: Truck_Up_20
+  - first:
+      213: 2400000000000000166
+    second: Truck_Up_21
+  - first:
+      213: 2400000000000000167
+    second: Truck_Up_22
+  - first:
+      213: 2400000000000000168
+    second: Truck_Up_23
+  - first:
+      213: 2400000000000000169
+    second: Truck_Up_24
+  - first:
+      213: 2400000000000000170
+    second: Truck_Up_25
+  - first:
+      213: 2400000000000000171
+    second: Truck_Up_26
+  - first:
+      213: 2400000000000000172
+    second: Truck_Up_27
+  - first:
+      213: 2400000000000000173
+    second: Truck_Up_28
+  - first:
+      213: 2400000000000000174
+    second: Truck_Up_29
+  - first:
+      213: 2400000000000000175
+    second: Truck_Up_30
+  - first:
+      213: 2400000000000000176
+    second: Truck_Up_31
+  - first:
+      213: 2400000000000000177
+    second: Truck_Up_32
+  - first:
+      213: 2400000000000000178
+    second: Truck_Up_33
+  - first:
+      213: 2400000000000000179
+    second: Truck_Up_34
+  - first:
+      213: 2400000000000000180
+    second: Truck_Up_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 28
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Truck_Down_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 837
+        width: 40
+        height: 60
+      alignment: 9
+      pivot: {x: 0.45, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003e9
+      internalID: 2400000000000000001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_1
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 837
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003ea
+      internalID: 2400000000000000002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_2
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 837
+        width: 39
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47435898, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003eb
+      internalID: 2400000000000000003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_3
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 837
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003ec
+      internalID: 2400000000000000004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_4
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 837
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.46052632, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003ed
+      internalID: 2400000000000000005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_5
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 837
+        width: 37
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47297296, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003ee
+      internalID: 2400000000000000006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_6
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 689
+        width: 40
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4625, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003ef
+      internalID: 2400000000000000007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_7
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 689
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f0
+      internalID: 2400000000000000008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_8
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 689
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f1
+      internalID: 2400000000000000009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_9
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 689
+        width: 39
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47435898, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f2
+      internalID: 2400000000000000010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_10
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 689
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f3
+      internalID: 2400000000000000011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_11
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 689
+        width: 37
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47297296, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f4
+      internalID: 2400000000000000012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 537
+        width: 40
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4625, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f5
+      internalID: 2400000000000000013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_13
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 537
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f6
+      internalID: 2400000000000000014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_14
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 537
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f7
+      internalID: 2400000000000000015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_15
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 537
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f8
+      internalID: 2400000000000000016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_16
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 537
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003f9
+      internalID: 2400000000000000017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_17
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 537
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003fa
+      internalID: 2400000000000000018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_18
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 392
+        width: 40
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4625, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003fb
+      internalID: 2400000000000000019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_19
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 392
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003fc
+      internalID: 2400000000000000020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_20
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 392
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003fd
+      internalID: 2400000000000000021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_21
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 392
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003fe
+      internalID: 2400000000000000022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_22
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 392
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000000000000000000000000000003ff
+      internalID: 2400000000000000023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_23
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 392
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000400
+      internalID: 2400000000000000024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_24
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 249
+        width: 39
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47435898, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000401
+      internalID: 2400000000000000025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_25
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 249
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000402
+      internalID: 2400000000000000026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_26
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 249
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000403
+      internalID: 2400000000000000027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_27
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 249
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000404
+      internalID: 2400000000000000028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_28
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 249
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000405
+      internalID: 2400000000000000029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_29
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 249
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000406
+      internalID: 2400000000000000030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_30
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 92
+        width: 40
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4625, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000407
+      internalID: 2400000000000000031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_31
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 92
+        width: 39
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47435898, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000408
+      internalID: 2400000000000000032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_32
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 92
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000409
+      internalID: 2400000000000000033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_33
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 92
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000040a
+      internalID: 2400000000000000034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_34
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 92
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000040b
+      internalID: 2400000000000000035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Down_35
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 92
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000040c
+      internalID: 2400000000000000036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_0
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 837
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.55172414, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000040d
+      internalID: 2400000000000000037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_1
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 837
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000040e
+      internalID: 2400000000000000038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_2
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 837
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5344828, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000040f
+      internalID: 2400000000000000039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_3
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 837
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000410
+      internalID: 2400000000000000040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_4
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 837
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000411
+      internalID: 2400000000000000041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_5
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 837
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000412
+      internalID: 2400000000000000042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_6
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 689
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.54310346, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000413
+      internalID: 2400000000000000043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_7
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 689
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5508475, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000414
+      internalID: 2400000000000000044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_8
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 689
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000415
+      internalID: 2400000000000000045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_9
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 689
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000416
+      internalID: 2400000000000000046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_10
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 689
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000417
+      internalID: 2400000000000000047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_11
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 689
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.55172414, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000418
+      internalID: 2400000000000000048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_12
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 537
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.54310346, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000419
+      internalID: 2400000000000000049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_13
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000041a
+      internalID: 2400000000000000050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_14
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000041b
+      internalID: 2400000000000000051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_15
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000041c
+      internalID: 2400000000000000052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_16
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000041d
+      internalID: 2400000000000000053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_17
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000041e
+      internalID: 2400000000000000054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_18
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 392
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.54310346, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000041f
+      internalID: 2400000000000000055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_19
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000420
+      internalID: 2400000000000000056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_20
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000421
+      internalID: 2400000000000000057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_21
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000422
+      internalID: 2400000000000000058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_22
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000423
+      internalID: 2400000000000000059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_23
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000424
+      internalID: 2400000000000000060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_24
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000425
+      internalID: 2400000000000000061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_25
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000426
+      internalID: 2400000000000000062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_26
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000427
+      internalID: 2400000000000000063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_27
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000428
+      internalID: 2400000000000000064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_28
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000429
+      internalID: 2400000000000000065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_29
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 249
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.55172414, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000042a
+      internalID: 2400000000000000066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_30
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 92
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.54310346, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000042b
+      internalID: 2400000000000000067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_31
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 92
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5508475, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000042c
+      internalID: 2400000000000000068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_32
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 92
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000042d
+      internalID: 2400000000000000069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_33
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 92
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000042e
+      internalID: 2400000000000000070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_34
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 92
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5508475, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000042f
+      internalID: 2400000000000000071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_DownRight_35
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 92
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5423729, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000430
+      internalID: 2400000000000000072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_0
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 837
+        width: 53
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49056605, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000431
+      internalID: 2400000000000000073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_1
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 837
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000432
+      internalID: 2400000000000000074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_2
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 837
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000433
+      internalID: 2400000000000000075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_3
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 837
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000434
+      internalID: 2400000000000000076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_4
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 837
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000435
+      internalID: 2400000000000000077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_5
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 837
+        width: 53
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000436
+      internalID: 2400000000000000078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_6
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 689
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000437
+      internalID: 2400000000000000079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_7
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 689
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000438
+      internalID: 2400000000000000080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_8
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 689
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000439
+      internalID: 2400000000000000081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_9
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 689
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000043a
+      internalID: 2400000000000000082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_10
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 689
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000043b
+      internalID: 2400000000000000083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_11
+      rect:
+        serializedVersion: 2
+        x: 1503
+        y: 689
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4909091, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000043c
+      internalID: 2400000000000000084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_12
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 537
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000043d
+      internalID: 2400000000000000085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_13
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 537
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4909091, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000043e
+      internalID: 2400000000000000086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_14
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 537
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000043f
+      internalID: 2400000000000000087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_15
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 537
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000440
+      internalID: 2400000000000000088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_16
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 537
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000441
+      internalID: 2400000000000000089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_17
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 537
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000442
+      internalID: 2400000000000000090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_18
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 392
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000443
+      internalID: 2400000000000000091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_19
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 392
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000444
+      internalID: 2400000000000000092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_20
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 392
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000445
+      internalID: 2400000000000000093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_21
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 392
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000446
+      internalID: 2400000000000000094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_22
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 392
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000447
+      internalID: 2400000000000000095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_23
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 392
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000448
+      internalID: 2400000000000000096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_24
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 249
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000449
+      internalID: 2400000000000000097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_25
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 249
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000044a
+      internalID: 2400000000000000098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_26
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 249
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4909091, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000044b
+      internalID: 2400000000000000099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_27
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 249
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000044c
+      internalID: 2400000000000000100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_28
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 249
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000044d
+      internalID: 2400000000000000101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_29
+      rect:
+        serializedVersion: 2
+        x: 1503
+        y: 249
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4909091, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000044e
+      internalID: 2400000000000000102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_30
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 92
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000044f
+      internalID: 2400000000000000103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_31
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 92
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000450
+      internalID: 2400000000000000104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_32
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 92
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000451
+      internalID: 2400000000000000105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_33
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 92
+        width: 54
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49074075, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000452
+      internalID: 2400000000000000106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_34
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 92
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48181817, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000453
+      internalID: 2400000000000000107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Right_35
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 92
+        width: 53
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000454
+      internalID: 2400000000000000108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_0
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 837
+        width: 55
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000455
+      internalID: 2400000000000000109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_1
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 837
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000456
+      internalID: 2400000000000000110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_2
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 837
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000457
+      internalID: 2400000000000000111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_3
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 837
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000458
+      internalID: 2400000000000000112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_4
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 837
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000459
+      internalID: 2400000000000000113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_5
+      rect:
+        serializedVersion: 2
+        x: 1557
+        y: 837
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48333332, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000045a
+      internalID: 2400000000000000114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_6
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 689
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000045b
+      internalID: 2400000000000000115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_7
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 689
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000045c
+      internalID: 2400000000000000116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_8
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 689
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000045d
+      internalID: 2400000000000000117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_9
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 689
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48333332, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000045e
+      internalID: 2400000000000000118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_10
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 689
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000045f
+      internalID: 2400000000000000119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_11
+      rect:
+        serializedVersion: 2
+        x: 1558
+        y: 689
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000460
+      internalID: 2400000000000000120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_12
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 537
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000461
+      internalID: 2400000000000000121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_13
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000462
+      internalID: 2400000000000000122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_14
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 537
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000463
+      internalID: 2400000000000000123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_15
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 537
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000464
+      internalID: 2400000000000000124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_16
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000465
+      internalID: 2400000000000000125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_17
+      rect:
+        serializedVersion: 2
+        x: 1558
+        y: 537
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000466
+      internalID: 2400000000000000126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_18
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 392
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000467
+      internalID: 2400000000000000127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_19
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000468
+      internalID: 2400000000000000128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_20
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 392
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000469
+      internalID: 2400000000000000129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_21
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 392
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000046a
+      internalID: 2400000000000000130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_22
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 392
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000046b
+      internalID: 2400000000000000131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_23
+      rect:
+        serializedVersion: 2
+        x: 1558
+        y: 392
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000046c
+      internalID: 2400000000000000132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_24
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 249
+        width: 57
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49122807, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000046d
+      internalID: 2400000000000000133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_25
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 249
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000046e
+      internalID: 2400000000000000134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_26
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48305085, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000046f
+      internalID: 2400000000000000135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_27
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 249
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000470
+      internalID: 2400000000000000136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_28
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 249
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000471
+      internalID: 2400000000000000137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_29
+      rect:
+        serializedVersion: 2
+        x: 1558
+        y: 249
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000472
+      internalID: 2400000000000000138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_30
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 92
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000473
+      internalID: 2400000000000000139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_31
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 92
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000474
+      internalID: 2400000000000000140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_32
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 92
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49166667, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000475
+      internalID: 2400000000000000141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_33
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 92
+        width: 61
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4918033, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000476
+      internalID: 2400000000000000142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_34
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 92
+        width: 59
+        height: 60
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000477
+      internalID: 2400000000000000143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_UpRight_35
+      rect:
+        serializedVersion: 2
+        x: 1557
+        y: 92
+        width: 60
+        height: 60
+      alignment: 9
+      pivot: {x: 0.48333332, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000478
+      internalID: 2400000000000000144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_0
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 837
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000479
+      internalID: 2400000000000000145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_1
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 837
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000047a
+      internalID: 2400000000000000146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_2
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 837
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000047b
+      internalID: 2400000000000000147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 837
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000047c
+      internalID: 2400000000000000148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_4
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 837
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000047d
+      internalID: 2400000000000000149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_5
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 837
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000047e
+      internalID: 2400000000000000150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_6
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 689
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000047f
+      internalID: 2400000000000000151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_7
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 689
+        width: 34
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5147059, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000480
+      internalID: 2400000000000000152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_8
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 689
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000481
+      internalID: 2400000000000000153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_9
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 689
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000482
+      internalID: 2400000000000000154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_10
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 689
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000483
+      internalID: 2400000000000000155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_11
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 689
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000484
+      internalID: 2400000000000000156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_12
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 537
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000485
+      internalID: 2400000000000000157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_13
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 537
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000486
+      internalID: 2400000000000000158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_14
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 537
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000487
+      internalID: 2400000000000000159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_15
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 537
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000488
+      internalID: 2400000000000000160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_16
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 537
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000489
+      internalID: 2400000000000000161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_17
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 537
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000048a
+      internalID: 2400000000000000162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_18
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 392
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5138889, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000048b
+      internalID: 2400000000000000163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_19
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 392
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000048c
+      internalID: 2400000000000000164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_20
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 392
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000048d
+      internalID: 2400000000000000165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_21
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 392
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000048e
+      internalID: 2400000000000000166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_22
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 392
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000048f
+      internalID: 2400000000000000167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_23
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 392
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000490
+      internalID: 2400000000000000168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_24
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 249
+        width: 37
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5135135, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000491
+      internalID: 2400000000000000169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_25
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 249
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000492
+      internalID: 2400000000000000170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_26
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 249
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000493
+      internalID: 2400000000000000171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_27
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 249
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000494
+      internalID: 2400000000000000172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_28
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 249
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000495
+      internalID: 2400000000000000173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_29
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 249
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000496
+      internalID: 2400000000000000174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_30
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 92
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000497
+      internalID: 2400000000000000175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_31
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 92
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000498
+      internalID: 2400000000000000176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_32
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 92
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000499
+      internalID: 2400000000000000177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_33
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 92
+        width: 34
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5147059, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000049a
+      internalID: 2400000000000000178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_34
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 92
+        width: 35
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5142857, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000049b
+      internalID: 2400000000000000179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Truck_Up_35
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 92
+        width: 36
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5277778, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000049c
+      internalID: 2400000000000000180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 75c8f9b0da8d451da800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Truck_DownRight_0: 2400000000000000037
+      Truck_DownRight_1: 2400000000000000038
+      Truck_DownRight_10: 2400000000000000047
+      Truck_DownRight_11: 2400000000000000048
+      Truck_DownRight_12: 2400000000000000049
+      Truck_DownRight_13: 2400000000000000050
+      Truck_DownRight_14: 2400000000000000051
+      Truck_DownRight_15: 2400000000000000052
+      Truck_DownRight_16: 2400000000000000053
+      Truck_DownRight_17: 2400000000000000054
+      Truck_DownRight_18: 2400000000000000055
+      Truck_DownRight_19: 2400000000000000056
+      Truck_DownRight_2: 2400000000000000039
+      Truck_DownRight_20: 2400000000000000057
+      Truck_DownRight_21: 2400000000000000058
+      Truck_DownRight_22: 2400000000000000059
+      Truck_DownRight_23: 2400000000000000060
+      Truck_DownRight_24: 2400000000000000061
+      Truck_DownRight_25: 2400000000000000062
+      Truck_DownRight_26: 2400000000000000063
+      Truck_DownRight_27: 2400000000000000064
+      Truck_DownRight_28: 2400000000000000065
+      Truck_DownRight_29: 2400000000000000066
+      Truck_DownRight_3: 2400000000000000040
+      Truck_DownRight_30: 2400000000000000067
+      Truck_DownRight_31: 2400000000000000068
+      Truck_DownRight_32: 2400000000000000069
+      Truck_DownRight_33: 2400000000000000070
+      Truck_DownRight_34: 2400000000000000071
+      Truck_DownRight_35: 2400000000000000072
+      Truck_DownRight_4: 2400000000000000041
+      Truck_DownRight_5: 2400000000000000042
+      Truck_DownRight_6: 2400000000000000043
+      Truck_DownRight_7: 2400000000000000044
+      Truck_DownRight_8: 2400000000000000045
+      Truck_DownRight_9: 2400000000000000046
+      Truck_Down_0: 2400000000000000001
+      Truck_Down_1: 2400000000000000002
+      Truck_Down_10: 2400000000000000011
+      Truck_Down_11: 2400000000000000012
+      Truck_Down_12: 2400000000000000013
+      Truck_Down_13: 2400000000000000014
+      Truck_Down_14: 2400000000000000015
+      Truck_Down_15: 2400000000000000016
+      Truck_Down_16: 2400000000000000017
+      Truck_Down_17: 2400000000000000018
+      Truck_Down_18: 2400000000000000019
+      Truck_Down_19: 2400000000000000020
+      Truck_Down_2: 2400000000000000003
+      Truck_Down_20: 2400000000000000021
+      Truck_Down_21: 2400000000000000022
+      Truck_Down_22: 2400000000000000023
+      Truck_Down_23: 2400000000000000024
+      Truck_Down_24: 2400000000000000025
+      Truck_Down_25: 2400000000000000026
+      Truck_Down_26: 2400000000000000027
+      Truck_Down_27: 2400000000000000028
+      Truck_Down_28: 2400000000000000029
+      Truck_Down_29: 2400000000000000030
+      Truck_Down_3: 2400000000000000004
+      Truck_Down_30: 2400000000000000031
+      Truck_Down_31: 2400000000000000032
+      Truck_Down_32: 2400000000000000033
+      Truck_Down_33: 2400000000000000034
+      Truck_Down_34: 2400000000000000035
+      Truck_Down_35: 2400000000000000036
+      Truck_Down_4: 2400000000000000005
+      Truck_Down_5: 2400000000000000006
+      Truck_Down_6: 2400000000000000007
+      Truck_Down_7: 2400000000000000008
+      Truck_Down_8: 2400000000000000009
+      Truck_Down_9: 2400000000000000010
+      Truck_Right_0: 2400000000000000073
+      Truck_Right_1: 2400000000000000074
+      Truck_Right_10: 2400000000000000083
+      Truck_Right_11: 2400000000000000084
+      Truck_Right_12: 2400000000000000085
+      Truck_Right_13: 2400000000000000086
+      Truck_Right_14: 2400000000000000087
+      Truck_Right_15: 2400000000000000088
+      Truck_Right_16: 2400000000000000089
+      Truck_Right_17: 2400000000000000090
+      Truck_Right_18: 2400000000000000091
+      Truck_Right_19: 2400000000000000092
+      Truck_Right_2: 2400000000000000075
+      Truck_Right_20: 2400000000000000093
+      Truck_Right_21: 2400000000000000094
+      Truck_Right_22: 2400000000000000095
+      Truck_Right_23: 2400000000000000096
+      Truck_Right_24: 2400000000000000097
+      Truck_Right_25: 2400000000000000098
+      Truck_Right_26: 2400000000000000099
+      Truck_Right_27: 2400000000000000100
+      Truck_Right_28: 2400000000000000101
+      Truck_Right_29: 2400000000000000102
+      Truck_Right_3: 2400000000000000076
+      Truck_Right_30: 2400000000000000103
+      Truck_Right_31: 2400000000000000104
+      Truck_Right_32: 2400000000000000105
+      Truck_Right_33: 2400000000000000106
+      Truck_Right_34: 2400000000000000107
+      Truck_Right_35: 2400000000000000108
+      Truck_Right_4: 2400000000000000077
+      Truck_Right_5: 2400000000000000078
+      Truck_Right_6: 2400000000000000079
+      Truck_Right_7: 2400000000000000080
+      Truck_Right_8: 2400000000000000081
+      Truck_Right_9: 2400000000000000082
+      Truck_UpRight_0: 2400000000000000109
+      Truck_UpRight_1: 2400000000000000110
+      Truck_UpRight_10: 2400000000000000119
+      Truck_UpRight_11: 2400000000000000120
+      Truck_UpRight_12: 2400000000000000121
+      Truck_UpRight_13: 2400000000000000122
+      Truck_UpRight_14: 2400000000000000123
+      Truck_UpRight_15: 2400000000000000124
+      Truck_UpRight_16: 2400000000000000125
+      Truck_UpRight_17: 2400000000000000126
+      Truck_UpRight_18: 2400000000000000127
+      Truck_UpRight_19: 2400000000000000128
+      Truck_UpRight_2: 2400000000000000111
+      Truck_UpRight_20: 2400000000000000129
+      Truck_UpRight_21: 2400000000000000130
+      Truck_UpRight_22: 2400000000000000131
+      Truck_UpRight_23: 2400000000000000132
+      Truck_UpRight_24: 2400000000000000133
+      Truck_UpRight_25: 2400000000000000134
+      Truck_UpRight_26: 2400000000000000135
+      Truck_UpRight_27: 2400000000000000136
+      Truck_UpRight_28: 2400000000000000137
+      Truck_UpRight_29: 2400000000000000138
+      Truck_UpRight_3: 2400000000000000112
+      Truck_UpRight_30: 2400000000000000139
+      Truck_UpRight_31: 2400000000000000140
+      Truck_UpRight_32: 2400000000000000141
+      Truck_UpRight_33: 2400000000000000142
+      Truck_UpRight_34: 2400000000000000143
+      Truck_UpRight_35: 2400000000000000144
+      Truck_UpRight_4: 2400000000000000113
+      Truck_UpRight_5: 2400000000000000114
+      Truck_UpRight_6: 2400000000000000115
+      Truck_UpRight_7: 2400000000000000116
+      Truck_UpRight_8: 2400000000000000117
+      Truck_UpRight_9: 2400000000000000118
+      Truck_Up_0: 2400000000000000145
+      Truck_Up_1: 2400000000000000146
+      Truck_Up_10: 2400000000000000155
+      Truck_Up_11: 2400000000000000156
+      Truck_Up_12: 2400000000000000157
+      Truck_Up_13: 2400000000000000158
+      Truck_Up_14: 2400000000000000159
+      Truck_Up_15: 2400000000000000160
+      Truck_Up_16: 2400000000000000161
+      Truck_Up_17: 2400000000000000162
+      Truck_Up_18: 2400000000000000163
+      Truck_Up_19: 2400000000000000164
+      Truck_Up_2: 2400000000000000147
+      Truck_Up_20: 2400000000000000165
+      Truck_Up_21: 2400000000000000166
+      Truck_Up_22: 2400000000000000167
+      Truck_Up_23: 2400000000000000168
+      Truck_Up_24: 2400000000000000169
+      Truck_Up_25: 2400000000000000170
+      Truck_Up_26: 2400000000000000171
+      Truck_Up_27: 2400000000000000172
+      Truck_Up_28: 2400000000000000173
+      Truck_Up_29: 2400000000000000174
+      Truck_Up_3: 2400000000000000148
+      Truck_Up_30: 2400000000000000175
+      Truck_Up_31: 2400000000000000176
+      Truck_Up_32: 2400000000000000177
+      Truck_Up_33: 2400000000000000178
+      Truck_Up_34: 2400000000000000179
+      Truck_Up_35: 2400000000000000180
+      Truck_Up_4: 2400000000000000149
+      Truck_Up_5: 2400000000000000150
+      Truck_Up_6: 2400000000000000151
+      Truck_Up_7: 2400000000000000152
+      Truck_Up_8: 2400000000000000153
+      Truck_Up_9: 2400000000000000154
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

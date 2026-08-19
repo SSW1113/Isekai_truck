@@ -1,3 +1,4 @@
+using IsekaiTruck.Visuals;
 using UnityEngine;
 
 namespace IsekaiTruck.Monsters
@@ -16,6 +17,7 @@ namespace IsekaiTruck.Monsters
 
         [Header("Animation")]
         [SerializeField] private Animator animator;
+        [SerializeField] private DirectionalSpriteAnimator directionalSpriteAnimator;
         [SerializeField] private bool disableRootMotion = true;
         [SerializeField] private string isFleeingParameter = "IsFleeing";
         [SerializeField] private string moveSpeedParameter = "MoveSpeed";
@@ -31,6 +33,7 @@ namespace IsekaiTruck.Monsters
         {
             visualRoot = visualRoot == null ? transform : visualRoot;
             animator = animator == null ? GetComponentInChildren<Animator>(true) : animator;
+            directionalSpriteAnimator = directionalSpriteAnimator == null ? GetComponentInChildren<DirectionalSpriteAnimator>(true) : directionalSpriteAnimator;
 
             if (disableColliders)
             {
@@ -43,10 +46,13 @@ namespace IsekaiTruck.Monsters
             }
 
             InitializeAnimator();
+            directionalSpriteAnimator?.Initialize();
         }
 
         public void SetMovement(Vector3 direction, float moveSpeed, bool isFleeing)
         {
+            directionalSpriteAnimator?.SetMovement(direction, moveSpeed);
+
             if (faceMoveDirection && direction.sqrMagnitude > 0.000001f)
             {
                 visualRoot.rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -70,6 +76,8 @@ namespace IsekaiTruck.Monsters
 
         public void SetPaused(bool isPaused)
         {
+            directionalSpriteAnimator?.SetPaused(isPaused);
+
             if (animator != null)
             {
                 animator.speed = isPaused ? 0f : 1f;
