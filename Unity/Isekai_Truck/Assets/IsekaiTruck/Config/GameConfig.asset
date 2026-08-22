@@ -38,7 +38,8 @@ MonoBehaviour:
     zoomStartScale: 1.2
     zoomStrength: 0.8
     maxZoomMultiplier: 10
-    viewportAspect: {x: 11, y: 16}
+    viewportAspect: {x: 16, y: 15}
+    viewportHorizontalCenter: 0.49
     fieldOfView: 75
     nearClipPlane: 0.1
     farClipPlane: 1000
@@ -63,7 +64,7 @@ MonoBehaviour:
     rewardMultiplierPerMaxRebirth: 0.1
     blessingCandidateCount: 3
     tiers:
-    - requiredLevel: 10
+    - requiredLevel: 1
       cWeight: 90
       uWeight: 9
       rWeight: 1

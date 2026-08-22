@@ -14,16 +14,16 @@ namespace IsekaiTruck.UI
         [SerializeField] private RectTransform gameArea;
         [SerializeField] private GameObject rebirthPanel;
         [SerializeField] private GameObject tierPanel;
-        [SerializeField] private GameObject candidatePanel;
         [SerializeField] private Text statusText;
         [SerializeField] private Text guideText;
         [SerializeField] private Button openButton;
+        [SerializeField] private Text openButtonLabel;
+        [SerializeField] private GameObject availabilityIndicator;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button confirmButton;
         [SerializeField] private Button[] tierButtons;
         [SerializeField] private Text[] tierLabels;
-        [SerializeField] private Button[] candidateButtons;
-        [SerializeField] private Text[] candidateLabels;
+        [SerializeField] private BlessingSelectionUI blessingSelectionUI;
 
         private RebirthSystem rebirthSystem;
         private BlessingSystem blessingSystem;
@@ -31,7 +31,7 @@ namespace IsekaiTruck.UI
         private JoystickInput joystickInput;
         private int selectedTierIndex = -1;
 
-        public bool IsPanelOpen => rebirthPanel != null && rebirthPanel.activeSelf;
+        public bool IsPanelOpen => (rebirthPanel != null && rebirthPanel.activeSelf) || (blessingSelectionUI != null && blessingSelectionUI.IsOpen);
 
         public void Initialize(RebirthSystem rebirth, BlessingSystem blessings, PlayerState player, JoystickInput input, CameraController cameraController)
         {
@@ -43,6 +43,10 @@ namespace IsekaiTruck.UI
             playerState.StateChanged += HandlePlayerStateChanged;
             rebirthSystem.StateChanged += Refresh;
             blessingSystem.StateChanged += Refresh;
+            if (blessingSelectionUI != null)
+            {
+                blessingSelectionUI.BlessingSelected += ChooseBlessing;
+            }
             openButton.onClick.AddListener(OpenPanel);
             closeButton.onClick.AddListener(ClosePanel);
             confirmButton.onClick.AddListener(ConfirmRebirth);
@@ -53,13 +57,7 @@ namespace IsekaiTruck.UI
                 tierButtons[i].onClick.AddListener(() => SelectTier(tierIndex));
             }
 
-            for (int i = 0; i < candidateButtons.Length; i++)
-            {
-                int candidateIndex = i;
-                candidateButtons[i].onClick.AddListener(() => ChooseBlessing(candidateIndex));
-            }
-
-            rebirthPanel.SetActive(rebirthSystem.HasPendingRebirth);
+            rebirthPanel.SetActive(false);
             if (rebirthSystem.HasPendingRebirth)
             {
                 joystickInput.SetInputEnabled(false);
@@ -75,6 +73,28 @@ namespace IsekaiTruck.UI
             gameArea.anchorMax = viewport.max;
             gameArea.offsetMin = Vector2.zero;
             gameArea.offsetMax = Vector2.zero;
+
+            RectTransform openButtonRect = (RectTransform)openButton.transform;
+            if (viewport.xMax < 0.999f)
+            {
+                float rightMargin = 1f - viewport.xMax;
+                openButtonRect.anchorMin = new Vector2(viewport.xMax + rightMargin * 0.18f, 0.135f);
+                openButtonRect.anchorMax = new Vector2(1f - rightMargin * 0.18f, 0.195f);
+            }
+            else
+            {
+                openButtonRect.anchorMin = new Vector2(
+                    viewport.xMin + viewport.width * 0.62f,
+                    viewport.yMin + viewport.height * 0.88f
+                );
+                openButtonRect.anchorMax = new Vector2(
+                    viewport.xMin + viewport.width * 0.96f,
+                    viewport.yMin + viewport.height * 0.96f
+                );
+            }
+
+            openButtonRect.offsetMin = Vector2.zero;
+            openButtonRect.offsetMax = Vector2.zero;
         }
 
         public void Refresh()
@@ -88,18 +108,36 @@ namespace IsekaiTruck.UI
             statusText.text = $"획득 배율 x{rebirthSystem.RewardMultiplier:F1}  |  최대 환생 Lv.{maxLevel}  |  축복 {blessingSystem.TotalOwnedCount}개";
 
             bool hasPending = rebirthSystem.HasPendingRebirth;
-            tierPanel.SetActive(!hasPending);
-            candidatePanel.SetActive(hasPending);
-            closeButton.interactable = !hasPending;
+            RefreshEntryButton(hasPending);
 
             if (hasPending)
             {
-                RefreshCandidates();
-                guideText.text = "여신의 축복을 하나 선택하세요. 후보는 다시 뽑을 수 없습니다.";
+                rebirthPanel.SetActive(false);
+                blessingSelectionUI.Show(blessingSystem.PendingCandidates, blessingSystem);
                 return;
             }
 
+            blessingSelectionUI.Hide();
+            tierPanel.SetActive(true);
+            closeButton.interactable = true;
             RefreshTiers();
+        }
+
+        private void RefreshEntryButton(bool hasPending)
+        {
+            openButton.gameObject.SetActive(!hasPending);
+            if (hasPending)
+            {
+                return;
+            }
+
+            int eligibleTierIndex = FindHighestEligibleTier();
+            bool isAvailable = eligibleTierIndex >= 0;
+            openButton.interactable = isAvailable;
+            availabilityIndicator.SetActive(isAvailable);
+
+            int requiredLevel = rebirthSystem.Tiers[rebirthSystem.MaxUnlockedTierIndex].RequiredLevel;
+            openButtonLabel.text = isAvailable ? "환생 가능!" : $"Lv.{requiredLevel} 필요\n환생하기";
         }
 
         private void RefreshTiers()
@@ -141,23 +179,6 @@ namespace IsekaiTruck.UI
             }
         }
 
-        private void RefreshCandidates()
-        {
-            for (int i = 0; i < candidateButtons.Length; i++)
-            {
-                bool exists = i < blessingSystem.PendingCandidates.Count;
-                candidateButtons[i].gameObject.SetActive(exists);
-                if (!exists)
-                {
-                    continue;
-                }
-
-                BlessingDefinition blessing = blessingSystem.PendingCandidates[i];
-                int ownedCount = blessingSystem.GetOwnedCount(blessing.Id);
-                candidateLabels[i].text = $"[{blessing.Grade}] {blessing.DisplayName}\n{blessing.Description}\n보유 {ownedCount}개";
-            }
-        }
-
         private int FindHighestEligibleTier()
         {
             for (int i = rebirthSystem.MaxUnlockedTierIndex; i >= 0; i--)
@@ -173,9 +194,20 @@ namespace IsekaiTruck.UI
 
         private void OpenPanel()
         {
+            int eligibleTierIndex = FindHighestEligibleTier();
+            if (eligibleTierIndex < 0)
+            {
+                return;
+            }
+
+            OpenRebirthPanel(eligibleTierIndex);
+        }
+
+        private void OpenRebirthPanel(int eligibleTierIndex)
+        {
             rebirthPanel.SetActive(true);
             joystickInput.SetInputEnabled(false);
-            selectedTierIndex = FindHighestEligibleTier();
+            selectedTierIndex = eligibleTierIndex;
             Refresh();
         }
 
@@ -217,6 +249,7 @@ namespace IsekaiTruck.UI
             }
 
             Debug.Log($"환생 완료: [{result.Blessing.Grade}] {result.Blessing.DisplayName}, 획득 배율 x{result.RewardMultiplier:F1}", this);
+            blessingSelectionUI.Hide();
             rebirthPanel.SetActive(false);
             joystickInput.SetInputEnabled(true);
             selectedTierIndex = -1;
@@ -233,6 +266,7 @@ namespace IsekaiTruck.UI
             if (playerState != null) playerState.StateChanged -= HandlePlayerStateChanged;
             if (rebirthSystem != null) rebirthSystem.StateChanged -= Refresh;
             if (blessingSystem != null) blessingSystem.StateChanged -= Refresh;
+            if (blessingSelectionUI != null) blessingSelectionUI.BlessingSelected -= ChooseBlessing;
             if (openButton != null) openButton.onClick.RemoveListener(OpenPanel);
             if (closeButton != null) closeButton.onClick.RemoveListener(ClosePanel);
             if (confirmButton != null) confirmButton.onClick.RemoveListener(ConfirmRebirth);
@@ -243,31 +277,31 @@ namespace IsekaiTruck.UI
             RectTransform targetGameArea,
             GameObject targetRebirthPanel,
             GameObject targetTierPanel,
-            GameObject targetCandidatePanel,
             Text targetStatusText,
             Text targetGuideText,
             Button targetOpenButton,
+            Text targetOpenButtonLabel,
+            GameObject targetAvailabilityIndicator,
             Button targetCloseButton,
             Button targetConfirmButton,
             Button[] targetTierButtons,
             Text[] targetTierLabels,
-            Button[] targetCandidateButtons,
-            Text[] targetCandidateLabels
+            BlessingSelectionUI targetBlessingSelectionUI
         )
         {
             gameArea = targetGameArea;
             rebirthPanel = targetRebirthPanel;
             tierPanel = targetTierPanel;
-            candidatePanel = targetCandidatePanel;
             statusText = targetStatusText;
             guideText = targetGuideText;
             openButton = targetOpenButton;
+            openButtonLabel = targetOpenButtonLabel;
+            availabilityIndicator = targetAvailabilityIndicator;
             closeButton = targetCloseButton;
             confirmButton = targetConfirmButton;
             tierButtons = targetTierButtons;
             tierLabels = targetTierLabels;
-            candidateButtons = targetCandidateButtons;
-            candidateLabels = targetCandidateLabels;
+            blessingSelectionUI = targetBlessingSelectionUI;
         }
 #endif
     }

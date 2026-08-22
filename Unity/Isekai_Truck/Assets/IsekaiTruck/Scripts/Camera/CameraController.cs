@@ -83,10 +83,16 @@ namespace IsekaiTruck.Camera
 
         public static Rect CalculateViewportRect(float screenAspect, float targetAspect)
         {
+            return CalculateViewportRect(screenAspect, targetAspect, 0.5f);
+        }
+
+        public static Rect CalculateViewportRect(float screenAspect, float targetAspect, float horizontalCenter)
+        {
             if (screenAspect > targetAspect)
             {
                 float width = targetAspect / screenAspect;
-                return new Rect((1f - width) / 2f, 0f, width, 1f);
+                float x = Mathf.Clamp(horizontalCenter - width * 0.5f, 0f, 1f - width);
+                return new Rect(x, 0f, width, 1f);
             }
 
             float height = screenAspect / targetAspect;
@@ -104,7 +110,7 @@ namespace IsekaiTruck.Camera
             currentScreenHeight = Mathf.Max(Screen.height, 1);
 
             float screenAspect = (float)currentScreenWidth / currentScreenHeight;
-            ViewportRect = CalculateViewportRect(screenAspect, settings.ViewportAspect);
+            ViewportRect = CalculateViewportRect(screenAspect, settings.ViewportAspect, settings.ViewportHorizontalCenter);
             targetCamera.rect = ViewportRect;
             targetCamera.aspect = settings.ViewportAspect;
         }

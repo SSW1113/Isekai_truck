@@ -71,6 +71,7 @@ namespace IsekaiTruck.Editor
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             RebirthUIController uiController = CreateUI(canvas.transform, font);
+            uiController.transform.SetAsLastSibling();
             gameManager.SetRebirthSystems(blessingSystem, rebirthSystem, saveSystem, uiController);
             EditorUtility.SetDirty(gameManager);
             EditorUtility.SetDirty(blessingSystem);
@@ -104,6 +105,11 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Rebirth scene systems are missing.");
             }
 
+            if (sceneUI.transform.GetSiblingIndex() != sceneUI.transform.parent.childCount - 1)
+            {
+                throw new InvalidOperationException("Rebirth UI must render above the main HUD.");
+            }
+
             SerializedObject serializedGameManager = new SerializedObject(gameManager);
             string[] managerReferences = { "blessingSystem", "rebirthSystem", "saveSystem", "rebirthUIController" };
             for (int i = 0; i < managerReferences.Length; i++)
@@ -117,8 +123,9 @@ namespace IsekaiTruck.Editor
             SerializedObject serializedUI = new SerializedObject(sceneUI);
             string[] uiReferences =
             {
-                "gameArea", "rebirthPanel", "tierPanel", "candidatePanel", "statusText", "guideText",
-                "openButton", "closeButton", "confirmButton", "tierButtons", "tierLabels", "candidateButtons", "candidateLabels"
+                "gameArea", "rebirthPanel", "tierPanel", "statusText", "guideText",
+                "openButton", "openButtonLabel", "availabilityIndicator", "closeButton", "confirmButton",
+                "tierButtons", "tierLabels", "blessingSelectionUI"
             };
             for (int i = 0; i < uiReferences.Length; i++)
             {
@@ -128,6 +135,20 @@ namespace IsekaiTruck.Editor
                 {
                     throw new InvalidOperationException($"RebirthUIController reference is missing: {uiReferences[i]}");
                 }
+            }
+
+            BlessingSelectionUI blessingSelectionUI = (BlessingSelectionUI)serializedUI.FindProperty("blessingSelectionUI").objectReferenceValue;
+            Button rebirthButton = (Button)serializedUI.FindProperty("openButton").objectReferenceValue;
+            SerializedObject serializedBlessingUI = new SerializedObject(blessingSelectionUI);
+            if (serializedBlessingUI.FindProperty("overlay").objectReferenceValue == null ||
+                serializedBlessingUI.FindProperty("cards").arraySize != 3 ||
+                rebirthButton.GetComponent<CartoonButtonPressEffect>() == null ||
+                !HudColorPalette.Matches(rebirthButton.GetComponent<Image>().color, HudColorPalette.Soul) ||
+                sceneUI.transform.Find("Blessing Selection Overlay/Card Row/Blessing Card 1/Icon") == null ||
+                sceneUI.transform.Find("Blessing Selection Overlay/Card Row/Blessing Card 2/Name Text") == null ||
+                sceneUI.transform.Find("Blessing Selection Overlay/Card Row/Blessing Card 3/Description Text") == null)
+            {
+                throw new InvalidOperationException("Blessing selection card UI is incomplete.");
             }
 
             VerifyRuntimeFlow(config, catalog);
@@ -159,7 +180,10 @@ namespace IsekaiTruck.Editor
             for (int i = 0; i < config.Rebirth.Tiers.Length; i++)
             {
                 GameConfig.RebirthTierSettings tier = config.Rebirth.Tiers[i];
-                if (tier.RequiredLevel != (i + 1) * 10 || !Mathf.Approximately(tier.TotalWeight, 100f))
+                int productionRequiredLevel = (i + 1) * 10;
+                bool isDebugFirstTier = i == 0 && tier.RequiredLevel == 1;
+                bool hasValidRequiredLevel = tier.RequiredLevel == productionRequiredLevel || isDebugFirstTier;
+                if (!hasValidRequiredLevel || !Mathf.Approximately(tier.TotalWeight, 100f))
                 {
                     throw new InvalidOperationException($"Rebirth tier configuration is invalid at index {i}.");
                 }
@@ -404,8 +428,12 @@ namespace IsekaiTruck.Editor
             RectTransform gameArea = gameAreaObject.GetComponent<RectTransform>();
             Stretch(gameArea);
 
-            Button openButton = CreateButton("Open Rebirth Button", gameArea, font, "환생", 22);
-            SetRect(openButton.GetComponent<RectTransform>(), new Vector2(0.73f, 1f), Vector2.one, new Vector2(0f, -164f), new Vector2(-14f, -106f));
+            GameObject metaProgressionHud = CreateUIObject("Meta Progression HUD", uiObject.transform);
+            Stretch(metaProgressionHud.GetComponent<RectTransform>());
+            Button openButton = CreateButton("Rebirth Button", metaProgressionHud.transform, font, "환생", 22);
+            SetRect(openButton.GetComponent<RectTransform>(), new Vector2(0.8278f, 0.135f), new Vector2(0.9622f, 0.195f), Vector2.zero, Vector2.zero);
+            Text openButtonLabel = openButton.GetComponentInChildren<Text>();
+            GameObject availabilityIndicator = StyleRebirthEntryButton(openButton, font);
 
             GameObject panel = CreatePanel("Rebirth Panel", gameArea, new Color(0f, 0f, 0f, 0.7f));
             Stretch(panel.GetComponent<RectTransform>());
@@ -443,25 +471,125 @@ namespace IsekaiTruck.Editor
             Button confirmButton = CreateButton("Confirm Rebirth Button", box.transform, font, "선택한 단계로 환생", 24);
             SetBottomRect(confirmButton.GetComponent<RectTransform>(), 72f, 58f, 30f);
 
-            GameObject candidatePanel = CreateUIObject("Candidate Panel", box.transform);
-            SetRect(candidatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, new Vector2(28f, 150f), new Vector2(-28f, -225f));
-            Button[] candidateButtons = new Button[3];
-            Text[] candidateLabels = new Text[3];
-            for (int i = 0; i < candidateButtons.Length; i++)
-            {
-                float minY = 1f - (i + 1) / 3f;
-                float maxY = 1f - i / 3f;
-                candidateButtons[i] = CreateButton($"Blessing Candidate {i + 1}", candidatePanel.transform, font, string.Empty, 21);
-                SetRect(candidateButtons[i].GetComponent<RectTransform>(), new Vector2(0f, minY), new Vector2(1f, maxY), new Vector2(6f, 9f), new Vector2(-6f, -9f));
-                candidateLabels[i] = candidateButtons[i].GetComponentInChildren<Text>();
-            }
-
             Button closeButton = CreateButton("Close Rebirth Button", box.transform, font, "닫기", 21);
             SetBottomRect(closeButton.GetComponent<RectTransform>(), 15f, 46f, 190f);
 
-            controller.SetReferences(gameArea, panel, tierPanel, candidatePanel, statusText, guideText, openButton, closeButton, confirmButton, tierButtons, tierLabels, candidateButtons, candidateLabels);
+            BlessingSelectionUI blessingSelectionUI = CreateBlessingSelectionUI(uiObject.transform, font);
+
+            controller.SetReferences(
+                gameArea,
+                panel,
+                tierPanel,
+                statusText,
+                guideText,
+                openButton,
+                openButtonLabel,
+                availabilityIndicator,
+                closeButton,
+                confirmButton,
+                tierButtons,
+                tierLabels,
+                blessingSelectionUI
+            );
             panel.SetActive(false);
             return controller;
+        }
+
+        private static BlessingSelectionUI CreateBlessingSelectionUI(Transform parent, Font font)
+        {
+            BlessingSelectionUI selectionUI = parent.gameObject.AddComponent<BlessingSelectionUI>();
+            GameObject overlay = CreatePanel("Blessing Selection Overlay", parent, new Color(0.01f, 0.015f, 0.025f, 0.58f));
+            Stretch(overlay.GetComponent<RectTransform>());
+            overlay.GetComponent<Image>().raycastTarget = true;
+
+            Text title = CreateText("Title", overlay.transform, font, "여신의 축복 선택", 42, TextAnchor.MiddleCenter);
+            SetRect(title.rectTransform, new Vector2(0.20f, 0.82f), new Vector2(0.80f, 0.91f), Vector2.zero, Vector2.zero);
+            title.fontStyle = FontStyle.Bold;
+            title.color = new Color(0.94f, 0.90f, 1f, 1f);
+
+            GameObject cardContainer = CreateUIObject("Card Row", overlay.transform);
+            RectTransform cardContainerRect = cardContainer.GetComponent<RectTransform>();
+            SetRect(cardContainerRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            cardContainerRect.sizeDelta = new Vector2(900f, 500f);
+            cardContainerRect.anchoredPosition = new Vector2(0f, -30f);
+
+            BlessingCardView[] cards = new BlessingCardView[3];
+            for (int i = 0; i < cards.Length; i++)
+            {
+                cards[i] = CreateBlessingCard(cardContainer.transform, font, i);
+            }
+
+            selectionUI.SetReferences(overlay, cards);
+            overlay.SetActive(false);
+            return selectionUI;
+        }
+
+        private static BlessingCardView CreateBlessingCard(Transform parent, Font font, int index)
+        {
+            Color cardColor = new Color(0.035f, 0.06f, 0.075f, 0.98f);
+            Color borderColor = new Color(0.73f, 0.65f, 0.88f, 0.88f);
+            GameObject cardObject = CreatePanel($"Blessing Card {index + 1}", parent, cardColor);
+            RectTransform cardRect = cardObject.GetComponent<RectTransform>();
+            SetRect(cardRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            cardRect.sizeDelta = new Vector2(270f, 470f);
+            cardRect.anchoredPosition = new Vector2((index - 1) * 302f, 0f);
+            Image background = cardObject.GetComponent<Image>();
+            background.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            background.type = Image.Type.Sliced;
+
+            Outline border = cardObject.AddComponent<Outline>();
+            border.effectColor = borderColor;
+            border.effectDistance = new Vector2(2f, -2f);
+            Shadow shadow = cardObject.AddComponent<Shadow>();
+            shadow.effectColor = new Color(0.22f, 0.12f, 0.20f, 0.30f);
+            shadow.effectDistance = new Vector2(0f, -5f);
+
+            GameObject hoverHighlight = CreatePanel("Hover Highlight", cardObject.transform, new Color(0.76f, 0.68f, 1f, 0f));
+            RectTransform highlightRect = hoverHighlight.GetComponent<RectTransform>();
+            SetRect(highlightRect, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f), Vector2.zero, Vector2.zero);
+            highlightRect.sizeDelta = new Vector2(190f, 190f);
+            Image spotlight = hoverHighlight.GetComponent<Image>();
+            spotlight.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+            spotlight.raycastTarget = false;
+
+            GameObject iconObject = CreatePanel("Icon", cardObject.transform, Color.white);
+            RectTransform iconRect = iconObject.GetComponent<RectTransform>();
+            SetRect(iconRect, new Vector2(0.5f, 0.77f), new Vector2(0.5f, 0.77f), Vector2.zero, Vector2.zero);
+            iconRect.sizeDelta = new Vector2(108f, 108f);
+            Image icon = iconObject.GetComponent<Image>();
+            icon.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+            icon.type = Image.Type.Simple;
+            icon.raycastTarget = false;
+
+            GameObject iconMark = CreatePanel("Icon Mark", iconObject.transform, new Color(1f, 1f, 1f, 0.82f));
+            RectTransform iconMarkRect = iconMark.GetComponent<RectTransform>();
+            SetRect(iconMarkRect, new Vector2(0.24f, 0.44f), new Vector2(0.76f, 0.56f), Vector2.zero, Vector2.zero);
+            iconMarkRect.localRotation = Quaternion.Euler(0f, 0f, 45f + index * 30f);
+            iconMark.GetComponent<Image>().raycastTarget = false;
+
+            Text gradeText = CreateText("Grade Text", cardObject.transform, font, string.Empty, 18, TextAnchor.MiddleCenter);
+            SetRect(gradeText.rectTransform, new Vector2(0.16f, 0.60f), new Vector2(0.84f, 0.67f), Vector2.zero, Vector2.zero);
+            gradeText.fontStyle = FontStyle.Bold;
+
+            Text nameText = CreateText("Name Text", cardObject.transform, font, string.Empty, 24, TextAnchor.MiddleCenter);
+            SetRect(nameText.rectTransform, new Vector2(0.08f, 0.44f), new Vector2(0.92f, 0.59f), Vector2.zero, Vector2.zero);
+            nameText.fontStyle = FontStyle.Bold;
+            nameText.color = new Color(0.96f, 0.93f, 1f, 1f);
+            nameText.horizontalOverflow = HorizontalWrapMode.Wrap;
+
+            Text descriptionText = CreateText("Description Text", cardObject.transform, font, string.Empty, 18, TextAnchor.UpperCenter);
+            SetRect(descriptionText.rectTransform, new Vector2(0.10f, 0.12f), new Vector2(0.90f, 0.42f), Vector2.zero, Vector2.zero);
+            descriptionText.color = new Color(0.78f, 0.82f, 0.86f, 1f);
+            descriptionText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            descriptionText.verticalOverflow = VerticalWrapMode.Truncate;
+
+            Text ownedText = CreateText("Owned Text", cardObject.transform, font, string.Empty, 16, TextAnchor.MiddleCenter);
+            SetRect(ownedText.rectTransform, new Vector2(0.12f, 0.04f), new Vector2(0.88f, 0.10f), Vector2.zero, Vector2.zero);
+            ownedText.color = new Color(0.64f, 0.70f, 0.74f, 1f);
+
+            BlessingCardView cardView = cardObject.AddComponent<BlessingCardView>();
+            cardView.SetReferences(cardRect, iconRect, background, icon, spotlight, border, gradeText, nameText, descriptionText, ownedText);
+            return cardView;
         }
 
         private static void EnsureFolder(string path)
@@ -515,6 +643,100 @@ namespace IsekaiTruck.Editor
             text.color = new Color(0.08f, 0.08f, 0.08f, 1f);
             StretchWithOffsets(text.rectTransform, 8f, 8f, 4f, 4f);
             return button;
+        }
+
+        private static GameObject StyleRebirthEntryButton(Button button, Font font)
+        {
+            Image image = button.GetComponent<Image>();
+            image.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            image.type = Image.Type.Sliced;
+            image.color = HudColorPalette.Soul;
+
+            Outline outline = button.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(HudColorPalette.SoulDepth.r, HudColorPalette.SoulDepth.g, HudColorPalette.SoulDepth.b, 0.84f);
+            outline.effectDistance = new Vector2(2f, -2f);
+
+            Shadow shadow = button.gameObject.AddComponent<Shadow>();
+            shadow.effectColor = new Color(HudColorPalette.SoulDepth.r, HudColorPalette.SoulDepth.g, HudColorPalette.SoulDepth.b, 0.32f);
+            shadow.effectDistance = new Vector2(0f, -4f);
+
+            ColorBlock colors = button.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(0.84f, 0.94f, 0.94f, 1f);
+            colors.pressedColor = new Color(0.78f, 0.86f, 0.86f, 1f);
+            colors.selectedColor = colors.highlightedColor;
+            colors.disabledColor = new Color(0.62f, 0.58f, 0.60f, 0.72f);
+            colors.colorMultiplier = 1f;
+            colors.fadeDuration = 0.12f;
+            button.colors = colors;
+
+            CartoonButtonPressEffect interaction = button.gameObject.AddComponent<CartoonButtonPressEffect>();
+            interaction.Configure((RectTransform)button.transform, null, 1.04f, 0.97f, 1.2f);
+
+            Text label = button.GetComponentInChildren<Text>();
+            label.font = font;
+            label.color = Color.white;
+            label.fontStyle = FontStyle.Bold;
+            label.resizeTextForBestFit = true;
+            label.resizeTextMinSize = 14;
+            label.resizeTextMaxSize = 24;
+            label.text = "환생";
+
+            GameObject soulMark = CreatePanel("Soul Mark", button.transform, new Color(1f, 0.92f, 0.62f, 1f));
+            RectTransform soulMarkRect = soulMark.GetComponent<RectTransform>();
+            SetRect(soulMarkRect, new Vector2(0.10f, 0.26f), new Vector2(0.30f, 0.74f), Vector2.zero, Vector2.zero);
+            soulMark.GetComponent<Image>().sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+            soulMark.GetComponent<Image>().raycastTarget = false;
+
+            SetRect(label.rectTransform, new Vector2(0.28f, 0f), new Vector2(0.94f, 1f), Vector2.zero, Vector2.zero);
+
+            GameObject availabilityIndicator = CreatePanel("Availability Indicator", button.transform, new Color(1f, 0.82f, 0.26f, 1f));
+            RectTransform indicatorRect = availabilityIndicator.GetComponent<RectTransform>();
+            SetRect(indicatorRect, new Vector2(0.90f, 0.88f), new Vector2(0.90f, 0.88f), Vector2.zero, Vector2.zero);
+            indicatorRect.sizeDelta = new Vector2(22f, 22f);
+            availabilityIndicator.GetComponent<Image>().sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+            availabilityIndicator.GetComponent<Image>().raycastTarget = false;
+            Text indicatorText = CreateText("Indicator Text", availabilityIndicator.transform, font, "!", 16, TextAnchor.MiddleCenter);
+            Stretch(indicatorText.rectTransform);
+            indicatorText.color = new Color(0.34f, 0.16f, 0.37f, 1f);
+            availabilityIndicator.SetActive(false);
+            return availabilityIndicator;
+        }
+
+        internal static void ApplyPaletteToExistingUI(Transform canvas)
+        {
+            Transform buttonTransform = canvas.Find("Rebirth UI/Meta Progression HUD/Rebirth Button");
+            if (buttonTransform == null)
+            {
+                return;
+            }
+
+            Button button = buttonTransform.GetComponent<Button>();
+            Image image = buttonTransform.GetComponent<Image>();
+            Outline outline = buttonTransform.GetComponent<Outline>();
+            Shadow[] shadows = buttonTransform.GetComponents<Shadow>();
+            image.color = HudColorPalette.Soul;
+            if (outline != null)
+            {
+                outline.effectColor = new Color(HudColorPalette.SoulDepth.r, HudColorPalette.SoulDepth.g, HudColorPalette.SoulDepth.b, 0.84f);
+            }
+
+            for (int i = 0; i < shadows.Length; i++)
+            {
+                if (shadows[i].GetType() == typeof(Shadow))
+                {
+                    shadows[i].effectColor = new Color(HudColorPalette.SoulDepth.r, HudColorPalette.SoulDepth.g, HudColorPalette.SoulDepth.b, 0.32f);
+                }
+            }
+
+            ColorBlock colors = button.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(0.84f, 0.94f, 0.94f, 1f);
+            colors.pressedColor = new Color(0.78f, 0.86f, 0.86f, 1f);
+            colors.selectedColor = colors.highlightedColor;
+            button.colors = colors;
+            EditorUtility.SetDirty(button);
+            EditorUtility.SetDirty(image);
         }
 
         private static void Stretch(RectTransform rectTransform)

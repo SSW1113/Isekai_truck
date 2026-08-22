@@ -31,12 +31,39 @@ namespace IsekaiTruck.UI
         [SerializeField] private Button closeButton;
         [SerializeField] private Button speedButton;
         [SerializeField] private Button sizeButton;
+        [SerializeField] private Button collectionButton;
+        [SerializeField] private Button settingsButton;
+        [SerializeField] private GameObject collectionNotificationBadge;
+        [SerializeField] private GameObject upgradeAvailableIndicator;
+        [SerializeField] private UIFeedbackEffect levelFeedback;
+        [SerializeField] private UIFeedbackEffect soulFeedback;
+        [SerializeField] private UIFeedbackEffect upgradeFeedback;
+        [SerializeField] private UIFeedbackEffect speedFeedback;
+        [SerializeField] private GoddessDialogueMockController goddessDialogue;
 
         private PlayerState playerState;
         private TruckController truckController;
         private TruckUpgradeSystem upgradeSystem;
         private JoystickInput joystickInput;
-        private int displayedSpeedKmh = int.MinValue;
+        private int renderedSpeedKmh = int.MinValue;
+        private int renderedSoul = int.MinValue;
+        private int lastSpeedFeedbackKmh;
+        private int targetSoul;
+        private float displayedSoul;
+        private float soulVelocity;
+        private float displayedSpeedKmh;
+        private float targetSpeedKmh;
+        private float currentExpRatio;
+        private float targetExpRatio;
+        private bool hasDisplayedState;
+        private bool hasDisplayedSoul;
+        private bool hasDisplayedSpeed;
+        private PlayerSnapshot playerStateSnapshot;
+
+        private const float ExpBarFollowSpeed = 10f;
+        private const float SoulSmoothTime = 0.22f;
+        private const float SpeedFollowSpeed = 9f;
+        private const int SpeedFeedbackStepKmh = 8;
 
         public bool IsUpgradePanelOpen => upgradePanel != null && upgradePanel.activeSelf;
 
@@ -59,10 +86,13 @@ namespace IsekaiTruck.UI
             closeButton.onClick.AddListener(CloseUpgradePanel);
             speedButton.onClick.AddListener(UpgradeSpeed);
             sizeButton.onClick.AddListener(UpgradeSize);
+            collectionButton.onClick.AddListener(OnCollectionButtonClicked);
+            settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 
             upgradePanel.SetActive(false);
             joystickInput.SetInputEnabled(true);
             SetViewport(cameraController.ViewportRect);
+            goddessDialogue?.Initialize(playerState, truckController, upgradeSystem);
             Refresh();
         }
 
@@ -88,46 +118,185 @@ namespace IsekaiTruck.UI
 
         private void Update()
         {
-            RefreshSpeed();
+            UpdateExpBar();
+            UpdateSoulDisplay();
+            UpdateSpeedDisplay();
         }
 
         public void Refresh()
         {
             PlayerSnapshot player = playerState.GetState();
-            TruckController.TruckStats truck = truckController.GetStats();
-            float expRatio = player.RequiredExp > 0 ? (float)player.Exp / player.RequiredExp : 0f;
+            RefreshPlayer(player, false);
 
-            levelText.text = $"Lv. {player.Level}";
-            expText.text = $"EXP {player.Exp} / {player.RequiredExp}";
-            expFill.rectTransform.anchorMax = new Vector2(Mathf.Clamp01(expRatio), 1f);
-            soulText.text = player.Soul.ToString();
-            pointText.text = $"포인트 {player.UpgradePoints}";
+            TruckController.TruckStats truck = truckController.GetStats();
             upgradePointText.text = $"남은 포인트: {player.UpgradePoints}";
             speedLevelText.text = $"Lv.{truck.SpeedLevel}";
             sizeLevelText.text = $"Lv.{truck.SizeLevel}";
             speedStatText.text = $"최대 속도: {truck.MaxSpeed:F3}";
             sizeStatText.text = $"트럭 크기: {Mathf.RoundToInt(truck.SizeScale * 100f)}%";
+            RefreshSpeedTarget();
+        }
+
+        private void RefreshPlayer(PlayerSnapshot player, bool animateChanges)
+        {
+            int previousLevel = hasDisplayedState ? playerStateSnapshot.Level : player.Level;
+            int previousSoul = hasDisplayedState ? playerStateSnapshot.Soul : player.Soul;
+            int previousPoints = hasDisplayedState ? playerStateSnapshot.UpgradePoints : player.UpgradePoints;
+            float expRatio = player.RequiredExp > 0 ? (float)player.Exp / player.RequiredExp : 0f;
+
+            levelText.text = $"Lv. {player.Level}";
+            expText.text = $"{player.Exp} / {player.RequiredExp}";
+            pointText.text = $"포인트 {player.UpgradePoints}";
+
+            targetSoul = player.Soul;
+            if (!hasDisplayedSoul || !animateChanges)
+            {
+                displayedSoul = targetSoul;
+                soulVelocity = 0f;
+                ApplySoulDisplay();
+                hasDisplayedSoul = true;
+            }
 
             bool canUpgrade = player.UpgradePoints > 0;
             speedButton.interactable = canUpgrade;
             sizeButton.interactable = canUpgrade;
-            RefreshSpeed();
+            if (upgradeAvailableIndicator != null)
+            {
+                upgradeAvailableIndicator.SetActive(canUpgrade);
+            }
+
+            targetExpRatio = Mathf.Clamp01(expRatio);
+            if (!hasDisplayedState || !animateChanges)
+            {
+                currentExpRatio = targetExpRatio;
+                ApplyExpRatio(currentExpRatio);
+            }
+
+            if (animateChanges && hasDisplayedState)
+            {
+                if (player.Level > previousLevel) levelFeedback?.Play();
+                if (player.Soul > previousSoul) soulFeedback?.Play();
+                if (previousPoints <= 0 && player.UpgradePoints > 0) upgradeFeedback?.Play();
+            }
+
+            playerStateSnapshot = player;
+            hasDisplayedState = true;
         }
 
-        private void RefreshSpeed()
+        private void UpdateExpBar()
+        {
+            if (Mathf.Approximately(currentExpRatio, targetExpRatio))
+            {
+                return;
+            }
+
+            float blend = 1f - Mathf.Exp(-ExpBarFollowSpeed * Time.unscaledDeltaTime);
+            currentExpRatio = Mathf.Lerp(currentExpRatio, targetExpRatio, blend);
+            if (Mathf.Abs(currentExpRatio - targetExpRatio) < 0.0005f)
+            {
+                currentExpRatio = targetExpRatio;
+            }
+
+            ApplyExpRatio(currentExpRatio);
+        }
+
+        private void ApplyExpRatio(float ratio)
+        {
+            expFill.rectTransform.anchorMax = new Vector2(Mathf.Clamp01(ratio), 1f);
+        }
+
+        private void UpdateSoulDisplay()
+        {
+            bool hasReachedTarget = renderedSoul == targetSoul && Mathf.Abs(displayedSoul - targetSoul) < 0.01f;
+            if (!hasDisplayedSoul || hasReachedTarget)
+            {
+                return;
+            }
+
+            displayedSoul = Mathf.SmoothDamp(
+                displayedSoul,
+                targetSoul,
+                ref soulVelocity,
+                SoulSmoothTime,
+                Mathf.Infinity,
+                Time.unscaledDeltaTime
+            );
+            if (Mathf.Abs(displayedSoul - targetSoul) < 0.01f)
+            {
+                displayedSoul = targetSoul;
+                soulVelocity = 0f;
+            }
+
+            ApplySoulDisplay();
+        }
+
+        private void ApplySoulDisplay()
+        {
+            int value = Mathf.Max(0, Mathf.RoundToInt(displayedSoul));
+            if (value == renderedSoul)
+            {
+                return;
+            }
+
+            renderedSoul = value;
+            soulText.text = value.ToString();
+        }
+
+        private void RefreshSpeedTarget()
         {
             if (truckController == null || speedText == null)
             {
                 return;
             }
 
-            int speedKmh = Mathf.Max(0, Mathf.RoundToInt(truckController.CurrentSpeedPerSecond * 3.6f));
-            if (speedKmh == displayedSpeedKmh)
+            targetSpeedKmh = Mathf.Max(0f, truckController.CurrentSpeedPerSecond * 3.6f);
+            if (!hasDisplayedSpeed)
+            {
+                displayedSpeedKmh = targetSpeedKmh;
+                hasDisplayedSpeed = true;
+                lastSpeedFeedbackKmh = Mathf.RoundToInt(targetSpeedKmh);
+                ApplySpeedDisplay();
+            }
+        }
+
+        private void UpdateSpeedDisplay()
+        {
+            RefreshSpeedTarget();
+            if (!hasDisplayedSpeed)
             {
                 return;
             }
 
-            displayedSpeedKmh = speedKmh;
+            float blend = 1f - Mathf.Exp(-SpeedFollowSpeed * Time.unscaledDeltaTime);
+            displayedSpeedKmh = Mathf.Lerp(displayedSpeedKmh, targetSpeedKmh, blend);
+            if (Mathf.Abs(displayedSpeedKmh - targetSpeedKmh) < 0.02f)
+            {
+                displayedSpeedKmh = targetSpeedKmh;
+            }
+
+            ApplySpeedDisplay();
+
+            int actualSpeedKmh = Mathf.RoundToInt(targetSpeedKmh);
+            if (actualSpeedKmh >= lastSpeedFeedbackKmh + SpeedFeedbackStepKmh)
+            {
+                lastSpeedFeedbackKmh = actualSpeedKmh;
+                speedFeedback?.Play();
+            }
+            else if (actualSpeedKmh <= lastSpeedFeedbackKmh - SpeedFeedbackStepKmh)
+            {
+                lastSpeedFeedbackKmh = actualSpeedKmh;
+            }
+        }
+
+        private void ApplySpeedDisplay()
+        {
+            int speedKmh = Mathf.Max(0, Mathf.RoundToInt(displayedSpeedKmh));
+            if (speedKmh == renderedSpeedKmh)
+            {
+                return;
+            }
+
+            renderedSpeedKmh = speedKmh;
             speedText.text = $"{speedKmh} km/h";
         }
 
@@ -158,12 +327,30 @@ namespace IsekaiTruck.UI
 
         private void HandlePlayerStateChanged(PlayerSnapshot state)
         {
-            Refresh();
+            RefreshPlayer(state, true);
         }
 
         private void HandleUpgradeApplied(TruckUpgradeResult result)
         {
             Refresh();
+        }
+
+        public void OnCollectionButtonClicked()
+        {
+            Debug.Log("Collection button clicked", this);
+        }
+
+        public void OnSettingsButtonClicked()
+        {
+            Debug.Log("Settings button clicked", this);
+        }
+
+        public void SetCollectionNotificationVisible(bool isVisible)
+        {
+            if (collectionNotificationBadge != null)
+            {
+                collectionNotificationBadge.SetActive(isVisible);
+            }
         }
 
         private void OnDestroy()
@@ -182,6 +369,8 @@ namespace IsekaiTruck.UI
             if (closeButton != null) closeButton.onClick.RemoveListener(CloseUpgradePanel);
             if (speedButton != null) speedButton.onClick.RemoveListener(UpgradeSpeed);
             if (sizeButton != null) sizeButton.onClick.RemoveListener(UpgradeSize);
+            if (collectionButton != null) collectionButton.onClick.RemoveListener(OnCollectionButtonClicked);
+            if (settingsButton != null) settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
         }
 
 #if UNITY_EDITOR
@@ -204,7 +393,16 @@ namespace IsekaiTruck.UI
             Button targetOpenButton,
             Button targetCloseButton,
             Button targetSpeedButton,
-            Button targetSizeButton
+            Button targetSizeButton,
+            Button targetCollectionButton,
+            Button targetSettingsButton,
+            GameObject targetCollectionNotificationBadge,
+            GameObject targetUpgradeAvailableIndicator,
+            UIFeedbackEffect targetLevelFeedback,
+            UIFeedbackEffect targetSoulFeedback,
+            UIFeedbackEffect targetUpgradeFeedback,
+            UIFeedbackEffect targetSpeedFeedback,
+            GoddessDialogueMockController targetGoddessDialogue
         )
         {
             leftPanel = targetLeftPanel;
@@ -226,6 +424,15 @@ namespace IsekaiTruck.UI
             closeButton = targetCloseButton;
             speedButton = targetSpeedButton;
             sizeButton = targetSizeButton;
+            collectionButton = targetCollectionButton;
+            settingsButton = targetSettingsButton;
+            collectionNotificationBadge = targetCollectionNotificationBadge;
+            upgradeAvailableIndicator = targetUpgradeAvailableIndicator;
+            levelFeedback = targetLevelFeedback;
+            soulFeedback = targetSoulFeedback;
+            upgradeFeedback = targetUpgradeFeedback;
+            speedFeedback = targetSpeedFeedback;
+            goddessDialogue = targetGoddessDialogue;
         }
 #endif
     }

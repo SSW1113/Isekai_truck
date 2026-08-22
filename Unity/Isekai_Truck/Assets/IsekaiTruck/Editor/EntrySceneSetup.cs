@@ -38,6 +38,7 @@ namespace IsekaiTruck.Editor
                 EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             }
 
+            ApplyEntryBackground();
             ConfigureBuildSettings();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -64,6 +65,7 @@ namespace IsekaiTruck.Editor
             }
 
             CreateScene();
+            ApplyEntryBackground();
             ConfigureBuildSettings();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -97,6 +99,11 @@ namespace IsekaiTruck.Editor
             if (targetCamera.orthographic)
             {
                 throw new InvalidOperationException("Entry 카메라는 Perspective로 설정되어야 합니다.");
+            }
+
+            if (!HudColorPalette.Matches(targetCamera.backgroundColor, HudColorPalette.EntryBackground))
+            {
+                throw new InvalidOperationException("Entry 씬 배경색이 지정된 파스텔 옐로가 아닙니다.");
             }
 
             TMP_FontAsset retroFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(RetroFontAssetPath);
@@ -158,7 +165,7 @@ namespace IsekaiTruck.Editor
             cameraObject.transform.position = new Vector3(0f, 0f, -10f);
             UnityEngine.Camera targetCamera = cameraObject.AddComponent<UnityEngine.Camera>();
             targetCamera.clearFlags = CameraClearFlags.SolidColor;
-            targetCamera.backgroundColor = Color.white;
+            targetCamera.backgroundColor = HudColorPalette.EntryBackground;
             targetCamera.orthographic = false;
             targetCamera.fieldOfView = 48f;
             targetCamera.nearClipPlane = 0.3f;
@@ -237,6 +244,21 @@ namespace IsekaiTruck.Editor
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene, ScenePath);
+        }
+
+        private static void ApplyEntryBackground()
+        {
+            UnityEngine.Camera targetCamera = Object.FindFirstObjectByType<UnityEngine.Camera>();
+            if (targetCamera == null)
+            {
+                throw new InvalidOperationException("Entry 씬의 Main Camera를 찾지 못했습니다.");
+            }
+
+            targetCamera.clearFlags = CameraClearFlags.SolidColor;
+            targetCamera.backgroundColor = HudColorPalette.EntryBackground;
+            EditorUtility.SetDirty(targetCamera);
+            EditorSceneManager.MarkSceneDirty(targetCamera.gameObject.scene);
+            EditorSceneManager.SaveScene(targetCamera.gameObject.scene, ScenePath);
         }
 
         private static Material GetOrCreateTruckMaterial()

@@ -308,7 +308,7 @@ MonoBehaviour:
   m_text: PRESS ENTER OR CLICK ANYWHERE TO START
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 208ea6b5e8b1cc387b0e8e571230fed1, type: 2}
-  m_sharedMaterial: {fileID: 3734133821045791011, guid: 208ea6b5e8b1cc387b0e8e571230fed1, type: 2}
+  m_sharedMaterial: {fileID: 9061877978990833985, guid: 208ea6b5e8b1cc387b0e8e571230fed1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -886,7 +886,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.9882353, g: 0.80784315, b: 0.49411765, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_text: ISEKAI TRUCK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 208ea6b5e8b1cc387b0e8e571230fed1, type: 2}
-  m_sharedMaterial: {fileID: 3734133821045791011, guid: 208ea6b5e8b1cc387b0e8e571230fed1, type: 2}
+  m_sharedMaterial: {fileID: 9061877978990833985, guid: 208ea6b5e8b1cc387b0e8e571230fed1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
