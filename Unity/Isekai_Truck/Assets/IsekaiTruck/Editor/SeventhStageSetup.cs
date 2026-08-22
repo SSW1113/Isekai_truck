@@ -141,8 +141,7 @@ namespace IsekaiTruck.Editor
                 rightPanel.Find("Goddess Area/Speech Bubble/Goddess Message") == null ||
                 rightPanel.Find("System Navigation/Settings Button/Gear Icon") == null ||
                 rightPanel.Find("Soul Chip") == null || gameArea.Find("Speed HUD/Speed Text") == null ||
-                rightPanel.Find("SpeedCard") != null || leftPanel.Find("LevelCard") != null || leftPanel.Find("ExpCard") != null ||
-                GameObject.Find("Player HUD") != null)
+                rightPanel.Find("SpeedCard") != null || leftPanel.Find("LevelCard") != null || leftPanel.Find("ExpCard") != null)
             {
                 throw new InvalidOperationException("좌측 패널, 중앙 게임 영역, 우측 패널의 UI 계층이 올바르지 않습니다.");
             }

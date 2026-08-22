@@ -100,12 +100,13 @@ namespace IsekaiTruck.Editor
             RebirthSystem sceneRebirth = Object.FindFirstObjectByType<RebirthSystem>();
             PlayerProgressSaveSystem sceneSave = Object.FindFirstObjectByType<PlayerProgressSaveSystem>();
             RebirthUIController sceneUI = Object.FindFirstObjectByType<RebirthUIController>();
-            if (gameManager == null || sceneBlessings == null || sceneRebirth == null || sceneSave == null || sceneUI == null)
+            GameUIController gameUI = Object.FindFirstObjectByType<GameUIController>();
+            if (gameManager == null || sceneBlessings == null || sceneRebirth == null || sceneSave == null || sceneUI == null || gameUI == null)
             {
                 throw new InvalidOperationException("Rebirth scene systems are missing.");
             }
 
-            if (sceneUI.transform.GetSiblingIndex() != sceneUI.transform.parent.childCount - 1)
+            if (sceneUI.transform.parent != gameUI.transform.parent || sceneUI.transform.GetSiblingIndex() <= gameUI.transform.GetSiblingIndex())
             {
                 throw new InvalidOperationException("Rebirth UI must render above the main HUD.");
             }
