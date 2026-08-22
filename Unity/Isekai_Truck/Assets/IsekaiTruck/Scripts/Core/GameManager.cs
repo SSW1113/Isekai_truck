@@ -23,6 +23,7 @@ namespace IsekaiTruck.Core
         [SerializeField] private GameConfig config;
         [SerializeField] private Transform playerTarget;
         [SerializeField] private JoystickInput joystickInput;
+        [SerializeField] private PlayerMoveInput playerMoveInput;
         [SerializeField] private TruckController truckController;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private WorldManager worldManager;
@@ -56,7 +57,7 @@ namespace IsekaiTruck.Core
 
         private void Awake()
         {
-            if (config == null || playerTarget == null || joystickInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null)
+            if (config == null || playerTarget == null || joystickInput == null || playerMoveInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null)
             {
                 Debug.LogError("GameManager references are not configured.", this);
                 enabled = false;
@@ -111,7 +112,7 @@ namespace IsekaiTruck.Core
             blessingInput.ReadInput();
             blessingEffectSystem.UpdateEffects(deltaTime);
             truckHealthController.UpdateHealth(deltaTime);
-            truckController.UpdateTruck(joystickInput.Move, deltaTime);
+            truckController.UpdateTruck(playerMoveInput.Move, deltaTime);
 
             float zoomMultiplier = cameraController.UpdateCamera(deltaTime);
             joystickInput.SetViewport(cameraController.ViewportRect);
@@ -182,6 +183,11 @@ namespace IsekaiTruck.Core
         {
             joystickInput = input;
             truckController = controller;
+        }
+
+        public void SetMoveInput(PlayerMoveInput moveInput)
+        {
+            playerMoveInput = moveInput;
         }
 
         public void SetMonsterSystem(MonsterManager manager)
