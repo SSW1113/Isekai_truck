@@ -20,6 +20,7 @@ namespace IsekaiTruck.Truck
         public bool IsDefeated => isDefeated;
 
         public event Action<TruckHealthSnapshot> StateChanged;
+        public event Action<TruckDamageResult> DamageTaken;
         public event Action Defeated;
 
         public void Initialize(GameConfig gameConfig, TruckDamageFlash flash)
@@ -58,11 +59,13 @@ namespace IsekaiTruck.Truck
                 return false;
             }
 
+            int previousHealth = currentHealth;
             currentHealth = Mathf.Max(0, currentHealth - damage);
             invulnerabilityRemaining = settings.DamageInvulnerabilityDuration;
             damageFlash.StartFlashing();
             isDefeated = currentHealth <= 0;
             StateChanged?.Invoke(GetState());
+            DamageTaken?.Invoke(new TruckDamageResult(previousHealth - currentHealth, GetState()));
 
             if (isDefeated)
             {
@@ -94,6 +97,18 @@ namespace IsekaiTruck.Truck
         {
             return new TruckHealthSnapshot(currentHealth, settings.MaxHealth, IsInvulnerable, isDefeated);
         }
+    }
+
+    public readonly struct TruckDamageResult
+    {
+        public TruckDamageResult(int appliedDamage, TruckHealthSnapshot state)
+        {
+            AppliedDamage = appliedDamage;
+            State = state;
+        }
+
+        public int AppliedDamage { get; }
+        public TruckHealthSnapshot State { get; }
     }
 
     public readonly struct TruckHealthSnapshot

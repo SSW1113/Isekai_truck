@@ -8,6 +8,8 @@ namespace IsekaiTruck.Visuals
     {
         [SerializeField] private UnityEngine.Camera targetCamera;
 
+        private float rollDegrees;
+
         private void Awake()
         {
             ResolveCamera();
@@ -23,8 +25,13 @@ namespace IsekaiTruck.Visuals
             ResolveCamera();
             if (targetCamera != null)
             {
-                transform.rotation = targetCamera.transform.rotation;
+                transform.rotation = targetCamera.transform.rotation * Quaternion.Euler(0f, 0f, rollDegrees);
             }
+        }
+
+        public void SetRoll(float degrees)
+        {
+            rollDegrees = degrees;
         }
 
         private void ResolveCamera()

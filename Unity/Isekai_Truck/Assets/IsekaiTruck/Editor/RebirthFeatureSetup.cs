@@ -73,6 +73,7 @@ namespace IsekaiTruck.Editor
             RebirthUIController uiController = CreateUI(canvas.transform, font);
             uiController.transform.SetAsLastSibling();
             gameManager.SetRebirthSystems(blessingSystem, rebirthSystem, saveSystem, uiController);
+            MainHudLayoutSetup.ApplyToLoadedScene();
             EditorUtility.SetDirty(gameManager);
             EditorUtility.SetDirty(blessingSystem);
 
