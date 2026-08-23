@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,6 +17,10 @@ namespace IsekaiTruck.Input
         private int activePointerId = int.MinValue;
 
         public Vector2 Move => move;
+        public bool IsInputEnabled => enabled;
+
+        public event Action<Vector2> InputChanged;
+        public event Action<bool> InputEnabledChanged;
 
         public void SetViewport(Rect viewport)
         {
@@ -45,6 +50,8 @@ namespace IsekaiTruck.Input
             {
                 ResetJoystick();
             }
+
+            InputEnabledChanged?.Invoke(isEnabled);
         }
 
         private void Awake()
@@ -64,6 +71,7 @@ namespace IsekaiTruck.Input
             joystickBase.position = eventData.position;
             joystickBase.gameObject.SetActive(true);
             stick.anchoredPosition = Vector2.zero;
+            InputChanged?.Invoke(move);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -76,9 +84,15 @@ namespace IsekaiTruck.Input
             Vector2 delta = eventData.position - startPosition;
             Vector2 clampedDelta = Vector2.ClampMagnitude(delta, maxDistance);
 
+            Vector2 nextMove = new Vector2(clampedDelta.x / maxDistance, -clampedDelta.y / maxDistance);
             stick.anchoredPosition = clampedDelta;
-            move.x = clampedDelta.x / maxDistance;
-            move.y = -clampedDelta.y / maxDistance;
+            if ((nextMove - move).sqrMagnitude <= 0.000001f)
+            {
+                return;
+            }
+
+            move = nextMove;
+            InputChanged?.Invoke(move);
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -98,6 +112,7 @@ namespace IsekaiTruck.Input
 
         private void ResetJoystick()
         {
+            bool hadInput = activePointerId != int.MinValue || move.sqrMagnitude > 0f;
             activePointerId = int.MinValue;
             move = Vector2.zero;
 
@@ -110,6 +125,19 @@ namespace IsekaiTruck.Input
             {
                 joystickBase.gameObject.SetActive(false);
             }
+
+            if (hadInput)
+            {
+                InputChanged?.Invoke(Vector2.zero);
+            }
         }
+
+#if UNITY_EDITOR
+        public void SetMoveForVerification(Vector2 verificationMove)
+        {
+            move = Vector2.ClampMagnitude(verificationMove, 1f);
+            InputChanged?.Invoke(move);
+        }
+#endif
     }
 }

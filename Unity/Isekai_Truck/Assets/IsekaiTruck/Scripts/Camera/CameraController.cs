@@ -9,6 +9,10 @@ namespace IsekaiTruck.Camera
     {
         [SerializeField] private UnityEngine.Camera targetCamera;
 
+        [Header("Damage Feedback")]
+        [SerializeField, Min(0f)] private float damageShakeDuration = 0.12f;
+        [SerializeField, Min(0f)] private float damageShakeAmplitude = 0.14f;
+
         private GameConfig.CameraSettings settings;
         private Transform target;
         private float referenceFrameRate;
@@ -16,6 +20,8 @@ namespace IsekaiTruck.Camera
         private int currentScreenWidth = -1;
         private int currentScreenHeight = -1;
         private float blessingViewMultiplier = 1f;
+        private Vector3 followPosition;
+        private float damageShakeRemaining;
 
         public UnityEngine.Camera TargetCamera => targetCamera;
         public Rect ViewportRect { get; private set; } = new Rect(0f, 0f, 1f, 1f);
@@ -40,6 +46,8 @@ namespace IsekaiTruck.Camera
             UpdateViewport();
             transform.position = settings.Offset;
             transform.LookAt(settings.LookTarget);
+            followPosition = transform.position;
+            damageShakeRemaining = 0f;
         }
 
         public float UpdateCamera(float deltaTime)
@@ -56,14 +64,37 @@ namespace IsekaiTruck.Camera
             currentZoomMultiplier += (targetZoomMultiplier - currentZoomMultiplier) * followFactor;
 
             Vector3 targetPosition = target.position + settings.Offset * currentZoomMultiplier;
-            transform.position += (targetPosition - transform.position) * followFactor;
+            followPosition += (targetPosition - followPosition) * followFactor;
+            transform.position = followPosition + CalculateDamageShakeOffset();
 
             return currentZoomMultiplier;
+        }
+
+        public void PlayDamageShake()
+        {
+            damageShakeRemaining = Mathf.Max(damageShakeRemaining, damageShakeDuration);
         }
 
         public void SetBlessingViewMultiplier(float viewMultiplier)
         {
             blessingViewMultiplier = Mathf.Max(1f, viewMultiplier);
+        }
+
+        private Vector3 CalculateDamageShakeOffset()
+        {
+            if (damageShakeRemaining <= 0f || damageShakeDuration <= 0f || damageShakeAmplitude <= 0f)
+            {
+                damageShakeRemaining = 0f;
+                return Vector3.zero;
+            }
+
+            damageShakeRemaining = Mathf.Max(0f, damageShakeRemaining - Time.unscaledDeltaTime);
+            float elapsed = damageShakeDuration - damageShakeRemaining;
+            float strength = damageShakeRemaining / damageShakeDuration;
+            float scaledAmplitude = damageShakeAmplitude * Mathf.Max(1f, currentZoomMultiplier);
+            float horizontal = Mathf.Sin(elapsed * 115f) * scaledAmplitude * strength;
+            float vertical = Mathf.Sin(elapsed * 157f) * scaledAmplitude * 0.35f * strength;
+            return transform.right * horizontal + transform.up * vertical;
         }
 
         private static float GetFrameAdjustedFactor(float perFrameFactor, float frameScale)
@@ -83,10 +114,16 @@ namespace IsekaiTruck.Camera
 
         public static Rect CalculateViewportRect(float screenAspect, float targetAspect)
         {
+            return CalculateViewportRect(screenAspect, targetAspect, 0.5f);
+        }
+
+        public static Rect CalculateViewportRect(float screenAspect, float targetAspect, float horizontalCenter)
+        {
             if (screenAspect > targetAspect)
             {
                 float width = targetAspect / screenAspect;
-                return new Rect((1f - width) / 2f, 0f, width, 1f);
+                float x = Mathf.Clamp(horizontalCenter - width * 0.5f, 0f, 1f - width);
+                return new Rect(x, 0f, width, 1f);
             }
 
             float height = screenAspect / targetAspect;
@@ -104,7 +141,7 @@ namespace IsekaiTruck.Camera
             currentScreenHeight = Mathf.Max(Screen.height, 1);
 
             float screenAspect = (float)currentScreenWidth / currentScreenHeight;
-            ViewportRect = CalculateViewportRect(screenAspect, settings.ViewportAspect);
+            ViewportRect = CalculateViewportRect(screenAspect, settings.ViewportAspect, settings.ViewportHorizontalCenter);
             targetCamera.rect = ViewportRect;
             targetCamera.aspect = settings.ViewportAspect;
         }

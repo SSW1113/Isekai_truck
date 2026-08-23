@@ -13,6 +13,7 @@ using IsekaiTruck.Upgrades;
 using IsekaiTruck.UI;
 using IsekaiTruck.Wanted;
 using IsekaiTruck.World;
+using IsekaiTruck.Visuals;
 using UnityEngine;
 
 namespace IsekaiTruck.Core
@@ -23,6 +24,7 @@ namespace IsekaiTruck.Core
         [SerializeField] private GameConfig config;
         [SerializeField] private Transform playerTarget;
         [SerializeField] private JoystickInput joystickInput;
+        [SerializeField] private PlayerMoveInput playerMoveInput;
         [SerializeField] private TruckController truckController;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private WorldManager worldManager;
@@ -50,13 +52,15 @@ namespace IsekaiTruck.Core
         [SerializeField] private EnemyWarningUIController enemyWarningUIController;
         [SerializeField] private WorldTravelSystem worldTravelSystem;
         [SerializeField] private WorldTravelUIController worldTravelUIController;
+        [SerializeField] private CollisionFeedbackController collisionFeedbackController;
+        [SerializeField] private SoulRewardFlyUI soulRewardFlyUI;
 
         private Vector3 truckRespawnPosition;
         private float truckRespawnYaw;
 
         private void Awake()
         {
-            if (config == null || playerTarget == null || joystickInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null)
+            if (config == null || playerTarget == null || joystickInput == null || playerMoveInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null || collisionFeedbackController == null || soulRewardFlyUI == null)
             {
                 Debug.LogError("GameManager references are not configured.", this);
                 enabled = false;
@@ -90,7 +94,11 @@ namespace IsekaiTruck.Core
             wantedLevelUIController.Initialize(wantedLevelSystem);
             worldTravelUIController.Initialize(worldTravelSystem, joystickInput, cameraController);
             truckHealthUIController.Initialize(truckHealthController);
-            monsterManager.MonsterDefeated += HandleMonsterDefeated;
+            collisionFeedbackController.Initialize();
+            soulRewardFlyUI.Initialize(cameraController);
+            monsterManager.MonsterDefeatedDetailed += HandleMonsterDefeated;
+            monsterManager.MonsterCollisionBatchCompleted += HandleMonsterCollisionBatch;
+            truckHealthController.DamageTaken += HandleTruckDamageTaken;
             truckHealthController.Defeated += HandleTruckDefeated;
             worldTravelSystem.WorldChanged += HandleWorldChanged;
             monsterSpawner.Initialize(config, monsterManager, playerTarget);
@@ -111,7 +119,7 @@ namespace IsekaiTruck.Core
             blessingInput.ReadInput();
             blessingEffectSystem.UpdateEffects(deltaTime);
             truckHealthController.UpdateHealth(deltaTime);
-            truckController.UpdateTruck(joystickInput.Move, deltaTime);
+            truckController.UpdateTruck(playerMoveInput.Move, deltaTime);
 
             float zoomMultiplier = cameraController.UpdateCamera(deltaTime);
             joystickInput.SetViewport(cameraController.ViewportRect);
@@ -131,12 +139,32 @@ namespace IsekaiTruck.Core
             }
         }
 
-        private void HandleMonsterDefeated(MonsterData type)
+        private void HandleMonsterDefeated(MonsterDefeatContext defeat)
         {
             float rebirthMultiplier = rebirthSystem.RewardMultiplier;
-            RewardResult reward = playerState.AddRewards(type.Exp, type.Soul, rebirthMultiplier * blessingEffectSystem.ExperienceMultiplier, rebirthMultiplier);
+            gameUIController.BeginDeferredSoulReward();
+            RewardResult reward = playerState.AddRewards(defeat.Type.Exp, defeat.Type.Soul, rebirthMultiplier * blessingEffectSystem.ExperienceMultiplier, rebirthMultiplier);
+            gameUIController.QueueDeferredSoulReward(reward.AppliedSoul);
+            collisionFeedbackController.PlayMonsterDefeat(defeat.WorldPosition);
+            if (reward.AppliedSoul > 0 && !soulRewardFlyUI.Play(defeat.WorldPosition, reward.AppliedSoul))
+            {
+                gameUIController.ReleaseDeferredSoul(reward.AppliedSoul);
+            }
             wantedLevelSystem.RegisterKill();
             Debug.Log($"경험치 +{reward.AppliedExp}, 영혼 +{reward.AppliedSoul}", this);
+        }
+
+        private void HandleMonsterCollisionBatch(MonsterCollisionBatch batch)
+        {
+            collisionFeedbackController.PlayMonsterCollisionBatch(batch.Count);
+        }
+
+        private void HandleTruckDamageTaken(TruckDamageResult result)
+        {
+            if (result.AppliedDamage > 0)
+            {
+                cameraController.PlayDamageShake();
+            }
         }
 
         private void HandleTruckDefeated()
@@ -158,11 +186,13 @@ namespace IsekaiTruck.Core
         {
             if (monsterManager != null)
             {
-                monsterManager.MonsterDefeated -= HandleMonsterDefeated;
+                monsterManager.MonsterDefeatedDetailed -= HandleMonsterDefeated;
+                monsterManager.MonsterCollisionBatchCompleted -= HandleMonsterCollisionBatch;
             }
 
             if (truckHealthController != null)
             {
+                truckHealthController.DamageTaken -= HandleTruckDamageTaken;
                 truckHealthController.Defeated -= HandleTruckDefeated;
             }
 
@@ -182,6 +212,11 @@ namespace IsekaiTruck.Core
         {
             joystickInput = input;
             truckController = controller;
+        }
+
+        public void SetMoveInput(PlayerMoveInput moveInput)
+        {
+            playerMoveInput = moveInput;
         }
 
         public void SetMonsterSystem(MonsterManager manager)
@@ -259,6 +294,12 @@ namespace IsekaiTruck.Core
         {
             worldTravelSystem = travelSystem;
             worldTravelUIController = travelUI;
+        }
+
+        public void SetCollisionFeedbackSystems(CollisionFeedbackController collisionFeedback, SoulRewardFlyUI soulRewardUI)
+        {
+            collisionFeedbackController = collisionFeedback;
+            soulRewardFlyUI = soulRewardUI;
         }
 #endif
     }

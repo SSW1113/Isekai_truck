@@ -52,7 +52,7 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Game UI viewport reference is missing.");
             }
 
-            Transform existingUI = gameArea.Find("Wanted Level UI");
+            Transform existingUI = gameArea.Find("Wanted Level UI") ?? gameArea.Find("Game Area UI/Wanted Level UI");
             if (existingUI != null)
             {
                 Object.DestroyImmediate(existingUI.gameObject);
@@ -61,6 +61,7 @@ namespace IsekaiTruck.Editor
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             WantedLevelUIController wantedLevelUI = CreateUI(gameArea, font);
             gameManager.SetWantedLevelSystems(wantedLevelSystem, wantedLevelUI);
+            MainHudLayoutSetup.ApplyToLoadedScene();
             EditorUtility.SetDirty(gameManager);
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -86,7 +87,7 @@ namespace IsekaiTruck.Editor
             EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
             WantedLevelSystem wantedLevelSystem = Object.FindFirstObjectByType<WantedLevelSystem>();
-            WantedLevelUIController wantedLevelUI = Object.FindFirstObjectByType<WantedLevelUIController>();
+            WantedLevelUIController wantedLevelUI = Object.FindFirstObjectByType<WantedLevelUIController>(FindObjectsInactive.Include);
             if (gameManager == null || wantedLevelSystem == null || wantedLevelUI == null)
             {
                 throw new InvalidOperationException("Wanted level scene systems are missing.");
@@ -325,6 +326,7 @@ namespace IsekaiTruck.Editor
             }
 
             controller.SetReferences(levelText, starFillMasks, StarWidth);
+            panel.SetActive(false);
             return controller;
         }
 

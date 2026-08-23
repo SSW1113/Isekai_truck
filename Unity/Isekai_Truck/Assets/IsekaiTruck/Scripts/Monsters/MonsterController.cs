@@ -95,5 +95,18 @@ namespace IsekaiTruck.Monsters
         {
             stunRemaining = Mathf.Max(stunRemaining, duration);
         }
+
+        public void BeginDefeat(Vector3 direction)
+        {
+            float duration = monsterView != null ? monsterView.PlayDefeat(direction) : 0f;
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                DestroyImmediate(gameObject);
+                return;
+            }
+#endif
+            Destroy(gameObject, Mathf.Max(0f, duration) + 0.02f);
+        }
     }
 }
