@@ -4101,7 +4101,7 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 12
-    m_MaxSize: 20
+    m_MaxSize: 21
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -8076,6 +8076,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631212134}
   m_CullTransparentMesh: 1
+--- !u!1 &632517592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 632517593}
+  - component: {fileID: 632517594}
+  m_Layer: 0
+  m_Name: Soul Reward FX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &632517593
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632517592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1861218369}
+  m_Father: {fileID: 1724501928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &632517594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632517592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0cf2fc4fce8f500d900d617c4fb14dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.UI.SoulRewardFlyUI
+  targetCanvas: {fileID: 1724501927}
+  effectRoot: {fileID: 632517593}
+  soulTarget: {fileID: 1773766205}
+  orbTemplate: {fileID: 1861218370}
+  poolSize: 12
+  gameUIController: {fileID: 931369566}
+  spawnDelay: 0.24
+  flightDuration: 0.36
+  arcHeight: 90
 --- !u!1 &634476861
 GameObject:
   m_ObjectHideFlags: 0
@@ -11442,6 +11500,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861419323}
   m_CullTransparentMesh: 1
+--- !u!1 &865192309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865192310}
+  m_Layer: 0
+  m_Name: Collision Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865192310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865192309}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &865753091
 GameObject:
   m_ObjectHideFlags: 0
@@ -12103,6 +12192,56 @@ MonoBehaviour:
   upgradeFeedback: {fileID: 454845701}
   speedFeedback: {fileID: 2135907346}
   goddessDialogue: {fileID: 1858202787}
+--- !u!1 &940399010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 940399012}
+  - component: {fileID: 940399011}
+  m_Layer: 0
+  m_Name: Collision Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &940399011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940399010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d702886159dfd5aeba76b23fd9d10533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Visuals.CollisionFeedbackController
+  hitStopDuration: 0.045
+  impactEffectPrefab: {fileID: 3675284323346744016, guid: 33010281c4cd7e9d29e0521d666cd06e, type: 3}
+  effectRoot: {fileID: 865192310}
+  effectPoolSize: 12
+  effectHeight: 0.5
+  truckSpriteView: {fileID: 1771500594}
+--- !u!4 &940399012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940399010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &949019005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15310,6 +15449,8 @@ MonoBehaviour:
   enemyWarningUIController: {fileID: 1044922707}
   worldTravelSystem: {fileID: 784290111}
   worldTravelUIController: {fileID: 1271455223}
+  collisionFeedbackController: {fileID: 940399011}
+  soulRewardFlyUI: {fileID: 632517594}
 --- !u!4 &1157354675
 Transform:
   m_ObjectHideFlags: 0
@@ -17418,6 +17559,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Camera.CameraController
   targetCamera: {fileID: 1245420211}
+  damageShakeDuration: 0.12
+  damageShakeAmplitude: 0.14
 --- !u!81 &1245420210
 AudioListener:
   m_ObjectHideFlags: 0
@@ -23043,6 +23186,7 @@ RectTransform:
   - {fileID: 1613092677}
   - {fileID: 1271455222}
   - {fileID: 1208556801}
+  - {fileID: 632517593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -23680,6 +23824,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Truck.TruckSpriteView
   truckController: {fileID: 1771500591}
   directionalSpriteAnimator: {fileID: 1961229620}
+  impactDuration: 0.16
+  squashScale: 0.94
+  reboundScale: 1.03
 --- !u!1 &1772535437
 GameObject:
   m_ObjectHideFlags: 0
@@ -24453,6 +24600,81 @@ MonoBehaviour:
   bounceScale: 1.03
   bounceDuration: 0.16
   endHoldDuration: 1
+--- !u!1 &1861218368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1861218369}
+  - component: {fileID: 1861218371}
+  - component: {fileID: 1861218370}
+  m_Layer: 0
+  m_Name: Soul Orb Template
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1861218369
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861218368}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 632517593}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 26, y: 26}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1861218370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861218368}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.9, b: 0.5, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1861218371
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861218368}
+  m_CullTransparentMesh: 1
 --- !u!1 &1870958586
 GameObject:
   m_ObjectHideFlags: 0
@@ -27328,3 +27550,5 @@ SceneRoots:
   - {fileID: 5900969}
   - {fileID: 1230584628}
   - {fileID: 784290112}
+  - {fileID: 865192310}
+  - {fileID: 940399012}

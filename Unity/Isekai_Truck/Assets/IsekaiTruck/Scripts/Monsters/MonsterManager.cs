@@ -30,6 +30,8 @@ namespace IsekaiTruck.Monsters
         public IReadOnlyDictionary<string, MonsterData> Types => monsterTypes;
 
         public event Action<MonsterData> MonsterDefeated;
+        public event Action<MonsterDefeatContext> MonsterDefeatedDetailed;
+        public event Action<MonsterCollisionBatch> MonsterCollisionBatchCompleted;
 
         public void Initialize(GameConfig gameConfig, Transform truckTransform)
         {
@@ -210,6 +212,18 @@ namespace IsekaiTruck.Monsters
 
         private void CheckCollisions(float collisionDistance)
         {
+            int defeatedCount = 0;
+            Vector3 collisionCenter = Vector3.zero;
+            Vector3 knockbackDirection = Vector3.ProjectOnPlane(truck.forward, Vector3.up);
+            if (knockbackDirection.sqrMagnitude <= 0.000001f)
+            {
+                knockbackDirection = Vector3.forward;
+            }
+            else
+            {
+                knockbackDirection.Normalize();
+            }
+
             for (int i = monsters.Count - 1; i >= 0; i--)
             {
                 MonsterController monster = monsters[i];
@@ -223,11 +237,24 @@ namespace IsekaiTruck.Monsters
                 }
 
                 MonsterData type = monster.Type;
+                Vector3 collisionPosition = monster.transform.position;
                 monsters.RemoveAt(i);
-                DestroyRuntimeObject(monster.gameObject);
+                monster.BeginDefeat(knockbackDirection);
+                defeatedCount++;
+                collisionCenter += collisionPosition;
 
                 Debug.Log($"{type.Name} 처치!", this);
+                MonsterDefeatedDetailed?.Invoke(new MonsterDefeatContext(type, collisionPosition, knockbackDirection));
                 MonsterDefeated?.Invoke(type);
+            }
+
+            if (defeatedCount > 0)
+            {
+                MonsterCollisionBatchCompleted?.Invoke(new MonsterCollisionBatch(
+                    defeatedCount,
+                    collisionCenter / defeatedCount,
+                    knockbackDirection
+                ));
             }
         }
 
@@ -287,5 +314,33 @@ namespace IsekaiTruck.Monsters
             monsterDataFile = dataFile;
         }
 #endif
+    }
+
+    public readonly struct MonsterDefeatContext
+    {
+        public MonsterDefeatContext(MonsterData type, Vector3 worldPosition, Vector3 knockbackDirection)
+        {
+            Type = type;
+            WorldPosition = worldPosition;
+            KnockbackDirection = knockbackDirection;
+        }
+
+        public MonsterData Type { get; }
+        public Vector3 WorldPosition { get; }
+        public Vector3 KnockbackDirection { get; }
+    }
+
+    public readonly struct MonsterCollisionBatch
+    {
+        public MonsterCollisionBatch(int count, Vector3 worldPosition, Vector3 direction)
+        {
+            Count = count;
+            WorldPosition = worldPosition;
+            Direction = direction;
+        }
+
+        public int Count { get; }
+        public Vector3 WorldPosition { get; }
+        public Vector3 Direction { get; }
     }
 }

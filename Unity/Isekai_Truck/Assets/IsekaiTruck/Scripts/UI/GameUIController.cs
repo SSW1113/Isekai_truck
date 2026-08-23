@@ -58,6 +58,8 @@ namespace IsekaiTruck.UI
         private bool hasDisplayedState;
         private bool hasDisplayedSoul;
         private bool hasDisplayedSpeed;
+        private bool isDeferringSoulReward;
+        private int deferredSoul;
         private PlayerSnapshot playerStateSnapshot;
 
         private const float ExpBarFollowSpeed = 10f;
@@ -93,6 +95,8 @@ namespace IsekaiTruck.UI
             joystickInput.SetInputEnabled(true);
             SetViewport(cameraController.ViewportRect);
             goddessDialogue?.Initialize(playerState, truckController, upgradeSystem);
+            isDeferringSoulReward = false;
+            deferredSoul = 0;
             Refresh();
         }
 
@@ -148,7 +152,10 @@ namespace IsekaiTruck.UI
             expText.text = $"{player.Exp} / {player.RequiredExp}";
             pointText.text = $"포인트 {player.UpgradePoints}";
 
-            targetSoul = player.Soul;
+            if (!isDeferringSoulReward)
+            {
+                targetSoul = Mathf.Max(0, player.Soul - deferredSoul);
+            }
             if (!hasDisplayedSoul || !animateChanges)
             {
                 displayedSoul = targetSoul;
@@ -175,12 +182,42 @@ namespace IsekaiTruck.UI
             if (animateChanges && hasDisplayedState)
             {
                 if (player.Level > previousLevel) levelFeedback?.Play();
-                if (player.Soul > previousSoul) soulFeedback?.Play();
+                if (player.Soul > previousSoul && !isDeferringSoulReward) soulFeedback?.Play();
                 if (previousPoints <= 0 && player.UpgradePoints > 0) upgradeFeedback?.Play();
             }
 
             playerStateSnapshot = player;
             hasDisplayedState = true;
+        }
+
+        public void BeginDeferredSoulReward()
+        {
+            isDeferringSoulReward = true;
+        }
+
+        public void QueueDeferredSoulReward(int soulAmount)
+        {
+            if (!isDeferringSoulReward)
+            {
+                return;
+            }
+
+            isDeferringSoulReward = false;
+            deferredSoul += Mathf.Max(0, soulAmount);
+            targetSoul = Mathf.Max(0, playerStateSnapshot.Soul - deferredSoul);
+        }
+
+        public void ReleaseDeferredSoul(int soulAmount)
+        {
+            int releasedSoul = Mathf.Min(Mathf.Max(0, soulAmount), deferredSoul);
+            if (releasedSoul <= 0)
+            {
+                return;
+            }
+
+            deferredSoul -= releasedSoul;
+            targetSoul = Mathf.Max(0, playerStateSnapshot.Soul - deferredSoul);
+            soulFeedback?.Play();
         }
 
         private void UpdateExpBar()
