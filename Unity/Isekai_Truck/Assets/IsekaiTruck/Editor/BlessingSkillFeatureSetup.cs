@@ -64,6 +64,7 @@ namespace IsekaiTruck.Editor
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             BlessingInventoryUIController inventoryUI = CreateUI(canvas.transform, font);
             gameManager.SetBlessingSkillSystems(loadoutSystem, dismantleSystem, effectSystem, blessingInput, inventoryUI);
+            MainHudLayoutSetup.ApplyToLoadedScene();
             EditorUtility.SetDirty(gameManager);
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -372,6 +373,7 @@ namespace IsekaiTruck.Editor
             GameObject activeHud = CreatePanel("Active Blessing Slots", gameArea, new Color(0f, 0f, 0f, 0.55f));
             activeHud.GetComponent<Image>().raycastTarget = false;
             SetRect(activeHud.GetComponent<RectTransform>(), Vector2.zero, new Vector2(0.72f, 0f), new Vector2(14f, 14f), new Vector2(0f, 145f));
+            activeHud.SetActive(false);
             Text[] activeSlotLabels = new Text[3];
             for (int i = 0; i < activeSlotLabels.Length; i++)
             {

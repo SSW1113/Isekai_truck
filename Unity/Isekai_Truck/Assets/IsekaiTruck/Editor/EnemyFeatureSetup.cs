@@ -68,26 +68,25 @@ namespace IsekaiTruck.Editor
             enemyManager.SetCatalog(catalog);
 
             SerializedObject serializedGameUI = new SerializedObject(gameUI);
+            RectTransform leftPanel = (RectTransform)serializedGameUI.FindProperty("leftPanel").objectReferenceValue;
             RectTransform gameArea = (RectTransform)serializedGameUI.FindProperty("gameArea").objectReferenceValue;
             GameObject upgradePanel = (GameObject)serializedGameUI.FindProperty("upgradePanel").objectReferenceValue;
-            if (gameArea == null)
+            if (leftPanel == null || gameArea == null)
             {
-                throw new InvalidOperationException("Game UI viewport reference is missing.");
+                throw new InvalidOperationException("Game UI panel references are missing.");
             }
 
-            Transform existingHealthUI = gameArea.Find("Truck Health UI");
-            TruckHealthUIController healthUI = existingHealthUI != null ? existingHealthUI.GetComponent<TruckHealthUIController>() : null;
+            TruckHealthUIController healthUI = Object.FindFirstObjectByType<TruckHealthUIController>(FindObjectsInactive.Include);
             if (healthUI == null)
             {
-                if (existingHealthUI != null)
-                {
-                    Object.DestroyImmediate(existingHealthUI.gameObject);
-                }
-
-                healthUI = CreateHealthUI(gameArea);
+                healthUI = CreateHealthUI(leftPanel);
+            }
+            else
+            {
+                healthUI.transform.SetParent(leftPanel, false);
             }
 
-            Transform existingWarningUI = gameArea.Find("Enemy Warning UI");
+            Transform existingWarningUI = gameArea.Find("Enemy Warning UI") ?? gameArea.Find("Game Area UI/Enemy Warning UI");
             if (existingWarningUI != null)
             {
                 Object.DestroyImmediate(existingWarningUI.gameObject);
@@ -100,6 +99,7 @@ namespace IsekaiTruck.Editor
             }
 
             gameManager.SetEnemySystems(truckHealth, damageFlash, healthUI, enemyManager, enemySpawner, warningUI);
+            MainHudLayoutSetup.ApplyToLoadedScene();
             EditorUtility.SetDirty(enemyManager);
             EditorUtility.SetDirty(gameManager);
 
@@ -600,14 +600,16 @@ namespace IsekaiTruck.Editor
             textRect.offsetMax = Vector2.zero;
             Text text = textObject.GetComponent<Text>();
             text.font = font;
-            text.text = "체력 3 / 3";
+            text.text = "체력  ♥ ♥ ♥";
             text.fontSize = 23;
             text.alignment = TextAnchor.MiddleCenter;
             text.color = Color.white;
             text.raycastTarget = false;
+            UIFeedbackEffect feedback = textObject.AddComponent<UIFeedbackEffect>();
+            feedback.Configure(0.18f, 0.06f);
 
             TruckHealthUIController controller = panel.AddComponent<TruckHealthUIController>();
-            controller.SetReferences(text);
+            controller.SetReferences(text, feedback);
             return controller;
         }
 

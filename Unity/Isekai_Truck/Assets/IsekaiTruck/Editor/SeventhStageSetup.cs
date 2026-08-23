@@ -50,6 +50,7 @@ namespace IsekaiTruck.Editor
             Transform existingUI = canvas.transform.Find("Game UI");
             if (existingUI != null)
             {
+                MainHudLayoutSetup.DetachActionButtonsFromGameUI(canvas, existingUI);
                 Object.DestroyImmediate(existingUI.gameObject);
             }
 
@@ -61,6 +62,7 @@ namespace IsekaiTruck.Editor
             TMP_FontAsset font = GetOrCreateCartoonFontAsset();
             GoddessDialogueMockData dialogueData = GetOrCreateGoddessDialogueMockData();
             GameUIController uiController = CreateUI(canvas.transform, font, dialogueData);
+            MainHudLayoutSetup.ApplyToLoadedScene();
             Transform rebirthUI = canvas.transform.Find("Rebirth UI");
             if (rebirthUI != null)
             {
@@ -546,6 +548,7 @@ namespace IsekaiTruck.Editor
             AddTextOutline(speedText, outlineColor, 1.5f);
             UIFeedbackEffect speedFeedback = speedText.gameObject.AddComponent<UIFeedbackEffect>();
             speedFeedback.Configure(0.18f, 0.025f);
+            speedHud.SetActive(false);
 
             GameObject upgradePanel = CreatePanel("Upgrade Panel", gameArea, new Color(0.25f, 0.15f, 0.28f, 0.58f));
             Stretch(upgradePanel.GetComponent<RectTransform>());

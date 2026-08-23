@@ -82,6 +82,7 @@ namespace IsekaiTruck.Editor
             WorldTravelUIController travelUI = CreateUI(canvas.transform, font);
             MoveBehindModalUIs(travelUI.transform, canvas.transform);
             gameManager.SetWorldTravelSystems(travelSystem, travelUI);
+            MainHudLayoutSetup.ApplyToLoadedScene();
 
             EditorUtility.SetDirty(travelSystem);
             EditorUtility.SetDirty(gameManager);
@@ -346,6 +347,7 @@ namespace IsekaiTruck.Editor
 
             Text currentWorldText = CreateText("Current World Text", statusPanel.transform, font, "현재 세계: 초원의 세계", 20, TextAnchor.MiddleCenter);
             StretchWithOffsets(currentWorldText.rectTransform, 10f, 10f, 4f, 4f);
+            statusPanel.SetActive(false);
 
             Button openButton = CreateButton("Open World Travel Button", gameArea, font, "세계 이동 (지명수배 Lv.5)", 18);
             SetRect(openButton.GetComponent<RectTransform>(), new Vector2(0.63f, 1f), Vector2.one, new Vector2(0f, -290f), new Vector2(-14f, -232f));
