@@ -12,6 +12,7 @@ namespace IsekaiTruck.UI
         [SerializeField] private CanvasGroup warningGroup;
         [SerializeField] private RectTransform warningIcon;
         [SerializeField, Min(0f)] private float edgePadding = 48f;
+        [SerializeField, Min(0f)] private float topEdgePadding = 180f;
 
         private GameConfig.EnemySettings settings;
         private EnemyManager enemyManager;
@@ -153,16 +154,30 @@ namespace IsekaiTruck.UI
             float halfHeight = Mathf.Max(0f, rect.height * 0.5f - edgePadding);
             float xScale = Mathf.Abs(direction.x) > 0.0001f ? halfWidth / Mathf.Abs(direction.x) : float.MaxValue;
             float yScale = Mathf.Abs(direction.y) > 0.0001f ? halfHeight / Mathf.Abs(direction.y) : float.MaxValue;
-            return direction * Mathf.Min(xScale, yScale);
+            Vector2 position = direction * Mathf.Min(xScale, yScale);
+            if (position.y > 0f)
+            {
+                float topLimit = Mathf.Max(0f, rect.height * 0.5f - topEdgePadding);
+                position.y = Mathf.Min(position.y, topLimit);
+            }
+
+            return position;
         }
 
 #if UNITY_EDITOR
-        public void SetReferences(RectTransform targetWarningArea, CanvasGroup targetWarningGroup, RectTransform targetWarningIcon, float targetEdgePadding)
+        public void SetReferences(
+            RectTransform targetWarningArea,
+            CanvasGroup targetWarningGroup,
+            RectTransform targetWarningIcon,
+            float targetEdgePadding,
+            float targetTopEdgePadding
+        )
         {
             warningArea = targetWarningArea;
             warningGroup = targetWarningGroup;
             warningIcon = targetWarningIcon;
             edgePadding = targetEdgePadding;
+            topEdgePadding = targetTopEdgePadding;
         }
 #endif
     }

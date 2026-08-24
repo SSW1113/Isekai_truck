@@ -16,6 +16,12 @@ namespace IsekaiTruck.Editor
         public static readonly Color SoulDepth = new Color32(0x50, 0x62, 0x64, 0xFF);
         public static readonly Color Speed = new Color32(0x87, 0xDF, 0xE6, 0xFF);
         public static readonly Color SpeedDepth = new Color32(0x4E, 0xA7, 0xAE, 0xFF);
+        public static readonly Color Wanted = new Color32(0xE6, 0x5C, 0x45, 0xFF);
+        public static readonly Color WantedDepth = new Color32(0x8E, 0x29, 0x30, 0xFF);
+        public static readonly Color WantedTrack = new Color32(0x55, 0x29, 0x36, 0xFF);
+        public static readonly Color WantedStar = new Color32(0xFF, 0xD3, 0x6B, 0xFF);
+        public static readonly Color WantedBeaconRed = new Color32(0xF0, 0x4B, 0x5F, 0xFF);
+        public static readonly Color WantedBeaconBlue = new Color32(0x61, 0xC8, 0xE6, 0xFF);
 
         public static bool Matches(Color actual, Color expected)
         {
