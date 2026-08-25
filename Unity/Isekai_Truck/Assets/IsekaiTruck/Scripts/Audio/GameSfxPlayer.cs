@@ -13,14 +13,18 @@ namespace IsekaiTruck.Audio
         private const string CollisionClipPath = "Audio/SFX/TruckMonsterCollision";
         private const string LevelUpClipPath = "Audio/SFX/LevelUp";
         private const string UIButtonClipPath = "Audio/SFX/UIButtonClick";
+        private const string BgmClipPath = "Audio/BGM/MainBgm";
+        private const float BgmVolume = 0.2f;
 
         private static GameSfxPlayer instance;
 
         private readonly HashSet<Button> registeredButtons = new HashSet<Button>();
         private AudioSource audioSource;
+        private AudioSource bgmAudioSource;
         private AudioClip collisionClip;
         private AudioClip levelUpClip;
         private AudioClip uiButtonClip;
+        private AudioClip bgmClip;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void CreateInstance()
@@ -60,9 +64,16 @@ namespace IsekaiTruck.Audio
             audioSource.spatialBlend = 0f;
             audioSource.ignoreListenerPause = true;
 
+            bgmAudioSource = gameObject.AddComponent<AudioSource>();
+            bgmAudioSource.playOnAwake = false;
+            bgmAudioSource.loop = true;
+            bgmAudioSource.spatialBlend = 0f;
+            bgmAudioSource.volume = BgmVolume;
+
             collisionClip = Resources.Load<AudioClip>(CollisionClipPath);
             levelUpClip = Resources.Load<AudioClip>(LevelUpClipPath);
             uiButtonClip = Resources.Load<AudioClip>(UIButtonClipPath);
+            bgmClip = Resources.Load<AudioClip>(BgmClipPath);
             ValidateClips();
 
             SceneManager.sceneLoaded += HandleSceneLoaded;
@@ -70,6 +81,12 @@ namespace IsekaiTruck.Audio
 
         private void Start()
         {
+            if (bgmClip != null)
+            {
+                bgmAudioSource.clip = bgmClip;
+                bgmAudioSource.Play();
+            }
+
             RegisterSceneButtons();
         }
 
@@ -105,9 +122,9 @@ namespace IsekaiTruck.Audio
 
         private void ValidateClips()
         {
-            if (collisionClip == null || levelUpClip == null || uiButtonClip == null)
+            if (collisionClip == null || levelUpClip == null || uiButtonClip == null || bgmClip == null)
             {
-                Debug.LogError("Game SFX clips could not be loaded from Resources/Audio/SFX.", this);
+                Debug.LogError("Game audio clips could not be loaded from Resources/Audio.", this);
             }
         }
 
