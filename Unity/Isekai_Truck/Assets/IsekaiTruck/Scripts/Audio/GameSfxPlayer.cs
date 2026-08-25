@@ -16,6 +16,7 @@ namespace IsekaiTruck.Audio
         private const string FlyerClipPath = "Audio/SFX/FlyerPaperCombined";
         private const string RebirthClipPath = "Audio/SFX/Rebirth";
         private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitution";
+        private const string WizardTeleportClipPath = "Audio/SFX/WizardTeleport";
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
 
@@ -30,6 +31,7 @@ namespace IsekaiTruck.Audio
         private AudioClip flyerClip;
         private AudioClip rebirthClip;
         private AudioClip ninjaSubstitutionClip;
+        private AudioClip wizardTeleportClip;
         private AudioClip bgmClip;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -70,6 +72,11 @@ namespace IsekaiTruck.Audio
             instance?.PlayOneShot(instance.ninjaSubstitutionClip);
         }
 
+        public static void PlayWizardTeleport()
+        {
+            instance?.PlayOneShot(instance.wizardTeleportClip);
+        }
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -97,6 +104,7 @@ namespace IsekaiTruck.Audio
             flyerClip = Resources.Load<AudioClip>(FlyerClipPath);
             rebirthClip = Resources.Load<AudioClip>(RebirthClipPath);
             ninjaSubstitutionClip = Resources.Load<AudioClip>(NinjaSubstitutionClipPath);
+            wizardTeleportClip = Resources.Load<AudioClip>(WizardTeleportClipPath);
             bgmClip = Resources.Load<AudioClip>(BgmClipPath);
             ValidateClips();
 
@@ -147,7 +155,7 @@ namespace IsekaiTruck.Audio
         private void ValidateClips()
         {
             if (collisionClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
-                rebirthClip == null || ninjaSubstitutionClip == null || bgmClip == null)
+                rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null || bgmClip == null)
             {
                 Debug.LogError("Game audio clips could not be loaded from Resources/Audio.", this);
             }

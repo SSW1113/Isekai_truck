@@ -1,3 +1,4 @@
+using IsekaiTruck.Audio;
 using UnityEngine;
 
 namespace IsekaiTruck.Monsters
@@ -45,6 +46,7 @@ namespace IsekaiTruck.Monsters
             teleportCooldownElapsed = 0f;
             float teleportDistance = Type.FleeDistance * teleportDistanceMultiplier;
             transform.position += awayFromTruck / distance * teleportDistance;
+            GameSfxPlayer.PlayWizardTeleport();
             return false;
         }
     }
