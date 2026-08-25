@@ -1,4 +1,5 @@
 using IsekaiTruck.Blessings;
+using IsekaiTruck.Audio;
 using IsekaiTruck.Camera;
 using IsekaiTruck.Input;
 using IsekaiTruck.Player;
@@ -251,6 +252,7 @@ namespace IsekaiTruck.UI
                 return;
             }
 
+            GameSfxPlayer.PlayRebirth();
             Debug.Log($"환생 완료: [{result.Blessing.Grade}] {result.Blessing.DisplayName}, 획득 배율 x{result.RewardMultiplier:F1}", this);
             blessingSelectionUI.Hide();
             rebirthPanel.SetActive(false);
