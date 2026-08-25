@@ -17,7 +17,7 @@ namespace IsekaiTruck.Audio
         private const string RebirthClipPath = "Audio/SFX/RebirthBalanced";
         private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitutionBalanced";
         private const string WizardTeleportClipPath = "Audio/SFX/WizardTeleport";
-        private const string JeonWoochiSpellClipPath = "Audio/SFX/JeonWoochiSpell";
+        private const string JeonWoochiSpellClipPath = "Audio/SFX/JeonWoochiSpellBalanced";
         private static readonly string[] SamuraiChargeClipPaths =
         {
             "Audio/SFX/SamuraiCharge1",
