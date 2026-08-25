@@ -1,3 +1,4 @@
+using IsekaiTruck.Audio;
 using IsekaiTruck.Blessings;
 using IsekaiTruck.Camera;
 using IsekaiTruck.Config;
@@ -150,6 +151,11 @@ namespace IsekaiTruck.Core
             float rebirthMultiplier = rebirthSystem.RewardMultiplier;
             gameUIController.BeginDeferredSoulReward();
             RewardResult reward = playerState.AddRewards(defeat.Type.Exp, defeat.Type.Soul, rebirthMultiplier * blessingEffectSystem.ExperienceMultiplier, rebirthMultiplier);
+            if (reward.LevelUpCount > 0)
+            {
+                GameSfxPlayer.PlayLevelUp();
+            }
+
             gameUIController.QueueDeferredSoulReward(reward.AppliedSoul);
             collisionFeedbackController.PlayMonsterDefeat(defeat.WorldPosition);
             if (reward.AppliedSoul > 0 && !soulRewardFlyUI.Play(defeat.WorldPosition, reward.AppliedSoul))
@@ -163,6 +169,7 @@ namespace IsekaiTruck.Core
         private void HandleMonsterCollisionBatch(MonsterCollisionBatch batch)
         {
             collisionFeedbackController.PlayMonsterCollisionBatch(batch.Count);
+            GameSfxPlayer.PlayTruckMonsterCollision();
         }
 
         private void HandleTruckDamageTaken(TruckDamageResult result)
