@@ -13,12 +13,35 @@ namespace IsekaiTruck.Audio
         private const string CollisionClipPath = "Audio/SFX/TruckMonsterCollision";
         private const string LevelUpClipPath = "Audio/SFX/LevelUp";
         private const string UIButtonClipPath = "Audio/SFX/UIButtonClick";
-        private const string FlyerClipPath = "Audio/SFX/FlyerPaperCombined";
-        private const string RebirthClipPath = "Audio/SFX/Rebirth";
-        private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitution";
+        private const string FlyerClipPath = "Audio/SFX/FlyerPaperBalanced";
+        private const string RebirthClipPath = "Audio/SFX/RebirthBalanced";
+        private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitutionBalanced";
         private const string WizardTeleportClipPath = "Audio/SFX/WizardTeleport";
+        private const string JeonWoochiSpellClipPath = "Audio/SFX/JeonWoochiSpellBalanced";
+        private static readonly string[] SamuraiChargeClipPaths =
+        {
+            "Audio/SFX/SamuraiCharge1",
+            "Audio/SFX/SamuraiCharge2",
+            "Audio/SFX/SamuraiCharge3",
+            "Audio/SFX/SamuraiCharge4"
+        };
+        private static readonly string[] WantedLevelClipPaths =
+        {
+            "Audio/SFX/WantedLevel01",
+            "Audio/SFX/WantedLevel02",
+            "Audio/SFX/WantedLevel03",
+            "Audio/SFX/WantedLevel04",
+            "Audio/SFX/WantedLevel05",
+            "Audio/SFX/WantedLevel06",
+            "Audio/SFX/WantedLevel07",
+            "Audio/SFX/WantedLevel08",
+            "Audio/SFX/WantedLevel09",
+            "Audio/SFX/WantedLevel10"
+        };
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
+        private const float WizardTeleportVolume = 0.45f;
+        private const float JeonWoochiSpellVolume = 0.65f;
 
         private static GameSfxPlayer instance;
 
@@ -32,6 +55,9 @@ namespace IsekaiTruck.Audio
         private AudioClip rebirthClip;
         private AudioClip ninjaSubstitutionClip;
         private AudioClip wizardTeleportClip;
+        private AudioClip jeonWoochiSpellClip;
+        private AudioClip[] samuraiChargeClips;
+        private AudioClip[] wantedLevelClips;
         private AudioClip bgmClip;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -74,7 +100,34 @@ namespace IsekaiTruck.Audio
 
         public static void PlayWizardTeleport()
         {
-            instance?.PlayOneShot(instance.wizardTeleportClip);
+            instance?.PlayOneShot(instance.wizardTeleportClip, WizardTeleportVolume);
+        }
+
+        public static void PlayJeonWoochiSpell()
+        {
+            instance?.PlayOneShot(instance.jeonWoochiSpellClip, JeonWoochiSpellVolume);
+        }
+
+        public static void PlayRandomSamuraiCharge()
+        {
+            if (instance == null || instance.samuraiChargeClips == null || instance.samuraiChargeClips.Length == 0)
+            {
+                return;
+            }
+
+            int clipIndex = Random.Range(0, instance.samuraiChargeClips.Length);
+            instance.PlayOneShot(instance.samuraiChargeClips[clipIndex]);
+        }
+
+        public static void PlayWantedLevelUp(int level)
+        {
+            if (instance == null || instance.wantedLevelClips == null || level <= 0 ||
+                level > instance.wantedLevelClips.Length)
+            {
+                return;
+            }
+
+            instance.PlayOneShot(instance.wantedLevelClips[level - 1]);
         }
 
         private void Awake()
@@ -105,6 +158,17 @@ namespace IsekaiTruck.Audio
             rebirthClip = Resources.Load<AudioClip>(RebirthClipPath);
             ninjaSubstitutionClip = Resources.Load<AudioClip>(NinjaSubstitutionClipPath);
             wizardTeleportClip = Resources.Load<AudioClip>(WizardTeleportClipPath);
+            jeonWoochiSpellClip = Resources.Load<AudioClip>(JeonWoochiSpellClipPath);
+            samuraiChargeClips = new AudioClip[SamuraiChargeClipPaths.Length];
+            for (int i = 0; i < SamuraiChargeClipPaths.Length; i++)
+            {
+                samuraiChargeClips[i] = Resources.Load<AudioClip>(SamuraiChargeClipPaths[i]);
+            }
+            wantedLevelClips = new AudioClip[WantedLevelClipPaths.Length];
+            for (int i = 0; i < WantedLevelClipPaths.Length; i++)
+            {
+                wantedLevelClips[i] = Resources.Load<AudioClip>(WantedLevelClipPaths[i]);
+            }
             bgmClip = Resources.Load<AudioClip>(BgmClipPath);
             ValidateClips();
 
@@ -146,16 +210,24 @@ namespace IsekaiTruck.Audio
 
         private void PlayOneShot(AudioClip clip)
         {
+            PlayOneShot(clip, 1f);
+        }
+
+        private void PlayOneShot(AudioClip clip, float volumeScale)
+        {
             if (audioSource != null && clip != null)
             {
-                audioSource.PlayOneShot(clip);
+                audioSource.PlayOneShot(clip, Mathf.Clamp01(volumeScale));
             }
         }
 
         private void ValidateClips()
         {
             if (collisionClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
-                rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null || bgmClip == null)
+                rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null ||
+                jeonWoochiSpellClip == null || bgmClip == null ||
+                samuraiChargeClips == null || System.Array.Exists(samuraiChargeClips, clip => clip == null) ||
+                wantedLevelClips == null || System.Array.Exists(wantedLevelClips, clip => clip == null))
             {
                 Debug.LogError("Game audio clips could not be loaded from Resources/Audio.", this);
             }

@@ -15,6 +15,7 @@ namespace IsekaiTruck.Monsters
         private float fleeDirZ;
         private bool hasFleeDirection;
         private float stunRemaining;
+        private Renderer[] visibilityRenderers = System.Array.Empty<Renderer>();
         private MonsterMovementBehavior[] movementBehaviors = System.Array.Empty<MonsterMovementBehavior>();
         private MonsterContactBehavior[] contactBehaviors = System.Array.Empty<MonsterContactBehavior>();
 
@@ -29,6 +30,7 @@ namespace IsekaiTruck.Monsters
             monsterView = GetComponent<MonsterView>();
             referenceFrameRate = frameRate;
             monsterView?.Initialize(type.Color);
+            visibilityRenderers = GetComponentsInChildren<Renderer>(true);
             wanderAngle = Random.value * Mathf.PI * 2f;
             nextWanderChange = nowMilliseconds + 1000f + Random.value * 2000f;
             fleeDirX = 0f;
@@ -143,6 +145,29 @@ namespace IsekaiTruck.Monsters
         internal void SetMovementVisual(Vector3 direction, float moveSpeed, bool isFleeing)
         {
             monsterView?.SetMovement(direction, moveSpeed * referenceFrameRate, isFleeing);
+        }
+
+        internal bool IsVisibleToGameCamera()
+        {
+            UnityEngine.Camera gameCamera = UnityEngine.Camera.main;
+            if (gameCamera == null || !gameCamera.isActiveAndEnabled)
+            {
+                return false;
+            }
+
+            Plane[] cameraPlanes = GeometryUtility.CalculateFrustumPlanes(gameCamera);
+            for (int i = 0; i < visibilityRenderers.Length; i++)
+            {
+                Renderer targetRenderer = visibilityRenderers[i];
+                if (targetRenderer != null && targetRenderer.enabled &&
+                    targetRenderer.gameObject.activeInHierarchy &&
+                    GeometryUtility.TestPlanesAABB(cameraPlanes, targetRenderer.bounds))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void ApplyStun(float duration)

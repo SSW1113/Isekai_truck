@@ -44,9 +44,14 @@ namespace IsekaiTruck.Monsters
             }
 
             teleportCooldownElapsed = 0f;
+            bool playTeleportSound = IsVisibleToGameCamera();
             float teleportDistance = Type.FleeDistance * teleportDistanceMultiplier;
             transform.position += awayFromTruck / distance * teleportDistance;
-            GameSfxPlayer.PlayWizardTeleport();
+            if (playTeleportSound)
+            {
+                GameSfxPlayer.PlayWizardTeleport();
+            }
+
             return false;
         }
     }

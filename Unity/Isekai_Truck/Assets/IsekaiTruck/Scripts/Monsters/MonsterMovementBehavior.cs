@@ -58,6 +58,11 @@ namespace IsekaiTruck.Monsters
             Monster.SetMovementVisual(direction, speed, isFleeing);
         }
 
+        protected bool IsVisibleToGameCamera()
+        {
+            return Monster.IsVisibleToGameCamera();
+        }
+
         protected virtual void OnInitialized()
         {
         }
