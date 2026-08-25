@@ -78,7 +78,7 @@ namespace IsekaiTruck.Editor
                 Object.DestroyImmediate(existingUI.gameObject);
             }
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            Font font = CartoonUIStyle.LoadFont();
             WorldTravelUIController travelUI = CreateUI(canvas.transform, font);
             MoveBehindModalUIs(travelUI.transform, canvas.transform);
             gameManager.SetWorldTravelSystems(travelSystem, travelUI);
@@ -355,25 +355,33 @@ namespace IsekaiTruck.Editor
 
             GameObject popup = CreatePanel("World Travel Confirmation Popup", gameArea, new Color(0f, 0f, 0f, 0.78f));
             Stretch(popup.GetComponent<RectTransform>());
+            CartoonUIStyle.StyleScrim(popup);
 
-            GameObject box = CreatePanel("World Travel Confirmation Box", popup.transform, new Color(0.08f, 0.08f, 0.1f, 1f));
+            GameObject box = CreatePanel("World Travel Confirmation Box", popup.transform, HudColorPalette.ModalFace);
             RectTransform boxRect = box.GetComponent<RectTransform>();
             boxRect.anchorMin = new Vector2(0.5f, 0.5f);
             boxRect.anchorMax = new Vector2(0.5f, 0.5f);
             boxRect.pivot = new Vector2(0.5f, 0.5f);
             boxRect.sizeDelta = new Vector2(540f, 360f);
+            CartoonUIStyle.StylePanel(box, HudColorPalette.ModalFace, HudColorPalette.SoulDepth);
+            ResponsivePanelFitter boxFitter = box.AddComponent<ResponsivePanelFitter>();
+            boxFitter.Configure(boxRect.sizeDelta, 28f, 28f);
 
             Text title = CreateText("World Travel Title", box.transform, font, "세계 이동", 31, TextAnchor.MiddleCenter);
             SetTopRect(title.rectTransform, 22f, 52f, 24f);
+            CartoonUIStyle.StyleText(title, HudColorPalette.DarkInk, true);
             Text confirmationText = CreateText("World Travel Confirmation Text", box.transform, font, string.Empty, 21, TextAnchor.MiddleCenter);
             confirmationText.horizontalOverflow = HorizontalWrapMode.Wrap;
             confirmationText.verticalOverflow = VerticalWrapMode.Overflow;
             SetTopRect(confirmationText.rectTransform, 88f, 140f, 34f);
+            CartoonUIStyle.StyleText(confirmationText, HudColorPalette.DarkInk);
 
             Button confirmButton = CreateButton("Confirm World Travel Button", box.transform, font, "이동하기", 23);
             SetRect(confirmButton.GetComponent<RectTransform>(), Vector2.zero, new Vector2(0.5f, 0f), new Vector2(28f, 28f), new Vector2(-8f, 92f));
             Button cancelButton = CreateButton("Cancel World Travel Button", box.transform, font, "취소", 23);
             SetRect(cancelButton.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(1f, 0f), new Vector2(8f, 28f), new Vector2(-28f, 92f));
+            CartoonUIStyle.StyleButton(confirmButton, HudColorPalette.Soul, HudColorPalette.SoulDepth, HudColorPalette.SoftWhite);
+            CartoonUIStyle.StyleButton(cancelButton, HudColorPalette.Cream, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
 
             controller.SetReferences(gameArea, currentWorldText, openButton, openButtonText, popup, confirmationText, confirmButton, cancelButton);
             popup.SetActive(false);
@@ -418,6 +426,8 @@ namespace IsekaiTruck.Editor
             GameObject panel = CreateUIObject(name, parent);
             Image image = panel.AddComponent<Image>();
             image.color = color;
+            image.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            image.type = Image.Type.Sliced;
             return panel;
         }
 
@@ -429,19 +439,20 @@ namespace IsekaiTruck.Editor
             text.text = value;
             text.fontSize = fontSize;
             text.alignment = alignment;
-            text.color = Color.white;
+            text.color = HudColorPalette.DarkInk;
             text.raycastTarget = false;
             return text;
         }
 
         private static Button CreateButton(string name, Transform parent, Font font, string label, int fontSize)
         {
-            GameObject buttonObject = CreatePanel(name, parent, new Color(0.88f, 0.88f, 0.88f, 1f));
+            GameObject buttonObject = CreatePanel(name, parent, HudColorPalette.ModalInset);
             Button button = buttonObject.AddComponent<Button>();
             button.targetGraphic = buttonObject.GetComponent<Image>();
             Text text = CreateText("Label", buttonObject.transform, font, label, fontSize, TextAnchor.MiddleCenter);
-            text.color = new Color(0.08f, 0.08f, 0.08f, 1f);
+            text.color = HudColorPalette.DarkInk;
             StretchWithOffsets(text.rectTransform, 8f, 8f, 4f, 4f);
+            CartoonUIStyle.StyleButton(button, HudColorPalette.ModalInset, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
             return button;
         }
 

@@ -5,6 +5,11 @@ namespace IsekaiTruck.Editor
     internal static class HudColorPalette
     {
         public static readonly Color EntryBackground = new Color32(0xFC, 0xCE, 0x7E, 0xFF);
+        public static readonly Color DarkInk = new Color32(0x4C, 0x38, 0x45, 0xFF);
+        public static readonly Color Cream = new Color32(0xF4, 0xE7, 0xC3, 0xFF);
+        public static readonly Color SoftWhite = new Color32(0xFF, 0xFB, 0xF2, 0xFF);
+        public static readonly Color ModalFace = new Color32(0xF2, 0xDC, 0xB7, 0xFF);
+        public static readonly Color ModalInset = new Color32(0xFF, 0xF4, 0xD8, 0xFF);
         public static readonly Color SidePanel = new Color32(0xAA, 0x96, 0xA1, 0xFF);
         public static readonly Color Level = new Color32(0xE9, 0x82, 0xB8, 0xFF);
         public static readonly Color LevelDepth = new Color32(0x9E, 0x63, 0x82, 0xFF);

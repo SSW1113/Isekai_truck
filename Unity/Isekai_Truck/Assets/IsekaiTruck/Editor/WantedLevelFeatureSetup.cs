@@ -245,7 +245,7 @@ namespace IsekaiTruck.Editor
                         throw new InvalidOperationException($"Wanted level {level} star count is incorrect.");
                     }
 
-                    VerifyStageLabelGap(presentation);
+                    VerifyCenteredStars(presentation);
                 }
 
                 wanted.ResetForWorldTravel();
@@ -275,11 +275,12 @@ namespace IsekaiTruck.Editor
             }
         }
 
-        private static void VerifyStageLabelGap(WantedLevelUIPresentation presentation)
+        private static void VerifyCenteredStars(WantedLevelUIPresentation presentation)
         {
             SerializedObject serializedPresentation = new SerializedObject(presentation);
             SerializedProperty stars = serializedPresentation.FindProperty("starIcons");
             RectTransform stageText = (RectTransform)serializedPresentation.FindProperty("stageText").objectReferenceValue;
+            float leftmostEdge = float.MaxValue;
             float rightmostEdge = float.MinValue;
 
             for (int i = 0; i < stars.arraySize; i++)
@@ -287,14 +288,14 @@ namespace IsekaiTruck.Editor
                 RectTransform star = (RectTransform)stars.GetArrayElementAtIndex(i).objectReferenceValue;
                 if (star.gameObject.activeSelf)
                 {
+                    leftmostEdge = Mathf.Min(leftmostEdge, star.anchoredPosition.x - star.sizeDelta.x * 0.5f);
                     rightmostEdge = Mathf.Max(rightmostEdge, star.anchoredPosition.x + star.sizeDelta.x * 0.5f);
                 }
             }
 
-            float labelLeftEdge = stageText.anchoredPosition.x - stageText.sizeDelta.x * 0.5f;
-            if (!Mathf.Approximately(labelLeftEdge - rightmostEdge, StageGap))
+            if (stageText.gameObject.activeSelf || !Mathf.Approximately((leftmostEdge + rightmostEdge) * 0.5f, 0f))
             {
-                throw new InvalidOperationException("Wanted stage label spacing is inconsistent.");
+                throw new InvalidOperationException("Wanted stars are not centered without the stage label.");
             }
         }
 

@@ -61,7 +61,7 @@ namespace IsekaiTruck.Editor
                 Object.DestroyImmediate(existingUI.gameObject);
             }
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            Font font = CartoonUIStyle.LoadFont();
             BlessingInventoryUIController inventoryUI = CreateUI(canvas.transform, font);
             gameManager.SetBlessingSkillSystems(loadoutSystem, dismantleSystem, effectSystem, blessingInput, inventoryUI);
             MainHudLayoutSetup.ApplyToLoadedScene();
@@ -149,7 +149,7 @@ namespace IsekaiTruck.Editor
 
             VerifyDefinition(catalog, "c_blessing_01", "위압감", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.MonsterSlow, 0.8f);
             VerifyDefinition(catalog, "c_blessing_02", "천리안", BlessingGrade.C, BlessingActivationType.Active, BlessingEffectType.VisionBoost, 1.5f);
-            VerifyDefinition(catalog, "c_blessing_03", "스턴건", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.PeriodicStun, 1f);
+            VerifyDefinition(catalog, "c_blessing_03", "시간 매듭", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.PeriodicStun, 1f);
             VerifyDefinition(catalog, "u_blessing_01", "Test1", BlessingGrade.U, BlessingActivationType.Passive, BlessingEffectType.ExperienceGain, 1.1f);
             VerifyDefinition(catalog, "u_blessing_02", "Test2", BlessingGrade.U, BlessingActivationType.Passive, BlessingEffectType.ExperienceGain, 1.1f);
             VerifyDefinition(catalog, "u_blessing_03", "Test3", BlessingGrade.U, BlessingActivationType.Passive, BlessingEffectType.ExperienceGain, 1.1f);
@@ -331,9 +331,9 @@ namespace IsekaiTruck.Editor
 
         private static void ConfigureBlessings()
         {
-            Configure("C_Blessing_01.asset", "c_blessing_01", "위압감", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.MonsterSlow, 0.8f, 0f, 0f, 20f, "트럭 주변 몬스터의 이동 속도가 20% 감소합니다.");
+            Configure("C_Blessing_01.asset", "c_blessing_01", "위압감", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.MonsterSlow, 0.8f, 0f, 0f, 20f, "트럭 주변 주민의 이동 속도가 20% 감소합니다.");
             Configure("C_Blessing_02.asset", "c_blessing_02", "천리안", BlessingGrade.C, BlessingActivationType.Active, BlessingEffectType.VisionBoost, 1.5f, 10f, 0f, 0f, "10초 동안 시야가 1.5배 넓어집니다.");
-            Configure("C_Blessing_03.asset", "c_blessing_03", "스턴건", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.PeriodicStun, 1f, 2f, 5f, 20f, "5초마다 주변 몬스터 하나를 2초 동안 마비시킵니다.");
+            Configure("C_Blessing_03.asset", "c_blessing_03", "시간 매듭", BlessingGrade.C, BlessingActivationType.Passive, BlessingEffectType.PeriodicStun, 1f, 2f, 5f, 20f, "5초마다 주변 주민 한 명을 2초 동안 잠시 멈춥니다.");
             Configure("U_Blessing_01.asset", "u_blessing_01", "Test1", BlessingGrade.U, BlessingActivationType.Passive, BlessingEffectType.ExperienceGain, 1.1f, 0f, 0f, 0f, "경험치 획득량이 1.1배 증가합니다.");
             Configure("U_Blessing_02.asset", "u_blessing_02", "Test2", BlessingGrade.U, BlessingActivationType.Passive, BlessingEffectType.ExperienceGain, 1.1f, 0f, 0f, 0f, "경험치 획득량이 1.1배 증가합니다.");
             Configure("U_Blessing_03.asset", "u_blessing_03", "Test3", BlessingGrade.U, BlessingActivationType.Passive, BlessingEffectType.ExperienceGain, 1.1f, 0f, 0f, 0f, "경험치 획득량이 1.1배 증가합니다.");
@@ -383,15 +383,20 @@ namespace IsekaiTruck.Editor
 
             GameObject panel = CreatePanel("Blessing Inventory Panel", gameArea, new Color(0f, 0f, 0f, 0.72f));
             Stretch(panel.GetComponent<RectTransform>());
-            GameObject box = CreatePanel("Blessing Inventory Box", panel.transform, new Color(0.08f, 0.08f, 0.1f, 0.98f));
+            CartoonUIStyle.StyleScrim(panel);
+            GameObject box = CreatePanel("Blessing Inventory Box", panel.transform, HudColorPalette.ModalFace);
             RectTransform boxRect = box.GetComponent<RectTransform>();
             boxRect.anchorMin = new Vector2(0.5f, 0.5f);
             boxRect.anchorMax = new Vector2(0.5f, 0.5f);
             boxRect.pivot = new Vector2(0.5f, 0.5f);
-            boxRect.sizeDelta = new Vector2(720f, 1120f);
+            boxRect.sizeDelta = new Vector2(720f, 980f);
+            CartoonUIStyle.StylePanel(box, HudColorPalette.ModalFace, HudColorPalette.UpgradeDepth);
+            ResponsivePanelFitter boxFitter = box.AddComponent<ResponsivePanelFitter>();
+            boxFitter.Configure(boxRect.sizeDelta, 28f, 24f);
 
             Text title = CreateText("Title", box.transform, font, "여신의 축복", 34, TextAnchor.MiddleCenter);
             SetTopRect(title.rectTransform, 18f, 50f, 20f);
+            CartoonUIStyle.StyleText(title, HudColorPalette.DarkInk, true);
 
             Button[] slotButtons = new Button[3];
             Text[] slotLabels = new Text[3];
@@ -400,11 +405,13 @@ namespace IsekaiTruck.Editor
                 slotButtons[i] = CreateButton($"Blessing Slot {i + 1}", box.transform, font, string.Empty, 19);
                 SetRect(slotButtons[i].GetComponent<RectTransform>(), new Vector2(i / 3f, 1f), new Vector2((i + 1) / 3f, 1f), new Vector2(9f, -190f), new Vector2(-9f, -82f));
                 slotLabels[i] = slotButtons[i].GetComponentInChildren<Text>();
+                CartoonUIStyle.StyleButton(slotButtons[i], HudColorPalette.LevelFill, HudColorPalette.LevelDepth, HudColorPalette.DarkInk);
             }
 
             Text selectionText = CreateText("Selection", box.transform, font, "장착하거나 분해할 축복을 선택하세요.", 19, TextAnchor.MiddleCenter);
             selectionText.horizontalOverflow = HorizontalWrapMode.Wrap;
             SetTopRect(selectionText.rectTransform, 205f, 105f, 28f);
+            CartoonUIStyle.StyleText(selectionText, HudColorPalette.DarkInk);
 
             GameObject inventoryArea = CreateUIObject("Inventory Grid", box.transform);
             SetRect(inventoryArea.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, new Vector2(22f, 190f), new Vector2(-22f, -330f));
@@ -419,6 +426,7 @@ namespace IsekaiTruck.Editor
                 inventoryButtons[i] = CreateButton($"Inventory Blessing {i + 1}", inventoryArea.transform, font, string.Empty, 17);
                 SetRect(inventoryButtons[i].GetComponent<RectTransform>(), new Vector2(column / 3f, minY), new Vector2((column + 1) / 3f, maxY), new Vector2(6f, 6f), new Vector2(-6f, -6f));
                 inventoryLabels[i] = inventoryButtons[i].GetComponentInChildren<Text>();
+                CartoonUIStyle.StyleButton(inventoryButtons[i], HudColorPalette.ModalInset, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
             }
 
             Button equipButton = CreateButton("Equip Button", box.transform, font, "장착", 21);
@@ -429,6 +437,10 @@ namespace IsekaiTruck.Editor
             SetRect(dismantleButton.GetComponent<RectTransform>(), new Vector2(0.66f, 0f), new Vector2(1f, 0f), new Vector2(6f, 78f), new Vector2(-24f, 138f));
             Button closeButton = CreateButton("Close Button", box.transform, font, "닫기", 21);
             SetBottomRect(closeButton.GetComponent<RectTransform>(), 14f, 48f, 220f);
+            CartoonUIStyle.StyleButton(equipButton, HudColorPalette.Upgrade, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
+            CartoonUIStyle.StyleButton(unequipButton, HudColorPalette.Soul, HudColorPalette.SoulDepth, HudColorPalette.SoftWhite);
+            CartoonUIStyle.StyleButton(dismantleButton, HudColorPalette.Wanted, HudColorPalette.WantedDepth, HudColorPalette.SoftWhite);
+            CartoonUIStyle.StyleButton(closeButton, HudColorPalette.Cream, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
 
             controller.SetReferences(gameArea, panel, selectionText, openButton, closeButton, equipButton, unequipButton, dismantleButton, slotButtons, slotLabels, activeSlotLabels, inventoryButtons, inventoryLabels);
             panel.SetActive(false);
@@ -453,6 +465,8 @@ namespace IsekaiTruck.Editor
             GameObject panel = CreateUIObject(name, parent);
             Image image = panel.AddComponent<Image>();
             image.color = color;
+            image.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            image.type = Image.Type.Sliced;
             return panel;
         }
 
@@ -464,19 +478,20 @@ namespace IsekaiTruck.Editor
             text.text = value;
             text.fontSize = fontSize;
             text.alignment = alignment;
-            text.color = Color.white;
+            text.color = HudColorPalette.DarkInk;
             text.raycastTarget = false;
             return text;
         }
 
         private static Button CreateButton(string name, Transform parent, Font font, string label, int fontSize)
         {
-            GameObject buttonObject = CreatePanel(name, parent, new Color(0.88f, 0.88f, 0.88f, 1f));
+            GameObject buttonObject = CreatePanel(name, parent, HudColorPalette.ModalInset);
             Button button = buttonObject.AddComponent<Button>();
             button.targetGraphic = buttonObject.GetComponent<Image>();
             Text text = CreateText("Label", buttonObject.transform, font, label, fontSize, TextAnchor.MiddleCenter);
-            text.color = new Color(0.08f, 0.08f, 0.08f, 1f);
+            text.color = HudColorPalette.DarkInk;
             StretchWithOffsets(text.rectTransform, 7f, 7f, 4f, 4f);
+            CartoonUIStyle.StyleButton(button, HudColorPalette.ModalInset, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
             return button;
         }
 

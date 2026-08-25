@@ -15,6 +15,7 @@ namespace IsekaiTruck.UI
         [SerializeField, Range(-15f, 15f)] private float accentHoverRotation;
         [SerializeField, Min(0f)] private float hoverOffset = 1.5f;
         [SerializeField, Min(1f)] private float transitionSpeed = 18f;
+        [SerializeField] private bool shouldAnimatePosition = true;
 
         private Button button;
         private Vector2 restingPosition;
@@ -53,7 +54,14 @@ namespace IsekaiTruck.UI
             float blend = 1f - Mathf.Exp(-transitionSpeed * Time.unscaledDeltaTime);
 
             pressTarget.localScale = Vector3.Lerp(pressTarget.localScale, restingScale * targetScale, blend);
-            pressTarget.anchoredPosition = Vector2.Lerp(pressTarget.anchoredPosition, restingPosition + Vector2.up * targetOffset, blend);
+            if (shouldAnimatePosition)
+            {
+                pressTarget.anchoredPosition = Vector2.Lerp(
+                    pressTarget.anchoredPosition,
+                    restingPosition + Vector2.up * targetOffset,
+                    blend
+                );
+            }
 
             if (accentTarget != null)
             {
@@ -114,7 +122,8 @@ namespace IsekaiTruck.UI
             float targetPressedScale,
             float targetHoverOffset,
             float targetAccentHoverScale = 1f,
-            float targetAccentHoverRotation = 0f
+            float targetAccentHoverRotation = 0f,
+            bool animateTargetPosition = true
         )
         {
             SetTarget(target);
@@ -124,6 +133,7 @@ namespace IsekaiTruck.UI
             hoverOffset = targetHoverOffset;
             accentHoverScale = targetAccentHoverScale;
             accentHoverRotation = targetAccentHoverRotation;
+            shouldAnimatePosition = animateTargetPosition;
 
             if (accentTarget != null)
             {
@@ -137,7 +147,11 @@ namespace IsekaiTruck.UI
         {
             if (pressTarget != null)
             {
-                pressTarget.anchoredPosition = restingPosition;
+                if (shouldAnimatePosition)
+                {
+                    pressTarget.anchoredPosition = restingPosition;
+                }
+
                 pressTarget.localScale = restingScale;
             }
 
