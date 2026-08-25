@@ -9,11 +9,13 @@ namespace IsekaiTruck.Monsters
         [Header("One-Time Survival")]
         [SerializeField, Min(0f)] private float teleportDistanceMultiplier = 2f;
         [SerializeField] private SpriteSequenceEffect substitutionEffectPrefab;
+        [SerializeField] private SpriteSequenceEffect teleportSmokeEffectPrefab;
 
         private bool hasSurvived;
 
         public float TeleportDistanceMultiplier => teleportDistanceMultiplier;
         public SpriteSequenceEffect SubstitutionEffectPrefab => substitutionEffectPrefab;
+        public SpriteSequenceEffect TeleportSmokeEffectPrefab => teleportSmokeEffectPrefab;
         public bool HasSurvived => hasSurvived;
 
         protected override void OnInitialized()
@@ -32,9 +34,10 @@ namespace IsekaiTruck.Monsters
             }
 
             hasSurvived = true;
+            Vector3 departurePosition = transform.position;
             if (substitutionEffectPrefab != null)
             {
-                Instantiate(substitutionEffectPrefab, transform.position, Quaternion.identity);
+                Instantiate(substitutionEffectPrefab, departurePosition, Quaternion.identity);
             }
 
             Vector3 escapeDirection = transform.position - context.Truck.position;
@@ -50,6 +53,11 @@ namespace IsekaiTruck.Monsters
 
             float teleportDistance = Type.FleeDistance * teleportDistanceMultiplier;
             transform.position += escapeDirection.normalized * teleportDistance;
+            if (teleportSmokeEffectPrefab != null)
+            {
+                Instantiate(teleportSmokeEffectPrefab, transform.position, Quaternion.identity);
+            }
+
             result = new MonsterContactResult(MonsterContactOutcome.Survived);
             return true;
         }

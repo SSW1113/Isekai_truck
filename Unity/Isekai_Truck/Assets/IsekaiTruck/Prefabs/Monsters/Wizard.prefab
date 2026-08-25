@@ -325,6 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Monsters.MonsterFleeTeleportBehavior
   teleportInterval: 3
   teleportDistanceMultiplier: 1
+  teleportEffectPrefab: {fileID: 5814345980419102468, guid: adb9d78c679472249ba967629299e1f0, type: 3}
 --- !u!114 &2588809113902766232
 MonoBehaviour:
   m_ObjectHideFlags: 0

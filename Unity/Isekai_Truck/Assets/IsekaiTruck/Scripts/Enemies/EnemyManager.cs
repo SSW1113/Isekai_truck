@@ -50,7 +50,7 @@ namespace IsekaiTruck.Enemies
             }
 
             EnemyController enemy = Instantiate(prefab, enemyRoot, false);
-            enemy.name = $"Enemy ({typeId})";
+            enemy.name = $"Enemy ({type.DisplayName})";
             enemy.transform.position = new Vector3(position.x, type.Size * 0.5f, position.z);
             enemy.transform.localScale = Vector3.one * type.Size;
             enemy.Initialize(type, truck);

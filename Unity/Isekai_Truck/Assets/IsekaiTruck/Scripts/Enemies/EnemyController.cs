@@ -8,6 +8,7 @@ namespace IsekaiTruck.Enemies
     {
         private EnemyData type;
         private Transform truck;
+        private EnemyView enemyView;
 
         public EnemyData Type => type;
 
@@ -15,10 +16,12 @@ namespace IsekaiTruck.Enemies
         {
             type = enemyType;
             truck = truckTransform;
+            enemyView = GetComponent<EnemyView>();
         }
 
         public void UpdateEnemy(float deltaTime, bool isWorldPaused)
         {
+            enemyView?.SetPaused(isWorldPaused);
             if (isWorldPaused || deltaTime <= 0f)
             {
                 return;
@@ -36,6 +39,7 @@ namespace IsekaiTruck.Enemies
             float moveDistance = Mathf.Min(type.MoveSpeed * deltaTime, distance);
             transform.position += direction * moveDistance;
             transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            enemyView?.SetMovement(direction, type.MoveSpeed);
         }
     }
 }

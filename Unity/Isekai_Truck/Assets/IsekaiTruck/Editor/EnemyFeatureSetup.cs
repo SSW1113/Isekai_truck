@@ -521,7 +521,7 @@ namespace IsekaiTruck.Editor
             try
             {
                 EnemyDefinition definition = root.AddComponent<EnemyDefinition>();
-                definition.Configure("basic_enemy", "기본 적", 1f, 0.5f, 6f, 1, 1f);
+                definition.Configure("basic_enemy", "경찰차", 2f, 0.5f, 6f, 1, 1f);
                 root.AddComponent<EnemyController>();
 
                 GameObject visual = GameObject.CreatePrimitive(PrimitiveType.Cube);

@@ -1,3 +1,4 @@
+using IsekaiTruck.Visuals;
 using UnityEngine;
 
 namespace IsekaiTruck.Monsters
@@ -8,11 +9,13 @@ namespace IsekaiTruck.Monsters
         [Header("Flee Teleport")]
         [SerializeField, Min(0.1f)] private float teleportInterval = 3f;
         [SerializeField, Min(0f)] private float teleportDistanceMultiplier = 1f;
+        [SerializeField] private SpriteSequenceEffect teleportEffectPrefab;
 
         private float teleportCooldownElapsed;
 
         public float TeleportInterval => teleportInterval;
         public float TeleportDistanceMultiplier => teleportDistanceMultiplier;
+        public SpriteSequenceEffect TeleportEffectPrefab => teleportEffectPrefab;
 
         protected override void OnInitialized()
         {
@@ -44,7 +47,17 @@ namespace IsekaiTruck.Monsters
 
             teleportCooldownElapsed = 0f;
             float teleportDistance = Type.FleeDistance * teleportDistanceMultiplier;
+            if (teleportEffectPrefab != null)
+            {
+                Instantiate(teleportEffectPrefab, transform.position, Quaternion.identity);
+            }
+
             transform.position += awayFromTruck / distance * teleportDistance;
+            if (teleportEffectPrefab != null)
+            {
+                Instantiate(teleportEffectPrefab, transform.position, Quaternion.identity);
+            }
+
             return false;
         }
     }

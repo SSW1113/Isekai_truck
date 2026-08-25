@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Monsters.MonsterOneTimeSurvivalBehavior
   teleportDistanceMultiplier: 2
   substitutionEffectPrefab: {fileID: 8164698087974351372, guid: 23cf7a79ea052ee439f9e4ff466d740b, type: 3}
+  teleportSmokeEffectPrefab: {fileID: 5526144128599286417, guid: af84b22dbbd45744cad81987f946ea41, type: 3}
 --- !u!114 &2831818297527646519
 MonoBehaviour:
   m_ObjectHideFlags: 0
