@@ -56,6 +56,8 @@ namespace IsekaiTruck.Editor
             }
 
             HideCentralHud(gameArea, canvas.transform);
+            ShowWantedHud(gameUI, gameArea);
+            ReserveWantedHudSpaceForEnemyWarnings();
             MoveHealthUI(canvas, leftPanel);
             MoveActionButtons(canvas, rightPanel);
             ApplyVisualPolish(gameUI, canvas, leftPanel, gameArea, rightPanel);
@@ -89,17 +91,66 @@ namespace IsekaiTruck.Editor
         private static void HideCentralHud(RectTransform gameArea, Transform canvas)
         {
             SetInactive(gameArea.Find("Speed HUD"));
-            SetInactive(gameArea.Find("Wanted Level UI"));
 
             Transform legacyGameArea = gameArea.Find("Game Area UI");
             if (legacyGameArea != null)
             {
                 SetInactive(legacyGameArea.Find("Player HUD"));
-                SetInactive(legacyGameArea.Find("Wanted Level UI"));
             }
 
             SetInactive(canvas.Find("Blessing Inventory UI/Blessing Game Area/Active Blessing Slots"));
             SetInactive(canvas.Find("World Travel UI/World Travel Game Area/Current World Panel"));
+        }
+
+        private static void ShowWantedHud(GameUIController gameUI, RectTransform gameArea)
+        {
+            RectTransform wantedRect = gameArea.Find("Wanted Level UI") as RectTransform;
+            if (wantedRect == null)
+            {
+                wantedRect = gameArea.Find("Game Area UI/Wanted Level UI") as RectTransform;
+            }
+
+            if (wantedRect == null)
+            {
+                return;
+            }
+
+            if (wantedRect.parent != gameArea)
+            {
+                wantedRect.SetParent(gameArea, false);
+            }
+
+            wantedRect.anchorMin = new Vector2(0.5f, 1f);
+            wantedRect.anchorMax = new Vector2(0.5f, 1f);
+            wantedRect.pivot = new Vector2(0.5f, 1f);
+            wantedRect.anchoredPosition = new Vector2(0f, -22f);
+            wantedRect.sizeDelta = new Vector2(470f, 110f);
+            wantedRect.localRotation = Quaternion.identity;
+            wantedRect.localScale = Vector3.one;
+            wantedRect.gameObject.SetActive(true);
+
+            GameObject upgradePanel = (GameObject)new SerializedObject(gameUI).FindProperty("upgradePanel").objectReferenceValue;
+            if (upgradePanel != null && upgradePanel.transform.parent == gameArea)
+            {
+                wantedRect.SetSiblingIndex(upgradePanel.transform.GetSiblingIndex());
+            }
+        }
+
+        private static void ReserveWantedHudSpaceForEnemyWarnings()
+        {
+            EnemyWarningUIController warningUI = Object.FindFirstObjectByType<EnemyWarningUIController>(FindObjectsInactive.Include);
+            if (warningUI == null)
+            {
+                return;
+            }
+
+            SerializedObject serializedWarning = new SerializedObject(warningUI);
+            SerializedProperty topEdgePadding = serializedWarning.FindProperty("topEdgePadding");
+            if (topEdgePadding != null)
+            {
+                topEdgePadding.floatValue = 180f;
+                serializedWarning.ApplyModifiedPropertiesWithoutUndo();
+            }
         }
 
         private static void MoveHealthUI(Canvas canvas, RectTransform leftPanel)
@@ -618,6 +669,11 @@ namespace IsekaiTruck.Editor
             Outline[] outlines = root.GetComponentsInChildren<Outline>(true);
             for (int i = 0; i < outlines.Length; i++)
             {
+                if (IsWantedHudElement(outlines[i].transform))
+                {
+                    continue;
+                }
+
                 bool isText = outlines[i].GetComponent<Text>() != null || outlines[i].GetComponent<TMP_Text>() != null;
                 Color color = outlines[i].effectColor;
                 color.a = Mathf.Min(color.a, isText ? 0.28f : 0.16f);
@@ -629,6 +685,11 @@ namespace IsekaiTruck.Editor
             Shadow[] shadows = root.GetComponentsInChildren<Shadow>(true);
             for (int i = 0; i < shadows.Length; i++)
             {
+                if (IsWantedHudElement(shadows[i].transform))
+                {
+                    continue;
+                }
+
                 if (shadows[i].GetType() != typeof(Shadow))
                 {
                     continue;
@@ -639,6 +700,22 @@ namespace IsekaiTruck.Editor
                 shadows[i].effectColor = color;
                 shadows[i].effectDistance = new Vector2(0f, -1.25f);
             }
+        }
+
+        private static bool IsWantedHudElement(Transform target)
+        {
+            Transform current = target;
+            while (current != null)
+            {
+                if (current.name == "Wanted Level UI")
+                {
+                    return true;
+                }
+
+                current = current.parent;
+            }
+
+            return false;
         }
 
         private static void AddPanelDepth(GameObject target, Color depthColor)
@@ -715,6 +792,8 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Central HUD is still visible.");
             }
 
+            VerifyWantedHud(gameArea);
+
             TruckHealthUIController healthUI = GetReferencedHealthUI();
             if (healthUI == null || healthUI.transform.parent != leftPanel)
             {
@@ -733,6 +812,32 @@ namespace IsekaiTruck.Editor
             VerifyVisualPolish(gameArea, leftPanel, rightPanel, healthUI, blessingButton, worldTravelButton);
             VerifyHealthHearts();
             Debug.Log("Main HUD layout verification passed.");
+        }
+
+        private static void VerifyWantedHud(RectTransform gameArea)
+        {
+            RectTransform wantedRect = gameArea.Find("Wanted Level UI") as RectTransform;
+            if (wantedRect == null ||
+                !wantedRect.gameObject.activeSelf ||
+                wantedRect.parent != gameArea ||
+                wantedRect.anchorMin != new Vector2(0.5f, 1f) ||
+                wantedRect.anchorMax != new Vector2(0.5f, 1f) ||
+                wantedRect.sizeDelta != new Vector2(470f, 110f))
+            {
+                throw new InvalidOperationException("Wanted HUD is not visible at the top center of the game area.");
+            }
+
+            EnemyWarningUIController warningUI = Object.FindFirstObjectByType<EnemyWarningUIController>(FindObjectsInactive.Include);
+            if (warningUI == null)
+            {
+                throw new InvalidOperationException("Enemy warning UI is missing.");
+            }
+
+            SerializedObject serializedWarning = new SerializedObject(warningUI);
+            if (serializedWarning.FindProperty("topEdgePadding").floatValue < 180f)
+            {
+                throw new InvalidOperationException("Enemy warnings do not reserve enough space for the wanted HUD.");
+            }
         }
 
         private static void VerifyVisualPolish(

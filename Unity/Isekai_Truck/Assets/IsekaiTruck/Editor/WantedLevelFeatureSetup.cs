@@ -9,10 +9,12 @@ using IsekaiTruck.Truck;
 using IsekaiTruck.UI;
 using IsekaiTruck.Upgrades;
 using IsekaiTruck.Wanted;
+using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -23,8 +25,12 @@ namespace IsekaiTruck.Editor
         private const string ScenePath = "Assets/IsekaiTruck/Scenes/Main.unity";
         private const string ConfigPath = "Assets/IsekaiTruck/Config/GameConfig.asset";
         private const string CatalogPath = "Assets/IsekaiTruck/Blessings/BlessingCatalog.asset";
+        private const string CartoonFontPath = "Assets/IsekaiTruck/Fonts/CartoonHUD.asset";
+        private const string WantedFontCharacters = "비상지명수배단계LV.0123456789!★";
         private const string VerificationSaveKey = "IsekaiTruck.WantedLevelVerification";
-        private const float StarWidth = 42f;
+        private const int MaxStarCount = 10;
+        private const float StarSize = 27f;
+        private const float StageGap = 8f;
 
         [MenuItem("Isekai Truck/Setup Wanted Level Feature")]
         public static void Setup()
@@ -47,6 +53,7 @@ namespace IsekaiTruck.Editor
 
             SerializedObject serializedGameUI = new SerializedObject(gameUI);
             RectTransform gameArea = (RectTransform)serializedGameUI.FindProperty("gameArea").objectReferenceValue;
+            GameObject upgradePanel = (GameObject)serializedGameUI.FindProperty("upgradePanel").objectReferenceValue;
             if (gameArea == null)
             {
                 throw new InvalidOperationException("Game UI viewport reference is missing.");
@@ -58,8 +65,19 @@ namespace IsekaiTruck.Editor
                 Object.DestroyImmediate(existingUI.gameObject);
             }
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            WantedLevelUIController wantedLevelUI = CreateUI(gameArea, font);
+            TMP_FontAsset cartoonFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(CartoonFontPath);
+            if (cartoonFont == null)
+            {
+                throw new InvalidOperationException("Cartoon HUD font was not found.");
+            }
+
+            EnsureWantedFontCharacters(cartoonFont);
+            WantedLevelUIController wantedLevelUI = CreateUI(gameArea, cartoonFont);
+            if (upgradePanel != null && upgradePanel.transform.parent == gameArea)
+            {
+                wantedLevelUI.transform.SetSiblingIndex(upgradePanel.transform.GetSiblingIndex());
+            }
+
             gameManager.SetWantedLevelSystems(wantedLevelSystem, wantedLevelUI);
             MainHudLayoutSetup.ApplyToLoadedScene();
             EditorUtility.SetDirty(gameManager);
@@ -100,9 +118,24 @@ namespace IsekaiTruck.Editor
             }
 
             SerializedObject serializedUI = new SerializedObject(wantedLevelUI);
+            SerializedProperty statusText = serializedUI.FindProperty("statusText");
             SerializedProperty levelText = serializedUI.FindProperty("levelText");
-            SerializedProperty starFillMasks = serializedUI.FindProperty("starFillMasks");
-            if (levelText.objectReferenceValue == null || starFillMasks.arraySize != 5)
+            SerializedProperty bannerFace = serializedUI.FindProperty("bannerFace");
+            WantedLevelUIPresentation presentation = (WantedLevelUIPresentation)serializedUI.FindProperty("presentation").objectReferenceValue;
+            RectTransform wantedRect = wantedLevelUI.GetComponent<RectTransform>();
+            SerializedObject serializedPresentation = presentation != null ? new SerializedObject(presentation) : null;
+            if (statusText.objectReferenceValue == null ||
+                levelText.objectReferenceValue == null ||
+                bannerFace.objectReferenceValue == null ||
+                presentation == null ||
+                serializedPresentation.FindProperty("starIcons").arraySize != MaxStarCount ||
+                serializedPresentation.FindProperty("starCanvasGroups").arraySize != MaxStarCount ||
+                serializedPresentation.FindProperty("stageText").objectReferenceValue == null ||
+                serializedPresentation.FindProperty("redBeacon").objectReferenceValue == null ||
+                serializedPresentation.FindProperty("blueBeacon").objectReferenceValue == null ||
+                !wantedLevelUI.gameObject.activeSelf ||
+                wantedRect.anchorMin != new Vector2(0.5f, 1f) ||
+                wantedRect.anchorMax != new Vector2(0.5f, 1f))
             {
                 throw new InvalidOperationException("Wanted level UI references are incomplete.");
             }
@@ -163,32 +196,105 @@ namespace IsekaiTruck.Editor
             {
                 WantedLevelSystem wanted = systemObject.AddComponent<WantedLevelSystem>();
                 wanted.Initialize(config);
-                Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-                WantedLevelUIController ui = CreateUI(uiRoot.GetComponent<RectTransform>(), font);
+                TMP_FontAsset cartoonFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(CartoonFontPath);
+                WantedLevelUIController ui = CreateUI(uiRoot.GetComponent<RectTransform>(), cartoonFont);
                 ui.Initialize(wanted);
 
                 SerializedObject serializedUI = new SerializedObject(ui);
-                Text levelText = (Text)serializedUI.FindProperty("levelText").objectReferenceValue;
-                SerializedProperty masks = serializedUI.FindProperty("starFillMasks");
-                RectTransform firstMask = (RectTransform)masks.GetArrayElementAtIndex(0).objectReferenceValue;
-                RectTransform fifthMask = (RectTransform)masks.GetArrayElementAtIndex(4).objectReferenceValue;
+                TMP_Text statusText = (TMP_Text)serializedUI.FindProperty("statusText").objectReferenceValue;
+                TMP_Text levelText = (TMP_Text)serializedUI.FindProperty("levelText").objectReferenceValue;
+                Image bannerFace = (Image)serializedUI.FindProperty("bannerFace").objectReferenceValue;
+                WantedLevelUIPresentation presentation = (WantedLevelUIPresentation)serializedUI.FindProperty("presentation").objectReferenceValue;
+
+                if (ui.gameObject.activeSelf || presentation.VisibleStarCount != 0)
+                {
+                    throw new InvalidOperationException("Wanted level 0 UI was not hidden.");
+                }
 
                 wanted.RestoreState(50);
-                if (levelText.text != "지명수배 Lv.1" || !Mathf.Approximately(firstMask.sizeDelta.x, StarWidth * 0.5f))
+                if (statusText.text != "비상! 지명수배" ||
+                    levelText.text != "LV.1" ||
+                    !HudColorPalette.Matches(bannerFace.color, HudColorPalette.Wanted) ||
+                    !ui.gameObject.activeSelf ||
+                    !presentation.IsAssemblyPlaying ||
+                    presentation.VisibleStarCount != 1)
                 {
-                    throw new InvalidOperationException("Wanted level 1 half-star display is incorrect.");
+                    throw new InvalidOperationException("Wanted level 1 assembly state is incorrect.");
+                }
+
+                presentation.CompleteAnimationsImmediately();
+                wanted.RestoreState(250);
+                presentation.CompleteAnimationsImmediately();
+                if (presentation.VisibleStarCount != 5 || !presentation.IsContinuousBeaconActive)
+                {
+                    throw new InvalidOperationException("Wanted level 5 continuous alert state is incorrect.");
                 }
 
                 wanted.RestoreState(500);
-                if (levelText.text != "지명수배 Lv.10" || !Mathf.Approximately(firstMask.sizeDelta.x, StarWidth) || !Mathf.Approximately(fifthMask.sizeDelta.x, StarWidth))
+                presentation.CompleteAnimationsImmediately();
+                if (levelText.text != "LV.10" || presentation.VisibleStarCount != MaxStarCount)
                 {
-                    throw new InvalidOperationException("Wanted level 10 star display is incorrect.");
+                    throw new InvalidOperationException("Wanted level 10 star count is incorrect.");
+                }
+
+                for (int level = 1; level <= MaxStarCount; level++)
+                {
+                    presentation.ShowInitialState(level);
+                    if (presentation.VisibleStarCount != level)
+                    {
+                        throw new InvalidOperationException($"Wanted level {level} star count is incorrect.");
+                    }
+
+                    VerifyStageLabelGap(presentation);
+                }
+
+                wanted.ResetForWorldTravel();
+                if (ui.gameObject.activeSelf)
+                {
+                    throw new InvalidOperationException("Wanted UI remained visible after a world travel reset.");
+                }
+
+                GameObject restoredSystemObject = new GameObject("Wanted Restored UI Verification System");
+                restoredSystemObject.transform.SetParent(uiRoot.transform, false);
+                WantedLevelSystem restoredWanted = restoredSystemObject.AddComponent<WantedLevelSystem>();
+                restoredWanted.Initialize(config);
+                restoredWanted.RestoreState(250);
+                WantedLevelUIController restoredUI = CreateUI(uiRoot.GetComponent<RectTransform>(), cartoonFont);
+                restoredUI.Initialize(restoredWanted);
+                SerializedObject serializedRestoredUI = new SerializedObject(restoredUI);
+                WantedLevelUIPresentation restoredPresentation = (WantedLevelUIPresentation)serializedRestoredUI.FindProperty("presentation").objectReferenceValue;
+                if (!restoredUI.gameObject.activeSelf || restoredPresentation.IsAssemblyPlaying || !restoredPresentation.IsContinuousBeaconActive)
+                {
+                    throw new InvalidOperationException("Restored wanted UI did not appear in its completed state.");
                 }
             }
             finally
             {
                 Object.DestroyImmediate(uiRoot);
                 Object.DestroyImmediate(systemObject);
+            }
+        }
+
+        private static void VerifyStageLabelGap(WantedLevelUIPresentation presentation)
+        {
+            SerializedObject serializedPresentation = new SerializedObject(presentation);
+            SerializedProperty stars = serializedPresentation.FindProperty("starIcons");
+            RectTransform stageText = (RectTransform)serializedPresentation.FindProperty("stageText").objectReferenceValue;
+            float rightmostEdge = float.MinValue;
+
+            for (int i = 0; i < stars.arraySize; i++)
+            {
+                RectTransform star = (RectTransform)stars.GetArrayElementAtIndex(i).objectReferenceValue;
+                if (star.gameObject.activeSelf)
+                {
+                    rightmostEdge = Mathf.Max(rightmostEdge, star.anchoredPosition.x + star.sizeDelta.x * 0.5f);
+                }
+            }
+
+            float labelLeftEdge = stageText.anchoredPosition.x - stageText.sizeDelta.x * 0.5f;
+            if (!Mathf.Approximately(labelLeftEdge - rightmostEdge, StageGap))
+            {
+                throw new InvalidOperationException("Wanted stage label spacing is inconsistent.");
             }
         }
 
@@ -275,58 +381,149 @@ namespace IsekaiTruck.Editor
             return new SaveSystems(wanted, save);
         }
 
-        private static WantedLevelUIController CreateUI(Transform parent, Font font)
+        private static WantedLevelUIController CreateUI(Transform parent, TMP_FontAsset cartoonFont)
         {
-            GameObject panel = CreatePanel("Wanted Level UI", parent, new Color(0f, 0f, 0f, 0.55f));
+            GameObject panel = CreateUIObject("Wanted Level UI", parent);
             RectTransform panelRect = panel.GetComponent<RectTransform>();
-            panelRect.anchorMin = new Vector2(0f, 1f);
-            panelRect.anchorMax = new Vector2(0f, 1f);
-            panelRect.pivot = new Vector2(0f, 1f);
-            panelRect.anchoredPosition = new Vector2(14f, -106f);
-            panelRect.sizeDelta = new Vector2(390f, 66f);
-            panel.GetComponent<Image>().raycastTarget = false;
+            panelRect.anchorMin = new Vector2(0.5f, 1f);
+            panelRect.anchorMax = new Vector2(0.5f, 1f);
+            panelRect.pivot = new Vector2(0.5f, 1f);
+            panelRect.anchoredPosition = new Vector2(0f, -22f);
+            panelRect.sizeDelta = new Vector2(470f, 110f);
 
-            WantedLevelUIController controller = panel.AddComponent<WantedLevelUIController>();
-            Text levelText = CreateText("Wanted Level Text", panel.transform, font, "지명수배 Lv.0", 21, TextAnchor.MiddleCenter);
-            SetRect(levelText.rectTransform, Vector2.zero, new Vector2(0f, 1f), Vector2.zero, new Vector2(145f, 0f));
+            GameObject animationRootObject = CreateUIObject("Animation Root", panel.transform);
+            RectTransform animationRoot = animationRootObject.GetComponent<RectTransform>();
+            Stretch(animationRoot);
 
-            RectTransform[] starFillMasks = new RectTransform[5];
-            for (int i = 0; i < starFillMasks.Length; i++)
+            GameObject leftTail = CreatePanel("Left Alert Tail", animationRoot, HudColorPalette.WantedDepth);
+            SetFixedRect(leftTail.GetComponent<RectTransform>(), new Vector2(-218f, -49f), new Vector2(66f, 44f));
+            leftTail.transform.localRotation = Quaternion.Euler(0f, 0f, -8f);
+
+            GameObject rightTail = CreatePanel("Right Alert Tail", animationRoot, HudColorPalette.WantedDepth);
+            SetFixedRect(rightTail.GetComponent<RectTransform>(), new Vector2(218f, -49f), new Vector2(66f, 44f));
+            rightTail.transform.localRotation = Quaternion.Euler(0f, 0f, 8f);
+
+            GameObject shadow = CreatePanel("Banner Shadow", animationRoot, new Color(
+                HudColorPalette.WantedDepth.r,
+                HudColorPalette.WantedDepth.g,
+                HudColorPalette.WantedDepth.b,
+                0.72f
+            ));
+            SetFixedRect(shadow.GetComponent<RectTransform>(), new Vector2(0f, -53f), new Vector2(424f, 66f));
+
+            GameObject face = CreatePanel("Banner Face", animationRoot, HudColorPalette.Wanted);
+            RectTransform faceRect = face.GetComponent<RectTransform>();
+            SetFixedRect(faceRect, new Vector2(0f, -47f), new Vector2(412f, 62f));
+            AddPanelDepth(face, HudColorPalette.WantedDepth);
+            Image faceImage = face.GetComponent<Image>();
+
+            GameObject faceHighlight = CreatePanel("Banner Highlight", face.transform, new Color(1f, 1f, 1f, 0.14f));
+            SetFixedRect(faceHighlight.GetComponent<RectTransform>(), new Vector2(0f, 19f), new Vector2(370f, 8f));
+
+            GameObject beaconHousing = CreatePanel("Beacon Housing", animationRoot, HudColorPalette.WantedTrack);
+            SetFixedRect(beaconHousing.GetComponent<RectTransform>(), new Vector2(0f, -11f), new Vector2(112f, 22f));
+            AddPanelDepth(beaconHousing, HudColorPalette.WantedDepth);
+
+            GameObject redBeaconObject = CreatePanel("Red Beacon", animationRoot, HudColorPalette.WantedBeaconRed);
+            SetFixedRect(redBeaconObject.GetComponent<RectTransform>(), new Vector2(-27f, -10f), new Vector2(48f, 18f));
+            CanvasGroup redBeacon = redBeaconObject.AddComponent<CanvasGroup>();
+            redBeacon.alpha = 0.28f;
+
+            GameObject blueBeaconObject = CreatePanel("Blue Beacon", animationRoot, HudColorPalette.WantedBeaconBlue);
+            SetFixedRect(blueBeaconObject.GetComponent<RectTransform>(), new Vector2(27f, -10f), new Vector2(48f, 18f));
+            CanvasGroup blueBeacon = blueBeaconObject.AddComponent<CanvasGroup>();
+            blueBeacon.alpha = 0.24f;
+
+            GameObject contentObject = CreateUIObject("Banner Content", animationRoot);
+            RectTransform contentRect = contentObject.GetComponent<RectTransform>();
+            Stretch(contentRect);
+            CanvasGroup contentGroup = contentObject.AddComponent<CanvasGroup>();
+
+            TMP_Text statusText = CreateTmpText(
+                "Wanted Status Text",
+                contentObject.transform,
+                cartoonFont,
+                "비상! 지명수배",
+                24,
+                TextAlignmentOptions.MidlineLeft
+            );
+            SetFixedRect(statusText.rectTransform, new Vector2(-54f, -47f), new Vector2(270f, 44f));
+            statusText.color = HudColorPalette.WantedStar;
+            AddTextOutline(statusText, HudColorPalette.WantedDepth, 1.2f);
+
+            TMP_Text levelText = CreateTmpText(
+                "Wanted Level Text",
+                contentObject.transform,
+                cartoonFont,
+                "LV.0",
+                31,
+                TextAlignmentOptions.Center
+            );
+            SetFixedRect(levelText.rectTransform, new Vector2(145f, -47f), new Vector2(110f, 44f));
+            levelText.color = new Color32(0xFF, 0xFB, 0xF2, 0xFF);
+            AddTextOutline(levelText, HudColorPalette.WantedDepth, 1.2f);
+
+            GameObject stageTrack = CreatePanel("Wanted Stage Track", contentObject.transform, HudColorPalette.WantedTrack);
+            SetFixedRect(stageTrack.GetComponent<RectTransform>(), new Vector2(0f, -86f), new Vector2(350f, 30f));
+            AddPanelDepth(stageTrack, HudColorPalette.WantedDepth);
+
+            TMP_Text stageLabel = CreateTmpText(
+                "Wanted Stage Label",
+                stageTrack.transform,
+                cartoonFont,
+                "단계",
+                17,
+                TextAlignmentOptions.Center
+            );
+            SetFixedRect(stageLabel.rectTransform, Vector2.zero, new Vector2(48f, 26f));
+            stageLabel.color = new Color32(0xF4, 0xE7, 0xC3, 0xFF);
+            AddTextOutline(stageLabel, HudColorPalette.WantedDepth, 0.8f);
+            stageLabel.gameObject.SetActive(false);
+
+            RectTransform[] starIcons = new RectTransform[MaxStarCount];
+            CanvasGroup[] starCanvasGroups = new CanvasGroup[MaxStarCount];
+            for (int i = 0; i < starIcons.Length; i++)
             {
-                GameObject slot = CreateUIObject($"Wanted Star {i + 1}", panel.transform);
-                RectTransform slotRect = slot.GetComponent<RectTransform>();
-                slotRect.anchorMin = new Vector2(0f, 0.5f);
-                slotRect.anchorMax = new Vector2(0f, 0.5f);
-                slotRect.pivot = new Vector2(0f, 0.5f);
-                slotRect.anchoredPosition = new Vector2(150f + i * 46f, 0f);
-                slotRect.sizeDelta = new Vector2(StarWidth, StarWidth);
-
-                Text background = CreateText("Empty Star", slot.transform, font, "★", 40, TextAnchor.MiddleCenter);
-                Stretch(background.rectTransform);
-                background.color = new Color(0.28f, 0.28f, 0.28f, 1f);
-
-                GameObject maskObject = CreateUIObject("Star Fill Mask", slot.transform);
-                RectTransform maskRect = maskObject.GetComponent<RectTransform>();
-                maskRect.anchorMin = new Vector2(0f, 0.5f);
-                maskRect.anchorMax = new Vector2(0f, 0.5f);
-                maskRect.pivot = new Vector2(0f, 0.5f);
-                maskRect.anchoredPosition = Vector2.zero;
-                maskRect.sizeDelta = new Vector2(0f, StarWidth);
-                maskObject.AddComponent<RectMask2D>();
-                starFillMasks[i] = maskRect;
-
-                Text fill = CreateText("Filled Star", maskObject.transform, font, "★", 40, TextAnchor.MiddleCenter);
-                RectTransform fillRect = fill.rectTransform;
-                fillRect.anchorMin = new Vector2(0f, 0.5f);
-                fillRect.anchorMax = new Vector2(0f, 0.5f);
-                fillRect.pivot = new Vector2(0f, 0.5f);
-                fillRect.anchoredPosition = Vector2.zero;
-                fillRect.sizeDelta = new Vector2(StarWidth, StarWidth);
-                fill.color = new Color(1f, 0.82f, 0.18f, 1f);
+                TMP_Text star = CreateTmpText(
+                    $"Wanted Star {i + 1}",
+                    stageTrack.transform,
+                    cartoonFont,
+                    "★",
+                    27,
+                    TextAlignmentOptions.Center
+                );
+                SetFixedRect(star.rectTransform, Vector2.zero, new Vector2(StarSize, StarSize));
+                star.color = HudColorPalette.WantedStar;
+                AddTextOutline(star, HudColorPalette.WantedDepth, 0.7f);
+                CanvasGroup starCanvasGroup = star.gameObject.AddComponent<CanvasGroup>();
+                starIcons[i] = star.rectTransform;
+                starCanvasGroups[i] = starCanvasGroup;
+                star.gameObject.SetActive(false);
             }
 
-            controller.SetReferences(levelText, starFillMasks, StarWidth);
-            panel.SetActive(false);
+            WantedLevelUIPresentation presentation = panel.AddComponent<WantedLevelUIPresentation>();
+            presentation.SetReferences(
+                parent as RectTransform,
+                animationRoot,
+                new[] { leftTail.GetComponent<RectTransform>(), redBeaconObject.GetComponent<RectTransform>() },
+                new[] { rightTail.GetComponent<RectTransform>(), blueBeaconObject.GetComponent<RectTransform>() },
+                new[] { shadow.GetComponent<RectTransform>(), faceRect, beaconHousing.GetComponent<RectTransform>() },
+                contentGroup,
+                starIcons,
+                starCanvasGroups,
+                stageLabel.rectTransform,
+                redBeacon,
+                blueBeacon
+            );
+
+            WantedLevelUIController controller = panel.AddComponent<WantedLevelUIController>();
+            controller.SetReferences(
+                statusText,
+                levelText,
+                faceImage,
+                presentation
+            );
+            panel.SetActive(true);
             return controller;
         }
 
@@ -341,21 +538,76 @@ namespace IsekaiTruck.Editor
         {
             GameObject panel = CreateUIObject(name, parent);
             Image image = panel.AddComponent<Image>();
+            image.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            image.type = Image.Type.Sliced;
             image.color = color;
+            image.raycastTarget = false;
             return panel;
         }
 
-        private static Text CreateText(string name, Transform parent, Font font, string value, int fontSize, TextAnchor alignment)
+        private static TMP_Text CreateTmpText(
+            string name,
+            Transform parent,
+            TMP_FontAsset font,
+            string value,
+            int fontSize,
+            TextAlignmentOptions alignment
+        )
         {
             GameObject textObject = CreateUIObject(name, parent);
-            Text text = textObject.AddComponent<Text>();
+            TMP_Text text = textObject.AddComponent<TextMeshProUGUI>();
             text.font = font;
             text.text = value;
             text.fontSize = fontSize;
             text.alignment = alignment;
-            text.color = Color.white;
+            text.fontStyle = FontStyles.Normal;
+            text.enableAutoSizing = false;
             text.raycastTarget = false;
             return text;
+        }
+
+        private static void SetFixedRect(RectTransform rectTransform, Vector2 position, Vector2 size)
+        {
+            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            rectTransform.anchoredPosition = position;
+            rectTransform.sizeDelta = size;
+        }
+
+        private static void AddPanelDepth(GameObject target, Color depthColor)
+        {
+            Outline outline = target.AddComponent<Outline>();
+            outline.effectColor = new Color(depthColor.r, depthColor.g, depthColor.b, 0.42f);
+            outline.effectDistance = new Vector2(1f, -1f);
+
+            Shadow shadow = target.AddComponent<Shadow>();
+            shadow.effectColor = new Color(depthColor.r, depthColor.g, depthColor.b, 0.34f);
+            shadow.effectDistance = new Vector2(0f, -4f);
+        }
+
+        private static void AddTextOutline(TMP_Text text, Color color, float distance)
+        {
+            Outline outline = text.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(color.r, color.g, color.b, 0.82f);
+            outline.effectDistance = new Vector2(distance, -distance);
+        }
+
+        private static void EnsureWantedFontCharacters(TMP_FontAsset fontAsset)
+        {
+            AtlasPopulationMode populationMode = fontAsset.atlasPopulationMode;
+            fontAsset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
+            if (!fontAsset.TryAddCharacters(WantedFontCharacters, out string missingCharacters))
+            {
+                Debug.LogWarning($"지명수배 HUD 폰트에서 생성하지 못한 문자가 있습니다: {missingCharacters}");
+            }
+
+            fontAsset.atlasPopulationMode = populationMode;
+            EditorUtility.SetDirty(fontAsset);
+            if (fontAsset.atlasTexture != null)
+            {
+                EditorUtility.SetDirty(fontAsset.atlasTexture);
+            }
         }
 
         private static void Stretch(RectTransform rectTransform)

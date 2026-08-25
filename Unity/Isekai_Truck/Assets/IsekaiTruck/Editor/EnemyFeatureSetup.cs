@@ -424,7 +424,7 @@ namespace IsekaiTruck.Editor
                 RectTransform warningIcon = iconObject.GetComponent<RectTransform>();
                 warningIcon.sizeDelta = new Vector2(72f, 72f);
                 EnemyWarningUIController warningUI = warningObject.AddComponent<EnemyWarningUIController>();
-                warningUI.SetReferences(warningArea, warningGroup, warningIcon, 48f);
+                warningUI.SetReferences(warningArea, warningGroup, warningIcon, 48f, 180f);
                 warningUI.Initialize(config, manager, targetCamera, truck.transform);
 
                 EnemyController enemy = manager.CreateEnemy("basic_enemy", new Vector3(0f, 0f, -6f));
@@ -453,9 +453,9 @@ namespace IsekaiTruck.Editor
 
                 enemy.transform.position = new Vector3(0f, 0f, 6f);
                 warningUI.UpdateWarning(0.01f);
-                if (!warningUI.IsWarningVisible || warningUI.IconPosition.y <= 0f)
+                if (!warningUI.IsWarningVisible || warningUI.IconPosition.y <= 0f || warningUI.IconPosition.y > 320.01f)
                 {
-                    throw new InvalidOperationException("Enemy warning did not move to the upper edge.");
+                    throw new InvalidOperationException("Enemy warning did not respect the wanted HUD space at the upper edge.");
                 }
 
                 enemy.transform.position = Vector3.zero;
@@ -636,7 +636,7 @@ namespace IsekaiTruck.Editor
             icon.raycastTarget = false;
 
             EnemyWarningUIController controller = panel.AddComponent<EnemyWarningUIController>();
-            controller.SetReferences(panelRect, panel.GetComponent<CanvasGroup>(), iconRect, 48f);
+            controller.SetReferences(panelRect, panel.GetComponent<CanvasGroup>(), iconRect, 48f, 180f);
             panel.SetActive(false);
             return controller;
         }
