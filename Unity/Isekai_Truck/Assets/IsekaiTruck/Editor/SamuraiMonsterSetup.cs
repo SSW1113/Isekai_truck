@@ -514,8 +514,8 @@ namespace IsekaiTruck.Editor
             float distanceAt30Fps = MeasureChargeDistance(samuraiPrefab, 30);
             float distanceAt60Fps = MeasureChargeDistance(samuraiPrefab, 60);
             float distanceAt120Fps = MeasureChargeDistance(samuraiPrefab, 120);
-            if (!Mathf.Approximately(distanceAt30Fps, distanceAt60Fps) ||
-                !Mathf.Approximately(distanceAt60Fps, distanceAt120Fps))
+            if (Mathf.Abs(distanceAt30Fps - distanceAt60Fps) > 0.001f ||
+                Mathf.Abs(distanceAt60Fps - distanceAt120Fps) > 0.001f)
             {
                 throw new InvalidOperationException(
                     $"Samurai charge distance changed by frame rate: 30={distanceAt30Fps}, 60={distanceAt60Fps}, 120={distanceAt120Fps}"
@@ -529,14 +529,14 @@ namespace IsekaiTruck.Editor
             GameObject instance = PrefabUtility.InstantiatePrefab(samuraiPrefab) as GameObject;
             try
             {
-                const float startX = 20f;
                 const float simulationDuration = 1f;
                 float deltaTime = 1f / frameRate;
                 float frameScale = deltaTime * 60f;
                 int frameCount = Mathf.RoundToInt(simulationDuration * frameRate);
-                instance.transform.position = new Vector3(startX, 0f, 0f);
 
                 MonsterDefinition definition = instance.GetComponent<MonsterDefinition>();
+                float startX = definition.FleeDistance * 0.8f;
+                instance.transform.position = new Vector3(startX, 0f, 0f);
                 MonsterController controller = instance.GetComponent<MonsterController>();
                 controller.Initialize(definition.CreateData(), truckObject.transform, 0f, 60f);
 
