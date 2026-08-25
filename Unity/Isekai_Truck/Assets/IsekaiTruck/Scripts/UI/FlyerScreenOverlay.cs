@@ -1,3 +1,4 @@
+using IsekaiTruck.Audio;
 using IsekaiTruck.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +42,7 @@ namespace IsekaiTruck.UI
         private void OnEnable()
         {
             ResetOverlay();
+            GameSfxPlayer.PlayFlyerOverlay();
         }
 
         private void Update()
