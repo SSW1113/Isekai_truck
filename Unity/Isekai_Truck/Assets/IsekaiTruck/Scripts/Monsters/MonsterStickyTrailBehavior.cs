@@ -1,3 +1,4 @@
+using IsekaiTruck.Audio;
 using IsekaiTruck.Truck;
 using UnityEngine;
 
@@ -55,6 +56,7 @@ namespace IsekaiTruck.Monsters
                 spawnPosition,
                 Quaternion.identity);
             stickyZone.Initialize(truckSlowController);
+            GameSfxPlayer.PlayJeonWoochiSpell();
             return false;
         }
     }

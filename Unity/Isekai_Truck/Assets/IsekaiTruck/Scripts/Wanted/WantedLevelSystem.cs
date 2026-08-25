@@ -1,4 +1,5 @@
 using System;
+using IsekaiTruck.Audio;
 using IsekaiTruck.Config;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace IsekaiTruck.Wanted
             level = CalculateLevel(totalKills);
             if (level > previousLevel)
             {
+                GameSfxPlayer.PlayWantedLevelUp(level);
                 Debug.Log($"지명수배 레벨 상승! Lv.{level}", this);
             }
 
