@@ -17,6 +17,13 @@ namespace IsekaiTruck.Audio
         private const string RebirthClipPath = "Audio/SFX/RebirthBalanced";
         private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitutionBalanced";
         private const string WizardTeleportClipPath = "Audio/SFX/WizardTeleport";
+        private static readonly string[] SamuraiChargeClipPaths =
+        {
+            "Audio/SFX/SamuraiCharge1",
+            "Audio/SFX/SamuraiCharge2",
+            "Audio/SFX/SamuraiCharge3",
+            "Audio/SFX/SamuraiCharge4"
+        };
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
 
@@ -32,6 +39,7 @@ namespace IsekaiTruck.Audio
         private AudioClip rebirthClip;
         private AudioClip ninjaSubstitutionClip;
         private AudioClip wizardTeleportClip;
+        private AudioClip[] samuraiChargeClips;
         private AudioClip bgmClip;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -77,6 +85,17 @@ namespace IsekaiTruck.Audio
             instance?.PlayOneShot(instance.wizardTeleportClip);
         }
 
+        public static void PlayRandomSamuraiCharge()
+        {
+            if (instance == null || instance.samuraiChargeClips == null || instance.samuraiChargeClips.Length == 0)
+            {
+                return;
+            }
+
+            int clipIndex = Random.Range(0, instance.samuraiChargeClips.Length);
+            instance.PlayOneShot(instance.samuraiChargeClips[clipIndex]);
+        }
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -105,6 +124,11 @@ namespace IsekaiTruck.Audio
             rebirthClip = Resources.Load<AudioClip>(RebirthClipPath);
             ninjaSubstitutionClip = Resources.Load<AudioClip>(NinjaSubstitutionClipPath);
             wizardTeleportClip = Resources.Load<AudioClip>(WizardTeleportClipPath);
+            samuraiChargeClips = new AudioClip[SamuraiChargeClipPaths.Length];
+            for (int i = 0; i < SamuraiChargeClipPaths.Length; i++)
+            {
+                samuraiChargeClips[i] = Resources.Load<AudioClip>(SamuraiChargeClipPaths[i]);
+            }
             bgmClip = Resources.Load<AudioClip>(BgmClipPath);
             ValidateClips();
 
@@ -155,7 +179,8 @@ namespace IsekaiTruck.Audio
         private void ValidateClips()
         {
             if (collisionClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
-                rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null || bgmClip == null)
+                rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null || bgmClip == null ||
+                samuraiChargeClips == null || System.Array.Exists(samuraiChargeClips, clip => clip == null))
             {
                 Debug.LogError("Game audio clips could not be loaded from Resources/Audio.", this);
             }

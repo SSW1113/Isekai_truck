@@ -1,3 +1,4 @@
+using IsekaiTruck.Audio;
 using UnityEngine;
 
 namespace IsekaiTruck.Monsters
@@ -9,8 +10,15 @@ namespace IsekaiTruck.Monsters
         [SerializeField, Min(0f)] private float recognitionDistanceMultiplier = 1f;
         [SerializeField, Min(0f)] private float chargeSpeedMultiplier = 1f;
 
+        private bool isCharging;
+
         public float RecognitionDistanceMultiplier => recognitionDistanceMultiplier;
         public float ChargeSpeedMultiplier => chargeSpeedMultiplier;
+
+        protected override void OnInitialized()
+        {
+            isCharging = false;
+        }
 
         protected override bool TryUpdateMovement(MonsterMovementContext context)
         {
@@ -21,7 +29,14 @@ namespace IsekaiTruck.Monsters
             float recognitionDistance = Type.FleeDistance * recognitionDistanceMultiplier + context.ExtraFleeDistance;
             if (distance >= recognitionDistance)
             {
+                isCharging = false;
                 return false;
+            }
+
+            if (!isCharging)
+            {
+                isCharging = true;
+                GameSfxPlayer.PlayRandomSamuraiCharge();
             }
 
             if (distance <= 0.001f)
