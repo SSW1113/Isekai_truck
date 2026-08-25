@@ -40,7 +40,7 @@ namespace IsekaiTruck.Audio
         };
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
-        private const float WizardTeleportVolume = 0.65f;
+        private const float WizardTeleportVolume = 0.45f;
         private const float JeonWoochiSpellVolume = 0.65f;
 
         private static GameSfxPlayer instance;
