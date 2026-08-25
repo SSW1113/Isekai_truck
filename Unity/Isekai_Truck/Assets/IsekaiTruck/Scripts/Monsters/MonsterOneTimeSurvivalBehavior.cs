@@ -1,3 +1,4 @@
+using IsekaiTruck.Audio;
 using IsekaiTruck.Visuals;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ namespace IsekaiTruck.Monsters
             }
 
             hasSurvived = true;
+            GameSfxPlayer.PlayNinjaSubstitution();
             if (substitutionEffectPrefab != null)
             {
                 Instantiate(substitutionEffectPrefab, transform.position, Quaternion.identity);
