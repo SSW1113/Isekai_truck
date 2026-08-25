@@ -40,6 +40,8 @@ namespace IsekaiTruck.Audio
         };
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
+        private const float WizardTeleportVolume = 0.65f;
+        private const float JeonWoochiSpellVolume = 0.65f;
 
         private static GameSfxPlayer instance;
 
@@ -98,12 +100,12 @@ namespace IsekaiTruck.Audio
 
         public static void PlayWizardTeleport()
         {
-            instance?.PlayOneShot(instance.wizardTeleportClip);
+            instance?.PlayOneShot(instance.wizardTeleportClip, WizardTeleportVolume);
         }
 
         public static void PlayJeonWoochiSpell()
         {
-            instance?.PlayOneShot(instance.jeonWoochiSpellClip);
+            instance?.PlayOneShot(instance.jeonWoochiSpellClip, JeonWoochiSpellVolume);
         }
 
         public static void PlayRandomSamuraiCharge()
@@ -208,9 +210,14 @@ namespace IsekaiTruck.Audio
 
         private void PlayOneShot(AudioClip clip)
         {
+            PlayOneShot(clip, 1f);
+        }
+
+        private void PlayOneShot(AudioClip clip, float volumeScale)
+        {
             if (audioSource != null && clip != null)
             {
-                audioSource.PlayOneShot(clip);
+                audioSource.PlayOneShot(clip, Mathf.Clamp01(volumeScale));
             }
         }
 

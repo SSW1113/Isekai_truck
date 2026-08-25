@@ -36,7 +36,10 @@ namespace IsekaiTruck.Monsters
             if (!isCharging)
             {
                 isCharging = true;
-                GameSfxPlayer.PlayRandomSamuraiCharge();
+                if (IsVisibleToGameCamera())
+                {
+                    GameSfxPlayer.PlayRandomSamuraiCharge();
+                }
             }
 
             if (distance <= 0.001f)
