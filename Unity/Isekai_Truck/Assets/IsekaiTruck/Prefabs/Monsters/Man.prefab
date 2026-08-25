@@ -180,6 +180,7 @@ MonoBehaviour:
   - {fileID: 2300000000000000058, guid: 85e12af4572541c08d3bba9ea0bb9652, type: 3}
   - {fileID: 2300000000000000059, guid: 85e12af4572541c08d3bba9ea0bb9652, type: 3}
   - {fileID: 2300000000000000060, guid: 85e12af4572541c08d3bba9ea0bb9652, type: 3}
+  framesPerDirection: 12
   framesPerSecond: 12
   targetCamera: {fileID: 0}
 --- !u!1 &7881989487987635157
@@ -234,12 +235,12 @@ MonoBehaviour:
   typeId: man
   displayName: "\uD3C9\uBC94\uD55C \uC0AC\uB78C"
   color: {r: 0.9607843, g: 0.8784314, b: 0.75686276, a: 1}
-  size: 0.6
-  speed: 0.04
-  fleeDistance: 7
+  size: 0.9
+  speed: 0.1
+  fleeDistance: 15
   exp: 50
   soul: 2
-  spawnWeight: 75
+  spawnWeight: 20
 --- !u!33 &4618162805210305110
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -330,3 +331,8 @@ MonoBehaviour:
   disableRootMotion: 1
   isFleeingParameter: IsFleeing
   moveSpeedParameter: MoveSpeed
+  defeatDuration: 0.3
+  knockbackDistance: 2.2
+  jumpHeight: 0.7
+  popScale: 1.15
+  spinDegrees: 28

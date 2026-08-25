@@ -100,12 +100,12 @@ namespace IsekaiTruck.Editor
                 fileName,
                 "#FFFFFF",
                 Color.white,
-                0.6f,
-                0.04f,
-                7f,
+                MonsterDefinition.DefaultSize,
+                MonsterDefinition.DefaultSpeed,
+                MonsterDefinition.DefaultFleeDistance,
                 50,
                 2,
-                1f
+                MonsterDefinition.DefaultSpawnWeight
             );
 
             GameObject prefab = CreatePrefab(prefabPath, type);

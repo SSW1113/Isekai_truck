@@ -239,12 +239,12 @@ namespace IsekaiTruck.Editor
             if (definition == null ||
                 definition.TypeId != "policeman" ||
                 definition.DisplayName != "백수" ||
-                !Mathf.Approximately(definition.Size, 0.9f) ||
-                !Mathf.Approximately(definition.Speed, 0.14f) ||
-                !Mathf.Approximately(definition.FleeDistance, 11f) ||
+                !Mathf.Approximately(definition.Size, MonsterDefinition.DefaultSize) ||
+                !Mathf.Approximately(definition.Speed, MonsterDefinition.DefaultSpeed) ||
+                !Mathf.Approximately(definition.FleeDistance, MonsterDefinition.DefaultFleeDistance) ||
                 definition.Exp != 300 ||
                 definition.Soul != 15 ||
-                !Mathf.Approximately(definition.SpawnWeight, 5f))
+                !Mathf.Approximately(definition.SpawnWeight, MonsterDefinition.DefaultSpawnWeight))
             {
                 throw new InvalidOperationException("Policeman gameplay settings changed while applying the sprite animation.");
             }
@@ -327,5 +327,4 @@ namespace IsekaiTruck.Editor
         }
     }
 }
-
 

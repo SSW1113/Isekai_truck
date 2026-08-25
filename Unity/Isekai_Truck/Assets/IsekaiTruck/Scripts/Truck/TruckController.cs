@@ -19,16 +19,19 @@ namespace IsekaiTruck.Truck
         private float maxSpeed;
         private float blessingSpeedMultiplier = 1f;
         private float blessingSizeMultiplier = 1f;
+        private float environmentSpeedMultiplier = 1f;
 
-        public float CurrentSpeed => speed;
+        public float CurrentSpeed => speed * environmentSpeedMultiplier;
         public float CurrentFrameDistance { get; private set; }
         public float CurrentSpeedPerSecond { get; private set; }
         public float CurrentInputMagnitude { get; private set; }
+        public float EnvironmentSpeedMultiplier => environmentSpeedMultiplier;
 
         public void Initialize(GameConfig gameConfig)
         {
             settings = gameConfig.Truck;
             referenceFrameRate = gameConfig.ReferenceFrameRate;
+            environmentSpeedMultiplier = 1f;
             ApplyProgressionStats();
         }
 
@@ -74,11 +77,13 @@ namespace IsekaiTruck.Truck
                 lastDirZ = forwardZ;
 
                 float distance = GetAcceleratedDistance(settings.Acceleration * inputLength, frameScale);
+                distance *= environmentSpeedMultiplier;
                 transform.position += new Vector3(forwardX * distance, 0f, forwardZ * distance);
             }
             else
             {
                 float distance = GetFrictionDistance(frameScale);
+                distance *= environmentSpeedMultiplier;
                 transform.position += new Vector3(lastDirX * distance, 0f, lastDirZ * distance);
 
                 if (speed < StopSpeedThreshold)
@@ -187,6 +192,17 @@ namespace IsekaiTruck.Truck
             blessingSpeedMultiplier = newSpeedMultiplier;
             blessingSizeMultiplier = newSizeMultiplier;
             ApplyProgressionStats();
+        }
+
+        public void SetEnvironmentSpeedMultiplier(float speedMultiplier)
+        {
+            float newSpeedMultiplier = Mathf.Max(0f, speedMultiplier);
+            if (Mathf.Approximately(environmentSpeedMultiplier, newSpeedMultiplier))
+            {
+                return;
+            }
+
+            environmentSpeedMultiplier = newSpeedMultiplier;
         }
 
         private void ResetMovement()

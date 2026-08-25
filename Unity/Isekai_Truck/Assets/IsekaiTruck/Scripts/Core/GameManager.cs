@@ -58,6 +58,12 @@ namespace IsekaiTruck.Core
         private Vector3 truckRespawnPosition;
         private float truckRespawnYaw;
 
+        public bool IsMenuPaused =>
+            (gameUIController != null && gameUIController.IsUpgradePanelOpen) ||
+            (rebirthUIController != null && rebirthUIController.IsPanelOpen) ||
+            (blessingInventoryUIController != null && blessingInventoryUIController.IsPanelOpen) ||
+            (worldTravelUIController != null && worldTravelUIController.IsPanelOpen);
+
         private void Awake()
         {
             if (config == null || playerTarget == null || joystickInput == null || playerMoveInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null || collisionFeedbackController == null || soulRewardFlyUI == null)
@@ -109,7 +115,7 @@ namespace IsekaiTruck.Core
 
         private void Update()
         {
-            if (gameUIController.IsUpgradePanelOpen || rebirthUIController.IsPanelOpen || blessingInventoryUIController.IsPanelOpen || worldTravelUIController.IsPanelOpen)
+            if (IsMenuPaused)
             {
                 enemyWarningUIController.Hide();
                 return;

@@ -2,24 +2,24 @@
   "man": {
     "name": "평범한 사람",
     "color": "#f5e0c1",
-    "size": 0.6,
+    "size": 0.9,
 
-    "speed": 0.04,
-    "fleeDistance": 7,
+    "speed": 0.1,
+    "fleeDistance": 15,
 
     "exp": 50,
     "soul": 2,
 
-    "spawnWeight": 75
+    "spawnWeight": 20
   },
 
   "salesman": {
     "name": "영업사원",
     "color": "#606060",
-    "size": 0.6,
+    "size": 0.9,
 
-    "speed": 0.09,
-    "fleeDistance": 9,
+    "speed": 0.1,
+    "fleeDistance": 15,
 
     "exp": 60,
     "soul": 3,
@@ -32,12 +32,12 @@
     "color": "#0256f2",
     "size": 0.9,
 
-    "speed": 0.14,
-    "fleeDistance": 11,
+    "speed": 0.1,
+    "fleeDistance": 15,
 
     "exp": 300,
     "soul": 15,
 
-    "spawnWeight": 5
+    "spawnWeight": 20
   }
 }

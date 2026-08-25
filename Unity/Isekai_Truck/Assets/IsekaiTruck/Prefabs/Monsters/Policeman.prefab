@@ -53,11 +53,11 @@ MonoBehaviour:
   displayName: "\uBC31\uC218"
   color: {r: 0.007843138, g: 0.3372549, b: 0.9490196, a: 1}
   size: 0.9
-  speed: 0.14
-  fleeDistance: 11
+  speed: 0.1
+  fleeDistance: 15
   exp: 300
   soul: 15
-  spawnWeight: 5
+  spawnWeight: 20
 --- !u!33 &3605643383018789734
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using IsekaiTruck.Config;
+using IsekaiTruck.Truck;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -20,6 +21,7 @@ namespace IsekaiTruck.Monsters
         private Dictionary<string, MonsterData> monsterTypes;
         private GameConfig.MonsterSettings settings;
         private Transform truck;
+        private TruckController truckController;
         private float referenceFrameRate;
         private float areaSlowRadius;
         private float areaSlowMultiplier = 1f;
@@ -43,6 +45,7 @@ namespace IsekaiTruck.Monsters
             settings = gameConfig.Monster;
             referenceFrameRate = gameConfig.ReferenceFrameRate;
             truck = truckTransform;
+            truckController = truck.GetComponent<TruckController>();
             monsterRoot = monsterRoot == null ? transform : monsterRoot;
             areaSlowRadius = 0f;
             areaSlowMultiplier = 1f;
@@ -214,6 +217,7 @@ namespace IsekaiTruck.Monsters
         {
             int defeatedCount = 0;
             Vector3 collisionCenter = Vector3.zero;
+            float truckScale = Mathf.Max(truck.localScale.x, truck.localScale.z);
             Vector3 knockbackDirection = Vector3.ProjectOnPlane(truck.forward, Vector3.up);
             if (knockbackDirection.sqrMagnitude <= 0.000001f)
             {
@@ -238,6 +242,24 @@ namespace IsekaiTruck.Monsters
 
                 MonsterData type = monster.Type;
                 Vector3 collisionPosition = monster.transform.position;
+                Vector3 contactNormal = truck.position - collisionPosition;
+                contactNormal.y = 0f;
+                contactNormal = contactNormal.sqrMagnitude > 0.000001f
+                    ? contactNormal.normalized
+                    : -knockbackDirection;
+                MonsterContactResult contactResult = monster.ResolveContact(new MonsterContactContext(
+                    truck,
+                    truckController,
+                    truckScale,
+                    collisionDistance,
+                    contactNormal,
+                    knockbackDirection
+                ));
+                if (contactResult.Outcome != MonsterContactOutcome.Defeated)
+                {
+                    continue;
+                }
+
                 monsters.RemoveAt(i);
                 monster.BeginDefeat(knockbackDirection);
                 defeatedCount++;

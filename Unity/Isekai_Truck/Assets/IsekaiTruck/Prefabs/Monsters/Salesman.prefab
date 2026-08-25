@@ -52,9 +52,9 @@ MonoBehaviour:
   typeId: salesman
   displayName: "\uC601\uC5C5\uC0AC\uC6D0"
   color: {r: 0.3764706, g: 0.3764706, b: 0.3764706, a: 1}
-  size: 0.6
-  speed: 0.09
-  fleeDistance: 9
+  size: 0.9
+  speed: 0.1
+  fleeDistance: 15
   exp: 60
   soul: 3
   spawnWeight: 20

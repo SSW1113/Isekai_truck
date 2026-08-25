@@ -1,0 +1,1510 @@
+fileFormatVersion: 2
+guid: 9e4733dad95cd574bb460b38d4286f38
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 112
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Samurai_Down_0
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 610
+        width: 61
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db52f2b2c220a8c30800000000000000
+      internalID: 4362301577788073405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_1
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 610
+        width: 58
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 372cd8acbbc516ca0800000000000000
+      internalID: -6025432864818085261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_2
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 610
+        width: 57
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ae0b70e555199510800000000000000
+      internalID: 1556298604815781543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_3
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 610
+        width: 58
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8be8679de17e4cc10800000000000000
+      internalID: 2073035848180731576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_4
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 390
+        width: 58
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f81b23befdb6a980800000000000000
+      internalID: -8527919942754166541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_5
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 390
+        width: 58
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3798fe3768c1ae3e0800000000000000
+      internalID: -2023773718753343117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_6
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 390
+        width: 58
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9001184dc8dc5fa0800000000000000
+      internalID: -5810531043025813350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_7
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 390
+        width: 58
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbb56c511e5bf05f0800000000000000
+      internalID: -788211431428957251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_8
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 170
+        width: 59
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c2580d0099843f90800000000000000
+      internalID: -6974798671103110460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_9
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 170
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04ef657f6d159f070800000000000000
+      internalID: 8140627785163406912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_10
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 170
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfa8bf5316dd866a0800000000000000
+      internalID: -6455666656248362244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Down_11
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 170
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb7c08c9d91834e10800000000000000
+      internalID: 2180729158512986043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_0
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 610
+        width: 53
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f47d197e9fbc2da0800000000000000
+      internalID: -5968184718815038222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_1
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 610
+        width: 52
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cdf317e0062190a0800000000000000
+      internalID: -6876673370699334205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_2
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 610
+        width: 52
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d0de8ebeace93ab0800000000000000
+      internalID: -5027727273716952871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_3
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 610
+        width: 52
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93e8b39ecb2286610800000000000000
+      internalID: 1614578661174513209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_4
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 390
+        width: 53
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb4c6bbf00e0ccaf0800000000000000
+      internalID: -374909271592745793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_5
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 390
+        width: 51
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70898753a6313bb60800000000000000
+      internalID: 7760567929774053383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_6
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 390
+        width: 51
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b6a56185c24a31a0800000000000000
+      internalID: -6829072468907022663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_7
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 390
+        width: 51
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13a243fa469c39460800000000000000
+      internalID: 7247357659642604081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_8
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 170
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a2491ff9a4497930800000000000000
+      internalID: 4141416829263889058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_9
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 170
+        width: 52
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ec81ec003935040800000000000000
+      internalID: 4635210073161387627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_10
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 170
+        width: 51
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 738146b0734980e10800000000000000
+      internalID: 2164142585086744631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_DownRight_11
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 170
+        width: 51
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29db4e1d429cea4c0800000000000000
+      internalID: -4274257836350587502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_0
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 610
+        width: 49
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c24deae196ac5c080800000000000000
+      internalID: -9167698913607625684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_1
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 610
+        width: 49
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c40e0553ab11e4e0800000000000000
+      internalID: -1954250374981483322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_2
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 610
+        width: 47
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc4d2e98fa037ae70800000000000000
+      internalID: 9126316700380353741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_3
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 610
+        width: 47
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeafa75e04f9e5b20800000000000000
+      internalID: 3125110292518468330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_4
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 390
+        width: 48
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72f10f62c7aad180800000000000000
+      internalID: -9089768444366032258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_5
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 390
+        width: 49
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cd2c117b531b2dc0800000000000000
+      internalID: -3662812588475142713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_6
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 390
+        width: 48
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca65b98fb8a7a8310800000000000000
+      internalID: 1408072575096673964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_7
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 390
+        width: 47
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f0d112875133c980800000000000000
+      internalID: -8519911818140725003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_8
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 170
+        width: 49
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90b3bdfe39c26a8b0800000000000000
+      internalID: -5141372910700905719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_9
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 170
+        width: 48
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73ed6361a2d94e340800000000000000
+      internalID: 4892207899318083127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_10
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 170
+        width: 48
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d1005570e4210b0800000000000000
+      internalID: -5759455180055634604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Right_11
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 170
+        width: 47
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0908e8aeea5055a40800000000000000
+      internalID: 5356193580644728976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_0
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 610
+        width: 51
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8526ba607ae0475b0800000000000000
+      internalID: -5371652345011936680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_1
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 610
+        width: 50
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17c076cf98bcc5330800000000000000
+      internalID: 3701056787297274993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_2
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 610
+        width: 48
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccca84188287b9320800000000000000
+      internalID: 2565776528080678092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_3
+      rect:
+        serializedVersion: 2
+        x: 1499
+        y: 610
+        width: 51
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08edd20bd51280480800000000000000
+      internalID: -8932853174617907584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_4
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 390
+        width: 51
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 236b8f5d4dc80ad00800000000000000
+      internalID: 981939564517570098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_5
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 390
+        width: 50
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4f63a822f619cfc0800000000000000
+      internalID: -3474220408219930803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_6
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 390
+        width: 48
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 222914c526c39dbe0800000000000000
+      internalID: -1452063011698011614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_7
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 390
+        width: 49
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67b44a0db1ea97ab0800000000000000
+      internalID: -5009781675985187978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_8
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 170
+        width: 50
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bdcb9b2be4e99b00800000000000000
+      internalID: 835950904554016181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_9
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 170
+        width: 49
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fac1acbfd96860d90800000000000000
+      internalID: -7131864946802287441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_10
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 170
+        width: 48
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8e2da291f4321c70800000000000000
+      internalID: 8940266422436441739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_UpRight_11
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 170
+        width: 49
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e042f1ebd177cb70800000000000000
+      internalID: 8919222776233083112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_0
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 610
+        width: 55
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31e54c9aed6af91c0800000000000000
+      internalID: -4494690427831296493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_1
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 610
+        width: 53
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f53985d5eb1461cc0800000000000000
+      internalID: -3740730154618940577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_2
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 610
+        width: 55
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f950b448bb003b520800000000000000
+      internalID: 2716515805612934559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1562
+        y: 610
+        width: 53
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2d24fba7ee69680800000000000000
+      internalID: -8748543015158361430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_4
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 390
+        width: 53
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3d2ec0e906a55c0800000000000000
+      internalID: -4225959068396497925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_5
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 390
+        width: 53
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d7863d06865269d0800000000000000
+      internalID: -2782566486014261287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_6
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 390
+        width: 54
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b81ebc24128d1aca0800000000000000
+      internalID: -6007282790569352821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_7
+      rect:
+        serializedVersion: 2
+        x: 1563
+        y: 390
+        width: 54
+        height: 111
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036036037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 877057daedecd5310800000000000000
+      internalID: 1395498915342911352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_8
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 170
+        width: 54
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e1a698ad56eeae80800000000000000
+      internalID: -8165335784441339417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_9
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 170
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 291ff9aa4e13b3510800000000000000
+      internalID: 1529871356607328658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_10
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 170
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f090c5d868393b60800000000000000
+      internalID: 7726268658644717814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai_Up_11
+      rect:
+        serializedVersion: 2
+        x: 1563
+        y: 170
+        width: 55
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fe9f037c412b6c00800000000000000
+      internalID: 894845563194810104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Samurai_DownRight_0: -5968184718815038222
+      Samurai_DownRight_1: -6876673370699334205
+      Samurai_DownRight_10: 2164142585086744631
+      Samurai_DownRight_11: -4274257836350587502
+      Samurai_DownRight_2: -5027727273716952871
+      Samurai_DownRight_3: 1614578661174513209
+      Samurai_DownRight_4: -374909271592745793
+      Samurai_DownRight_5: 7760567929774053383
+      Samurai_DownRight_6: -6829072468907022663
+      Samurai_DownRight_7: 7247357659642604081
+      Samurai_DownRight_8: 4141416829263889058
+      Samurai_DownRight_9: 4635210073161387627
+      Samurai_Down_0: 4362301577788073405
+      Samurai_Down_1: -6025432864818085261
+      Samurai_Down_10: -6455666656248362244
+      Samurai_Down_11: 2180729158512986043
+      Samurai_Down_2: 1556298604815781543
+      Samurai_Down_3: 2073035848180731576
+      Samurai_Down_4: -8527919942754166541
+      Samurai_Down_5: -2023773718753343117
+      Samurai_Down_6: -5810531043025813350
+      Samurai_Down_7: -788211431428957251
+      Samurai_Down_8: -6974798671103110460
+      Samurai_Down_9: 8140627785163406912
+      Samurai_Right_0: -9167698913607625684
+      Samurai_Right_1: -1954250374981483322
+      Samurai_Right_10: -5759455180055634604
+      Samurai_Right_11: 5356193580644728976
+      Samurai_Right_2: 9126316700380353741
+      Samurai_Right_3: 3125110292518468330
+      Samurai_Right_4: -9089768444366032258
+      Samurai_Right_5: -3662812588475142713
+      Samurai_Right_6: 1408072575096673964
+      Samurai_Right_7: -8519911818140725003
+      Samurai_Right_8: -5141372910700905719
+      Samurai_Right_9: 4892207899318083127
+      Samurai_UpRight_0: -5371652345011936680
+      Samurai_UpRight_1: 3701056787297274993
+      Samurai_UpRight_10: 8940266422436441739
+      Samurai_UpRight_11: 8919222776233083112
+      Samurai_UpRight_2: 2565776528080678092
+      Samurai_UpRight_3: -8932853174617907584
+      Samurai_UpRight_4: 981939564517570098
+      Samurai_UpRight_5: -3474220408219930803
+      Samurai_UpRight_6: -1452063011698011614
+      Samurai_UpRight_7: -5009781675985187978
+      Samurai_UpRight_8: 835950904554016181
+      Samurai_UpRight_9: -7131864946802287441
+      Samurai_Up_0: -4494690427831296493
+      Samurai_Up_1: -3740730154618940577
+      Samurai_Up_10: 7726268658644717814
+      Samurai_Up_11: 894845563194810104
+      Samurai_Up_2: 2716515805612934559
+      Samurai_Up_3: -8748543015158361430
+      Samurai_Up_4: -4225959068396497925
+      Samurai_Up_5: -2782566486014261287
+      Samurai_Up_6: -6007282790569352821
+      Samurai_Up_7: 1395498915342911352
+      Samurai_Up_8: -8165335784441339417
+      Samurai_Up_9: 1529871356607328658
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

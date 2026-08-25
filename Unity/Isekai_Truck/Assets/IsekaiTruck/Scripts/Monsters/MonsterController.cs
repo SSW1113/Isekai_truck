@@ -15,8 +15,11 @@ namespace IsekaiTruck.Monsters
         private float fleeDirZ;
         private bool hasFleeDirection;
         private float stunRemaining;
+        private MonsterMovementBehavior[] movementBehaviors = System.Array.Empty<MonsterMovementBehavior>();
+        private MonsterContactBehavior[] contactBehaviors = System.Array.Empty<MonsterContactBehavior>();
 
         public MonsterData Type => type;
+        internal Transform Truck => truck;
         public bool IsStunned => stunRemaining > 0f;
 
         public void Initialize(MonsterData monsterType, Transform truckTransform, float nowMilliseconds, float frameRate)
@@ -32,6 +35,18 @@ namespace IsekaiTruck.Monsters
             fleeDirZ = 0f;
             hasFleeDirection = false;
             stunRemaining = 0f;
+
+            movementBehaviors = GetComponents<MonsterMovementBehavior>();
+            for (int i = 0; i < movementBehaviors.Length; i++)
+            {
+                movementBehaviors[i].InitializeBehavior(this);
+            }
+
+            contactBehaviors = GetComponents<MonsterContactBehavior>();
+            for (int i = 0; i < contactBehaviors.Length; i++)
+            {
+                contactBehaviors[i].InitializeBehavior(this);
+            }
         }
 
         public void UpdateMonster(float nowMilliseconds, float extraFleeDistance, float directionLockDistance, float frameScale, float deltaTime, float slowRadius, float slowMultiplier, bool isWorldPaused)
@@ -47,6 +62,23 @@ namespace IsekaiTruck.Monsters
                 stunRemaining = Mathf.Max(0f, stunRemaining - deltaTime);
                 monsterView?.SetMovement(Vector3.zero, 0f, false);
                 return;
+            }
+
+            MonsterMovementContext movementContext = new MonsterMovementContext(
+                nowMilliseconds,
+                extraFleeDistance,
+                directionLockDistance,
+                frameScale,
+                deltaTime,
+                slowRadius,
+                slowMultiplier
+            );
+            for (int i = 0; i < movementBehaviors.Length; i++)
+            {
+                if (movementBehaviors[i].TryUpdateMovementInternal(movementContext))
+                {
+                    return;
+                }
             }
 
             float dx = transform.position.x - truck.position.x;
@@ -67,8 +99,7 @@ namespace IsekaiTruck.Monsters
 
                 Vector3 fleeDirection = new Vector3(fleeDirX, 0f, fleeDirZ);
                 float fleeSpeed = type.Speed * movementMultiplier;
-                transform.position += fleeDirection * fleeSpeed * frameScale;
-                monsterView?.SetMovement(fleeDirection, fleeSpeed * referenceFrameRate, true);
+                ApplyMovement(fleeDirection, fleeSpeed, frameScale, true);
                 return;
             }
 
@@ -87,8 +118,31 @@ namespace IsekaiTruck.Monsters
                 0f,
                 Mathf.Sin(wanderAngle)
             );
-            transform.position += wanderDirection * wanderSpeed * frameScale;
-            monsterView?.SetMovement(wanderDirection, wanderSpeed * referenceFrameRate, false);
+            ApplyMovement(wanderDirection, wanderSpeed, frameScale, false);
+        }
+
+        public MonsterContactResult ResolveContact(MonsterContactContext context)
+        {
+            for (int i = 0; i < contactBehaviors.Length; i++)
+            {
+                if (contactBehaviors[i].TryResolveContactInternal(context, out MonsterContactResult result))
+                {
+                    return result;
+                }
+            }
+
+            return MonsterContactResult.Defeated;
+        }
+
+        internal void ApplyMovement(Vector3 direction, float moveSpeed, float frameScale, bool isFleeing)
+        {
+            transform.position += direction * moveSpeed * frameScale;
+            SetMovementVisual(direction, moveSpeed, isFleeing);
+        }
+
+        internal void SetMovementVisual(Vector3 direction, float moveSpeed, bool isFleeing)
+        {
+            monsterView?.SetMovement(direction, moveSpeed * referenceFrameRate, isFleeing);
         }
 
         public void ApplyStun(float duration)

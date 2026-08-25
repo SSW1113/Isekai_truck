@@ -234,12 +234,12 @@ namespace IsekaiTruck.Editor
             if (definition == null ||
                 definition.TypeId != "salesman" ||
                 definition.DisplayName != "영업사원" ||
-                !Mathf.Approximately(definition.Size, 0.6f) ||
-                !Mathf.Approximately(definition.Speed, 0.09f) ||
-                !Mathf.Approximately(definition.FleeDistance, 9f) ||
+                !Mathf.Approximately(definition.Size, MonsterDefinition.DefaultSize) ||
+                !Mathf.Approximately(definition.Speed, MonsterDefinition.DefaultSpeed) ||
+                !Mathf.Approximately(definition.FleeDistance, MonsterDefinition.DefaultFleeDistance) ||
                 definition.Exp != 60 ||
                 definition.Soul != 3 ||
-                !Mathf.Approximately(definition.SpawnWeight, 20f))
+                !Mathf.Approximately(definition.SpawnWeight, MonsterDefinition.DefaultSpawnWeight))
             {
                 throw new InvalidOperationException("Salesman gameplay settings changed while applying the sprite animation.");
             }
@@ -322,4 +322,3 @@ namespace IsekaiTruck.Editor
         }
     }
 }
-
