@@ -7,10 +7,10 @@ namespace IsekaiTruck.Enemies
     {
         [Header("Identity")]
         [SerializeField] private string typeId = "basic_enemy";
-        [SerializeField] private string displayName = "기본 적";
+        [SerializeField] private string displayName = "경찰차";
 
         [Header("Stats")]
-        [SerializeField, Min(0.01f)] private float size = 1f;
+        [SerializeField, Min(0.01f)] private float size = 2f;
         [SerializeField, Min(0f)] private float collisionRadius = 0.5f;
         [SerializeField, Min(0f)] private float moveSpeed = 6f;
         [SerializeField, Min(1)] private int contactDamage = 1;

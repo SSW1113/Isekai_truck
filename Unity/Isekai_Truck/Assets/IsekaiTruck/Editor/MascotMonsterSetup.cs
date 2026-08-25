@@ -26,6 +26,7 @@ namespace IsekaiTruck.Editor
         private const float OverlayDuration = 5f;
         private const float BuildupDuration = 0.8f;
         private const float FadeDuration = 1.5f;
+        private const float FlyerOpacity = 0.6f;
         private const int OverlaySortingOrder = -10;
         private const int FlyerColumns = 3;
         private const int FlyerRows = 2;
@@ -277,7 +278,7 @@ namespace IsekaiTruck.Editor
                 Stretch(imageTransform);
                 Image image = GetOrAddComponent<Image>(imageTransform.gameObject);
                 image.sprite = frames[0];
-                image.color = Color.white;
+                image.color = new Color(1f, 1f, 1f, FlyerOpacity);
                 image.preserveAspect = false;
                 image.raycastTarget = false;
 
@@ -453,6 +454,7 @@ namespace IsekaiTruck.Editor
                 overlayPrefab.GetComponent<RectTransform>().localScale != Vector3.one ||
                 canvasGroup.blocksRaycasts || image.raycastTarget ||
                 image.preserveAspect || image.sprite != expectedFrames[0] ||
+                !Mathf.Approximately(image.color.a, FlyerOpacity) ||
                 overlay.FrameCount != FlyerFrameCount ||
                 !Mathf.Approximately(overlay.TotalDuration, OverlayDuration) ||
                 !Mathf.Approximately(overlay.BuildupDuration, BuildupDuration) ||
