@@ -13,9 +13,9 @@ namespace IsekaiTruck.Audio
         private const string CollisionClipPath = "Audio/SFX/TruckMonsterCollision";
         private const string LevelUpClipPath = "Audio/SFX/LevelUp";
         private const string UIButtonClipPath = "Audio/SFX/UIButtonClick";
-        private const string FlyerClipPath = "Audio/SFX/FlyerPaperCombined";
-        private const string RebirthClipPath = "Audio/SFX/Rebirth";
-        private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitution";
+        private const string FlyerClipPath = "Audio/SFX/FlyerPaperBalanced";
+        private const string RebirthClipPath = "Audio/SFX/RebirthBalanced";
+        private const string NinjaSubstitutionClipPath = "Audio/SFX/NinjaSubstitutionBalanced";
         private const string WizardTeleportClipPath = "Audio/SFX/WizardTeleport";
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
