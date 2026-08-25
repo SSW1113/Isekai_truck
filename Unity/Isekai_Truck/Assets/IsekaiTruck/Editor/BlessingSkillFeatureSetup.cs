@@ -255,9 +255,13 @@ namespace IsekaiTruck.Editor
                 directMonster.Initialize(monsterData, truck.transform, 0f, config.ReferenceFrameRate);
                 Vector3 startPosition = directMonster.transform.position;
                 directMonster.UpdateMonster(0f, 0f, 0f, 1f, 1f / config.ReferenceFrameRate, 20f, 0.8f, false);
-                if (!Mathf.Approximately(Vector3.Distance(startPosition, directMonster.transform.position), 0.16f))
+                float slowMovementDistance = Vector3.Distance(
+                    startPosition,
+                    directMonster.transform.position);
+                if (Mathf.Abs(slowMovementDistance - 0.16f) > 0.001f)
                 {
-                    throw new InvalidOperationException("Monster area slow multiplier is incorrect.");
+                    throw new InvalidOperationException(
+                        $"Monster area slow multiplier is incorrect: {slowMovementDistance}");
                 }
 
                 directMonster.ApplyStun(2f);

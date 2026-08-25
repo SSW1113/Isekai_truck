@@ -97,25 +97,41 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("monsters.json 타입 또는 이름 검증에 실패했습니다.");
             }
 
-            AssertApproximately(manager.Types["policeman"].Speed, 0.14f, "경찰 속도");
-            AssertApproximately(manager.Types["salesman"].SpawnWeight, 20f, "영업사원 스폰 가중치");
+            AssertApproximately(
+                manager.Types["policeman"].Speed,
+                MonsterDefinition.DefaultSpeed,
+                "백수 속도");
+            AssertApproximately(
+                manager.Types["salesman"].SpawnWeight,
+                MonsterDefinition.DefaultSpawnWeight,
+                "영업사원 스폰 가중치");
 
+            MonsterData manType = manager.Types["man"];
             MonsterController fleeingMonster = manager.CreateMonster("man", 5f, 0f);
-            AssertApproximately(fleeingMonster.transform.position.y, 0.6f, "몬스터 높이");
-            AssertApproximately(fleeingMonster.transform.localScale.x, 1.2f, "몬스터 지름");
+            AssertApproximately(fleeingMonster.transform.position.y, manType.Size, "몬스터 높이");
+            AssertApproximately(
+                fleeingMonster.transform.localScale.x,
+                manType.Size * 2f,
+                "몬스터 지름");
 
             manager.UpdateMonsters(referenceDeltaTime);
-            AssertApproximately(fleeingMonster.transform.position.x, 5.04f, "몬스터 도망 속도");
+            AssertApproximately(
+                fleeingMonster.transform.position.x,
+                5f + manType.Speed,
+                "몬스터 도망 속도");
 
-            fleeingMonster.transform.position = new Vector3(-2f, 0.6f, 0f);
+            fleeingMonster.transform.position = new Vector3(-2f, manType.Size, 0f);
             manager.UpdateMonsters(referenceDeltaTime);
-            AssertApproximately(fleeingMonster.transform.position.x, -1.96f, "근거리 도망 방향 고정");
+            AssertApproximately(
+                fleeingMonster.transform.position.x,
+                -2f + manType.Speed,
+                "근거리 도망 방향 고정");
 
             MonsterController wanderingMonster = manager.CreateMonster("man", 100f, 0f);
             Vector3 wanderStart = wanderingMonster.transform.position;
             manager.UpdateMonsters(referenceDeltaTime);
             float wanderDistance = Vector3.Distance(wanderStart, wanderingMonster.transform.position);
-            AssertApproximately(wanderDistance, 0.008f, "몬스터 배회 속도");
+            AssertApproximately(wanderDistance, manType.Speed * 0.2f, "몬스터 배회 속도");
 
             Object.DestroyImmediate(managerObject);
             Object.DestroyImmediate(truckObject);
