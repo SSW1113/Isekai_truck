@@ -23,6 +23,7 @@ namespace IsekaiTruck.Editor
         private const string MonsterDataPath = "Assets/IsekaiTruck/Data/monsters.json";
         private const string PrefabFolder = "Assets/IsekaiTruck/Prefabs/Effects";
         private const string ImpactPrefabPath = PrefabFolder + "/CartoonImpactBurst.prefab";
+        private const string CartoonFontPath = "Assets/IsekaiTruck/Fonts/CartoonHUD.asset";
         private const int SoulOrbPoolSize = 12;
 
         [MenuItem("Isekai Truck/Setup Collision Feedback")]
@@ -56,9 +57,11 @@ namespace IsekaiTruck.Editor
             }
 
             SoulRewardFlyUI soulRewardUI = CreateSoulRewardUI(gameCanvas, gameUI, soulTarget);
-            gameManager.SetCollisionFeedbackSystems(collisionFeedback, soulRewardUI);
+            RewardGainPopupUI rewardPopupUI = CreateRewardGainPopupUI(gameCanvas);
+            gameManager.SetCollisionFeedbackSystems(collisionFeedback, soulRewardUI, rewardPopupUI);
             EditorUtility.SetDirty(collisionFeedback);
             EditorUtility.SetDirty(soulRewardUI);
+            EditorUtility.SetDirty(rewardPopupUI);
             EditorUtility.SetDirty(gameManager);
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -84,14 +87,16 @@ namespace IsekaiTruck.Editor
             GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
             CollisionFeedbackController collisionFeedback = Object.FindFirstObjectByType<CollisionFeedbackController>();
             SoulRewardFlyUI soulRewardUI = Object.FindFirstObjectByType<SoulRewardFlyUI>(FindObjectsInactive.Include);
-            if (gameManager == null || collisionFeedback == null || soulRewardUI == null)
+            RewardGainPopupUI rewardPopupUI = Object.FindFirstObjectByType<RewardGainPopupUI>(FindObjectsInactive.Include);
+            if (gameManager == null || collisionFeedback == null || soulRewardUI == null || rewardPopupUI == null)
             {
                 throw new InvalidOperationException("Collision feedback scene systems are missing.");
             }
 
             SerializedObject serializedGameManager = new SerializedObject(gameManager);
             if (serializedGameManager.FindProperty("collisionFeedbackController").objectReferenceValue != collisionFeedback
-                || serializedGameManager.FindProperty("soulRewardFlyUI").objectReferenceValue != soulRewardUI)
+                || serializedGameManager.FindProperty("soulRewardFlyUI").objectReferenceValue != soulRewardUI
+                || serializedGameManager.FindProperty("rewardGainPopupUI").objectReferenceValue != rewardPopupUI)
             {
                 throw new InvalidOperationException("GameManager collision feedback references are incomplete.");
             }
@@ -102,6 +107,14 @@ namespace IsekaiTruck.Editor
                 || serializedSoulUI.FindProperty("poolSize").intValue != SoulOrbPoolSize)
             {
                 throw new InvalidOperationException("Soul reward UI pool is incomplete.");
+            }
+
+            SerializedObject serializedRewardUI = new SerializedObject(rewardPopupUI);
+            if (serializedRewardUI.FindProperty("effectRoot").objectReferenceValue == null
+                || serializedRewardUI.FindProperty("popupTemplate").objectReferenceValue == null
+                || serializedRewardUI.FindProperty("poolSize").intValue != 10)
+            {
+                throw new InvalidOperationException("Reward gain popup pool is incomplete.");
             }
 
             VerifyFeedbackSignals();
@@ -327,6 +340,77 @@ namespace IsekaiTruck.Editor
             orbImage.enabled = false;
 
             controller.SetReferences(canvas, root, soulTarget, orbImage, gameUI);
+            return controller;
+        }
+
+        private static RewardGainPopupUI CreateRewardGainPopupUI(Canvas canvas)
+        {
+            Transform existing = canvas.transform.Find("Reward Gain Popup FX");
+            GameObject rootObject;
+            if (existing == null)
+            {
+                rootObject = new GameObject("Reward Gain Popup FX", typeof(RectTransform));
+                rootObject.transform.SetParent(canvas.transform, false);
+            }
+            else
+            {
+                rootObject = existing.gameObject;
+                for (int i = existing.childCount - 1; i >= 0; i--)
+                {
+                    Object.DestroyImmediate(existing.GetChild(i).gameObject);
+                }
+            }
+
+            RectTransform root = rootObject.GetComponent<RectTransform>();
+            root.anchorMin = Vector2.zero;
+            root.anchorMax = Vector2.one;
+            root.offsetMin = Vector2.zero;
+            root.offsetMax = Vector2.zero;
+            root.pivot = new Vector2(0.5f, 0.5f);
+            root.SetAsLastSibling();
+
+            TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(CartoonFontPath);
+            if (font == null)
+            {
+                throw new InvalidOperationException("Cartoon HUD font was not found for reward popups.");
+            }
+
+            GameObject popupObject = new GameObject(
+                "Reward Popup Template",
+                typeof(RectTransform),
+                typeof(CanvasRenderer),
+                typeof(CanvasGroup),
+                typeof(TextMeshProUGUI),
+                typeof(Outline)
+            );
+            RectTransform popupRect = popupObject.GetComponent<RectTransform>();
+            popupRect.SetParent(root, false);
+            popupRect.anchorMin = new Vector2(0.5f, 0.5f);
+            popupRect.anchorMax = new Vector2(0.5f, 0.5f);
+            popupRect.pivot = new Vector2(0.5f, 0.5f);
+            popupRect.sizeDelta = new Vector2(460f, 80f);
+            popupRect.localScale = Vector3.zero;
+
+            TextMeshProUGUI popupText = popupObject.GetComponent<TextMeshProUGUI>();
+            popupText.font = font;
+            popupText.fontSize = 28f;
+            popupText.fontStyle = FontStyles.Bold;
+            popupText.alignment = TextAlignmentOptions.Center;
+            popupText.color = HudColorPalette.SoftWhite;
+            popupText.raycastTarget = false;
+            popupText.textWrappingMode = TextWrappingModes.NoWrap;
+
+            Outline outline = popupObject.GetComponent<Outline>();
+            outline.effectColor = new Color(HudColorPalette.DarkInk.r, HudColorPalette.DarkInk.g, HudColorPalette.DarkInk.b, 0.82f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+            popupObject.SetActive(false);
+
+            RewardGainPopupUI controller = rootObject.GetComponent<RewardGainPopupUI>();
+            if (controller == null)
+            {
+                controller = rootObject.AddComponent<RewardGainPopupUI>();
+            }
+            controller.SetReferences(canvas, root, popupText);
             return controller;
         }
 

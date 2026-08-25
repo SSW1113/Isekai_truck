@@ -90,7 +90,11 @@ namespace IsekaiTruck.Editor
 
         private static void HideCentralHud(RectTransform gameArea, Transform canvas)
         {
-            SetInactive(gameArea.Find("Speed HUD"));
+            Transform speedHud = gameArea.Find("Speed HUD");
+            if (speedHud != null)
+            {
+                speedHud.gameObject.SetActive(true);
+            }
 
             Transform legacyGameArea = gameArea.Find("Game Area UI");
             if (legacyGameArea != null)
@@ -373,13 +377,6 @@ namespace IsekaiTruck.Editor
                 HudColorPalette.UpgradeDepth,
                 DarkInk
             );
-            PolishButton(
-                (Button)serializedGameUI.FindProperty("settingsButton").objectReferenceValue,
-                Cream,
-                HudColorPalette.UpgradeDepth,
-                DarkInk
-            );
-
             ConfigureFeedback(
                 (UIFeedbackEffect)serializedGameUI.FindProperty("levelFeedback").objectReferenceValue,
                 0.18f,
@@ -786,10 +783,14 @@ namespace IsekaiTruck.Editor
             RectTransform rightPanel = (RectTransform)serializedGameUI.FindProperty("rightPanel").objectReferenceValue;
 
             Transform legacyGameArea = gameArea.Find("Game Area UI");
-            if (gameArea.Find("Speed HUD").gameObject.activeSelf ||
-                legacyGameArea != null && legacyGameArea.Find("Player HUD").gameObject.activeSelf)
+            if (legacyGameArea != null && legacyGameArea.Find("Player HUD").gameObject.activeSelf)
             {
                 throw new InvalidOperationException("Central HUD is still visible.");
+            }
+
+            if (!gameArea.Find("Speed HUD").gameObject.activeSelf)
+            {
+                throw new InvalidOperationException("Speed HUD is not visible in the game area.");
             }
 
             VerifyWantedHud(gameArea);

@@ -29,6 +29,7 @@ namespace IsekaiTruck.UI
         private BlessingDismantleSystem dismantleSystem;
         private BlessingEffectSystem effectSystem;
         private JoystickInput joystickInput;
+        private string[] inventoryBlessingIds;
         private int selectedSlotIndex;
         private string selectedBlessingId;
 
@@ -48,6 +49,7 @@ namespace IsekaiTruck.UI
             dismantleSystem = dismantle;
             effectSystem = effects;
             joystickInput = input;
+            inventoryBlessingIds = new string[inventoryButtons.Length];
 
             blessingSystem.StateChanged += Refresh;
             loadoutSystem.StateChanged += Refresh;
@@ -132,20 +134,28 @@ namespace IsekaiTruck.UI
                     : $"{selected}슬롯 {i + 1}\n[{definition.Grade}] {definition.DisplayName}";
             }
 
-            for (int i = 0; i < inventoryButtons.Length; i++)
+            int inventoryIndex = 0;
+            for (int i = 0; i < blessingSystem.Definitions.Count && inventoryIndex < inventoryButtons.Length; i++)
             {
-                bool exists = i < blessingSystem.Definitions.Count;
-                BlessingDefinition definition = exists ? blessingSystem.Definitions[i] : null;
+                BlessingDefinition definition = blessingSystem.Definitions[i];
                 int ownedCount = definition == null ? 0 : blessingSystem.GetOwnedCount(definition.Id);
-                inventoryButtons[i].gameObject.SetActive(exists && ownedCount > 0);
                 if (definition == null || ownedCount <= 0)
                 {
                     continue;
                 }
 
+                inventoryBlessingIds[inventoryIndex] = definition.Id;
+                inventoryButtons[inventoryIndex].gameObject.SetActive(true);
                 int equippedCount = loadoutSystem.GetEquippedCount(definition.Id);
                 string selected = definition.Id == selectedBlessingId ? "▶ " : string.Empty;
-                inventoryLabels[i].text = $"{selected}[{definition.Grade}] {definition.DisplayName}\n보유 {ownedCount} / 장착 {equippedCount}";
+                inventoryLabels[inventoryIndex].text = $"{selected}[{definition.Grade}] {definition.DisplayName}\n보유 {ownedCount} / 장착 {equippedCount}";
+                inventoryIndex++;
+            }
+
+            for (int i = inventoryIndex; i < inventoryButtons.Length; i++)
+            {
+                inventoryBlessingIds[i] = null;
+                inventoryButtons[i].gameObject.SetActive(false);
             }
 
             BlessingDefinition selectedBlessing = blessingSystem.FindDefinition(selectedBlessingId);
@@ -196,12 +206,12 @@ namespace IsekaiTruck.UI
 
         private void SelectInventory(int inventoryIndex)
         {
-            if (inventoryIndex < 0 || inventoryIndex >= blessingSystem.Definitions.Count)
+            if (inventoryIndex < 0 || inventoryIndex >= inventoryBlessingIds.Length)
             {
                 return;
             }
 
-            BlessingDefinition definition = blessingSystem.Definitions[inventoryIndex];
+            BlessingDefinition definition = blessingSystem.FindDefinition(inventoryBlessingIds[inventoryIndex]);
             if (definition != null && blessingSystem.GetOwnedCount(definition.Id) > 0)
             {
                 selectedBlessingId = definition.Id;
