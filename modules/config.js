@@ -1,0 +1,66 @@
+// 트럭 설정
+export const TRUCK_CONFIG = {
+    baseMaxSpeed: 0.1,
+    acceleration: 0.001,
+    friction: 0.94,
+    turnSpeed: 0.03,
+
+    speedPerUpgrade: 0.01,
+    sizePerUpgrade: 0.1
+};
+
+// 월드 설정
+export const WORLD_CONFIG = {
+    tileSize: 50,
+    baseTileRadius: 2,      // 기본 5x5
+    maxTileRadius: 18,
+
+    fogColor: 0x87ceeb,
+    baseFogNear: 55,
+    baseFogFar: 90,
+
+    fogScaleStrength: 0.7
+};
+
+// 카메라 설정
+export const CAMERA_CONFIG = {
+    x: 0,
+    y: 20,
+    z: 12,
+
+    followSpeed: 0.08,
+
+    zoomStartScale: 1.2,
+    zoomStrength: 0.8,
+    maxZoomMultiplier: 10
+};
+
+// 몬스터 설정
+export const MONSTER_CONFIG = {
+    collisionDistance: 1.8,
+    directionLockMultiplier: 1.72
+};
+
+// 몬스터 스폰 설정
+export const SPAWN_CONFIG = {
+    targetCount: 100,
+
+    minDistance: 35,
+    maxDistance: 70,
+    despawnDistance: 80,
+
+    spawnInterval: 10,      // 작을수록 빠르게 스폰 (10이면)
+    spawnPerInterval: 1
+};
+
+// 플레이어 설정
+export const PLAYER_CONFIG = {
+    startLevel: 1,
+    startExp: 0,
+    startSoul: 0,
+
+    baseRequiredExp: 100,
+    expGrowth: 1.5,
+
+    upgradePointPerLevel: 1
+};

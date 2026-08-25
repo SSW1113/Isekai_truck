@@ -1,0 +1,1510 @@
+fileFormatVersion: 2
+guid: 5e1ee32d69bd3f54fab711c486f45ca1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 112
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mascot_Down_0
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 609
+        width: 60
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa26f603d684cd2c0800000000000000
+      internalID: -4405566701673946454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_1
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 609
+        width: 59
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33f53c2a6dade00e0800000000000000
+      internalID: -2301661744151175373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_2
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 609
+        width: 58
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2482aa1a771faa8a0800000000000000
+      internalID: -6292952033181161406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_3
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 609
+        width: 59
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a2bf735f9c5b4500800000000000000
+      internalID: 381500432813372066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_4
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 388
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de28a541e094656d0800000000000000
+      internalID: -3002131776776011027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_5
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 388
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79536b65f2e0c1600800000000000000
+      internalID: 440242460056499607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_6
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 388
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2508688db9d225e0800000000000000
+      internalID: -1935745481755327188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_7
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 388
+        width: 57
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26e6090ec1c29b400800000000000000
+      internalID: 340351749381451362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_8
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 164
+        width: 59
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ec9633b0b368550800000000000000
+      internalID: 6162678059396353592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_9
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 164
+        width: 58
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8656f88dcf5bea110800000000000000
+      internalID: 1274155842162091368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_10
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 164
+        width: 58
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33cbb5a48dc2f3060800000000000000
+      internalID: 6935311258645937203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Down_11
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 164
+        width: 57
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f85ff8c871db0d40800000000000000
+      internalID: 5551761282362726646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_0
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 609
+        width: 53
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 694a254c8995ddb50800000000000000
+      internalID: 6619545539968148630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_1
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 609
+        width: 53
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031b4c52a6d643710800000000000000
+      internalID: 1672081664328905008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_2
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 609
+        width: 52
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a7803aa5af783580800000000000000
+      internalID: -8847181118467700825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_3
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 609
+        width: 53
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dae1e51e12822fc0800000000000000
+      internalID: -3521108892922549545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_4
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 388
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8ed72fc46d34e5a0800000000000000
+      internalID: -6492997259579892081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_5
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 388
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a2e4fcabeaaa6af0800000000000000
+      internalID: -402321287500471643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_6
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 388
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aca1616f418465240800000000000000
+      internalID: 4780087309365549770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_7
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 388
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf94bd20ee266b70800000000000000
+      internalID: 8891846054663987125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_8
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 164
+        width: 53
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f6d2874613e72a40800000000000000
+      internalID: 5343489167726925555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_9
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 164
+        width: 53
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e657892efa9458c50800000000000000
+      internalID: 6666815843161634158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_10
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 164
+        width: 53
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6211d6e337a46b4e0800000000000000
+      internalID: -1966302328471613146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_DownRight_11
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 164
+        width: 53
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccb6bf623edbef0b0800000000000000
+      internalID: -5692904095640491060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_0
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 609
+        width: 52
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 052dde6cd3d613560800000000000000
+      internalID: 7291729383787450960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_1
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 609
+        width: 51
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b36c4f43812ae00800000000000000
+      internalID: 1054431878482115353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_2
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 609
+        width: 52
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfa194d508c164990800000000000000
+      internalID: -7402197599890367748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_3
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 609
+        width: 50
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4fde2d5b6ff85220800000000000000
+      internalID: 2475008831830024011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_4
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 388
+        width: 51
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd7ac0111b673810800000000000000
+      internalID: 1744981101669678553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_5
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 388
+        width: 51
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d42447ce0eb70d80800000000000000
+      internalID: -8284444018842786608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_6
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 388
+        width: 52
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9fa3a786581180b0800000000000000
+      internalID: -5728270491116654692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_7
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 388
+        width: 51
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49acf5f439eb3fa20800000000000000
+      internalID: 3095026908834810516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_8
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 164
+        width: 52
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81a7ac473a4f322c0800000000000000
+      internalID: -4457450223290385896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_9
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 164
+        width: 51
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82ed7fd4276bd9690800000000000000
+      internalID: -7593712794626171352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_10
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 164
+        width: 52
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f90162acf85f8d70800000000000000
+      internalID: 9047548018489887220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Right_11
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 164
+        width: 50
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cf6d1bc42b74dce0800000000000000
+      internalID: -1381343787739156539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_0
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 609
+        width: 56
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d5ca4274a69e2820800000000000000
+      internalID: 2895417243482113497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_1
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 609
+        width: 54
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b3faf92dfdc5030800000000000000
+      internalID: 3484906307393108871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_2
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 609
+        width: 54
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b75679b1b33f8d40800000000000000
+      internalID: 5588742501003843513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_3
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 609
+        width: 54
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed4934507017b100800000000000000
+      internalID: 123585589411401190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_4
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 388
+        width: 56
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53a1225a98ceb9010800000000000000
+      internalID: 1196810201922148917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_5
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 388
+        width: 54
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35c38d0527ce4a3c0800000000000000
+      internalID: -4349091364406281133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_6
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 388
+        width: 54
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 559bb100234e7bf20800000000000000
+      internalID: 3438467743921977685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_7
+      rect:
+        serializedVersion: 2
+        x: 1513
+        y: 388
+        width: 53
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5c802d9f183fd1b0800000000000000
+      internalID: -5629719300758533027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_8
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 164
+        width: 56
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06bf0c356db8ba750800000000000000
+      internalID: 6317296654961671008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_9
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 164
+        width: 54
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59e202931169ce290800000000000000
+      internalID: -7859742248951337323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_10
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 164
+        width: 55
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42be3aeb78e63c4e0800000000000000
+      internalID: -1962603483305350364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_UpRight_11
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 164
+        width: 54
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88063912c66705250800000000000000
+      internalID: 5931370916038795400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_0
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 609
+        width: 59
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad170bc5eca306f0800000000000000
+      internalID: -719541412495417942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_1
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 609
+        width: 58
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db06b0e8b4c346780800000000000000
+      internalID: -8690755085714890563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_2
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 609
+        width: 58
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1544d7c537f8d5af0800000000000000
+      internalID: -406010665757752239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1576
+        y: 609
+        width: 59
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036697246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a819458f7dfa2820800000000000000
+      internalID: 2894404434677799080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_4
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 388
+        width: 60
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9730b5cc95507140800000000000000
+      internalID: 4715362941676828575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_5
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 388
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fe02a61201b6ec90800000000000000
+      internalID: -7140825536621572362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_6
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 388
+        width: 57
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6323c3eef443ff9c0800000000000000
+      internalID: -3891334035120836042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_7
+      rect:
+        serializedVersion: 2
+        x: 1576
+        y: 388
+        width: 58
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.036363635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b3e894afa4b0e330800000000000000
+      internalID: 3738186357191271351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_8
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 164
+        width: 59
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9912834d596e2cde0800000000000000
+      internalID: -1314234610053799527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_9
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 164
+        width: 57
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a4a6ab2d03b58b0800000000000000
+      internalID: -5162478866221348241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_10
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 164
+        width: 57
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0da2ee6c105b4f560800000000000000
+      internalID: 7346695911385213648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mascot_Up_11
+      rect:
+        serializedVersion: 2
+        x: 1576
+        y: 164
+        width: 57
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.037383176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04111564748705390800000000000000
+      internalID: -7831627504479563456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Mascot_DownRight_0: 6619545539968148630
+      Mascot_DownRight_1: 1672081664328905008
+      Mascot_DownRight_10: -1966302328471613146
+      Mascot_DownRight_11: -5692904095640491060
+      Mascot_DownRight_2: -8847181118467700825
+      Mascot_DownRight_3: -3521108892922549545
+      Mascot_DownRight_4: -6492997259579892081
+      Mascot_DownRight_5: -402321287500471643
+      Mascot_DownRight_6: 4780087309365549770
+      Mascot_DownRight_7: 8891846054663987125
+      Mascot_DownRight_8: 5343489167726925555
+      Mascot_DownRight_9: 6666815843161634158
+      Mascot_Down_0: -4405566701673946454
+      Mascot_Down_1: -2301661744151175373
+      Mascot_Down_10: 6935311258645937203
+      Mascot_Down_11: 5551761282362726646
+      Mascot_Down_2: -6292952033181161406
+      Mascot_Down_3: 381500432813372066
+      Mascot_Down_4: -3002131776776011027
+      Mascot_Down_5: 440242460056499607
+      Mascot_Down_6: -1935745481755327188
+      Mascot_Down_7: 340351749381451362
+      Mascot_Down_8: 6162678059396353592
+      Mascot_Down_9: 1274155842162091368
+      Mascot_Right_0: 7291729383787450960
+      Mascot_Right_1: 1054431878482115353
+      Mascot_Right_10: 9047548018489887220
+      Mascot_Right_11: -1381343787739156539
+      Mascot_Right_2: -7402197599890367748
+      Mascot_Right_3: 2475008831830024011
+      Mascot_Right_4: 1744981101669678553
+      Mascot_Right_5: -8284444018842786608
+      Mascot_Right_6: -5728270491116654692
+      Mascot_Right_7: 3095026908834810516
+      Mascot_Right_8: -4457450223290385896
+      Mascot_Right_9: -7593712794626171352
+      Mascot_UpRight_0: 2895417243482113497
+      Mascot_UpRight_1: 3484906307393108871
+      Mascot_UpRight_10: -1962603483305350364
+      Mascot_UpRight_11: 5931370916038795400
+      Mascot_UpRight_2: 5588742501003843513
+      Mascot_UpRight_3: 123585589411401190
+      Mascot_UpRight_4: 1196810201922148917
+      Mascot_UpRight_5: -4349091364406281133
+      Mascot_UpRight_6: 3438467743921977685
+      Mascot_UpRight_7: -5629719300758533027
+      Mascot_UpRight_8: 6317296654961671008
+      Mascot_UpRight_9: -7859742248951337323
+      Mascot_Up_0: -719541412495417942
+      Mascot_Up_1: -8690755085714890563
+      Mascot_Up_10: 7346695911385213648
+      Mascot_Up_11: -7831627504479563456
+      Mascot_Up_2: -406010665757752239
+      Mascot_Up_3: 2894404434677799080
+      Mascot_Up_4: 4715362941676828575
+      Mascot_Up_5: -7140825536621572362
+      Mascot_Up_6: -3891334035120836042
+      Mascot_Up_7: 3738186357191271351
+      Mascot_Up_8: -1314234610053799527
+      Mascot_Up_9: -5162478866221348241
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

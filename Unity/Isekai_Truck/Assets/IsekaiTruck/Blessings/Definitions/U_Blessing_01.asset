@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bdf6d1b84d5fd4baffc0eea08fd4b6, type: 3}
+  m_Name: U_Blessing_01
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Blessings.BlessingDefinition
+  id: u_blessing_01
+  displayName: Test1
+  grade: 1
+  activationType: 0
+  effectType: 4
+  effectValue: 1.1
+  duration: 0
+  interval: 0
+  radius: 0
+  description: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 1.1\uBC30 \uC99D\uAC00\uD569\uB2C8\uB2E4."

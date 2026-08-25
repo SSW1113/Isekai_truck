@@ -1,0 +1,498 @@
+fileFormatVersion: 2
+guid: e84783ac451698c4c8a58c068a05e528
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 125
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: JeonWoochiSticky_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 400
+        width: 58
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.08695652}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e65f99b345862590800000000000000
+      internalID: -7699319987019753752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_1
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 400
+        width: 70
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0754717}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b499e617b8b0b0e60800000000000000
+      internalID: 7929444262447323467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_2
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 399
+        width: 83
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06451613}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a966d953c3d09290800000000000000
+      internalID: -7885570111546431068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_3
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 397
+        width: 88
+        height: 65
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80859b7017fcb5630800000000000000
+      internalID: 3916952385296619528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_4
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 274
+        width: 92
+        height: 71
+      alignment: 9
+      pivot: {x: 0.5, y: 0.056338027}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 859c9cde81c81b800800000000000000
+      internalID: 626435861877737816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_5
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 270
+        width: 107
+        height: 78
+      alignment: 9
+      pivot: {x: 0.5, y: 0.051282052}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a0ae7f26879d17d0800000000000000
+      internalID: -2946031978652196697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_6
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 267
+        width: 117
+        height: 86
+      alignment: 9
+      pivot: {x: 0.5, y: 0.046511628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e5874f6807dbfd30800000000000000
+      internalID: 4466399886694647272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_7
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 268
+        width: 119
+        height: 95
+      alignment: 9
+      pivot: {x: 0.5, y: 0.042105265}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f1387ff63bcec590800000000000000
+      internalID: -7651955279781154314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 141
+        width: 120
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.041666668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8910b56de788b80800000000000000
+      internalID: -8392318446489986877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_9
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 141
+        width: 121
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.04}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37e06e7d6727fb2b0800000000000000
+      internalID: -5566604759652757901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_10
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 144
+        width: 113
+        height: 88
+      alignment: 9
+      pivot: {x: 0.5, y: 0.045454547}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c59c4c585ee1d470800000000000000
+      internalID: 8417771241805223369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_11
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 145
+        width: 100
+        height: 75
+      alignment: 9
+      pivot: {x: 0.5, y: 0.053333335}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf18011161e5bb20800000000000000
+      internalID: 3149671321429352375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_12
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 27
+        width: 84
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.071428575}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dd2522ccc910dff0800000000000000
+      internalID: -13482431660872240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_13
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 28
+        width: 77
+        height: 59
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06779661}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5258263ee7cc7e60800000000000000
+      internalID: 7961458067208950364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_14
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 30
+        width: 74
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.071428575}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e48401362508f61f0800000000000000
+      internalID: -1049479096816351154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochiSticky_15
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 30
+        width: 70
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0.11764706}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6820dc469288756d0800000000000000
+      internalID: -3001780915252952442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      JeonWoochiSticky_0: -7699319987019753752
+      JeonWoochiSticky_1: 7929444262447323467
+      JeonWoochiSticky_10: 8417771241805223369
+      JeonWoochiSticky_11: 3149671321429352375
+      JeonWoochiSticky_12: -13482431660872240
+      JeonWoochiSticky_13: 7961458067208950364
+      JeonWoochiSticky_14: -1049479096816351154
+      JeonWoochiSticky_15: -3001780915252952442
+      JeonWoochiSticky_2: -7885570111546431068
+      JeonWoochiSticky_3: 3916952385296619528
+      JeonWoochiSticky_4: 626435861877737816
+      JeonWoochiSticky_5: -2946031978652196697
+      JeonWoochiSticky_6: 4466399886694647272
+      JeonWoochiSticky_7: -7651955279781154314
+      JeonWoochiSticky_8: -8392318446489986877
+      JeonWoochiSticky_9: -5566604759652757901
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fab137d37fd1343a45453b27fb0b54, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Config.GameConfig
+  referenceFrameRate: 60
+  truck:
+    baseMaxSpeed: 0.2
+    acceleration: 0.003
+    friction: 0.94
+    turnSpeed: 0.2
+    speedPerUpgrade: 0.01
+    sizePerUpgrade: 0.1
+    maxHealth: 3
+    damageInvulnerabilityDuration: 2
+    damageFlashInterval: 0.12
+  world:
+    tileSize: 50
+    baseTileRadius: 2
+    maxTileRadius: 18
+    fogColor: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+    baseFogNear: 55
+    baseFogFar: 90
+    fogScaleStrength: 0.7
+    groundColor: {r: 0.22745098, g: 0.47843137, b: 0.16470589, a: 1}
+    groundPatternColor: {r: 0.18431373, g: 0.4, b: 0.13333334, a: 1}
+    groundPatternSize: 5
+  cameraSettings:
+    offset: {x: 0, y: 12, z: 6}
+    lookTarget: {x: 0, y: 4, z: -2}
+    followSpeed: 0.08
+    zoomStartScale: 1.2
+    zoomStrength: 0.8
+    maxZoomMultiplier: 10
+    viewportAspect: {x: 16, y: 15}
+    viewportHorizontalCenter: 0.49
+    fieldOfView: 75
+    nearClipPlane: 0.1
+    farClipPlane: 1000
+  monster:
+    collisionDistance: 1.8
+    directionLockMultiplier: 1.72
+  enemy:
+    countPerWantedLevel: 2
+    minimumCountForTesting: 0
+    truckCollisionRadius: 1.3
+    offscreenWarningDistance: 25
+    warningBlinkInterval: 0.35
+  spawn:
+    targetCount: 100
+    minDistance: 35
+    maxDistance: 70
+    despawnDistance: 80
+    spawnIntervalMilliseconds: 10
+    spawnPerInterval: 1
+  player:
+    startLevel: 1
+    startExp: 0
+    startSoul: 0
+    baseRequiredExp: 100
+    expGrowth: 1.5
+    upgradePointPerLevel: 1
+  wanted:
+    killsPerLevel: 50
+    maxLevel: 10
+    worldTravelUnlockLevel: 5
+  rebirth:
+    rewardMultiplierPerMaxRebirth: 0.5
+    blessingCandidateCount: 3
+    tiers:
+    - requiredLevel: 10
+      cWeight: 90
+      uWeight: 9
+      rWeight: 1
+      srWeight: 0
+    - requiredLevel: 20
+      cWeight: 80
+      uWeight: 18
+      rWeight: 1
+      srWeight: 1
+    - requiredLevel: 30
+      cWeight: 70
+      uWeight: 27
+      rWeight: 1
+      srWeight: 2
+    - requiredLevel: 40
+      cWeight: 60
+      uWeight: 36
+      rWeight: 1
+      srWeight: 3
+    - requiredLevel: 50
+      cWeight: 50
+      uWeight: 45
+      rWeight: 1
+      srWeight: 4
+    - requiredLevel: 60
+      cWeight: 40
+      uWeight: 54
+      rWeight: 1
+      srWeight: 5
+    - requiredLevel: 70
+      cWeight: 30
+      uWeight: 63
+      rWeight: 1
+      srWeight: 6
+    - requiredLevel: 80
+      cWeight: 20
+      uWeight: 72
+      rWeight: 1
+      srWeight: 7
+    - requiredLevel: 90
+      cWeight: 10
+      uWeight: 81
+      rWeight: 1
+      srWeight: 8
+    - requiredLevel: 100
+      cWeight: 0
+      uWeight: 90
+      rWeight: 1
+      srWeight: 9
+  blessing:
+    slotCount: 3
+    cDismantleSoul: 200
+    uDismantleSoul: 300
+    rDismantleSoul: 400
+    srDismantleSoul: 600

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e097c28e0da0e40970a6e830a56ce6, type: 3}
+  m_Name: BlessingCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Blessings.BlessingCatalog
+  definitions:
+  - {fileID: 11400000, guid: b56dd6a054ce7ef41ab68ec0cc037a68, type: 2}
+  - {fileID: 11400000, guid: 84da40f86c70aa242b0c94ab481ac902, type: 2}
+  - {fileID: 11400000, guid: a62cf1a4d0b444b49a183ec3e1a36c89, type: 2}
+  - {fileID: 11400000, guid: 5ab33b7ca2945b34dbddbc5d15369452, type: 2}
+  - {fileID: 11400000, guid: bb0476ef20ba0714e9bbd6b81712d578, type: 2}
+  - {fileID: 11400000, guid: c00e338b46e26b04e973e5c4d4d87eaf, type: 2}
+  - {fileID: 11400000, guid: 97a9e4e88ce11404aba991a319eda6be, type: 2}
+  - {fileID: 11400000, guid: 107d2580894214f4e88922d31f90e132, type: 2}
+  - {fileID: 11400000, guid: 2090e9ee40125054f9ad51e0ab598013, type: 2}
+  - {fileID: 11400000, guid: ae32b5c3e769fc547acb1ee214b78692, type: 2}
+  - {fileID: 11400000, guid: 17d2699dfd6fca745beb201f37b7613a, type: 2}
+  - {fileID: 11400000, guid: 484400aab5bcbeb40bf7ef2d8c08121e, type: 2}

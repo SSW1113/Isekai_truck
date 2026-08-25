@@ -1,0 +1,330 @@
+using System;
+using IsekaiTruck.Monsters;
+using IsekaiTruck.Visuals;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+using Object = UnityEngine.Object;
+
+namespace IsekaiTruck.Editor
+{
+    public static class PolicemanSpriteAnimationSetup
+    {
+        private const string SpritePath = "Assets/IsekaiTruck/Art/Sprites/Unemployed5DirectionWalk.png";
+        private const string PolicemanPrefabPath = "Assets/IsekaiTruck/Prefabs/Monsters/Policeman.prefab";
+        private const float PixelsPerUnit = 80f;
+        private const float VisualScale = 1.5f;
+        private const float AnimationFramesPerSecond = 12f;
+        private static readonly string[] SourceDirectionNames =
+        {
+            "Down",
+            "DownRight",
+            "Right",
+            "UpRight",
+            "Up"
+        };
+
+        [MenuItem("Isekai Truck/Setup Policeman Sprite Animation")]
+        public static void Setup()
+        {
+            ConfigureSpriteImporter();
+
+            Sprite[] frames = LoadFrames();
+            ApplySpriteToPolicemanPrefab(frames);
+            AssetDatabase.SaveAssets();
+            Verify();
+
+            if (!Application.isBatchMode)
+            {
+                EditorUtility.DisplayDialog("Isekai Truck", "백수의 8방향 걷기 애니메이션을 적용했습니다.", "확인");
+            }
+        }
+
+        public static void Verify()
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(SpritePath) as TextureImporter;
+            Sprite[] frames = LoadFrames();
+            GameObject policemanPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PolicemanPrefabPath);
+            if (importer == null || policemanPrefab == null)
+            {
+                throw new InvalidOperationException("Policeman directional sprite assets are missing.");
+            }
+
+            if (importer.textureType != TextureImporterType.Sprite || importer.spriteImportMode != SpriteImportMode.Multiple || !importer.alphaIsTransparency || !Mathf.Approximately(importer.spritePixelsPerUnit, PixelsPerUnit))
+            {
+                throw new InvalidOperationException("Policeman walk sheet importer is not configured as expected.");
+            }
+
+            Transform visual = policemanPrefab.transform.Find("SpriteVisual");
+            SpriteRenderer spriteRenderer = visual != null ? visual.GetComponent<SpriteRenderer>() : null;
+            BillboardSpriteView billboard = visual != null ? visual.GetComponent<BillboardSpriteView>() : null;
+            DirectionalSpriteAnimator directionalAnimator = visual != null ? visual.GetComponent<DirectionalSpriteAnimator>() : null;
+            MonsterView monsterView = policemanPrefab.GetComponent<MonsterView>();
+            MeshRenderer legacyRenderer = policemanPrefab.GetComponent<MeshRenderer>();
+            if (visual == null || spriteRenderer == null || billboard == null || directionalAnimator == null || monsterView == null || spriteRenderer.sprite != frames[0] || monsterView.VisualRoot != visual)
+            {
+                throw new InvalidOperationException("Policeman prefab directional sprite references are incomplete.");
+            }
+
+            VerifyDirectionalFrames(directionalAnimator, frames);
+            SerializedObject serializedView = new SerializedObject(monsterView);
+            if (serializedView.FindProperty("directionalSpriteAnimator").objectReferenceValue != directionalAnimator)
+            {
+                throw new InvalidOperationException("Policeman prefab directional sprite animator is not assigned to MonsterView.");
+            }
+
+            if (legacyRenderer == null || legacyRenderer.enabled)
+            {
+                throw new InvalidOperationException("Policeman prefab legacy mesh renderer was not disabled.");
+            }
+
+            if (visual.localPosition != new Vector3(0f, -0.5f, 0f) || visual.localRotation != Quaternion.identity || visual.localScale != Vector3.one * VisualScale)
+            {
+                throw new InvalidOperationException("Policeman sprite visual transform is incorrect.");
+            }
+
+            VerifyDefinition(policemanPrefab);
+            VerifyBillboardFacing(policemanPrefab);
+            VerifyDirectionalFacing(policemanPrefab, frames);
+            Debug.Log("Policeman 5-direction sheet verification passed.");
+        }
+
+        private static void ConfigureSpriteImporter()
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(SpritePath) as TextureImporter;
+            if (importer == null)
+            {
+                throw new InvalidOperationException("Policeman walk sheet importer was not created.");
+            }
+
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Multiple;
+            importer.spritePixelsPerUnit = PixelsPerUnit;
+            importer.npotScale = TextureImporterNPOTScale.None;
+            importer.mipmapEnabled = false;
+            importer.filterMode = FilterMode.Bilinear;
+            importer.alphaSource = TextureImporterAlphaSource.FromInput;
+            importer.alphaIsTransparency = true;
+            importer.sRGBTexture = true;
+            importer.maxTextureSize = 2048;
+            importer.SaveAndReimport();
+        }
+
+        private static void ApplySpriteToPolicemanPrefab(Sprite[] frames)
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(PolicemanPrefabPath);
+            try
+            {
+                MeshRenderer legacyRenderer = root.GetComponent<MeshRenderer>();
+                MonsterView monsterView = root.GetComponent<MonsterView>();
+                MonsterDefinition definition = root.GetComponent<MonsterDefinition>();
+                if (legacyRenderer == null || monsterView == null || definition == null)
+                {
+                    throw new InvalidOperationException("Policeman prefab legacy visual components were not found.");
+                }
+
+                SerializedObject serializedDefinition = new SerializedObject(definition);
+                serializedDefinition.FindProperty("displayName").stringValue = "백수";
+                serializedDefinition.ApplyModifiedPropertiesWithoutUndo();
+
+                legacyRenderer.enabled = false;
+                Transform visual = root.transform.Find("SpriteVisual");
+                if (visual == null)
+                {
+                    GameObject visualObject = new GameObject("SpriteVisual");
+                    visualObject.transform.SetParent(root.transform, false);
+                    visual = visualObject.transform;
+                }
+
+                visual.localPosition = new Vector3(0f, -0.5f, 0f);
+                visual.localRotation = Quaternion.identity;
+                visual.localScale = Vector3.one * VisualScale;
+
+                SpriteRenderer spriteRenderer = GetOrAddComponent<SpriteRenderer>(visual.gameObject);
+                spriteRenderer.sprite = frames[0];
+                spriteRenderer.flipX = false;
+                spriteRenderer.color = Color.white;
+                spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
+                spriteRenderer.shadowCastingMode = ShadowCastingMode.Off;
+                spriteRenderer.receiveShadows = false;
+                GetOrAddComponent<BillboardSpriteView>(visual.gameObject);
+                DirectionalSpriteAnimator directionalAnimator = GetOrAddComponent<DirectionalSpriteAnimator>(visual.gameObject);
+                directionalAnimator.Configure(spriteRenderer, frames, AnimationFramesPerSecond);
+
+                monsterView.SetVisualRoot(visual);
+                SerializedObject serializedView = new SerializedObject(monsterView);
+                serializedView.FindProperty("faceMoveDirection").boolValue = false;
+                serializedView.FindProperty("applyDefinitionColor").boolValue = false;
+                serializedView.FindProperty("directionalSpriteAnimator").objectReferenceValue = directionalAnimator;
+                serializedView.ApplyModifiedPropertiesWithoutUndo();
+
+                PrefabUtility.SaveAsPrefabAsset(root, PolicemanPrefabPath);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+
+        private static Sprite[] LoadFrames()
+        {
+            Object[] assets = AssetDatabase.LoadAllAssetsAtPath(SpritePath);
+            Sprite[] frames = new Sprite[DirectionalSpriteAnimator.ExpectedFrameCount];
+
+            for (int directionIndex = 0; directionIndex < DirectionalSpriteAnimator.SourceDirectionCount; directionIndex++)
+            {
+                for (int frameIndex = 0; frameIndex < DirectionalSpriteAnimator.DefaultFramesPerDirection; frameIndex++)
+                {
+                    int flattenedIndex = directionIndex * DirectionalSpriteAnimator.DefaultFramesPerDirection + frameIndex;
+                    string spriteName = GetSpriteName(directionIndex, frameIndex);
+
+                    for (int assetIndex = 0; assetIndex < assets.Length; assetIndex++)
+                    {
+                        Sprite sprite = assets[assetIndex] as Sprite;
+                        if (sprite != null && sprite.name == spriteName)
+                        {
+                            frames[flattenedIndex] = sprite;
+                            break;
+                        }
+                    }
+
+                    if (frames[flattenedIndex] == null)
+                    {
+                        throw new InvalidOperationException($"Directional sprite frame is missing: {spriteName}");
+                    }
+                }
+            }
+
+            return frames;
+        }
+
+        private static string GetSpriteName(int directionIndex, int frameIndex)
+        {
+            return $"Unemployed_{SourceDirectionNames[directionIndex]}_{frameIndex}";
+        }
+
+        private static void VerifyDirectionalFrames(DirectionalSpriteAnimator directionalAnimator, Sprite[] expectedFrames)
+        {
+            SerializedObject serializedAnimator = new SerializedObject(directionalAnimator);
+            SerializedProperty framesProperty = serializedAnimator.FindProperty("directionFrames");
+            SerializedProperty framesPerDirectionProperty = serializedAnimator.FindProperty("framesPerDirection");
+            SerializedProperty framesPerSecondProperty = serializedAnimator.FindProperty("framesPerSecond");
+            if (framesProperty == null || framesPerDirectionProperty == null || framesPerSecondProperty == null || framesProperty.arraySize != expectedFrames.Length)
+            {
+                throw new InvalidOperationException("Policeman directional sprite animation settings are incomplete.");
+            }
+
+            if (framesPerDirectionProperty.intValue != DirectionalSpriteAnimator.DefaultFramesPerDirection)
+            {
+                throw new InvalidOperationException("Policeman directional sprite frame count is incorrect.");
+            }
+
+            for (int frameIndex = 0; frameIndex < expectedFrames.Length; frameIndex++)
+            {
+                if (framesProperty.GetArrayElementAtIndex(frameIndex).objectReferenceValue != expectedFrames[frameIndex])
+                {
+                    throw new InvalidOperationException($"Policeman directional sprite frame reference is incorrect: {frameIndex}");
+                }
+            }
+
+            if (!Mathf.Approximately(framesPerSecondProperty.floatValue, AnimationFramesPerSecond))
+            {
+                throw new InvalidOperationException("Policeman directional sprite animation speed is incorrect.");
+            }
+        }
+
+        private static void VerifyDefinition(GameObject policemanPrefab)
+        {
+            MonsterDefinition definition = policemanPrefab.GetComponent<MonsterDefinition>();
+            if (definition == null ||
+                definition.TypeId != "policeman" ||
+                definition.DisplayName != "백수" ||
+                !Mathf.Approximately(definition.Size, MonsterDefinition.DefaultSize) ||
+                !Mathf.Approximately(definition.Speed, MonsterDefinition.DefaultSpeed) ||
+                !Mathf.Approximately(definition.FleeDistance, MonsterDefinition.DefaultFleeDistance) ||
+                definition.Exp != 300 ||
+                definition.Soul != 15 ||
+                !Mathf.Approximately(definition.SpawnWeight, MonsterDefinition.DefaultSpawnWeight))
+            {
+                throw new InvalidOperationException("Policeman gameplay settings changed while applying the sprite animation.");
+            }
+        }
+
+        private static void VerifyBillboardFacing(GameObject policemanPrefab)
+        {
+            GameObject instance = PrefabUtility.InstantiatePrefab(policemanPrefab) as GameObject;
+            GameObject cameraObject = new GameObject("Policeman Billboard Verification Camera", typeof(UnityEngine.Camera));
+            try
+            {
+                UnityEngine.Camera targetCamera = cameraObject.GetComponent<UnityEngine.Camera>();
+                targetCamera.transform.rotation = Quaternion.Euler(32f, 18f, 0f);
+                BillboardSpriteView billboard = instance.GetComponentInChildren<BillboardSpriteView>(true);
+                billboard.SetTargetCamera(targetCamera);
+                billboard.UpdateFacing();
+
+                if (Quaternion.Angle(billboard.transform.rotation, targetCamera.transform.rotation) > 0.01f)
+                {
+                    throw new InvalidOperationException("Policeman sprite did not face the camera.");
+                }
+            }
+            finally
+            {
+                Object.DestroyImmediate(cameraObject);
+                Object.DestroyImmediate(instance);
+            }
+        }
+
+        private static void VerifyDirectionalFacing(GameObject policemanPrefab, Sprite[] frames)
+        {
+            GameObject instance = PrefabUtility.InstantiatePrefab(policemanPrefab) as GameObject;
+            GameObject cameraObject = new GameObject("Policeman Direction Verification Camera", typeof(UnityEngine.Camera));
+            try
+            {
+                UnityEngine.Camera targetCamera = cameraObject.GetComponent<UnityEngine.Camera>();
+                targetCamera.transform.rotation = Quaternion.Euler(32f, 18f, 0f);
+
+                DirectionalSpriteAnimator directionalAnimator = instance.GetComponentInChildren<DirectionalSpriteAnimator>(true);
+                SpriteRenderer spriteRenderer = directionalAnimator.GetComponent<SpriteRenderer>();
+                directionalAnimator.SetTargetCamera(targetCamera);
+
+                Vector3 screenRight = Vector3.ProjectOnPlane(targetCamera.transform.right, Vector3.up).normalized;
+                Vector3 screenUp = Vector3.ProjectOnPlane(targetCamera.transform.up, Vector3.up).normalized;
+                Vector3[] directions =
+                {
+                    -screenUp,
+                    (screenRight - screenUp).normalized,
+                    screenRight,
+                    (screenRight + screenUp).normalized,
+                    screenUp,
+                    (-screenRight + screenUp).normalized,
+                    -screenRight,
+                    (-screenRight - screenUp).normalized
+                };
+                int[] sourceDirectionIndices = { 0, 1, 2, 3, 4, 3, 2, 1 };
+                bool[] expectedFlipX = { false, false, false, false, false, true, true, true };
+
+                for (int directionIndex = 0; directionIndex < directions.Length; directionIndex++)
+                {
+                    directionalAnimator.SetMovement(directions[directionIndex], 1f);
+                    Sprite expectedSprite = frames[sourceDirectionIndices[directionIndex] * DirectionalSpriteAnimator.DefaultFramesPerDirection];
+                    if (spriteRenderer.sprite != expectedSprite || spriteRenderer.flipX != expectedFlipX[directionIndex])
+                    {
+                        throw new InvalidOperationException($"Policeman directional sprite selection is incorrect: {directionIndex}");
+                    }
+                }
+            }
+            finally
+            {
+                Object.DestroyImmediate(cameraObject);
+                Object.DestroyImmediate(instance);
+            }
+        }
+
+        private static T GetOrAddComponent<T>(GameObject gameObject) where T : Component
+        {
+            T component = gameObject.GetComponent<T>();
+            return component != null ? component : gameObject.AddComponent<T>();
+        }
+    }
+}
+

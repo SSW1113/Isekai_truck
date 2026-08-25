@@ -1,0 +1,1690 @@
+fileFormatVersion: 2
+guid: a427c0b83d9b4a67b092362fb32c93a4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2300000000000000001
+    second: Salesman_Down_0
+  - first:
+      213: 2300000000000000002
+    second: Salesman_Down_1
+  - first:
+      213: 2300000000000000003
+    second: Salesman_Down_2
+  - first:
+      213: 2300000000000000004
+    second: Salesman_Down_3
+  - first:
+      213: 2300000000000000005
+    second: Salesman_Down_4
+  - first:
+      213: 2300000000000000006
+    second: Salesman_Down_5
+  - first:
+      213: 2300000000000000007
+    second: Salesman_Down_6
+  - first:
+      213: 2300000000000000008
+    second: Salesman_Down_7
+  - first:
+      213: 2300000000000000009
+    second: Salesman_Down_8
+  - first:
+      213: 2300000000000000010
+    second: Salesman_Down_9
+  - first:
+      213: 2300000000000000011
+    second: Salesman_Down_10
+  - first:
+      213: 2300000000000000012
+    second: Salesman_Down_11
+  - first:
+      213: 2300000000000000013
+    second: Salesman_DownRight_0
+  - first:
+      213: 2300000000000000014
+    second: Salesman_DownRight_1
+  - first:
+      213: 2300000000000000015
+    second: Salesman_DownRight_2
+  - first:
+      213: 2300000000000000016
+    second: Salesman_DownRight_3
+  - first:
+      213: 2300000000000000017
+    second: Salesman_DownRight_4
+  - first:
+      213: 2300000000000000018
+    second: Salesman_DownRight_5
+  - first:
+      213: 2300000000000000019
+    second: Salesman_DownRight_6
+  - first:
+      213: 2300000000000000020
+    second: Salesman_DownRight_7
+  - first:
+      213: 2300000000000000021
+    second: Salesman_DownRight_8
+  - first:
+      213: 2300000000000000022
+    second: Salesman_DownRight_9
+  - first:
+      213: 2300000000000000023
+    second: Salesman_DownRight_10
+  - first:
+      213: 2300000000000000024
+    second: Salesman_DownRight_11
+  - first:
+      213: 2300000000000000025
+    second: Salesman_Right_0
+  - first:
+      213: 2300000000000000026
+    second: Salesman_Right_1
+  - first:
+      213: 2300000000000000027
+    second: Salesman_Right_2
+  - first:
+      213: 2300000000000000028
+    second: Salesman_Right_3
+  - first:
+      213: 2300000000000000029
+    second: Salesman_Right_4
+  - first:
+      213: 2300000000000000030
+    second: Salesman_Right_5
+  - first:
+      213: 2300000000000000031
+    second: Salesman_Right_6
+  - first:
+      213: 2300000000000000032
+    second: Salesman_Right_7
+  - first:
+      213: 2300000000000000033
+    second: Salesman_Right_8
+  - first:
+      213: 2300000000000000034
+    second: Salesman_Right_9
+  - first:
+      213: 2300000000000000035
+    second: Salesman_Right_10
+  - first:
+      213: 2300000000000000036
+    second: Salesman_Right_11
+  - first:
+      213: 2300000000000000037
+    second: Salesman_UpRight_0
+  - first:
+      213: 2300000000000000038
+    second: Salesman_UpRight_1
+  - first:
+      213: 2300000000000000039
+    second: Salesman_UpRight_2
+  - first:
+      213: 2300000000000000040
+    second: Salesman_UpRight_3
+  - first:
+      213: 2300000000000000041
+    second: Salesman_UpRight_4
+  - first:
+      213: 2300000000000000042
+    second: Salesman_UpRight_5
+  - first:
+      213: 2300000000000000043
+    second: Salesman_UpRight_6
+  - first:
+      213: 2300000000000000044
+    second: Salesman_UpRight_7
+  - first:
+      213: 2300000000000000045
+    second: Salesman_UpRight_8
+  - first:
+      213: 2300000000000000046
+    second: Salesman_UpRight_9
+  - first:
+      213: 2300000000000000047
+    second: Salesman_UpRight_10
+  - first:
+      213: 2300000000000000048
+    second: Salesman_UpRight_11
+  - first:
+      213: 2300000000000000049
+    second: Salesman_Up_0
+  - first:
+      213: 2300000000000000050
+    second: Salesman_Up_1
+  - first:
+      213: 2300000000000000051
+    second: Salesman_Up_2
+  - first:
+      213: 2300000000000000052
+    second: Salesman_Up_3
+  - first:
+      213: 2300000000000000053
+    second: Salesman_Up_4
+  - first:
+      213: 2300000000000000054
+    second: Salesman_Up_5
+  - first:
+      213: 2300000000000000055
+    second: Salesman_Up_6
+  - first:
+      213: 2300000000000000056
+    second: Salesman_Up_7
+  - first:
+      213: 2300000000000000057
+    second: Salesman_Up_8
+  - first:
+      213: 2300000000000000058
+    second: Salesman_Up_9
+  - first:
+      213: 2300000000000000059
+    second: Salesman_Up_10
+  - first:
+      213: 2300000000000000060
+    second: Salesman_Up_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 112
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Salesman_Down_0
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000001
+      internalID: 2300000000000000001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_1
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000002
+      internalID: 2300000000000000002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_2
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000003
+      internalID: 2300000000000000003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_3
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000004
+      internalID: 2300000000000000004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000005
+      internalID: 2300000000000000005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_5
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000006
+      internalID: 2300000000000000006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_6
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000007
+      internalID: 2300000000000000007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_7
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000008
+      internalID: 2300000000000000008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_8
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000009
+      internalID: 2300000000000000009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_9
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000000a
+      internalID: 2300000000000000010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_10
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000000b
+      internalID: 2300000000000000011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Down_11
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000000c
+      internalID: 2300000000000000012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_0
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000000d
+      internalID: 2300000000000000013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_1
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000000e
+      internalID: 2300000000000000014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_2
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000000f
+      internalID: 2300000000000000015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_3
+      rect:
+        serializedVersion: 2
+        x: 1666
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000010
+      internalID: 2300000000000000016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_4
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000011
+      internalID: 2300000000000000017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_5
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000012
+      internalID: 2300000000000000018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_6
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000013
+      internalID: 2300000000000000019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_7
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000014
+      internalID: 2300000000000000020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_8
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000015
+      internalID: 2300000000000000021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_9
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000016
+      internalID: 2300000000000000022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_10
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000017
+      internalID: 2300000000000000023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_DownRight_11
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000018
+      internalID: 2300000000000000024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_0
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000019
+      internalID: 2300000000000000025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_1
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000001a
+      internalID: 2300000000000000026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_2
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000001b
+      internalID: 2300000000000000027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_3
+      rect:
+        serializedVersion: 2
+        x: 1745
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000001c
+      internalID: 2300000000000000028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_4
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000001d
+      internalID: 2300000000000000029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_5
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000001e
+      internalID: 2300000000000000030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_6
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000001f
+      internalID: 2300000000000000031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_7
+      rect:
+        serializedVersion: 2
+        x: 1739
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000020
+      internalID: 2300000000000000032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_8
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000021
+      internalID: 2300000000000000033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_9
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000022
+      internalID: 2300000000000000034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_10
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000023
+      internalID: 2300000000000000035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Right_11
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000024
+      internalID: 2300000000000000036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_0
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000025
+      internalID: 2300000000000000037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_1
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000026
+      internalID: 2300000000000000038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_2
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000027
+      internalID: 2300000000000000039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_3
+      rect:
+        serializedVersion: 2
+        x: 1821
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000028
+      internalID: 2300000000000000040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_4
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000029
+      internalID: 2300000000000000041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_5
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000002a
+      internalID: 2300000000000000042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_6
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000002b
+      internalID: 2300000000000000043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_7
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000002c
+      internalID: 2300000000000000044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_8
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000002d
+      internalID: 2300000000000000045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_9
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000002e
+      internalID: 2300000000000000046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_10
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000002f
+      internalID: 2300000000000000047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_UpRight_11
+      rect:
+        serializedVersion: 2
+        x: 1817
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000030
+      internalID: 2300000000000000048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_0
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000031
+      internalID: 2300000000000000049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_1
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000032
+      internalID: 2300000000000000050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_2
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000033
+      internalID: 2300000000000000051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1905
+        y: 867
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000034
+      internalID: 2300000000000000052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_4
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000035
+      internalID: 2300000000000000053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_5
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000036
+      internalID: 2300000000000000054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_6
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000037
+      internalID: 2300000000000000055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_7
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 543
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000038
+      internalID: 2300000000000000056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_8
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00000000000000000000000000000039
+      internalID: 2300000000000000057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_9
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000003a
+      internalID: 2300000000000000058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_10
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000003b
+      internalID: 2300000000000000059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salesman_Up_11
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 234
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0000000000000000000000000000003c
+      internalID: 2300000000000000060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5f5e81cd738ea8340800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Salesman_DownRight_0: 2300000000000000013
+      Salesman_DownRight_1: 2300000000000000014
+      Salesman_DownRight_10: 2300000000000000023
+      Salesman_DownRight_11: 2300000000000000024
+      Salesman_DownRight_2: 2300000000000000015
+      Salesman_DownRight_3: 2300000000000000016
+      Salesman_DownRight_4: 2300000000000000017
+      Salesman_DownRight_5: 2300000000000000018
+      Salesman_DownRight_6: 2300000000000000019
+      Salesman_DownRight_7: 2300000000000000020
+      Salesman_DownRight_8: 2300000000000000021
+      Salesman_DownRight_9: 2300000000000000022
+      Salesman_Down_0: 2300000000000000001
+      Salesman_Down_1: 2300000000000000002
+      Salesman_Down_10: 2300000000000000011
+      Salesman_Down_11: 2300000000000000012
+      Salesman_Down_2: 2300000000000000003
+      Salesman_Down_3: 2300000000000000004
+      Salesman_Down_4: 2300000000000000005
+      Salesman_Down_5: 2300000000000000006
+      Salesman_Down_6: 2300000000000000007
+      Salesman_Down_7: 2300000000000000008
+      Salesman_Down_8: 2300000000000000009
+      Salesman_Down_9: 2300000000000000010
+      Salesman_Right_0: 2300000000000000025
+      Salesman_Right_1: 2300000000000000026
+      Salesman_Right_10: 2300000000000000035
+      Salesman_Right_11: 2300000000000000036
+      Salesman_Right_2: 2300000000000000027
+      Salesman_Right_3: 2300000000000000028
+      Salesman_Right_4: 2300000000000000029
+      Salesman_Right_5: 2300000000000000030
+      Salesman_Right_6: 2300000000000000031
+      Salesman_Right_7: 2300000000000000032
+      Salesman_Right_8: 2300000000000000033
+      Salesman_Right_9: 2300000000000000034
+      Salesman_UpRight_0: 2300000000000000037
+      Salesman_UpRight_1: 2300000000000000038
+      Salesman_UpRight_10: 2300000000000000047
+      Salesman_UpRight_11: 2300000000000000048
+      Salesman_UpRight_2: 2300000000000000039
+      Salesman_UpRight_3: 2300000000000000040
+      Salesman_UpRight_4: 2300000000000000041
+      Salesman_UpRight_5: 2300000000000000042
+      Salesman_UpRight_6: 2300000000000000043
+      Salesman_UpRight_7: 2300000000000000044
+      Salesman_UpRight_8: 2300000000000000045
+      Salesman_UpRight_9: 2300000000000000046
+      Salesman_Up_0: 2300000000000000049
+      Salesman_Up_1: 2300000000000000050
+      Salesman_Up_10: 2300000000000000059
+      Salesman_Up_11: 2300000000000000060
+      Salesman_Up_2: 2300000000000000051
+      Salesman_Up_3: 2300000000000000052
+      Salesman_Up_4: 2300000000000000053
+      Salesman_Up_5: 2300000000000000054
+      Salesman_Up_6: 2300000000000000055
+      Salesman_Up_7: 2300000000000000056
+      Salesman_Up_8: 2300000000000000057
+      Salesman_Up_9: 2300000000000000058
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

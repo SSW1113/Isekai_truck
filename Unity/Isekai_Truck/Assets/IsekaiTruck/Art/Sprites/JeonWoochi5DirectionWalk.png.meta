@@ -1,0 +1,1510 @@
+fileFormatVersion: 2
+guid: abc3934d5474bfd4cb8212a7e59068d1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 112
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: JeonWoochi_Down_0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 609
+        width: 61
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc6ade48c0e194250800000000000000
+      internalID: 5929303423528576716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_1
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 609
+        width: 59
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63b342370b97ded40800000000000000
+      internalID: 5615278109153835830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_2
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 609
+        width: 60
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16fc74ae4a9000690800000000000000
+      internalID: -7638094364110499999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_3
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 609
+        width: 60
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cb3f6542d459b710800000000000000
+      internalID: 1709490795648596930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_4
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 392
+        width: 60
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5b4d9a0fb6204440800000000000000
+      internalID: 4917973395047271262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_5
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 392
+        width: 59
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30b62f57380cbf1a0800000000000000
+      internalID: -6774609543596709117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_6
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 392
+        width: 60
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f75648d7fed8efc0800000000000000
+      internalID: -3465274757194819600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_7
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 392
+        width: 60
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55d998c7f42ae1420800000000000000
+      internalID: 2602696096942234965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_8
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 179
+        width: 60
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8276138cd06bf8a0800000000000000
+      internalID: -6270311555974925684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_9
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 179
+        width: 59
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83b9ee7c89fe30660800000000000000
+      internalID: 7350982456267152184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_10
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 179
+        width: 59
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfa1e2ef27d3e45d0800000000000000
+      internalID: -3076453931347469573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Down_11
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 179
+        width: 59
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f43d975bda7882600800000000000000
+      internalID: 443753743439745871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_0
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 609
+        width: 58
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8561218e65a2123a0800000000000000
+      internalID: -6692021018546792872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_1
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 609
+        width: 57
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d3b67b8711ef2030800000000000000
+      internalID: 3472241328966251479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_2
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 609
+        width: 57
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f0effb0f1d7bc390800000000000000
+      internalID: -7797000757563105036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_3
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 609
+        width: 57
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 442733fb761cfe200800000000000000
+      internalID: 211600358843314756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_4
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 392
+        width: 57
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4633797cde122dd0800000000000000
+      internalID: -2512411709840083380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_5
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 392
+        width: 57
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 382bc6634df9958e0800000000000000
+      internalID: -1704155250188045693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_6
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 392
+        width: 56
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 871c121b11bab3ea0800000000000000
+      internalID: -5891927595009588872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_7
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 392
+        width: 57
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6321cba58d7073830800000000000000
+      internalID: 4050715015659655734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_8
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 179
+        width: 57
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a9cf7e9f27414250800000000000000
+      internalID: 5927096854444493223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_9
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 179
+        width: 57
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df7af78a1850fec20800000000000000
+      internalID: 3237812711538534397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_10
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 179
+        width: 57
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 587c256562a0939a0800000000000000
+      internalID: -6252955447853922427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_DownRight_11
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 179
+        width: 57
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5d9e8995e9f17590800000000000000
+      internalID: -7678081125170897571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_0
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 609
+        width: 57
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f89ef51302b952f0800000000000000
+      internalID: -983559317280089870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_1
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 609
+        width: 56
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33ac99597a576c380800000000000000
+      internalID: -8951337846722409933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_2
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 609
+        width: 56
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e5f2906ed1d0ac90800000000000000
+      internalID: -7160492654485899806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_3
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 609
+        width: 56
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f8b15e9c575fed30800000000000000
+      internalID: 4462881811052214512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_4
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 392
+        width: 57
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6a16161fd2130db0800000000000000
+      internalID: -4826993626253485462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_5
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 392
+        width: 56
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 553837c65185a82c0800000000000000
+      internalID: -4428630434528394411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_6
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 392
+        width: 57
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d0448c9b77f2f3a0800000000000000
+      internalID: -6632967190884368175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_7
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 392
+        width: 56
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d09054df1d11b380800000000000000
+      internalID: -8957346161319964463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_8
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 179
+        width: 57
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 780fe6799325f36b0800000000000000
+      internalID: -5314438627966652281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_9
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 179
+        width: 56
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67d3da7092d9768e0800000000000000
+      internalID: -1700217534761058954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_10
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 179
+        width: 57
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26afc100b0a23aee0800000000000000
+      internalID: -1251110044743959966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Right_11
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 179
+        width: 55
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd7c187bb5977bb20800000000000000
+      internalID: 3150119899196671963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_0
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 609
+        width: 57
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c995b987a6e8e0000800000000000000
+      internalID: 4097237615073692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_1
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 609
+        width: 56
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03738e5f4233762c0800000000000000
+      internalID: -4438522673912858832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_2
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 609
+        width: 56
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33b4a804cc9a92910800000000000000
+      internalID: 1813167019714562867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_3
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 609
+        width: 56
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 244915f2cef19d480800000000000000
+      internalID: -8874026491490233278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_4
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 392
+        width: 57
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 323f724c7cb07ae80800000000000000
+      internalID: -8167546446595755229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_5
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 392
+        width: 56
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b698778fd04776f50800000000000000
+      internalID: 6874590959556331883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_6
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 392
+        width: 56
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f262c931939340b60800000000000000
+      internalID: 7711351379270051375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_7
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 392
+        width: 56
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 358dea6dceb0967a0800000000000000
+      internalID: -6383557884978997165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_8
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 179
+        width: 56
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96f77b751ed48200800000000000000
+      internalID: 181514068848801438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_9
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 179
+        width: 56
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fb0be79c235847f0800000000000000
+      internalID: -628160697025754120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_10
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 179
+        width: 56
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9bf04207a8bcfbc0800000000000000
+      internalID: -3747917762442232929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_UpRight_11
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 179
+        width: 56
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a56c8a0f8aeaede0800000000000000
+      internalID: -1302971242092141152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_0
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 609
+        width: 59
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45bc8779be78bb1c0800000000000000
+      internalID: -4486843157816226988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_1
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 609
+        width: 58
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb9abc446a225e60800000000000000
+      internalID: 7949462902534740981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_2
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 609
+        width: 60
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28b700b2c9b38ce50800000000000000
+      internalID: 6829774376829746050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_3
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 609
+        width: 59
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03883495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b4379a5d35b98370800000000000000
+      internalID: 8325384661288563895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_4
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 392
+        width: 59
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3d09ef3beef2da0800000000000000
+      internalID: -5967288524405156909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_5
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 392
+        width: 58
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f189200da43335260800000000000000
+      internalID: 7085063035194349599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_6
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 392
+        width: 59
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6512a675c7760df30800000000000000
+      internalID: 4598289003285455190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_7
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 392
+        width: 59
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5, y: 0.03809524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd03c53ffd80ece50800000000000000
+      internalID: 6831407442721255644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_8
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 179
+        width: 60
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b76b025ef999f840800000000000000
+      internalID: 5258403357508986800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_9
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 179
+        width: 58
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f6f1fbf47fdeba90800000000000000
+      internalID: -7296148652757485831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_10
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 179
+        width: 58
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bef116e89eeb156a0800000000000000
+      internalID: -6462174079974563861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JeonWoochi_Up_11
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 179
+        width: 59
+        height: 102
+      alignment: 9
+      pivot: {x: 0.5, y: 0.039215688}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf8804c792d22a10800000000000000
+      internalID: 1883299143465078709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      JeonWoochi_DownRight_0: -6692021018546792872
+      JeonWoochi_DownRight_1: 3472241328966251479
+      JeonWoochi_DownRight_10: -6252955447853922427
+      JeonWoochi_DownRight_11: -7678081125170897571
+      JeonWoochi_DownRight_2: -7797000757563105036
+      JeonWoochi_DownRight_3: 211600358843314756
+      JeonWoochi_DownRight_4: -2512411709840083380
+      JeonWoochi_DownRight_5: -1704155250188045693
+      JeonWoochi_DownRight_6: -5891927595009588872
+      JeonWoochi_DownRight_7: 4050715015659655734
+      JeonWoochi_DownRight_8: 5927096854444493223
+      JeonWoochi_DownRight_9: 3237812711538534397
+      JeonWoochi_Down_0: 5929303423528576716
+      JeonWoochi_Down_1: 5615278109153835830
+      JeonWoochi_Down_10: -3076453931347469573
+      JeonWoochi_Down_11: 443753743439745871
+      JeonWoochi_Down_2: -7638094364110499999
+      JeonWoochi_Down_3: 1709490795648596930
+      JeonWoochi_Down_4: 4917973395047271262
+      JeonWoochi_Down_5: -6774609543596709117
+      JeonWoochi_Down_6: -3465274757194819600
+      JeonWoochi_Down_7: 2602696096942234965
+      JeonWoochi_Down_8: -6270311555974925684
+      JeonWoochi_Down_9: 7350982456267152184
+      JeonWoochi_Right_0: -983559317280089870
+      JeonWoochi_Right_1: -8951337846722409933
+      JeonWoochi_Right_10: -1251110044743959966
+      JeonWoochi_Right_11: 3150119899196671963
+      JeonWoochi_Right_2: -7160492654485899806
+      JeonWoochi_Right_3: 4462881811052214512
+      JeonWoochi_Right_4: -4826993626253485462
+      JeonWoochi_Right_5: -4428630434528394411
+      JeonWoochi_Right_6: -6632967190884368175
+      JeonWoochi_Right_7: -8957346161319964463
+      JeonWoochi_Right_8: -5314438627966652281
+      JeonWoochi_Right_9: -1700217534761058954
+      JeonWoochi_UpRight_0: 4097237615073692
+      JeonWoochi_UpRight_1: -4438522673912858832
+      JeonWoochi_UpRight_10: -3747917762442232929
+      JeonWoochi_UpRight_11: -1302971242092141152
+      JeonWoochi_UpRight_2: 1813167019714562867
+      JeonWoochi_UpRight_3: -8874026491490233278
+      JeonWoochi_UpRight_4: -8167546446595755229
+      JeonWoochi_UpRight_5: 6874590959556331883
+      JeonWoochi_UpRight_6: 7711351379270051375
+      JeonWoochi_UpRight_7: -6383557884978997165
+      JeonWoochi_UpRight_8: 181514068848801438
+      JeonWoochi_UpRight_9: -628160697025754120
+      JeonWoochi_Up_0: -4486843157816226988
+      JeonWoochi_Up_1: 7949462902534740981
+      JeonWoochi_Up_10: -6462174079974563861
+      JeonWoochi_Up_11: 1883299143465078709
+      JeonWoochi_Up_2: 6829774376829746050
+      JeonWoochi_Up_3: 8325384661288563895
+      JeonWoochi_Up_4: -5967288524405156909
+      JeonWoochi_Up_5: 7085063035194349599
+      JeonWoochi_Up_6: 4598289003285455190
+      JeonWoochi_Up_7: 6831407442721255644
+      JeonWoochi_Up_8: 5258403357508986800
+      JeonWoochi_Up_9: -7296148652757485831
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

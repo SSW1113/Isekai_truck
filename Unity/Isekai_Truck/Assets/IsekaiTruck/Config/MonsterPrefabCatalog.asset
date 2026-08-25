@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b992534c70bf8bc4c9b427431873d790, type: 3}
+  m_Name: MonsterPrefabCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Monsters.MonsterPrefabCatalog
+  monsterPrefabs:
+  - {fileID: 2017903765701239770, guid: 2f6c8b4dcdf41e54ca81d00c4a3e9bec, type: 3}
+  - {fileID: 8797747147751471682, guid: 566567d5ce7c39d46b871fa7082789bb, type: 3}
+  - {fileID: 1597569906573479929, guid: b5624ed01ecf05b4e9c1073defbf6482, type: 3}
+  - {fileID: 7233742428848449517, guid: 398cce5610f62a04e88d57b5048c0561, type: 3}
+  - {fileID: 1738106972918245565, guid: 2eac7a28eded7d342bcdd235cb48d65b, type: 3}
+  - {fileID: 3235836036523849828, guid: e0fb4d2ea0e361a4cba96f6b20dd017b, type: 3}
+  - {fileID: 7828439876373995236, guid: 12e278a8f98993346bfcf59c2ee85b70, type: 3}
+  - {fileID: 1505249201072734901, guid: 2f77c8f061232894a9e222d21d5c177e, type: 3}
+  - {fileID: 5965453636031293609, guid: 743cecb6441b35a42a88a20fc85f81ee, type: 3}
