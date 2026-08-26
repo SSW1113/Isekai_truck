@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14685a12e3c3c6840bd899e07f2f9f9e, type: 3}
+  m_Name: OldJapanWorld
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.World.WorldDefinition
+  id: old_japan
+  displayName: "\uC5D0\uB3C4\uC758 \uC138\uACC4"
+  skyColor: {r: 0.72156864, g: 0.827451, b: 0.8745098, a: 1}
+  fogColor: {r: 0.84313726, g: 0.77254903, b: 0.80784315, a: 1}
+  groundColor: {r: 0.47058824, g: 0.5764706, b: 0.36078432, a: 1}
+  groundPatternColor: {r: 0.38431373, g: 0.48235294, b: 0.29411766, a: 1}
+  chunkPrefabs:
+  - {fileID: 3529783537079149394, guid: 21f0ee6e1510a5e4dbcb5000a0804fce, type: 3}
+  - {fileID: 4020071569405662991, guid: ee3e2409b7f2db14599aefaa1fa2cb51, type: 3}
+  - {fileID: 6820635990277993478, guid: 8490266bc9b3b7e4887bcc226835016e, type: 3}
+  - {fileID: 3997614386348563773, guid: 4ee33613f3805944db37b9b20b0a6b60, type: 3}
+  - {fileID: 4211363114524963570, guid: f09c3b9ebf03dd14c964d632175505bb, type: 3}
+  crossroadInterval: 4

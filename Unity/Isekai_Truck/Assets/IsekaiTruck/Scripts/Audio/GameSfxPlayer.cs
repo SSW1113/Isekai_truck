@@ -11,6 +11,7 @@ namespace IsekaiTruck.Audio
     public sealed class GameSfxPlayer : MonoBehaviour
     {
         private const string CollisionClipPath = "Audio/SFX/TruckMonsterCollision";
+        private const string TruckDamageClipPath = "Audio/SFX/TruckDamage";
         private const string LevelUpClipPath = "Audio/SFX/LevelUp";
         private const string UIButtonClipPath = "Audio/SFX/UIButtonClick";
         private const string FlyerClipPath = "Audio/SFX/FlyerPaperBalanced";
@@ -40,6 +41,7 @@ namespace IsekaiTruck.Audio
         };
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
+        private const float RebirthVolume = BgmVolume;
         private const float WizardTeleportVolume = 0.45f;
         private const float JeonWoochiSpellVolume = 0.65f;
 
@@ -49,6 +51,7 @@ namespace IsekaiTruck.Audio
         private AudioSource audioSource;
         private AudioSource bgmAudioSource;
         private AudioClip collisionClip;
+        private AudioClip truckDamageClip;
         private AudioClip levelUpClip;
         private AudioClip uiButtonClip;
         private AudioClip flyerClip;
@@ -78,6 +81,11 @@ namespace IsekaiTruck.Audio
             instance?.PlayOneShot(instance.collisionClip);
         }
 
+        public static void PlayTruckDamage()
+        {
+            instance?.PlayOneShot(instance.truckDamageClip);
+        }
+
         public static void PlayLevelUp()
         {
             instance?.PlayOneShot(instance.levelUpClip);
@@ -90,7 +98,7 @@ namespace IsekaiTruck.Audio
 
         public static void PlayRebirth()
         {
-            instance?.PlayOneShot(instance.rebirthClip);
+            instance?.PlayOneShot(instance.rebirthClip, RebirthVolume);
         }
 
         public static void PlayNinjaSubstitution()
@@ -152,6 +160,7 @@ namespace IsekaiTruck.Audio
             bgmAudioSource.volume = BgmVolume;
 
             collisionClip = Resources.Load<AudioClip>(CollisionClipPath);
+            truckDamageClip = Resources.Load<AudioClip>(TruckDamageClipPath);
             levelUpClip = Resources.Load<AudioClip>(LevelUpClipPath);
             uiButtonClip = Resources.Load<AudioClip>(UIButtonClipPath);
             flyerClip = Resources.Load<AudioClip>(FlyerClipPath);
@@ -223,7 +232,7 @@ namespace IsekaiTruck.Audio
 
         private void ValidateClips()
         {
-            if (collisionClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
+            if (collisionClip == null || truckDamageClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
                 rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null ||
                 jeonWoochiSpellClip == null || bgmClip == null ||
                 samuraiChargeClips == null || System.Array.Exists(samuraiChargeClips, clip => clip == null) ||

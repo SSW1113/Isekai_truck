@@ -25,21 +25,18 @@ namespace IsekaiTruck.UI
         [SerializeField] private TMP_Text upgradePointText;
         [SerializeField] private TMP_Text speedLevelText;
         [SerializeField] private TMP_Text sizeLevelText;
-        [SerializeField] private TMP_Text speedStatText;
-        [SerializeField] private TMP_Text sizeStatText;
         [SerializeField] private Button openButton;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button speedButton;
         [SerializeField] private Button sizeButton;
         [SerializeField] private Button collectionButton;
-        [SerializeField] private Button settingsButton;
         [SerializeField] private GameObject collectionNotificationBadge;
         [SerializeField] private GameObject upgradeAvailableIndicator;
         [SerializeField] private UIFeedbackEffect levelFeedback;
         [SerializeField] private UIFeedbackEffect soulFeedback;
         [SerializeField] private UIFeedbackEffect upgradeFeedback;
         [SerializeField] private UIFeedbackEffect speedFeedback;
-        [SerializeField] private GoddessDialogueMockController goddessDialogue;
+        [SerializeField] private SpeedHUDView speedHudView;
 
         private PlayerState playerState;
         private TruckController truckController;
@@ -66,6 +63,8 @@ namespace IsekaiTruck.UI
         private const float SoulSmoothTime = 0.22f;
         private const float SpeedFollowSpeed = 9f;
         private const int SpeedFeedbackStepKmh = 8;
+        private const int BaseDisplayedMaxSpeedKmh = 40;
+        private const int DisplayedSpeedPerUpgradeKmh = 10;
 
         public bool IsUpgradePanelOpen => upgradePanel != null && upgradePanel.activeSelf;
 
@@ -88,13 +87,10 @@ namespace IsekaiTruck.UI
             closeButton.onClick.AddListener(CloseUpgradePanel);
             speedButton.onClick.AddListener(UpgradeSpeed);
             sizeButton.onClick.AddListener(UpgradeSize);
-            collectionButton.onClick.AddListener(OnCollectionButtonClicked);
-            settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 
             upgradePanel.SetActive(false);
             joystickInput.SetInputEnabled(true);
             SetViewport(cameraController.ViewportRect);
-            goddessDialogue?.Initialize(playerState, truckController, upgradeSystem);
             isDeferringSoulReward = false;
             deferredSoul = 0;
             Refresh();
@@ -136,8 +132,7 @@ namespace IsekaiTruck.UI
             upgradePointText.text = $"남은 포인트: {player.UpgradePoints}";
             speedLevelText.text = $"Lv.{truck.SpeedLevel}";
             sizeLevelText.text = $"Lv.{truck.SizeLevel}";
-            speedStatText.text = $"최대 속도: {truck.MaxSpeed:F3}";
-            sizeStatText.text = $"트럭 크기: {Mathf.RoundToInt(truck.SizeScale * 100f)}%";
+            int displayedMaxSpeedKmh = BaseDisplayedMaxSpeedKmh + truck.SpeedLevel * DisplayedSpeedPerUpgradeKmh;
             RefreshSpeedTarget();
         }
 
@@ -328,6 +323,8 @@ namespace IsekaiTruck.UI
         private void ApplySpeedDisplay()
         {
             int speedKmh = Mathf.Max(0, Mathf.RoundToInt(displayedSpeedKmh));
+            float maximumSpeedKmh = Mathf.Max(0.01f, truckController.CurrentMaxSpeedPerSecond * 3.6f);
+            speedHudView?.SetSpeed(displayedSpeedKmh, displayedSpeedKmh / maximumSpeedKmh);
             if (speedKmh == renderedSpeedKmh)
             {
                 return;
@@ -372,16 +369,6 @@ namespace IsekaiTruck.UI
             Refresh();
         }
 
-        public void OnCollectionButtonClicked()
-        {
-            Debug.Log("Collection button clicked", this);
-        }
-
-        public void OnSettingsButtonClicked()
-        {
-            Debug.Log("Settings button clicked", this);
-        }
-
         public void SetCollectionNotificationVisible(bool isVisible)
         {
             if (collectionNotificationBadge != null)
@@ -406,8 +393,6 @@ namespace IsekaiTruck.UI
             if (closeButton != null) closeButton.onClick.RemoveListener(CloseUpgradePanel);
             if (speedButton != null) speedButton.onClick.RemoveListener(UpgradeSpeed);
             if (sizeButton != null) sizeButton.onClick.RemoveListener(UpgradeSize);
-            if (collectionButton != null) collectionButton.onClick.RemoveListener(OnCollectionButtonClicked);
-            if (settingsButton != null) settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
         }
 
 #if UNITY_EDITOR
@@ -425,21 +410,18 @@ namespace IsekaiTruck.UI
             TMP_Text targetUpgradePointText,
             TMP_Text targetSpeedLevelText,
             TMP_Text targetSizeLevelText,
-            TMP_Text targetSpeedStatText,
-            TMP_Text targetSizeStatText,
             Button targetOpenButton,
             Button targetCloseButton,
             Button targetSpeedButton,
             Button targetSizeButton,
             Button targetCollectionButton,
-            Button targetSettingsButton,
             GameObject targetCollectionNotificationBadge,
             GameObject targetUpgradeAvailableIndicator,
             UIFeedbackEffect targetLevelFeedback,
             UIFeedbackEffect targetSoulFeedback,
             UIFeedbackEffect targetUpgradeFeedback,
             UIFeedbackEffect targetSpeedFeedback,
-            GoddessDialogueMockController targetGoddessDialogue
+            SpeedHUDView targetSpeedHudView
         )
         {
             leftPanel = targetLeftPanel;
@@ -455,21 +437,18 @@ namespace IsekaiTruck.UI
             upgradePointText = targetUpgradePointText;
             speedLevelText = targetSpeedLevelText;
             sizeLevelText = targetSizeLevelText;
-            speedStatText = targetSpeedStatText;
-            sizeStatText = targetSizeStatText;
             openButton = targetOpenButton;
             closeButton = targetCloseButton;
             speedButton = targetSpeedButton;
             sizeButton = targetSizeButton;
             collectionButton = targetCollectionButton;
-            settingsButton = targetSettingsButton;
             collectionNotificationBadge = targetCollectionNotificationBadge;
             upgradeAvailableIndicator = targetUpgradeAvailableIndicator;
             levelFeedback = targetLevelFeedback;
             soulFeedback = targetSoulFeedback;
             upgradeFeedback = targetUpgradeFeedback;
             speedFeedback = targetSpeedFeedback;
-            goddessDialogue = targetGoddessDialogue;
+            speedHudView = targetSpeedHudView;
         }
 #endif
     }

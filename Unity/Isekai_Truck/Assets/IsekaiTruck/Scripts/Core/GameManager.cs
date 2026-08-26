@@ -1,6 +1,7 @@
 using IsekaiTruck.Audio;
 using IsekaiTruck.Blessings;
 using IsekaiTruck.Camera;
+using IsekaiTruck.Collection;
 using IsekaiTruck.Config;
 using IsekaiTruck.Enemies;
 using IsekaiTruck.Input;
@@ -55,19 +56,27 @@ namespace IsekaiTruck.Core
         [SerializeField] private WorldTravelUIController worldTravelUIController;
         [SerializeField] private CollisionFeedbackController collisionFeedbackController;
         [SerializeField] private SoulRewardFlyUI soulRewardFlyUI;
+        [SerializeField] private RewardGainPopupUI rewardGainPopupUI;
+        [SerializeField] private MonsterCollectionSystem monsterCollectionSystem;
+        [SerializeField] private MonsterCollectionUIController monsterCollectionUIController;
+        [SerializeField] private StoryIntroController storyIntroController;
+        [SerializeField] private SystemGuidePopup systemGuidePopup;
 
         private Vector3 truckRespawnPosition;
         private float truckRespawnYaw;
 
         public bool IsMenuPaused =>
+            (storyIntroController != null && storyIntroController.IsOpen) ||
+            (systemGuidePopup != null && systemGuidePopup.IsOpen) ||
             (gameUIController != null && gameUIController.IsUpgradePanelOpen) ||
             (rebirthUIController != null && rebirthUIController.IsPanelOpen) ||
             (blessingInventoryUIController != null && blessingInventoryUIController.IsPanelOpen) ||
-            (worldTravelUIController != null && worldTravelUIController.IsPanelOpen);
+            (worldTravelUIController != null && worldTravelUIController.IsPanelOpen) ||
+            (monsterCollectionUIController != null && monsterCollectionUIController.IsPanelOpen);
 
         private void Awake()
         {
-            if (config == null || playerTarget == null || joystickInput == null || playerMoveInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null || collisionFeedbackController == null || soulRewardFlyUI == null)
+            if (config == null || playerTarget == null || joystickInput == null || playerMoveInput == null || truckController == null || cameraController == null || worldManager == null || monsterManager == null || playerState == null || monsterSpawner == null || truckUpgradeSystem == null || gameUIController == null || blessingSystem == null || rebirthSystem == null || saveSystem == null || rebirthUIController == null || blessingLoadoutSystem == null || blessingDismantleSystem == null || blessingEffectSystem == null || blessingInput == null || blessingInventoryUIController == null || wantedLevelSystem == null || wantedLevelUIController == null || truckHealthController == null || truckDamageFlash == null || truckHealthUIController == null || enemyManager == null || enemySpawner == null || enemyWarningUIController == null || worldTravelSystem == null || worldTravelUIController == null || collisionFeedbackController == null || soulRewardFlyUI == null || rewardGainPopupUI == null || monsterCollectionSystem == null || monsterCollectionUIController == null || storyIntroController == null || systemGuidePopup == null)
             {
                 Debug.LogError("GameManager references are not configured.", this);
                 enabled = false;
@@ -83,15 +92,16 @@ namespace IsekaiTruck.Core
             blessingLoadoutSystem.Initialize(config, blessingSystem);
             wantedLevelSystem.Initialize(config);
             worldTravelSystem.Initialize(config, wantedLevelSystem);
+            monsterCollectionSystem.Initialize();
             rebirthSystem.Initialize(config, playerState, truckController, blessingSystem);
             truckUpgradeSystem.Initialize(playerState, truckController);
             blessingDismantleSystem.Initialize(config, blessingSystem, blessingLoadoutSystem, playerState);
-            saveSystem.Initialize(playerState, truckController, rebirthSystem, blessingSystem, blessingLoadoutSystem, wantedLevelSystem, truckHealthController, worldTravelSystem, truckUpgradeSystem);
+            saveSystem.Initialize(playerState, truckController, rebirthSystem, blessingSystem, blessingLoadoutSystem, wantedLevelSystem, truckHealthController, worldTravelSystem, monsterCollectionSystem, truckUpgradeSystem);
             cameraController.Initialize(config, playerTarget);
             joystickInput.SetViewport(cameraController.ViewportRect);
             worldManager.Initialize(config, playerTarget, cameraController.TargetCamera, worldTravelSystem.CurrentWorld);
             monsterManager.Initialize(config, playerTarget);
-            enemyManager.Initialize(config, playerTarget, truckHealthController);
+            enemyManager.Initialize(config, playerTarget, truckHealthController, wantedLevelSystem);
             enemyWarningUIController.Initialize(config, enemyManager, cameraController.TargetCamera, playerTarget);
             blessingEffectSystem.Initialize(blessingLoadoutSystem, truckController, cameraController, monsterManager, enemyManager);
             blessingInput.Initialize(blessingEffectSystem);
@@ -100,15 +110,20 @@ namespace IsekaiTruck.Core
             blessingInventoryUIController.Initialize(blessingSystem, blessingLoadoutSystem, blessingDismantleSystem, blessingEffectSystem, joystickInput, cameraController);
             wantedLevelUIController.Initialize(wantedLevelSystem);
             worldTravelUIController.Initialize(worldTravelSystem, joystickInput, cameraController);
+            monsterCollectionUIController.Initialize(monsterCollectionSystem, joystickInput, cameraController, gameUIController, IsOtherMenuOpen);
             truckHealthUIController.Initialize(truckHealthController);
             collisionFeedbackController.Initialize();
             soulRewardFlyUI.Initialize(cameraController);
+            rewardGainPopupUI.Initialize(cameraController, playerTarget);
+            storyIntroController.Completed += HandleStoryIntroCompleted;
+            storyIntroController.Initialize(joystickInput);
             monsterManager.MonsterDefeatedDetailed += HandleMonsterDefeated;
             monsterManager.MonsterCollisionBatchCompleted += HandleMonsterCollisionBatch;
             truckHealthController.DamageTaken += HandleTruckDamageTaken;
             truckHealthController.Defeated += HandleTruckDefeated;
+            rebirthSystem.RebirthCompleted += HandleRebirthCompleted;
             worldTravelSystem.WorldChanged += HandleWorldChanged;
-            monsterSpawner.Initialize(config, monsterManager, playerTarget);
+            monsterSpawner.Initialize(config, monsterManager, playerTarget, wantedLevelSystem);
             monsterSpawner.FillInitial();
             enemySpawner.Initialize(config, enemyManager, wantedLevelSystem, playerTarget);
             enemySpawner.FillInitial();
@@ -116,6 +131,7 @@ namespace IsekaiTruck.Core
 
         private void Update()
         {
+            RefreshViewportLayout();
             if (IsMenuPaused)
             {
                 enemyWarningUIController.Hide();
@@ -129,11 +145,6 @@ namespace IsekaiTruck.Core
             truckController.UpdateTruck(playerMoveInput.Move, deltaTime);
 
             float zoomMultiplier = cameraController.UpdateCamera(deltaTime);
-            joystickInput.SetViewport(cameraController.ViewportRect);
-            gameUIController.SetViewport(cameraController.ViewportRect);
-            rebirthUIController.SetViewport(cameraController.ViewportRect);
-            blessingInventoryUIController.SetViewport(cameraController.ViewportRect);
-            worldTravelUIController.SetViewport(cameraController.ViewportRect);
             blessingInventoryUIController.RefreshRuntime();
             worldManager.UpdateWorld(zoomMultiplier);
             monsterManager.UpdateMonsters(deltaTime);
@@ -158,12 +169,42 @@ namespace IsekaiTruck.Core
 
             gameUIController.QueueDeferredSoulReward(reward.AppliedSoul);
             collisionFeedbackController.PlayMonsterDefeat(defeat.WorldPosition);
+            rewardGainPopupUI.Play(reward.AppliedExp, reward.AppliedSoul);
+            monsterCollectionSystem.Unlock(defeat.Type.Id);
             if (reward.AppliedSoul > 0 && !soulRewardFlyUI.Play(defeat.WorldPosition, reward.AppliedSoul))
             {
                 gameUIController.ReleaseDeferredSoul(reward.AppliedSoul);
             }
             wantedLevelSystem.RegisterKill();
             Debug.Log($"경험치 +{reward.AppliedExp}, 영혼 +{reward.AppliedSoul}", this);
+        }
+
+        private void RefreshViewportLayout()
+        {
+            cameraController.RefreshViewport();
+            Rect viewport = cameraController.ViewportRect;
+            joystickInput.SetViewport(viewport);
+            gameUIController.SetViewport(viewport);
+            rebirthUIController.SetViewport(viewport);
+            blessingInventoryUIController.SetViewport(viewport);
+            worldTravelUIController.SetViewport(viewport);
+            monsterCollectionUIController.SetViewport(viewport);
+            systemGuidePopup.SetViewport(viewport);
+        }
+
+        private bool IsOtherMenuOpen()
+        {
+            return (gameUIController != null && gameUIController.IsUpgradePanelOpen) ||
+                (rebirthUIController != null && rebirthUIController.IsPanelOpen) ||
+                (blessingInventoryUIController != null && blessingInventoryUIController.IsPanelOpen) ||
+                (worldTravelUIController != null && worldTravelUIController.IsPanelOpen) ||
+                (storyIntroController != null && storyIntroController.IsOpen) ||
+                (systemGuidePopup != null && systemGuidePopup.IsOpen);
+        }
+
+        private void HandleStoryIntroCompleted()
+        {
+            systemGuidePopup.Initialize(joystickInput, cameraController);
         }
 
         private void HandleMonsterCollisionBatch(MonsterCollisionBatch batch)
@@ -177,22 +218,34 @@ namespace IsekaiTruck.Core
             if (result.AppliedDamage > 0)
             {
                 cameraController.PlayDamageShake();
+                GameSfxPlayer.PlayTruckDamage();
             }
         }
 
         private void HandleTruckDefeated()
         {
             playerState.ForfeitCurrentExperience();
-            truckController.Respawn(truckRespawnPosition, truckRespawnYaw);
-            truckHealthController.Respawn();
+            RespawnTruckWithFullHealth();
             Debug.Log("트럭이 파괴되어 보유 경험치를 잃고 리스폰했습니다.", this);
+        }
+
+        private void HandleRebirthCompleted(RebirthResult result)
+        {
+            RespawnTruckWithFullHealth();
         }
 
         private void HandleWorldChanged(WorldDefinition world)
         {
             worldManager.ApplyWorld(world);
+            RespawnTruckWithFullHealth();
             enemySpawner.ReconcileCount();
             enemyWarningUIController.Hide();
+        }
+
+        private void RespawnTruckWithFullHealth()
+        {
+            truckController.Respawn(truckRespawnPosition, truckRespawnYaw);
+            truckHealthController.Respawn();
         }
 
         private void OnDestroy()
@@ -209,9 +262,19 @@ namespace IsekaiTruck.Core
                 truckHealthController.Defeated -= HandleTruckDefeated;
             }
 
+            if (rebirthSystem != null)
+            {
+                rebirthSystem.RebirthCompleted -= HandleRebirthCompleted;
+            }
+
             if (worldTravelSystem != null)
             {
                 worldTravelSystem.WorldChanged -= HandleWorldChanged;
+            }
+
+            if (storyIntroController != null)
+            {
+                storyIntroController.Completed -= HandleStoryIntroCompleted;
             }
         }
 
@@ -309,10 +372,33 @@ namespace IsekaiTruck.Core
             worldTravelUIController = travelUI;
         }
 
-        public void SetCollisionFeedbackSystems(CollisionFeedbackController collisionFeedback, SoulRewardFlyUI soulRewardUI)
+        public void SetCollisionFeedbackSystems(
+            CollisionFeedbackController collisionFeedback,
+            SoulRewardFlyUI soulRewardUI,
+            RewardGainPopupUI rewardPopupUI
+        )
         {
             collisionFeedbackController = collisionFeedback;
             soulRewardFlyUI = soulRewardUI;
+            rewardGainPopupUI = rewardPopupUI;
+        }
+
+        public void SetMonsterCollectionSystems(
+            MonsterCollectionSystem collectionSystem,
+            MonsterCollectionUIController collectionUI)
+        {
+            monsterCollectionSystem = collectionSystem;
+            monsterCollectionUIController = collectionUI;
+        }
+
+        public void SetSystemGuidePopup(SystemGuidePopup guidePopup)
+        {
+            systemGuidePopup = guidePopup;
+        }
+
+        public void SetStoryIntroController(StoryIntroController introController)
+        {
+            storyIntroController = introController;
         }
 #endif
     }

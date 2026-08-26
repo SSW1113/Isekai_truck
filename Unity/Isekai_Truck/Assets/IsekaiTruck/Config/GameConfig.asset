@@ -18,8 +18,8 @@ MonoBehaviour:
     acceleration: 0.003
     friction: 0.94
     turnSpeed: 0.2
-    speedPerUpgrade: 0.01
-    sizePerUpgrade: 0.1
+    speedPerUpgrade: 0.02
+    sizePerUpgrade: 0.2
     maxHealth: 3
     damageInvulnerabilityDuration: 2
     damageFlashInterval: 0.12
@@ -53,10 +53,50 @@ MonoBehaviour:
     countPerWantedLevel: 2
     minimumCountForTesting: 0
     truckCollisionRadius: 1.3
+    wantedSpeedBoostLevel: 5
+    wantedSpeedMultiplier: 2
     offscreenWarningDistance: 25
     warningBlinkInterval: 0.35
   spawn:
     targetCount: 100
+    targetCountPerWantedLevel: 50
+    wantedWeightRules:
+    - monsterTypeId: man
+      changePerLevel: 0
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: salesman
+      changePerLevel: -1
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: policeman
+      changePerLevel: 2
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: samurai
+      changePerLevel: 1
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: jeon_woochi
+      changePerLevel: 1
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: mascot
+      changePerLevel: 1
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: ninja
+      changePerLevel: 1
+      useFixedWeight: 0
+      fixedWeight: 0
+    - monsterTypeId: turtle
+      changePerLevel: 0
+      useFixedWeight: 1
+      fixedWeight: 0.5
+    - monsterTypeId: wizard
+      changePerLevel: 1
+      useFixedWeight: 0
+      fixedWeight: 0
     minDistance: 35
     maxDistance: 70
     despawnDistance: 80
@@ -67,10 +107,10 @@ MonoBehaviour:
     startExp: 0
     startSoul: 0
     baseRequiredExp: 100
-    expGrowth: 1.5
+    expGrowth: 1.1
     upgradePointPerLevel: 1
   wanted:
-    killsPerLevel: 50
+    killsPerLevel: 100
     maxLevel: 10
     worldTravelUnlockLevel: 5
   rebirth:

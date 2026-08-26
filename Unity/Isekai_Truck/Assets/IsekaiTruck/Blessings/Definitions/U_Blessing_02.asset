@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: U_Blessing_02
   m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.Blessings.BlessingDefinition
   id: u_blessing_02
-  displayName: Test2
+  displayName: "\uACBD\uD5D8\uCE58 \uBD80\uC2A4\uD2B8 II"
   grade: 1
   activationType: 0
   effectType: 4

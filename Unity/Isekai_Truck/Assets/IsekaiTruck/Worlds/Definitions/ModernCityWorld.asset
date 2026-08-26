@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14685a12e3c3c6840bd899e07f2f9f9e, type: 3}
+  m_Name: ModernCityWorld
+  m_EditorClassIdentifier: Assembly-CSharp::IsekaiTruck.World.WorldDefinition
+  id: modern_city
+  displayName: "\uD604\uB300 \uB3C4\uC2DC"
+  skyColor: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+  fogColor: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+  groundColor: {r: 0.22745098, g: 0.47843137, b: 0.16470589, a: 1}
+  groundPatternColor: {r: 0.18431373, g: 0.4, b: 0.13333334, a: 1}
+  chunkPrefabs:
+  - {fileID: 3484135445411121823, guid: 6a581afa6e6ea474385e01a55354464b, type: 3}
+  - {fileID: 7884809654327310011, guid: 8ec210fe3a1a73a469bbdf009a3f294c, type: 3}
+  - {fileID: 6666188389252724883, guid: 86f38d1ff9698784392ca19ca9395671, type: 3}
+  - {fileID: 1092677542214647997, guid: 3c669541a0521164e81ff4639706eded, type: 3}
+  - {fileID: 9045271977451505249, guid: c199295a90854454a9b359b75b8db91b, type: 3}
+  crossroadInterval: 4

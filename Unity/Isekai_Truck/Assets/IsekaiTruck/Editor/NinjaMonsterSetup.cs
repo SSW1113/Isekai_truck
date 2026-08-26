@@ -17,20 +17,31 @@ namespace IsekaiTruck.Editor
         private const string SubstitutionSpritePrefix = "NinjaSubstitution";
         private const string SubstitutionEffectPrefabPath =
             "Assets/IsekaiTruck/Prefabs/Effects/NinjaSubstitutionEffect.prefab";
+        private const string TeleportSmokeSpritePath =
+            "Assets/IsekaiTruck/Art/Sprites/NinjaTeleportSmoke.png";
+        private const string TeleportSmokeSpritePrefix = "NinjaTeleportSmoke";
+        private const string TeleportSmokeEffectPrefabPath =
+            "Assets/IsekaiTruck/Prefabs/Effects/NinjaTeleportSmokeEffect.prefab";
         private const string NinjaPrefabPath = "Assets/IsekaiTruck/Prefabs/Monsters/Ninja.prefab";
         private const string CatalogPath = "Assets/IsekaiTruck/Config/MonsterPrefabCatalog.asset";
         private const float PixelsPerUnit = 112f;
         private const float SubstitutionPixelsPerUnit = 128f;
+        private const float TeleportSmokePixelsPerUnit = 100f;
         private const float VisualScale = 1.5f;
         private const float SubstitutionVisualScale = 4f;
+        private const float TeleportSmokeVisualScale = 2f;
         private const float AnimationFramesPerSecond = 12f;
         private const float SubstitutionFramesPerSecond = 12f;
+        private const float TeleportSmokeFramesPerSecond = 12f;
         private const float TeleportDistanceMultiplier = 2f;
         private const int SubstitutionColumns = 4;
         private const int SubstitutionRows = 4;
         private const int SubstitutionFrameCount = 8;
         private const int SubstitutionSlicePadding = 4;
         private const byte SubstitutionAlphaThreshold = 8;
+        private const int TeleportSmokeColumns = 3;
+        private const int TeleportSmokeRows = 3;
+        private const int TeleportSmokeFrameCount = 9;
 
         [MenuItem("Isekai Truck/Setup Ninja Monster")]
         public static void Setup()
@@ -38,12 +49,16 @@ namespace IsekaiTruck.Editor
             AssetDatabase.Refresh();
             DirectionalMonsterSpriteSheetUtility.ConfigureImporter(SpritePath, SpritePrefix, PixelsPerUnit);
             ConfigureSubstitutionImporter();
+            ConfigureTeleportSmokeImporter();
 
             Sprite[] frames = DirectionalMonsterSpriteSheetUtility.LoadFrames(SpritePath, SpritePrefix);
             Sprite[] substitutionFrames = LoadSubstitutionFrames();
+            Sprite[] teleportSmokeFrames = LoadTeleportSmokeFrames();
             SpriteSequenceEffect substitutionEffectPrefab =
                 CreateOrUpdateSubstitutionEffectPrefab(substitutionFrames);
-            CreateOrUpdatePrefab(frames, substitutionEffectPrefab);
+            SpriteSequenceEffect teleportSmokeEffectPrefab =
+                CreateOrUpdateTeleportSmokeEffectPrefab(teleportSmokeFrames);
+            CreateOrUpdatePrefab(frames, substitutionEffectPrefab, teleportSmokeEffectPrefab);
 
             MonsterPrefabCatalog catalog = AssetDatabase.LoadAssetAtPath<MonsterPrefabCatalog>(CatalogPath);
             if (catalog == null)
@@ -59,7 +74,7 @@ namespace IsekaiTruck.Editor
             {
                 EditorUtility.DisplayDialog(
                     "Isekai Truck",
-                    "닌자의 한 번 생존과 바꿔치기 이펙트를 추가했습니다.",
+                    "닌자의 한 번 생존과 순간이동 연막 이펙트를 추가했습니다.",
                     "확인");
             }
         }
@@ -69,13 +84,19 @@ namespace IsekaiTruck.Editor
             TextureImporter importer = AssetImporter.GetAtPath(SpritePath) as TextureImporter;
             TextureImporter substitutionImporter =
                 AssetImporter.GetAtPath(SubstitutionSpritePath) as TextureImporter;
+            TextureImporter teleportSmokeImporter =
+                AssetImporter.GetAtPath(TeleportSmokeSpritePath) as TextureImporter;
             Sprite[] frames = DirectionalMonsterSpriteSheetUtility.LoadFrames(SpritePath, SpritePrefix);
             Sprite[] substitutionFrames = LoadSubstitutionFrames();
+            Sprite[] teleportSmokeFrames = LoadTeleportSmokeFrames();
             SpriteSequenceEffect substitutionEffectPrefab =
                 AssetDatabase.LoadAssetAtPath<SpriteSequenceEffect>(SubstitutionEffectPrefabPath);
+            SpriteSequenceEffect teleportSmokeEffectPrefab =
+                AssetDatabase.LoadAssetAtPath<SpriteSequenceEffect>(TeleportSmokeEffectPrefabPath);
             GameObject ninjaPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(NinjaPrefabPath);
             MonsterPrefabCatalog catalog = AssetDatabase.LoadAssetAtPath<MonsterPrefabCatalog>(CatalogPath);
-            if (importer == null || substitutionImporter == null || substitutionEffectPrefab == null ||
+            if (importer == null || substitutionImporter == null || teleportSmokeImporter == null ||
+                substitutionEffectPrefab == null || teleportSmokeEffectPrefab == null ||
                 ninjaPrefab == null || catalog == null)
             {
                 throw new InvalidOperationException("Ninja monster assets are missing.");
@@ -98,6 +119,17 @@ namespace IsekaiTruck.Editor
             {
                 throw new InvalidOperationException(
                     "Ninja substitution sheet importer is not configured as expected.");
+            }
+
+            if (teleportSmokeImporter.textureType != TextureImporterType.Sprite ||
+                teleportSmokeImporter.spriteImportMode != SpriteImportMode.Multiple ||
+                !teleportSmokeImporter.alphaIsTransparency ||
+                !Mathf.Approximately(
+                    teleportSmokeImporter.spritePixelsPerUnit,
+                    TeleportSmokePixelsPerUnit))
+            {
+                throw new InvalidOperationException(
+                    "Ninja teleport smoke sheet importer is not configured as expected.");
             }
 
             MonsterDefinition definition = ninjaPrefab.GetComponent<MonsterDefinition>();
@@ -133,7 +165,9 @@ namespace IsekaiTruck.Editor
                     survivalBehavior.TeleportDistanceMultiplier,
                     TeleportDistanceMultiplier) ||
                 AssetDatabase.GetAssetPath(survivalBehavior.SubstitutionEffectPrefab) !=
-                    SubstitutionEffectPrefabPath)
+                    SubstitutionEffectPrefabPath ||
+                AssetDatabase.GetAssetPath(survivalBehavior.TeleportSmokeEffectPrefab) !=
+                    TeleportSmokeEffectPrefabPath)
             {
                 throw new InvalidOperationException("Ninja survival settings are incorrect.");
             }
@@ -153,8 +187,9 @@ namespace IsekaiTruck.Editor
 
             VerifyDirectionalFrames(directionalAnimator, frames);
             VerifySubstitutionEffect(substitutionEffectPrefab, substitutionFrames);
+            VerifyTeleportSmokeEffect(teleportSmokeEffectPrefab, teleportSmokeFrames);
             VerifyCatalog(catalog, controller);
-            VerifyOneTimeSurvival(ninjaPrefab, substitutionEffectPrefab);
+            VerifyOneTimeSurvival(ninjaPrefab, substitutionEffectPrefab, teleportSmokeEffectPrefab);
             Debug.Log("Ninja monster setup verification passed.");
         }
 
@@ -190,6 +225,63 @@ namespace IsekaiTruck.Editor
 #pragma warning restore CS0618
             importer.isReadable = false;
             importer.SaveAndReimport();
+        }
+
+        private static void ConfigureTeleportSmokeImporter()
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(TeleportSmokeSpritePath) as TextureImporter;
+            if (importer == null)
+            {
+                throw new InvalidOperationException("Ninja teleport smoke sheet importer was not created.");
+            }
+
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Multiple;
+            importer.spritePixelsPerUnit = TeleportSmokePixelsPerUnit;
+            importer.npotScale = TextureImporterNPOTScale.None;
+            importer.mipmapEnabled = false;
+            importer.filterMode = FilterMode.Bilinear;
+            importer.alphaSource = TextureImporterAlphaSource.FromInput;
+            importer.alphaIsTransparency = true;
+            importer.sRGBTexture = true;
+            importer.maxTextureSize = 1024;
+
+            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(TeleportSmokeSpritePath);
+            if (texture == null)
+            {
+                throw new InvalidOperationException("Ninja teleport smoke sheet could not be loaded.");
+            }
+
+#pragma warning disable CS0618
+            importer.spritesheet = BuildTeleportSmokeMetadata(texture);
+#pragma warning restore CS0618
+            importer.SaveAndReimport();
+        }
+
+        private static SpriteMetaData[] BuildTeleportSmokeMetadata(Texture2D texture)
+        {
+            SpriteMetaData[] metadata = new SpriteMetaData[TeleportSmokeFrameCount];
+            for (int frameIndex = 0; frameIndex < metadata.Length; frameIndex++)
+            {
+                int column = frameIndex % TeleportSmokeColumns;
+                int rowFromTop = frameIndex / TeleportSmokeColumns;
+                int rowFromBottom = TeleportSmokeRows - rowFromTop - 1;
+                int minX = Mathf.FloorToInt(column * texture.width / (float)TeleportSmokeColumns);
+                int maxX = Mathf.FloorToInt((column + 1) * texture.width / (float)TeleportSmokeColumns);
+                int minY = Mathf.FloorToInt(rowFromBottom * texture.height / (float)TeleportSmokeRows);
+                int maxY = Mathf.FloorToInt((rowFromBottom + 1) * texture.height / (float)TeleportSmokeRows);
+
+                metadata[frameIndex] = new SpriteMetaData
+                {
+                    name = GetTeleportSmokeSpriteName(frameIndex),
+                    rect = new Rect(minX, minY, maxX - minX, maxY - minY),
+                    alignment = (int)SpriteAlignment.Center,
+                    pivot = new Vector2(0.5f, 0.5f),
+                    border = Vector4.zero
+                };
+            }
+
+            return metadata;
         }
 
         private static SpriteMetaData[] BuildSubstitutionMetadata(Texture2D texture)
@@ -316,6 +408,39 @@ namespace IsekaiTruck.Editor
             return $"{SubstitutionSpritePrefix}_{frameIndex}";
         }
 
+        private static Sprite[] LoadTeleportSmokeFrames()
+        {
+            Object[] assets = AssetDatabase.LoadAllAssetsAtPath(TeleportSmokeSpritePath);
+            Sprite[] frames = new Sprite[TeleportSmokeFrameCount];
+
+            for (int frameIndex = 0; frameIndex < frames.Length; frameIndex++)
+            {
+                string spriteName = GetTeleportSmokeSpriteName(frameIndex);
+                for (int assetIndex = 0; assetIndex < assets.Length; assetIndex++)
+                {
+                    Sprite sprite = assets[assetIndex] as Sprite;
+                    if (sprite != null && sprite.name == spriteName)
+                    {
+                        frames[frameIndex] = sprite;
+                        break;
+                    }
+                }
+
+                if (frames[frameIndex] == null)
+                {
+                    throw new InvalidOperationException(
+                        $"Ninja teleport smoke frame is missing: {spriteName}");
+                }
+            }
+
+            return frames;
+        }
+
+        private static string GetTeleportSmokeSpriteName(int frameIndex)
+        {
+            return $"{TeleportSmokeSpritePrefix}_{frameIndex}";
+        }
+
         private static SpriteSequenceEffect CreateOrUpdateSubstitutionEffectPrefab(Sprite[] frames)
         {
             GameObject root = new GameObject("NinjaSubstitutionEffect");
@@ -354,9 +479,48 @@ namespace IsekaiTruck.Editor
             }
         }
 
+        private static SpriteSequenceEffect CreateOrUpdateTeleportSmokeEffectPrefab(Sprite[] frames)
+        {
+            GameObject root = new GameObject("NinjaTeleportSmokeEffect");
+            try
+            {
+                root.transform.localScale = Vector3.one * TeleportSmokeVisualScale;
+                SpriteRenderer spriteRenderer = root.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = frames[0];
+                spriteRenderer.color = Color.white;
+                spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
+                spriteRenderer.sortingOrder = 3;
+                spriteRenderer.shadowCastingMode = ShadowCastingMode.Off;
+                spriteRenderer.receiveShadows = false;
+                root.AddComponent<BillboardSpriteView>();
+                SpriteSequenceEffect sequenceEffect = root.AddComponent<SpriteSequenceEffect>();
+                sequenceEffect.Configure(
+                    spriteRenderer,
+                    frames,
+                    TeleportSmokeFramesPerSecond,
+                    true);
+
+                GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, TeleportSmokeEffectPrefabPath);
+                SpriteSequenceEffect prefabEffect = prefab != null
+                    ? prefab.GetComponent<SpriteSequenceEffect>()
+                    : null;
+                if (prefabEffect == null)
+                {
+                    throw new InvalidOperationException("Ninja teleport smoke effect prefab could not be saved.");
+                }
+
+                return prefabEffect;
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
         private static void CreateOrUpdatePrefab(
             Sprite[] frames,
-            SpriteSequenceEffect substitutionEffectPrefab)
+            SpriteSequenceEffect substitutionEffectPrefab,
+            SpriteSequenceEffect teleportSmokeEffectPrefab)
         {
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(NinjaPrefabPath);
             bool isNewPrefab = prefab == null;
@@ -396,6 +560,8 @@ namespace IsekaiTruck.Editor
 
                 serializedSurvival.FindProperty("substitutionEffectPrefab").objectReferenceValue =
                     substitutionEffectPrefab;
+                serializedSurvival.FindProperty("teleportSmokeEffectPrefab").objectReferenceValue =
+                    teleportSmokeEffectPrefab;
                 serializedSurvival.ApplyModifiedPropertiesWithoutUndo();
 
                 MonsterView monsterView = GetOrAddComponent<MonsterView>(root);
@@ -545,13 +711,52 @@ namespace IsekaiTruck.Editor
             }
         }
 
+        private static void VerifyTeleportSmokeEffect(
+            SpriteSequenceEffect effectPrefab,
+            Sprite[] expectedFrames)
+        {
+            SpriteRenderer spriteRenderer = effectPrefab.GetComponent<SpriteRenderer>();
+            BillboardSpriteView billboard = effectPrefab.GetComponent<BillboardSpriteView>();
+            if (spriteRenderer == null || billboard == null ||
+                effectPrefab.FrameCount != TeleportSmokeFrameCount ||
+                !Mathf.Approximately(effectPrefab.FramesPerSecond, TeleportSmokeFramesPerSecond) ||
+                !Mathf.Approximately(
+                    effectPrefab.Duration,
+                    TeleportSmokeFrameCount / TeleportSmokeFramesPerSecond) ||
+                !effectPrefab.DestroyOnComplete ||
+                effectPrefab.transform.localScale != Vector3.one * TeleportSmokeVisualScale ||
+                spriteRenderer.sprite != expectedFrames[0] ||
+                spriteRenderer.sortingOrder != 3)
+            {
+                throw new InvalidOperationException("Ninja teleport smoke effect prefab is incomplete.");
+            }
+
+            SerializedObject serializedEffect = new SerializedObject(effectPrefab);
+            SerializedProperty framesProperty = serializedEffect.FindProperty("frames");
+            if (framesProperty == null || framesProperty.arraySize != expectedFrames.Length)
+            {
+                throw new InvalidOperationException("Ninja teleport smoke effect frames are incomplete.");
+            }
+
+            for (int frameIndex = 0; frameIndex < expectedFrames.Length; frameIndex++)
+            {
+                if (framesProperty.GetArrayElementAtIndex(frameIndex).objectReferenceValue !=
+                    expectedFrames[frameIndex])
+                {
+                    throw new InvalidOperationException(
+                        $"Ninja teleport smoke frame reference is incorrect: {frameIndex}");
+                }
+            }
+        }
+
         private static void VerifyOneTimeSurvival(
             GameObject ninjaPrefab,
-            SpriteSequenceEffect substitutionEffectPrefab)
+            SpriteSequenceEffect substitutionEffectPrefab,
+            SpriteSequenceEffect teleportSmokeEffectPrefab)
         {
             GameObject truckObject = new GameObject("Ninja Survival Verification Truck");
             GameObject instance = PrefabUtility.InstantiatePrefab(ninjaPrefab) as GameObject;
-            SpriteSequenceEffect spawnedEffect = null;
+            SpriteSequenceEffect[] spawnedEffects = null;
             try
             {
                 instance.transform.position = Vector3.right;
@@ -566,15 +771,26 @@ namespace IsekaiTruck.Editor
                 float expectedTeleportDistance = definition.FleeDistance * TeleportDistanceMultiplier;
                 float actualTeleportDistance =
                     Vector3.Distance(positionBeforeFirstContact, instance.transform.position);
-                SpriteSequenceEffect[] sceneEffects = Object.FindObjectsByType<SpriteSequenceEffect>(
+                spawnedEffects = Object.FindObjectsByType<SpriteSequenceEffect>(
                     FindObjectsInactive.Include,
                     FindObjectsSortMode.None);
-                for (int effectIndex = 0; effectIndex < sceneEffects.Length; effectIndex++)
+                SpriteSequenceEffect spawnedSubstitution = null;
+                SpriteSequenceEffect spawnedTeleportSmoke = null;
+                for (int effectIndex = 0; effectIndex < spawnedEffects.Length; effectIndex++)
                 {
-                    if (sceneEffects[effectIndex].gameObject.scene.IsValid())
+                    SpriteSequenceEffect effect = spawnedEffects[effectIndex];
+                    if (!effect.gameObject.scene.IsValid())
                     {
-                        spawnedEffect = sceneEffects[effectIndex];
-                        break;
+                        continue;
+                    }
+
+                    if (effect.name.StartsWith(substitutionEffectPrefab.name, StringComparison.Ordinal))
+                    {
+                        spawnedSubstitution = effect;
+                    }
+                    else if (effect.name.StartsWith(teleportSmokeEffectPrefab.name, StringComparison.Ordinal))
+                    {
+                        spawnedTeleportSmoke = effect;
                     }
                 }
 
@@ -583,11 +799,15 @@ namespace IsekaiTruck.Editor
                     !Mathf.Approximately(actualTeleportDistance, expectedTeleportDistance) ||
                     instance.transform.position.x <= positionBeforeFirstContact.x ||
                     survivalBehavior.SubstitutionEffectPrefab != substitutionEffectPrefab ||
-                    spawnedEffect == null ||
-                    spawnedEffect.transform.position != positionBeforeFirstContact)
+                    survivalBehavior.TeleportSmokeEffectPrefab != teleportSmokeEffectPrefab ||
+                    spawnedSubstitution == null ||
+                    spawnedSubstitution.transform.position != positionBeforeFirstContact ||
+                    spawnedTeleportSmoke == null ||
+                    spawnedTeleportSmoke.transform.position != instance.transform.position ||
+                    spawnedTeleportSmoke.transform.position == positionBeforeFirstContact)
                 {
                     throw new InvalidOperationException(
-                        "Ninja did not leave the effect, survive, and teleport on the first contact.");
+                        "Ninja teleport effects were not placed at the expected positions.");
                 }
 
                 instance.transform.position = Vector3.right;
@@ -600,9 +820,16 @@ namespace IsekaiTruck.Editor
             }
             finally
             {
-                if (spawnedEffect != null)
+                if (spawnedEffects != null)
                 {
-                    Object.DestroyImmediate(spawnedEffect.gameObject);
+                    for (int effectIndex = 0; effectIndex < spawnedEffects.Length; effectIndex++)
+                    {
+                        SpriteSequenceEffect effect = spawnedEffects[effectIndex];
+                        if (effect != null && effect.gameObject.scene.IsValid())
+                        {
+                            Object.DestroyImmediate(effect.gameObject);
+                        }
+                    }
                 }
 
                 Object.DestroyImmediate(instance);

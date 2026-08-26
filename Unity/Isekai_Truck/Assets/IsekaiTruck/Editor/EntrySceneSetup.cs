@@ -19,6 +19,7 @@ namespace IsekaiTruck.Editor
         private const string MainScenePath = "Assets/IsekaiTruck/Scenes/Main.unity";
         private const string TruckMaterialPath = "Assets/IsekaiTruck/Materials/EntryTruck.mat";
         private const string RetroFontAssetPath = "Assets/IsekaiTruck/Fonts/RetroHUD.asset";
+        private const string ThumbnailPath = "Assets/IsekaiTruck/Art/Sprites/EntryThumbnail.png";
 
         [MenuItem("Isekai Truck/Setup Entry Scene")]
         public static void Setup()
@@ -39,6 +40,7 @@ namespace IsekaiTruck.Editor
             }
 
             ApplyEntryBackground();
+            ApplyEntryThumbnailToLoadedScene();
             ConfigureBuildSettings();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -66,6 +68,7 @@ namespace IsekaiTruck.Editor
 
             CreateScene();
             ApplyEntryBackground();
+            ApplyEntryThumbnailToLoadedScene();
             ConfigureBuildSettings();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -74,6 +77,26 @@ namespace IsekaiTruck.Editor
             if (!Application.isBatchMode)
             {
                 EditorUtility.DisplayDialog("Isekai Truck", "Entry 씬의 원근 트럭 연출을 구성했습니다.", "확인");
+            }
+        }
+
+        [MenuItem("Isekai Truck/Apply Entry Thumbnail")]
+        public static void ApplyThumbnail()
+        {
+            if (EditorApplication.isPlaying)
+            {
+                EditorUtility.DisplayDialog("Isekai Truck", "플레이 모드를 종료한 뒤 실행해주세요.", "확인");
+                return;
+            }
+
+            EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            ApplyEntryThumbnailToLoadedScene();
+            AssetDatabase.SaveAssets();
+            Verify();
+
+            if (!Application.isBatchMode)
+            {
+                EditorUtility.DisplayDialog("Isekai Truck", "Entry 씬에 새 썸네일을 적용했습니다.", "확인");
             }
         }
 
@@ -88,12 +111,21 @@ namespace IsekaiTruck.Editor
             GameObject truckRoot = GameObject.Find("Truck Presentation Root");
             GameObject startPoint = GameObject.Find("Truck Start Point");
             GameObject endPoint = GameObject.Find("Truck End Point");
-            GameObject title = GameObject.Find("Title");
             GameObject guide = GameObject.Find("Input Guide");
+            Transform thumbnailTransform = canvas != null ? canvas.transform.Find("Entry Thumbnail") : null;
+            Image thumbnailImage = thumbnailTransform != null ? thumbnailTransform.GetComponent<Image>() : null;
+            AspectRatioFitter thumbnailFitter = thumbnailTransform != null ? thumbnailTransform.GetComponent<AspectRatioFitter>() : null;
+            Sprite thumbnailSprite = AssetDatabase.LoadAssetAtPath<Sprite>(ThumbnailPath);
 
-            if (!scene.IsValid() || controller == null || truckEntrance == null || canvas == null || eventSystem == null || targetCamera == null || truckRoot == null || startPoint == null || endPoint == null || title == null || guide == null)
+            if (!scene.IsValid() || controller == null || truckEntrance == null || canvas == null || eventSystem == null || targetCamera == null || truckRoot == null || startPoint == null || endPoint == null || guide == null)
             {
                 throw new InvalidOperationException("Entry 씬의 필수 오브젝트가 구성되지 않았습니다.");
+            }
+
+            if (thumbnailSprite == null || thumbnailImage == null || thumbnailImage.sprite != thumbnailSprite || thumbnailImage.raycastTarget ||
+                thumbnailFitter == null || thumbnailFitter.aspectMode != AspectRatioFitter.AspectMode.EnvelopeParent || thumbnailTransform.GetSiblingIndex() != 0)
+            {
+                throw new InvalidOperationException("Entry 씬 썸네일이 전체 화면 배경으로 올바르게 연결되지 않았습니다.");
             }
 
             if (targetCamera.orthographic)
@@ -107,9 +139,8 @@ namespace IsekaiTruck.Editor
             }
 
             TMP_FontAsset retroFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(RetroFontAssetPath);
-            TMP_Text titleText = title.GetComponent<TMP_Text>();
             TMP_Text guideText = guide.GetComponent<TMP_Text>();
-            if (retroFont == null || titleText == null || guideText == null || titleText.font != retroFont || guideText.font != retroFont)
+            if (retroFont == null || guideText == null || guideText.font != retroFont)
             {
                 throw new InvalidOperationException("Entry 씬 텍스트에 RetroHUD TMP 폰트가 적용되지 않았습니다.");
             }
@@ -259,6 +290,93 @@ namespace IsekaiTruck.Editor
             EditorUtility.SetDirty(targetCamera);
             EditorSceneManager.MarkSceneDirty(targetCamera.gameObject.scene);
             EditorSceneManager.SaveScene(targetCamera.gameObject.scene, ScenePath);
+        }
+
+        private static void ApplyEntryThumbnailToLoadedScene()
+        {
+            ConfigureThumbnailImporter();
+            Sprite thumbnailSprite = AssetDatabase.LoadAssetAtPath<Sprite>(ThumbnailPath);
+            Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+            if (thumbnailSprite == null || canvas == null)
+            {
+                throw new InvalidOperationException("Entry 씬 썸네일 또는 Canvas를 찾지 못했습니다.");
+            }
+
+            Transform existingThumbnail = canvas.transform.Find("Entry Thumbnail");
+            GameObject thumbnailObject;
+            if (existingThumbnail == null)
+            {
+                thumbnailObject = new GameObject(
+                    "Entry Thumbnail",
+                    typeof(RectTransform),
+                    typeof(CanvasRenderer),
+                    typeof(Image),
+                    typeof(AspectRatioFitter));
+                thumbnailObject.transform.SetParent(canvas.transform, false);
+            }
+            else
+            {
+                thumbnailObject = existingThumbnail.gameObject;
+            }
+
+            RectTransform thumbnailRect = thumbnailObject.GetComponent<RectTransform>();
+            thumbnailRect.anchorMin = new Vector2(0.5f, 0.5f);
+            thumbnailRect.anchorMax = new Vector2(0.5f, 0.5f);
+            thumbnailRect.pivot = new Vector2(0.5f, 0.5f);
+            thumbnailRect.anchoredPosition = Vector2.zero;
+            thumbnailRect.sizeDelta = Vector2.one;
+
+            Image thumbnailImage = thumbnailObject.GetComponent<Image>();
+            thumbnailImage.sprite = thumbnailSprite;
+            thumbnailImage.color = Color.white;
+            thumbnailImage.raycastTarget = false;
+            thumbnailImage.preserveAspect = false;
+
+            AspectRatioFitter aspectRatioFitter = thumbnailObject.GetComponent<AspectRatioFitter>();
+            aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+            aspectRatioFitter.aspectRatio = thumbnailSprite.rect.width / thumbnailSprite.rect.height;
+            thumbnailObject.transform.SetAsFirstSibling();
+
+            Transform title = canvas.transform.Find("Title");
+            if (title != null)
+            {
+                title.gameObject.SetActive(false);
+            }
+
+            EditorUtility.SetDirty(thumbnailObject);
+            EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
+            EditorSceneManager.SaveScene(canvas.gameObject.scene, ScenePath);
+        }
+
+        private static void ConfigureThumbnailImporter()
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(ThumbnailPath) as TextureImporter;
+            if (importer == null)
+            {
+                throw new InvalidOperationException($"Entry 썸네일 임포터를 찾지 못했습니다: {ThumbnailPath}");
+            }
+
+            bool shouldReimport = importer.textureType != TextureImporterType.Sprite ||
+                importer.spriteImportMode != SpriteImportMode.Single ||
+                importer.mipmapEnabled ||
+                importer.alphaIsTransparency ||
+                importer.npotScale != TextureImporterNPOTScale.None ||
+                importer.maxTextureSize != 2048 ||
+                importer.textureCompression != TextureImporterCompression.CompressedHQ ||
+                !Mathf.Approximately(importer.spritePixelsPerUnit, 100f);
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Single;
+            importer.mipmapEnabled = false;
+            importer.alphaIsTransparency = false;
+            importer.npotScale = TextureImporterNPOTScale.None;
+            importer.maxTextureSize = 2048;
+            importer.textureCompression = TextureImporterCompression.CompressedHQ;
+            importer.spritePixelsPerUnit = 100f;
+
+            if (shouldReimport)
+            {
+                importer.SaveAndReimport();
+            }
         }
 
         private static Material GetOrCreateTruckMaterial()

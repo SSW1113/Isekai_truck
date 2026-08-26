@@ -23,14 +23,25 @@ namespace IsekaiTruck.UI
         [SerializeField] private Text[] activeSlotLabels;
         [SerializeField] private Button[] inventoryButtons;
         [SerializeField] private Text[] inventoryLabels;
+        [SerializeField] private GameObject activeSlotHud;
+        [SerializeField] private Image[] activeSlotBackgrounds;
+        [SerializeField] private Image[] activeSlotFills;
 
         private BlessingSystem blessingSystem;
         private BlessingLoadoutSystem loadoutSystem;
         private BlessingDismantleSystem dismantleSystem;
         private BlessingEffectSystem effectSystem;
         private JoystickInput joystickInput;
+        private string[] inventoryBlessingIds;
         private int selectedSlotIndex;
         private string selectedBlessingId;
+
+        private static readonly Color EmptySlotColor = new Color32(0x70, 0x62, 0x68, 0xD9);
+        private static readonly Color PassiveSlotColor = new Color32(0x70, 0x85, 0x87, 0xF2);
+        private static readonly Color AvailableSlotColor = new Color32(0xED, 0xC6, 0x7F, 0xF2);
+        private static readonly Color ActiveSlotColor = new Color32(0xE9, 0x82, 0xB8, 0xF2);
+        private static readonly Color DarkTextColor = new Color32(0x4C, 0x38, 0x45, 0xFF);
+        private static readonly Color LightTextColor = new Color32(0xFF, 0xFB, 0xF2, 0xFF);
 
         public bool IsPanelOpen => inventoryPanel != null && inventoryPanel.activeSelf;
 
@@ -48,6 +59,7 @@ namespace IsekaiTruck.UI
             dismantleSystem = dismantle;
             effectSystem = effects;
             joystickInput = input;
+            inventoryBlessingIds = new string[inventoryButtons.Length];
 
             blessingSystem.StateChanged += Refresh;
             loadoutSystem.StateChanged += Refresh;
@@ -71,6 +83,7 @@ namespace IsekaiTruck.UI
             }
 
             inventoryPanel.SetActive(false);
+            activeSlotHud.SetActive(true);
             SetViewport(cameraController.ViewportRect);
             Refresh();
         }
@@ -90,24 +103,86 @@ namespace IsekaiTruck.UI
                 return;
             }
 
-            for (int i = 0; i < activeSlotLabels.Length; i++)
+            int slotCount = Mathf.Min(activeSlotLabels.Length, loadoutSystem.SlotCount);
+            for (int i = 0; i < slotCount; i++)
             {
                 BlessingDefinition definition = loadoutSystem.GetEquipped(i);
                 if (definition == null)
                 {
-                    activeSlotLabels[i].text = $"{i + 1}  비어 있음";
+                    ApplyActiveSlot(i, $"<b>{i + 1}번 슬롯</b>\n비어 있음", EmptySlotColor, LightTextColor, 0f);
                     continue;
                 }
 
                 if (definition.ActivationType == BlessingActivationType.Passive)
                 {
-                    activeSlotLabels[i].text = $"{i + 1}  [{definition.Grade}] {definition.DisplayName} (패시브)";
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n패시브",
+                        PassiveSlotColor,
+                        LightTextColor,
+                        1f
+                    );
                     continue;
                 }
 
                 float remaining = effectSystem.GetRemainingDuration(i);
-                string state = remaining > 0f ? $"{remaining:F1}초" : "사용 가능";
-                activeSlotLabels[i].text = $"{i + 1}  [{definition.Grade}] {definition.DisplayName} ({state})";
+                if (remaining > 0f)
+                {
+                    float durationRatio = definition.Duration > 0f ? remaining / definition.Duration : 0f;
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n{remaining:F1}초",
+                        ActiveSlotColor,
+                        LightTextColor,
+                        durationRatio
+                    );
+                }
+                else if (effectSystem.CanActivate(i))
+                {
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n사용 가능",
+                        AvailableSlotColor,
+                        DarkTextColor,
+                        1f
+                    );
+                }
+                else
+                {
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n사용 불가",
+                        EmptySlotColor,
+                        LightTextColor,
+                        0f
+                    );
+                }
+            }
+
+            for (int i = slotCount; i < activeSlotLabels.Length; i++)
+            {
+                ApplyActiveSlot(i, $"<b>{i + 1}번 슬롯</b>\n비어 있음", EmptySlotColor, LightTextColor, 0f);
+            }
+        }
+
+        private void ApplyActiveSlot(int slotIndex, string label, Color backgroundColor, Color textColor, float fillRatio)
+        {
+            activeSlotLabels[slotIndex].text = label;
+            activeSlotLabels[slotIndex].color = textColor;
+
+            if (slotIndex < activeSlotBackgrounds.Length && activeSlotBackgrounds[slotIndex] != null)
+            {
+                activeSlotBackgrounds[slotIndex].color = backgroundColor;
+            }
+
+            if (slotIndex < activeSlotFills.Length && activeSlotFills[slotIndex] != null)
+            {
+                Image fill = activeSlotFills[slotIndex];
+                fill.color = new Color(textColor.r, textColor.g, textColor.b, 0.24f);
+                Vector2 anchorMax = fill.rectTransform.anchorMax;
+                anchorMax.x = Mathf.Clamp01(fillRatio);
+                fill.rectTransform.anchorMax = anchorMax;
+                fill.gameObject.SetActive(fillRatio > 0f);
             }
         }
 
@@ -132,20 +207,28 @@ namespace IsekaiTruck.UI
                     : $"{selected}슬롯 {i + 1}\n[{definition.Grade}] {definition.DisplayName}";
             }
 
-            for (int i = 0; i < inventoryButtons.Length; i++)
+            int inventoryIndex = 0;
+            for (int i = 0; i < blessingSystem.Definitions.Count && inventoryIndex < inventoryButtons.Length; i++)
             {
-                bool exists = i < blessingSystem.Definitions.Count;
-                BlessingDefinition definition = exists ? blessingSystem.Definitions[i] : null;
+                BlessingDefinition definition = blessingSystem.Definitions[i];
                 int ownedCount = definition == null ? 0 : blessingSystem.GetOwnedCount(definition.Id);
-                inventoryButtons[i].gameObject.SetActive(exists && ownedCount > 0);
                 if (definition == null || ownedCount <= 0)
                 {
                     continue;
                 }
 
+                inventoryBlessingIds[inventoryIndex] = definition.Id;
+                inventoryButtons[inventoryIndex].gameObject.SetActive(true);
                 int equippedCount = loadoutSystem.GetEquippedCount(definition.Id);
                 string selected = definition.Id == selectedBlessingId ? "▶ " : string.Empty;
-                inventoryLabels[i].text = $"{selected}[{definition.Grade}] {definition.DisplayName}\n보유 {ownedCount} / 장착 {equippedCount}";
+                inventoryLabels[inventoryIndex].text = $"{selected}[{definition.Grade}] {definition.DisplayName}\n보유 {ownedCount} / 장착 {equippedCount}";
+                inventoryIndex++;
+            }
+
+            for (int i = inventoryIndex; i < inventoryButtons.Length; i++)
+            {
+                inventoryBlessingIds[i] = null;
+                inventoryButtons[i].gameObject.SetActive(false);
             }
 
             BlessingDefinition selectedBlessing = blessingSystem.FindDefinition(selectedBlessingId);
@@ -196,12 +279,12 @@ namespace IsekaiTruck.UI
 
         private void SelectInventory(int inventoryIndex)
         {
-            if (inventoryIndex < 0 || inventoryIndex >= blessingSystem.Definitions.Count)
+            if (inventoryIndex < 0 || inventoryIndex >= inventoryBlessingIds.Length)
             {
                 return;
             }
 
-            BlessingDefinition definition = blessingSystem.Definitions[inventoryIndex];
+            BlessingDefinition definition = blessingSystem.FindDefinition(inventoryBlessingIds[inventoryIndex]);
             if (definition != null && blessingSystem.GetOwnedCount(definition.Id) > 0)
             {
                 selectedBlessingId = definition.Id;
@@ -255,6 +338,9 @@ namespace IsekaiTruck.UI
             Button[] targetSlotButtons,
             Text[] targetSlotLabels,
             Text[] targetActiveSlotLabels,
+            GameObject targetActiveSlotHud,
+            Image[] targetActiveSlotBackgrounds,
+            Image[] targetActiveSlotFills,
             Button[] targetInventoryButtons,
             Text[] targetInventoryLabels
         )
@@ -270,6 +356,9 @@ namespace IsekaiTruck.UI
             slotButtons = targetSlotButtons;
             slotLabels = targetSlotLabels;
             activeSlotLabels = targetActiveSlotLabels;
+            activeSlotHud = targetActiveSlotHud;
+            activeSlotBackgrounds = targetActiveSlotBackgrounds;
+            activeSlotFills = targetActiveSlotFills;
             inventoryButtons = targetInventoryButtons;
             inventoryLabels = targetInventoryLabels;
         }

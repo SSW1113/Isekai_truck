@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using IsekaiTruck.Config;
 using IsekaiTruck.Truck;
+using IsekaiTruck.Wanted;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -20,6 +21,7 @@ namespace IsekaiTruck.Enemies
         private GameConfig.EnemySettings settings;
         private Transform truck;
         private TruckHealthController truckHealth;
+        private WantedLevelSystem wantedLevelSystem;
         private bool isWorldPaused;
 
         public IReadOnlyList<EnemyController> Enemies => enemies;
@@ -27,6 +29,11 @@ namespace IsekaiTruck.Enemies
         public bool IsWorldPaused => isWorldPaused;
 
         public void Initialize(GameConfig gameConfig, Transform truckTransform, TruckHealthController healthController)
+        {
+            Initialize(gameConfig, truckTransform, healthController, null);
+        }
+
+        public void Initialize(GameConfig gameConfig, Transform truckTransform, TruckHealthController healthController, WantedLevelSystem wanted)
         {
             if (enemyCatalog == null || enemyCatalog.EnemyPrefabs.Count == 0)
             {
@@ -36,6 +43,7 @@ namespace IsekaiTruck.Enemies
             settings = gameConfig.Enemy;
             truck = truckTransform;
             truckHealth = healthController;
+            wantedLevelSystem = wanted;
             enemyRoot = enemyRoot == null ? transform : enemyRoot;
             isWorldPaused = false;
             LoadEnemyTypes();
@@ -50,7 +58,7 @@ namespace IsekaiTruck.Enemies
             }
 
             EnemyController enemy = Instantiate(prefab, enemyRoot, false);
-            enemy.name = $"Enemy ({typeId})";
+            enemy.name = $"Enemy ({type.DisplayName})";
             enemy.transform.position = new Vector3(position.x, type.Size * 0.5f, position.z);
             enemy.transform.localScale = Vector3.one * type.Size;
             enemy.Initialize(type, truck);
@@ -70,9 +78,12 @@ namespace IsekaiTruck.Enemies
 
         public void UpdateEnemies(float deltaTime)
         {
+            float speedMultiplier = wantedLevelSystem != null && wantedLevelSystem.Level >= settings.WantedSpeedBoostLevel
+                ? settings.WantedSpeedMultiplier
+                : 1f;
             for (int i = 0; i < enemies.Count; i++)
             {
-                enemies[i].UpdateEnemy(deltaTime, isWorldPaused);
+                enemies[i].UpdateEnemy(deltaTime, isWorldPaused, speedMultiplier);
             }
 
             if (!isWorldPaused)

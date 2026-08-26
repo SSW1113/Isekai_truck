@@ -103,6 +103,17 @@ namespace IsekaiTruck.Visuals
             Destroy(gameObject);
         }
 
+        public void PlayForDuration(float duration)
+        {
+            if (frames == null || frames.Length == 0)
+            {
+                return;
+            }
+
+            framesPerSecond = frames.Length / Mathf.Max(duration, 0.01f);
+            ResetSequence();
+        }
+
 #if UNITY_EDITOR
         public void Configure(
             SpriteRenderer targetRenderer,

@@ -146,8 +146,9 @@ namespace IsekaiTruck.Editor
                 MonsterManager monsterManager = monsterManagerObject.AddComponent<MonsterManager>();
                 monsterManager.SetDataFile(monsterDataFile);
                 monsterManager.Initialize(config, truckObject.transform);
+                MonsterData manType = monsterManager.Types["man"];
                 float collisionDistance = config.Monster.CollisionDistance * truckObject.transform.localScale.x;
-                monsterManager.CreateMonster("man", collisionDistance - 0.05f, 0f);
+                monsterManager.CreateMonster("man", collisionDistance - manType.Speed - 0.05f, 0f);
                 monsterManager.UpdateMonsters(1f / config.ReferenceFrameRate);
 
                 if (monsterManager.Monsters.Count != 0)

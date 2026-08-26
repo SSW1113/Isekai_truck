@@ -80,6 +80,11 @@ namespace IsekaiTruck.Camera
             blessingViewMultiplier = Mathf.Max(1f, viewMultiplier);
         }
 
+        public void RefreshViewport()
+        {
+            UpdateViewport();
+        }
+
         private Vector3 CalculateDamageShakeOffset()
         {
             if (damageShakeRemaining <= 0f || damageShakeDuration <= 0f || damageShakeAmplitude <= 0f)
