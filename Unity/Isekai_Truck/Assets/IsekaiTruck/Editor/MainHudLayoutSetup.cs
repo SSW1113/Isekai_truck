@@ -16,10 +16,12 @@ namespace IsekaiTruck.Editor
     public static class MainHudLayoutSetup
     {
         private const string ScenePath = "Assets/IsekaiTruck/Scenes/Main.unity";
+        private const string BrandLogoPath = "Assets/IsekaiTruck/Art/UI/Logo.png";
         private static readonly Color Cream = new Color32(0xF4, 0xE7, 0xC3, 0xFF);
         private static readonly Color DarkInk = new Color32(0x4C, 0x38, 0x45, 0xFF);
         private static readonly Color SoftWhite = new Color32(0xFF, 0xFB, 0xF2, 0xFF);
-        private static readonly Color PortraitBackground = new Color32(0xB5, 0xD7, 0xDD, 0xFF);
+        private static readonly Vector2 BlessingSlotHudPosition = new Vector2(24f, 24f);
+        private static readonly Vector2 BlessingSlotHudSize = new Vector2(312f, 96f);
 
         [MenuItem("Isekai Truck/Apply Main HUD Layout")]
         public static void Setup()
@@ -56,6 +58,7 @@ namespace IsekaiTruck.Editor
             }
 
             HideCentralHud(gameArea, canvas.transform);
+            ShowBlessingSlotHud(canvas, gameArea);
             ShowWantedHud(gameUI, gameArea);
             ReserveWantedHudSpaceForEnemyWarnings();
             MoveHealthUI(canvas, leftPanel);
@@ -102,8 +105,50 @@ namespace IsekaiTruck.Editor
                 SetInactive(legacyGameArea.Find("Player HUD"));
             }
 
-            SetInactive(canvas.Find("Blessing Inventory UI/Blessing Game Area/Active Blessing Slots"));
             SetInactive(canvas.Find("World Travel UI/World Travel Game Area/Current World Panel"));
+        }
+
+        private static void ShowBlessingSlotHud(Canvas canvas, RectTransform gameArea)
+        {
+            BlessingInventoryUIController blessingUI = canvas.GetComponentInChildren<BlessingInventoryUIController>(true);
+            if (blessingUI == null)
+            {
+                return;
+            }
+
+            SerializedObject serializedBlessingUI = new SerializedObject(blessingUI);
+            GameObject slotHudObject = (GameObject)serializedBlessingUI.FindProperty("activeSlotHud").objectReferenceValue;
+            RectTransform slotHud = slotHudObject != null ? slotHudObject.GetComponent<RectTransform>() : null;
+            if (slotHud == null)
+            {
+                return;
+            }
+
+            Transform staleSlotHud = gameArea.Find("Active Blessing Slots");
+            if (staleSlotHud != null && staleSlotHud != slotHud)
+            {
+                Object.DestroyImmediate(staleSlotHud.gameObject);
+            }
+
+            if (slotHud.parent != gameArea)
+            {
+                slotHud.SetParent(gameArea, false);
+            }
+
+            ConfigureBlessingSlotHud(slotHud);
+            slotHud.SetAsFirstSibling();
+            slotHud.gameObject.SetActive(true);
+        }
+
+        internal static void ConfigureBlessingSlotHud(RectTransform slotHud)
+        {
+            slotHud.anchorMin = Vector2.zero;
+            slotHud.anchorMax = Vector2.zero;
+            slotHud.pivot = Vector2.zero;
+            slotHud.anchoredPosition = BlessingSlotHudPosition;
+            slotHud.sizeDelta = BlessingSlotHudSize;
+            slotHud.localRotation = Quaternion.identity;
+            slotHud.localScale = Vector3.one;
         }
 
         private static void ShowWantedHud(GameUIController gameUI, RectTransform gameArea)
@@ -342,7 +387,7 @@ namespace IsekaiTruck.Editor
             PolishSidePanel(leftPanel);
             PolishSidePanel(rightPanel);
             PolishGrowthHud(gameUI, leftPanel);
-            PolishGoddessArea(rightPanel);
+            CreateBrandLogo(rightPanel);
             PolishSoulChip(gameUI, rightPanel);
             PolishHiddenSpeedHud(gameArea);
             HideCenterFrame(gameArea);
@@ -471,34 +516,89 @@ namespace IsekaiTruck.Editor
             expFill.color = HudColorPalette.LevelFill;
         }
 
-        private static void PolishGoddessArea(RectTransform rightPanel)
+        internal static Image CreateBrandLogo(RectTransform rightPanel)
         {
-            RectTransform goddessArea = rightPanel.Find("Goddess Area") as RectTransform;
-            if (goddessArea == null)
+            Transform goddessArea = rightPanel.Find("Goddess Area");
+            if (goddessArea != null)
             {
-                return;
+                Object.DestroyImmediate(goddessArea.gameObject);
             }
 
-            SetRect(goddessArea, new Vector2(0.08f, 0.36f), new Vector2(0.92f, 0.89f));
-            RectTransform portraitFrame = goddessArea.Find("Portrait Frame") as RectTransform;
-            if (portraitFrame != null)
+            GoddessDialogueMockController[] dialogueControllers = rightPanel.GetComponentsInChildren<GoddessDialogueMockController>(true);
+            for (int i = 0; i < dialogueControllers.Length; i++)
             {
-                portraitFrame.sizeDelta = new Vector2(270f, 270f);
-                Image frameImage = portraitFrame.GetComponent<Image>();
-                frameImage.color = Cream;
-
-                Transform background = portraitFrame.Find("Portrait Background");
-                if (background != null)
-                {
-                    background.GetComponent<Image>().color = PortraitBackground;
-                }
+                Object.DestroyImmediate(dialogueControllers[i]);
             }
 
-            RectTransform speechBubble = goddessArea.Find("Speech Bubble") as RectTransform;
-            if (speechBubble != null)
+            GoddessSpeechBubble[] speechBubbles = rightPanel.GetComponentsInChildren<GoddessSpeechBubble>(true);
+            for (int i = 0; i < speechBubbles.Length; i++)
             {
-                speechBubble.sizeDelta = new Vector2(270f, 78f);
+                Object.DestroyImmediate(speechBubbles[i].gameObject);
             }
+
+            Transform existingLogo = rightPanel.Find("Brand Logo");
+            GameObject logoObject;
+            if (existingLogo == null)
+            {
+                logoObject = new GameObject("Brand Logo", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                logoObject.transform.SetParent(rightPanel, false);
+            }
+            else
+            {
+                logoObject = existingLogo.gameObject;
+            }
+
+            RectTransform logoRect = logoObject.GetComponent<RectTransform>();
+            logoRect.anchorMin = new Vector2(0.5f, 0.66f);
+            logoRect.anchorMax = new Vector2(0.5f, 0.66f);
+            logoRect.pivot = new Vector2(0.5f, 0.5f);
+            logoRect.anchoredPosition = Vector2.zero;
+            logoRect.sizeDelta = new Vector2(330f, 330f);
+            logoRect.localRotation = Quaternion.identity;
+            logoRect.localScale = Vector3.one;
+
+            Image logoImage = logoObject.GetComponent<Image>();
+            logoImage.sprite = LoadBrandLogoSprite();
+            logoImage.color = Color.white;
+            logoImage.preserveAspect = true;
+            logoImage.raycastTarget = false;
+            return logoImage;
+        }
+
+        private static Sprite LoadBrandLogoSprite()
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(BrandLogoPath) as TextureImporter;
+            if (importer == null)
+            {
+                AssetDatabase.ImportAsset(BrandLogoPath, ImportAssetOptions.ForceUpdate);
+                importer = AssetImporter.GetAtPath(BrandLogoPath) as TextureImporter;
+            }
+
+            if (importer == null)
+            {
+                throw new InvalidOperationException($"Brand logo was not found: {BrandLogoPath}");
+            }
+
+            bool needsReimport = importer.textureType != TextureImporterType.Sprite ||
+                importer.spriteImportMode != SpriteImportMode.Single || importer.mipmapEnabled ||
+                !importer.alphaIsTransparency || importer.wrapMode != TextureWrapMode.Clamp;
+            if (needsReimport)
+            {
+                importer.textureType = TextureImporterType.Sprite;
+                importer.spriteImportMode = SpriteImportMode.Single;
+                importer.mipmapEnabled = false;
+                importer.alphaIsTransparency = true;
+                importer.wrapMode = TextureWrapMode.Clamp;
+                importer.SaveAndReimport();
+            }
+
+            Sprite logoSprite = AssetDatabase.LoadAssetAtPath<Sprite>(BrandLogoPath);
+            if (logoSprite == null)
+            {
+                throw new InvalidOperationException($"Brand logo sprite could not be loaded: {BrandLogoPath}");
+            }
+
+            return logoSprite;
         }
 
         private static void PolishSoulChip(GameUIController gameUI, RectTransform rightPanel)
@@ -794,6 +894,7 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Speed HUD is not visible in the game area.");
             }
 
+            VerifyBlessingSlotHud(gameArea);
             VerifyWantedHud(gameArea);
 
             TruckHealthUIController healthUI = GetReferencedHealthUI();
@@ -814,6 +915,31 @@ namespace IsekaiTruck.Editor
             VerifyVisualPolish(gameArea, leftPanel, rightPanel, healthUI, blessingButton, worldTravelButton);
             VerifyHealthHearts();
             Debug.Log("Main HUD layout verification passed.");
+        }
+
+        private static void VerifyBlessingSlotHud(RectTransform gameArea)
+        {
+            RectTransform slotHud = gameArea.Find("Active Blessing Slots") as RectTransform;
+            if (slotHud == null ||
+                !slotHud.gameObject.activeSelf ||
+                slotHud.anchorMin != Vector2.zero ||
+                slotHud.anchorMax != Vector2.zero ||
+                slotHud.pivot != Vector2.zero ||
+                slotHud.anchoredPosition != BlessingSlotHudPosition ||
+                slotHud.sizeDelta != BlessingSlotHudSize ||
+                slotHud.childCount != 3)
+            {
+                throw new InvalidOperationException("Blessing slot HUD is not visible at the bottom-left of the game area.");
+            }
+
+            for (int i = 0; i < slotHud.childCount; i++)
+            {
+                RectTransform slot = slotHud.GetChild(i) as RectTransform;
+                if (slot == null || slot.sizeDelta != new Vector2(96f, 96f))
+                {
+                    throw new InvalidOperationException("Blessing slot HUD cards are not square.");
+                }
+            }
         }
 
         private static void VerifyWantedHud(RectTransform gameArea)
@@ -864,10 +990,12 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Side panel outlines were not softened.");
             }
 
-            RectTransform portraitFrame = rightPanel.Find("Goddess Area/Portrait Frame") as RectTransform;
-            if (portraitFrame == null || portraitFrame.sizeDelta != new Vector2(270f, 270f))
+            Image brandLogo = rightPanel.Find("Brand Logo")?.GetComponent<Image>();
+            if (rightPanel.Find("Goddess Area") != null || brandLogo == null || brandLogo.sprite == null ||
+                AssetDatabase.GetAssetPath(brandLogo.sprite) != BrandLogoPath || !brandLogo.preserveAspect ||
+                brandLogo.rectTransform.sizeDelta != new Vector2(330f, 330f))
             {
-                throw new InvalidOperationException("Goddess portrait proportions were not polished.");
+                throw new InvalidOperationException("Goddess UI was not replaced with the brand logo.");
             }
 
             SerializedObject serializedHealthUI = new SerializedObject(healthUI);

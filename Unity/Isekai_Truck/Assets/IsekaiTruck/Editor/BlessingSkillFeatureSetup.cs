@@ -110,7 +110,8 @@ namespace IsekaiTruck.Editor
             string[] uiReferences =
             {
                 "gameArea", "inventoryPanel", "selectionText", "openButton", "closeButton", "equipButton",
-                "unequipButton", "dismantleButton", "slotButtons", "slotLabels", "activeSlotLabels", "inventoryButtons", "inventoryLabels"
+                "unequipButton", "dismantleButton", "slotButtons", "slotLabels", "activeSlotLabels", "activeSlotHud",
+                "activeSlotBackgrounds", "activeSlotFills", "inventoryButtons", "inventoryLabels"
             };
             for (int i = 0; i < uiReferences.Length; i++)
             {
@@ -120,6 +121,19 @@ namespace IsekaiTruck.Editor
                 {
                     throw new InvalidOperationException($"BlessingInventoryUIController reference is missing: {uiReferences[i]}");
                 }
+            }
+
+            GameObject activeSlotHud = (GameObject)serializedUI.FindProperty("activeSlotHud").objectReferenceValue;
+            SerializedProperty activeSlotBackgrounds = serializedUI.FindProperty("activeSlotBackgrounds");
+            SerializedProperty activeSlotFills = serializedUI.FindProperty("activeSlotFills");
+            RectTransform activeSlotRect = activeSlotHud != null ? activeSlotHud.GetComponent<RectTransform>() : null;
+            if (activeSlotRect == null || !activeSlotHud.activeSelf || activeSlotRect.anchorMin != Vector2.zero ||
+                activeSlotRect.anchorMax != Vector2.zero || activeSlotRect.pivot != Vector2.zero ||
+                activeSlotRect.anchoredPosition != new Vector2(24f, 24f) || activeSlotRect.sizeDelta != new Vector2(312f, 96f) ||
+                activeSlotRect.childCount != 3 ||
+                activeSlotBackgrounds.arraySize != 3 || activeSlotFills.arraySize != 3)
+            {
+                throw new InvalidOperationException("Blessing slot HUD layout is incorrect.");
             }
 
             VerifyRuntime(config, catalog);
@@ -374,15 +388,40 @@ namespace IsekaiTruck.Editor
             Button openButton = CreateButton("Open Blessing Button", gameArea, font, "축복", 21);
             SetRect(openButton.GetComponent<RectTransform>(), new Vector2(0.73f, 1f), Vector2.one, new Vector2(0f, -226f), new Vector2(-14f, -170f));
 
-            GameObject activeHud = CreatePanel("Active Blessing Slots", gameArea, new Color(0f, 0f, 0f, 0.55f));
-            activeHud.GetComponent<Image>().raycastTarget = false;
-            SetRect(activeHud.GetComponent<RectTransform>(), Vector2.zero, new Vector2(0.72f, 0f), new Vector2(14f, 14f), new Vector2(0f, 145f));
-            activeHud.SetActive(false);
+            GameObject activeHud = CreateUIObject("Active Blessing Slots", gameArea);
+            MainHudLayoutSetup.ConfigureBlessingSlotHud(activeHud.GetComponent<RectTransform>());
             Text[] activeSlotLabels = new Text[3];
+            Image[] activeSlotBackgrounds = new Image[3];
+            Image[] activeSlotFills = new Image[3];
             for (int i = 0; i < activeSlotLabels.Length; i++)
             {
-                activeSlotLabels[i] = CreateText($"Active Slot {i + 1}", activeHud.transform, font, $"{i + 1}  비어 있음", 17, TextAnchor.MiddleLeft);
-                SetRect(activeSlotLabels[i].rectTransform, new Vector2(0f, 1f - (i + 1) / 3f), new Vector2(1f, 1f - i / 3f), new Vector2(12f, 0f), new Vector2(-8f, 0f));
+                GameObject slot = CreatePanel($"Active Slot {i + 1}", activeHud.transform, new Color32(0x70, 0x62, 0x68, 0xD9));
+                RectTransform slotRect = slot.GetComponent<RectTransform>();
+                slotRect.anchorMin = Vector2.zero;
+                slotRect.anchorMax = Vector2.zero;
+                slotRect.pivot = Vector2.zero;
+                slotRect.anchoredPosition = new Vector2(i * 108f, 0f);
+                slotRect.sizeDelta = new Vector2(96f, 96f);
+                activeSlotBackgrounds[i] = slot.GetComponent<Image>();
+                activeSlotBackgrounds[i].raycastTarget = false;
+                CartoonUIStyle.StylePanel(slot, activeSlotBackgrounds[i].color, HudColorPalette.DarkInk);
+
+                GameObject fill = CreatePanel("State Fill", slot.transform, new Color(1f, 1f, 1f, 0.24f));
+                RectTransform fillRect = fill.GetComponent<RectTransform>();
+                SetRect(fillRect, Vector2.zero, new Vector2(0f, 0.08f), Vector2.zero, Vector2.zero);
+                fillRect.pivot = Vector2.zero;
+                activeSlotFills[i] = fill.GetComponent<Image>();
+                activeSlotFills[i].raycastTarget = false;
+                activeSlotFills[i].gameObject.SetActive(false);
+
+                activeSlotLabels[i] = CreateText("Label", slot.transform, font, $"<b>{i + 1}번 슬롯</b>\n비어 있음", 17, TextAnchor.MiddleCenter);
+                activeSlotLabels[i].fontStyle = FontStyle.Bold;
+                activeSlotLabels[i].resizeTextForBestFit = true;
+                activeSlotLabels[i].resizeTextMinSize = 10;
+                activeSlotLabels[i].resizeTextMaxSize = 17;
+                activeSlotLabels[i].lineSpacing = 0.9f;
+                activeSlotLabels[i].color = HudColorPalette.SoftWhite;
+                StretchWithOffsets(activeSlotLabels[i].rectTransform, 5f, 5f, 7f, 5f);
             }
 
             GameObject panel = CreatePanel("Blessing Inventory Panel", gameArea, new Color(0f, 0f, 0f, 0.72f));
@@ -446,7 +485,24 @@ namespace IsekaiTruck.Editor
             CartoonUIStyle.StyleButton(dismantleButton, HudColorPalette.Wanted, HudColorPalette.WantedDepth, HudColorPalette.SoftWhite);
             CartoonUIStyle.StyleButton(closeButton, HudColorPalette.Cream, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
 
-            controller.SetReferences(gameArea, panel, selectionText, openButton, closeButton, equipButton, unequipButton, dismantleButton, slotButtons, slotLabels, activeSlotLabels, inventoryButtons, inventoryLabels);
+            controller.SetReferences(
+                gameArea,
+                panel,
+                selectionText,
+                openButton,
+                closeButton,
+                equipButton,
+                unequipButton,
+                dismantleButton,
+                slotButtons,
+                slotLabels,
+                activeSlotLabels,
+                activeHud,
+                activeSlotBackgrounds,
+                activeSlotFills,
+                inventoryButtons,
+                inventoryLabels
+            );
             panel.SetActive(false);
             return controller;
         }

@@ -27,7 +27,6 @@ namespace IsekaiTruck.Editor
         private const string TmpSettingsPath = TmpResourcesFolder + "/TMP Settings.asset";
         private const string TmpLeadingCharactersPath = TmpResourcesFolder + "/LineBreaking Leading Characters.txt";
         private const string TmpFollowingCharactersPath = TmpResourcesFolder + "/LineBreaking Following Characters.txt";
-        private const string GoddessDialogueMockDataPath = "Assets/IsekaiTruck/Data/GoddessDialogueMockData.asset";
         private const string CartoonFontCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:/%+-!?레벨포인트업그레이드트럭남은속도크기최대닫기여신이지켜보고있습니다영혼도감";
 
         [MenuItem("Isekai Truck/Setup Game UI Stage")]
@@ -138,8 +137,7 @@ namespace IsekaiTruck.Editor
                 leftPanel.Find("Secondary Navigation/Collection Button/Icon") == null ||
                 leftPanel.Find("Secondary Navigation/Collection Button/Label") == null ||
                 leftPanel.Find("Secondary Navigation/Collection Button/NotificationBadge") == null ||
-                rightPanel.Find("Goddess Area/Portrait Frame/Portrait Background/Goddess Silhouette/Head") == null ||
-                rightPanel.Find("Goddess Area/Speech Bubble") != null ||
+                rightPanel.Find("Goddess Area") != null || rightPanel.Find("Brand Logo") == null ||
                 rightPanel.Find("System Navigation") != null || rightPanel.Find("Settings Button") != null ||
                 rightPanel.Find("Soul Chip") == null || gameArea.Find("Speed HUD/Speed Text") == null ||
                 rightPanel.Find("SpeedCard") != null || leftPanel.Find("LevelCard") != null || leftPanel.Find("ExpCard") != null)
@@ -413,30 +411,6 @@ namespace IsekaiTruck.Editor
             return fontAsset;
         }
 
-        private static GoddessDialogueMockData GetOrCreateGoddessDialogueMockData()
-        {
-            GoddessDialogueMockData dialogueData = AssetDatabase.LoadAssetAtPath<GoddessDialogueMockData>(GoddessDialogueMockDataPath);
-            if (dialogueData == null)
-            {
-                dialogueData = ScriptableObject.CreateInstance<GoddessDialogueMockData>();
-                dialogueData.name = "GoddessDialogueMockData";
-                AssetDatabase.CreateAsset(dialogueData, GoddessDialogueMockDataPath);
-            }
-
-            dialogueData.SetRules(new[]
-            {
-                new GoddessDialogueRule(GoddessDialogueTrigger.GameStart, 0f, 2.8f, 10, true, "여신이 지켜보고 있습니다"),
-                new GoddessDialogueRule(GoddessDialogueTrigger.LevelUp, 0f, 2.8f, 100, false, "레벨 업!", "레벨 포인트 +"),
-                new GoddessDialogueRule(GoddessDialogueTrigger.UpgradeAvailable, 0f, 3f, 90, false, "업그레이드 포인트!"),
-                new GoddessDialogueRule(GoddessDialogueTrigger.UpgradeApplied, 0f, 3f, 80, false, "트럭 업그레이드!"),
-                new GoddessDialogueRule(GoddessDialogueTrigger.SoulGained, 0f, 4.5f, 40, false, "영혼 +", "영혼 포인트 +"),
-                new GoddessDialogueRule(GoddessDialogueTrigger.SpeedReached, 30f, 3f, 60, true, "트럭 속도 업!"),
-                new GoddessDialogueRule(GoddessDialogueTrigger.SpeedReached, 55f, 3f, 70, true, "최대 속도!")
-            });
-            EditorUtility.SetDirty(dialogueData);
-            return dialogueData;
-        }
-
         private static void EnsureTmpSettings()
         {
             TMP_Settings existingSettings = AssetDatabase.LoadAssetAtPath<TMP_Settings>(TmpSettingsPath);
@@ -498,8 +472,6 @@ namespace IsekaiTruck.Editor
             Color speedDepth = HudColorPalette.SpeedDepth;
             Color creamColor = new Color(1f, 0.97f, 0.84f, 1f);
             Color yellowColor = HudColorPalette.Upgrade;
-            Color silhouetteColor = new Color(0.25f, 0.18f, 0.29f, 1f);
-
             GameObject uiObject = CreateUIObject("Game UI", canvas);
             Stretch(uiObject.GetComponent<RectTransform>());
             GameUIController controller = uiObject.AddComponent<GameUIController>();
@@ -642,35 +614,7 @@ namespace IsekaiTruck.Editor
             RectTransform rightPanel = rightPanelObject.GetComponent<RectTransform>();
             SetRect(rightPanel, new Vector2(0.79f, 0f), Vector2.one, Vector2.zero, Vector2.zero);
 
-            GameObject goddessArea = CreateUIObject("Goddess Area", rightPanel);
-            SetRect(goddessArea.GetComponent<RectTransform>(), new Vector2(0.06f, 0.34f), new Vector2(0.94f, 0.89f), Vector2.zero, Vector2.zero);
-
-            GameObject portraitFrame = CreateCirclePanel("Portrait Frame", goddessArea.transform, creamColor);
-            RectTransform portraitFrameRect = portraitFrame.GetComponent<RectTransform>();
-            SetRect(portraitFrameRect, new Vector2(0.50f, 0.55f), new Vector2(0.50f, 0.55f), Vector2.zero, Vector2.zero);
-            portraitFrameRect.sizeDelta = new Vector2(300f, 300f);
-            portraitFrame.GetComponent<Image>().preserveAspect = true;
-            Outline portraitOutline = portraitFrame.AddComponent<Outline>();
-            portraitOutline.effectColor = new Color(outlineColor.r, outlineColor.g, outlineColor.b, 0.82f);
-            portraitOutline.effectDistance = new Vector2(2f, -2f);
-            GameObject portraitBackground = CreateCirclePanel("Portrait Background", portraitFrame.transform, new Color(0.68f, 0.88f, 0.94f, 1f));
-            StretchWithOffsets(portraitBackground.GetComponent<RectTransform>(), 9f, 9f, 9f, 9f);
-            portraitBackground.GetComponent<Image>().preserveAspect = true;
-            CreateSparkle(goddessArea.transform, new Vector2(0.82f, 0.80f), yellowColor, 20f);
-            CreateSparkle(goddessArea.transform, new Vector2(0.18f, 0.66f), Color.white, 13f);
-
-            GameObject silhouette = CreateUIObject("Goddess Silhouette", portraitBackground.transform);
-            SetRect(silhouette.GetComponent<RectTransform>(), new Vector2(0.20f, 0.10f), new Vector2(0.80f, 0.90f), Vector2.zero, Vector2.zero);
-            GameObject head = CreateCirclePanel("Head", silhouette.transform, silhouetteColor);
-            SetRect(head.GetComponent<RectTransform>(), new Vector2(0.36f, 0.72f), new Vector2(0.64f, 0.94f), Vector2.zero, Vector2.zero);
-            GameObject body = CreatePanel("Body", silhouette.transform, silhouetteColor);
-            SetRect(body.GetComponent<RectTransform>(), new Vector2(0.32f, 0.25f), new Vector2(0.68f, 0.73f), Vector2.zero, Vector2.zero);
-            GameObject leftArm = CreatePanel("Left Arm", silhouette.transform, silhouetteColor);
-            SetRect(leftArm.GetComponent<RectTransform>(), new Vector2(0.18f, 0.30f), new Vector2(0.34f, 0.70f), Vector2.zero, Vector2.zero);
-            leftArm.transform.localRotation = Quaternion.Euler(0f, 0f, -12f);
-            GameObject rightArm = CreatePanel("Right Arm", silhouette.transform, silhouetteColor);
-            SetRect(rightArm.GetComponent<RectTransform>(), new Vector2(0.66f, 0.30f), new Vector2(0.82f, 0.70f), Vector2.zero, Vector2.zero);
-            rightArm.transform.localRotation = Quaternion.Euler(0f, 0f, 12f);
+            MainHudLayoutSetup.CreateBrandLogo(rightPanel);
 
             GameObject soulSection = CreatePanel("Soul Chip", rightPanel, soulColor);
             SetRect(soulSection.GetComponent<RectTransform>(), new Vector2(0.18f, 0.22f), new Vector2(0.82f, 0.31f), Vector2.zero, Vector2.zero);
