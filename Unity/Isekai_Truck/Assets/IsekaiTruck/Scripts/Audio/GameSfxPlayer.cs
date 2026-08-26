@@ -41,6 +41,7 @@ namespace IsekaiTruck.Audio
         };
         private const string BgmClipPath = "Audio/BGM/MainBgm";
         private const float BgmVolume = 0.2f;
+        private const float RebirthVolume = BgmVolume;
         private const float WizardTeleportVolume = 0.45f;
         private const float JeonWoochiSpellVolume = 0.65f;
 
@@ -97,7 +98,7 @@ namespace IsekaiTruck.Audio
 
         public static void PlayRebirth()
         {
-            instance?.PlayOneShot(instance.rebirthClip);
+            instance?.PlayOneShot(instance.rebirthClip, RebirthVolume);
         }
 
         public static void PlayNinjaSubstitution()

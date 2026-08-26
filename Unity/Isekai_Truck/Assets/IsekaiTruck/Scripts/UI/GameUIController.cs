@@ -25,8 +25,6 @@ namespace IsekaiTruck.UI
         [SerializeField] private TMP_Text upgradePointText;
         [SerializeField] private TMP_Text speedLevelText;
         [SerializeField] private TMP_Text sizeLevelText;
-        [SerializeField] private TMP_Text speedStatText;
-        [SerializeField] private TMP_Text sizeStatText;
         [SerializeField] private Button openButton;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button speedButton;
@@ -135,8 +133,6 @@ namespace IsekaiTruck.UI
             speedLevelText.text = $"Lv.{truck.SpeedLevel}";
             sizeLevelText.text = $"Lv.{truck.SizeLevel}";
             int displayedMaxSpeedKmh = BaseDisplayedMaxSpeedKmh + truck.SpeedLevel * DisplayedSpeedPerUpgradeKmh;
-            speedStatText.text = $"최대 속도: {displayedMaxSpeedKmh} km/h";
-            sizeStatText.text = $"트럭 크기: {Mathf.RoundToInt(truck.SizeScale * 100f)}%";
             RefreshSpeedTarget();
         }
 
@@ -414,8 +410,6 @@ namespace IsekaiTruck.UI
             TMP_Text targetUpgradePointText,
             TMP_Text targetSpeedLevelText,
             TMP_Text targetSizeLevelText,
-            TMP_Text targetSpeedStatText,
-            TMP_Text targetSizeStatText,
             Button targetOpenButton,
             Button targetCloseButton,
             Button targetSpeedButton,
@@ -443,8 +437,6 @@ namespace IsekaiTruck.UI
             upgradePointText = targetUpgradePointText;
             speedLevelText = targetSpeedLevelText;
             sizeLevelText = targetSizeLevelText;
-            speedStatText = targetSpeedStatText;
-            sizeStatText = targetSizeStatText;
             openButton = targetOpenButton;
             closeButton = targetCloseButton;
             speedButton = targetSpeedButton;

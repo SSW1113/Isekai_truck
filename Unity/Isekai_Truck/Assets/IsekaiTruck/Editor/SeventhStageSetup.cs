@@ -115,7 +115,7 @@ namespace IsekaiTruck.Editor
             string[] requiredProperties =
             {
                 "leftPanel", "gameArea", "rightPanel", "upgradePanel", "levelText", "expText", "expFill", "soulText", "speedText", "pointText",
-                "upgradePointText", "speedLevelText", "sizeLevelText", "speedStatText", "sizeStatText",
+                "upgradePointText", "speedLevelText", "sizeLevelText",
                 "openButton", "closeButton", "speedButton", "sizeButton", "collectionButton",
                 "collectionNotificationBadge", "upgradeAvailableIndicator",
                 "levelFeedback", "soulFeedback", "upgradeFeedback", "speedFeedback", "speedHudView"
@@ -224,8 +224,6 @@ namespace IsekaiTruck.Editor
                 TMP_Text upgradePointText = (TMP_Text)serializedUI.FindProperty("upgradePointText").objectReferenceValue;
                 TMP_Text speedLevelText = (TMP_Text)serializedUI.FindProperty("speedLevelText").objectReferenceValue;
                 TMP_Text sizeLevelText = (TMP_Text)serializedUI.FindProperty("sizeLevelText").objectReferenceValue;
-                TMP_Text speedStatText = (TMP_Text)serializedUI.FindProperty("speedStatText").objectReferenceValue;
-                TMP_Text sizeStatText = (TMP_Text)serializedUI.FindProperty("sizeStatText").objectReferenceValue;
                 Image expFill = (Image)serializedUI.FindProperty("expFill").objectReferenceValue;
                 TMP_FontAsset cartoonFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(CartoonFontAssetPath);
 
@@ -235,7 +233,7 @@ namespace IsekaiTruck.Editor
                 Button sizeButton = (Button)serializedUI.FindProperty("sizeButton").objectReferenceValue;
                 TMP_Text sizeButtonLabel = sizeButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
                 if (!IsCentered(upgradeTitle) || !IsCentered(upgradePointText) || !IsCentered(speedLevelText) ||
-                    !IsCentered(sizeLevelText) || !IsCentered(speedStatText) || !IsCentered(sizeStatText) ||
+                    !IsCentered(sizeLevelText) ||
                     !IsCentered(speedButtonLabel) || !IsCentered(sizeButtonLabel))
                 {
                     throw new InvalidOperationException("업그레이드 팝업 글자가 가운데 정렬되지 않았습니다.");
@@ -280,11 +278,6 @@ namespace IsekaiTruck.Editor
                 if (truck.CurrentSpeedPerSecond <= 0f || !speedText.text.EndsWith("km/h"))
                 {
                     throw new InvalidOperationException("트럭 속도 또는 Speed HUD 표시 형식이 올바르지 않습니다.");
-                }
-
-                if (speedStatText.text != "최대 속도: 50 km/h")
-                {
-                    throw new InvalidOperationException("업그레이드 최대 속도가 레벨당 10 km/h씩 표시되지 않았습니다.");
                 }
 
                 closeButton.onClick.Invoke();
@@ -632,10 +625,6 @@ namespace IsekaiTruck.Editor
             TMP_Text speedButtonLabel = speedButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
             SetRect(speedButtonLabel.rectTransform, new Vector2(0.08f, 0.34f), new Vector2(0.92f, 0.96f), Vector2.zero, Vector2.zero);
 
-            TMP_Text speedStatText = CreateText("Speed Stat", upgradeBox.transform, font, "최대 속도: 40 km/h", 19, TextAlignmentOptions.Center);
-            SetTopRect(speedStatText.rectTransform, 178f, 30f, 22f);
-            speedStatText.color = outlineColor;
-
             Button sizeButton = CreateButton("Size Upgrade Button", upgradeBox.transform, font, "크기 업그레이드", 24);
             SetTopRect(sizeButton.GetComponent<RectTransform>(), 225f, 58f, 22f);
             TMP_Text sizeLevelText = CreateText("Size Level", sizeButton.transform, font, "Lv.0", 17, TextAlignmentOptions.Center);
@@ -645,10 +634,6 @@ namespace IsekaiTruck.Editor
 
             TMP_Text sizeButtonLabel = sizeButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
             SetRect(sizeButtonLabel.rectTransform, new Vector2(0.08f, 0.34f), new Vector2(0.92f, 0.96f), Vector2.zero, Vector2.zero);
-
-            TMP_Text sizeStatText = CreateText("Size Stat", upgradeBox.transform, font, "트럭 크기: 100%", 19, TextAlignmentOptions.Center);
-            SetTopRect(sizeStatText.rectTransform, 288f, 30f, 22f);
-            sizeStatText.color = outlineColor;
 
             Button closeButton = CreateButton("Close Button", upgradeBox.transform, font, "닫기", 22);
             SetTopRect(closeButton.GetComponent<RectTransform>(), 342f, 54f, 22f);
@@ -716,8 +701,6 @@ namespace IsekaiTruck.Editor
                 upgradePointText,
                 speedLevelText,
                 sizeLevelText,
-                speedStatText,
-                sizeStatText,
                 openButton,
                 closeButton,
                 speedButton,
