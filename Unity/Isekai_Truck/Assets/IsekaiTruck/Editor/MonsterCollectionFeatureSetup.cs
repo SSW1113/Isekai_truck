@@ -151,6 +151,20 @@ namespace IsekaiTruck.Editor
             }
         }
 
+        [MenuItem("Isekai Truck/Refresh Monster Collection Font")]
+        public static void RefreshCollectionFont()
+        {
+            MonsterCollectionCatalog catalog = AssetDatabase.LoadAssetAtPath<MonsterCollectionCatalog>(CatalogPath);
+            if (catalog == null)
+            {
+                throw new InvalidOperationException("도감 카탈로그를 찾지 못했습니다.");
+            }
+
+            GetOrCreateCollectionFont(catalog);
+            AssetDatabase.SaveAssets();
+            Debug.Log("몬스터 도감 폰트 갱신이 완료되었습니다.");
+        }
+
         public static void Verify()
         {
             MonsterCollectionCatalog catalog = AssetDatabase.LoadAssetAtPath<MonsterCollectionCatalog>(CatalogPath);
