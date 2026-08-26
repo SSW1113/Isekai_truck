@@ -15,78 +15,57 @@ MonoBehaviour:
   entries:
   - monsterDefinition: {fileID: 2719208529127837379, guid: 566567d5ce7c39d46b871fa7082789bb, type: 3}
     portrait: {fileID: 2300000000000000001, guid: 85e12af4572541c08d3bba9ea0bb9652, type: 3}
-    behaviorDescription: "\uD2B8\uB7ED\uC744 \uBC1C\uACAC\uD558\uBA74 \uBC18\uB300
-      \uBC29\uD5A5\uC73C\uB85C \uB3C4\uB9DD\uCE69\uB2C8\uB2E4. \uBA40\uB9AC\uC11C\uB294
-      \uCC9C\uCC9C\uD788 \uBC30\uD68C\uD558\uBA70 \uD2B9\uBCC4\uD55C \uD68C\uD53C
-      \uB2A5\uB825\uC740 \uC5C6\uC2B5\uB2C8\uB2E4."
+    behaviorDescription: "그저 날씨가 좋아 산책하러 나온 평범한 주민입니다."
     defeatDescription: "\uB3C4\uB9DD\uAC08 \uBC29\uD5A5\uC744 \uC608\uC0C1\uD574
       \uD2B8\uB7ED\uC73C\uB85C \uD55C \uBC88 \uC811\uCD09\uD558\uBA74 \uC774\uC138\uACC4
       \uC804\uC1A1\uC774 \uC644\uB8CC\uB429\uB2C8\uB2E4."
   - monsterDefinition: {fileID: 5516710088387759000, guid: e0fb4d2ea0e361a4cba96f6b20dd017b, type: 3}
     portrait: {fileID: 2300000000000000001, guid: a427c0b83d9b4a67b092362fb32c93a4, type: 3}
-    behaviorDescription: "\uD3C9\uC18C\uC5D0\uB294 \uBC30\uD68C\uD558\uB2E4\uAC00
-      \uD2B8\uB7ED\uC774 \uAC00\uAE4C\uC6CC\uC9C0\uBA74 \uBE60\uB974\uAC8C \uBC18\uB300\uD3B8\uC73C\uB85C
-      \uB3C4\uB9DD\uCE69\uB2C8\uB2E4. \uC77C\uBC18 \uC8FC\uBBFC\uBCF4\uB2E4 \uC804\uC1A1
-      \uBCF4\uC0C1\uC774 \uC870\uAE08 \uB192\uC2B5\uB2C8\uB2E4."
+    behaviorDescription: "항상 일에 치여 사는 불쌍한 직장인입니다."
     defeatDescription: "\uC774\uB3D9 \uACBD\uB85C\uB97C \uBBF8\uB9AC \uC608\uC0C1\uD558\uAC70\uB098,
       \uAC00\uC18D\uD55C \uC0C1\uD0DC\uB85C \uB530\uB77C\uAC00 \uC811\uCD09\uD558\uC138\uC694."
   - monsterDefinition: {fileID: 1950366111743342090, guid: 2eac7a28eded7d342bcdd235cb48d65b, type: 3}
     portrait: {fileID: 2300000000000000001, guid: b6d8fd2354f34d6eaba63b42fdf5189b, type: 3}
-    behaviorDescription: "\uD2B8\uB7ED\uC744 \uBCF4\uBA74 \uBC18\uB300 \uBC29\uD5A5\uC73C\uB85C
-      \uB2EC\uC544\uB098\uB294 \uD3C9\uBC94\uD55C \uC8FC\uBBFC\uC774\uC9C0\uB9CC,
-      \uC804\uC1A1 \uC2DC \uB9CE\uC740 EXP\uC640 \uC601\uD63C\uC744 \uC90D\uB2C8\uB2E4."
+    behaviorDescription: "오랜만에 방구석을 벗어나 문밖을 나선 무직백수입니다."
     defeatDescription: "\uD2B9\uBCC4\uD55C \uD68C\uD53C \uB2A5\uB825\uC740 \uC5C6\uC73C\uBBC0\uB85C
       \uD55C \uBC88 \uC811\uCD09\uD558\uBA74 \uC804\uC1A1\uB429\uB2C8\uB2E4. \uBCF4\uC0C1\uC774
       \uD070 \uB9CC\uD07C \uBCF4\uC774\uBA74 \uC6B0\uC120 \uCC3E\uC544\uBCF4\uC138\uC694."
   - monsterDefinition: {fileID: 6608619104608612596, guid: 12e278a8f98993346bfcf59c2ee85b70, type: 3}
     portrait: {fileID: 4362301577788073405, guid: 9e4733dad95cd574bb460b38d4286f38, type: 3}
-    behaviorDescription: "\uD2B8\uB7ED\uC744 \uC778\uC2DD\uD558\uBA74 \uB3C4\uB9DD\uCE58\uC9C0
-      \uC54A\uACE0 \uD2B8\uB7ED \uBC29\uD5A5\uC73C\uB85C \uD3C9\uC18C \uC18D\uB3C4\uC758
-      2\uBC30\uB85C \uBE60\uB974\uAC8C \uB2EC\uB824\uC635\uB2C8\uB2E4."
+    behaviorDescription: "그 무엇도 두려워하지 않는 용맹한 전사입니다. 사악한 트럭을 물리치기 위해 돌진합니다."
     defeatDescription: "\uB2E4\uAC00\uC624\uB294 \uACBD\uB85C\uB97C \uC608\uC0C1\uD574
       \uC815\uBA74\uC5D0\uC11C \uC811\uCD09\uD558\uAC70\uB098, \uCE21\uBA74\uC73C\uB85C
       \uBE44\uCF1C \uC9C0\uB098\uAC04 \uB4A4 \uBC29\uD5A5\uC744 \uBC14\uAFD4 \uC811\uCD09\uD558\uC138\uC694."
   - monsterDefinition: {fileID: 1974516263114200338, guid: 398cce5610f62a04e88d57b5048c0561, type: 3}
     portrait: {fileID: -1180030930131768293, guid: 91ad820d3f264fe47b6f787b6971aa69, type: 3}
-    behaviorDescription: "\uCCAB \uBC88\uC9F8 \uC811\uCD09\uC744 \uD5C8\uC218\uC544\uBE44
-      \uBD84\uC2E0\uC73C\uB85C \uD53C\uD558\uACE0, \uB3C4\uB9DD \uAC70\uB9AC\uC758
-      2\uBC30\uB9CC\uD07C \uBA40\uB9AC \uC21C\uAC04\uC774\uB3D9\uD569\uB2C8\uB2E4."
+    behaviorDescription: "숙련된 닌자는 통나무 바꿔치기술로 위기를 회피할 수 있지만, 여러 번 사용하지는 못하는 모양입니다."
     defeatDescription: "\uCCAB \uC811\uCD09\uC5D0\uC11C\uB294 \uBD84\uC2E0\uC220\uB9CC
       \uBC1C\uB3D9\uD569\uB2C8\uB2E4. \uC21C\uAC04\uC774\uB3D9\uD55C \uB2CC\uC790\uB97C
       \uB2E4\uC2DC \uB530\uB77C\uAC00 \uB450 \uBC88\uC9F8\uB85C \uC811\uCD09\uD558\uBA74
       \uC804\uC1A1\uB429\uB2C8\uB2E4."
   - monsterDefinition: {fileID: 663070851138419660, guid: 2f6c8b4dcdf41e54ca81d00c4a3e9bec, type: 3}
     portrait: {fileID: 5929303423528576716, guid: abc3934d5474bfd4cb8212a7e59068d1, type: 3}
-    behaviorDescription: "3\uCD08\uB9C8\uB2E4 \uC790\uC2E0\uC774 \uC9C0\uB098\uAC04
-      \uC790\uB9AC\uC5D0 \uB048\uC801\uD55C \uC548\uAC1C\uB97C \uB0A8\uAE41\uB2C8\uB2E4.
-      \uC548\uAC1C\uB97C \uBC1F\uC740 \uD2B8\uB7ED\uC740 \uC77C\uC2DC\uC801\uC73C\uB85C
-      \uB290\uB824\uC9D1\uB2C8\uB2E4."
+    behaviorDescription: "지나가는 곳마다 속도가 느려지는 안개를 깔고 다니는 한량한 도사입니다. 안개를 조심하세요."
     defeatDescription: "\uC548\uAC1C \uC790\uAD6D\uC744 \uADF8\uB300\uB85C \uB530\uB77C\uAC00\uC9C0
       \uB9D0\uACE0 \uCE21\uBA74\uC5D0\uC11C \uC811\uADFC\uD574 \uC811\uCD09\uD558\uC138\uC694.
       \uAC10\uC18D \uC601\uC5ED\uC5D0\uC11C\uB294 \uBA3C\uC800 \uBE60\uC838\uB098\uC628
       \uB4A4 \uB2E4\uC2DC \uAC00\uC18D\uD558\uB294 \uAC83\uC774 \uC548\uC804\uD569\uB2C8\uB2E4."
   - monsterDefinition: {fileID: 7908487130593074500, guid: b5624ed01ecf05b4e9c1073defbf6482, type: 3}
     portrait: {fileID: -4405566701673946454, guid: 5e1ee32d69bd3f54fab711c486f45ca1, type: 3}
-    behaviorDescription: "\uD2B8\uB7ED\uACFC \uC811\uCD09\uD558\uBA74 \uC774\uC138\uACC4\uB85C
-      \uC804\uC1A1\uB418\uC9C0\uB9CC, \uC804\uB2E8\uC9C0\uAC00 \uB0A0\uC544\uC640
-      \uC7A0\uC2DC \uD654\uBA74\uC744 \uAC00\uB9AC\uB294 \uC7A5\uB09C\uC744 \uB0A8\uAE41\uB2C8\uB2E4."
+    behaviorDescription: "오늘도 두꺼운 전단지 세트를 나눠주고 있습니다. 전단지가 날아가버린다면 큰일나겠네요."
     defeatDescription: "\uD55C \uBC88 \uC811\uCD09\uD558\uBA74 \uC804\uC1A1\uB429\uB2C8\uB2E4.
       \uC804\uC1A1 \uC9C1\uD6C4 \uD654\uBA74\uC774 \uAC00\uB824\uC9C8 \uC218 \uC788\uC73C\uBBC0\uB85C
       \uC7A5\uC560\uBB3C\uACFC \uB2E4\uB978 \uC8FC\uBBFC\uC774 \uC801\uC740 \uACF3\uC5D0\uC11C
       \uC811\uADFC\uD558\uC138\uC694."
   - monsterDefinition: {fileID: 134006205766120469, guid: 2f77c8f061232894a9e222d21d5c177e, type: 3}
     portrait: {fileID: -6980023475570107989, guid: b2f2c93bf782b1b48a62b999368fae86, type: 3}
-    behaviorDescription: "\uD2B8\uB7ED\uACFC \uCD5C\uC18C 5\uC758 \uAC70\uB9AC\uB97C
-      \uAC15\uC81C\uB85C \uC720\uC9C0\uD574 \uC791\uC740 \uD2B8\uB7ED\uC758 \uC77C\uBC18\uC801\uC778
-      \uC811\uADFC\uC744 \uB9C9\uC2B5\uB2C8\uB2E4."
+    behaviorDescription: "아킬레우스는 평생 그 거북이를 따라잡을 수 없었습니다."
     defeatDescription: "\uD2B8\uB7ED \uD06C\uAE30\uB97C \uD0A4\uC6CC \uC811\uCD09
       \uBC94\uC704\uB97C \uB298\uB9AC\uAC70\uB098, \uBA48\uCDA4 \uD6A8\uACFC\uB85C
       \uAC70\uB9AC \uC720\uC9C0\uB97C \uC7A0\uC2DC \uB04A\uC740 \uB4A4 \uC811\uCD09\uD558\uC138\uC694."
   - monsterDefinition: {fileID: 3808845811863547839, guid: 743cecb6441b35a42a88a20fc85f81ee, type: 3}
     portrait: {fileID: -5336869132648099259, guid: ab26189061db47943ac4ad5c1c114d7a, type: 3}
-    behaviorDescription: "\uD2B8\uB7ED\uC774 \uAC00\uAE4C\uC6CC\uC9C0\uBA74 3\uCD08
-      \uAC04\uACA9\uC73C\uB85C \uB3C4\uB9DD \uBC29\uD5A5\uC73C\uB85C \uD070 \uAC70\uB9AC\uB97C
-      \uC21C\uAC04\uC774\uB3D9\uD569\uB2C8\uB2E4."
+    behaviorDescription: "텔레포트 마법의 달인이지만, 무한히 사용할 순 없는 법이죠."
     defeatDescription: "\uC21C\uAC04\uC774\uB3D9 \uC9C1\uD6C4\uC758 \uC7AC\uC0AC\uC6A9
       \uB300\uAE30 \uC2DC\uAC04\uC5D0 \uBE60\uB974\uAC8C \uAC70\uB9AC\uB97C \uC881\uD788\uAC70\uB098,
       \uBA48\uCDA4 \uD6A8\uACFC\uB85C \uC21C\uAC04\uC774\uB3D9\uC744 \uB9C9\uACE0
