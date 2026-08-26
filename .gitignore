@@ -4,6 +4,10 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+
+# GitHub Pages용 Unity WebGL 빌드는 포함
+!/Build/
+!/Build/**
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 [Mm]emoryCaptures/
@@ -43,4 +47,3 @@ ExportedObj/
 # Operating system files
 .DS_Store
 Thumbs.db
-
