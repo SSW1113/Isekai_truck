@@ -113,7 +113,7 @@ MonoBehaviour:
   size: 0.9
   speed: 0.2
   fleeDistance: 10
-  exp: 250
+  exp: 350
   soul: 25
   spawnWeight: 1
 --- !u!114 &2017903765701239770
