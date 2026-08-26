@@ -41,6 +41,7 @@ namespace IsekaiTruck.Editor
         private static Material poleMaterial;
         private static Material lampMaterial;
         private static Material benchMaterial;
+        private static Material contactShadowMaterial;
 
         [MenuItem("Isekai Truck/Prototype/Build Modern City Chunks")]
         public static void Setup()
@@ -70,6 +71,8 @@ namespace IsekaiTruck.Editor
             GameObject residentialPrefab = CreateResidentialPrefab(buildingSprite, treeSprite);
             GameObject schoolZonePrefab = CreateSchoolZonePrefab(schoolSprite, treeSprite);
             GameObject churchParkPrefab = CreateChurchParkPrefab(churchSprite, treeSprite);
+
+            ModernCity3DModelSetup.ApplyToPrefabs();
 
             CreatePreviewScene(
                 crossroadPrefab,
@@ -186,8 +189,7 @@ namespace IsekaiTruck.Editor
                     "Modern Mart",
                     martSprite,
                     new Vector3(-11f, 0.12f, -18.5f),
-                    2.15f,
-                    2);
+                    2.15f);
                 martRenderer.flipX = true;
 
                 AddTree(root.transform, treeSprite, new Vector3(-20f, 0.12f, 15f), 0.34f);
@@ -231,8 +233,8 @@ namespace IsekaiTruck.Editor
                     new Vector3(40f, 0.05f, 11f),
                     sidewalkMaterial);
 
-                AddBillboard(root.transform, "Apartment Left", buildingSprite, new Vector3(-12f, 0.12f, -18.5f), 2.05f, 1);
-                AddBillboard(root.transform, "Apartment Right", buildingSprite, new Vector3(12f, 0.12f, -18.5f), 1.9f, 1);
+                AddBillboard(root.transform, "Apartment Left", buildingSprite, new Vector3(-12f, 0.12f, -18.5f), 2.05f);
+                AddBillboard(root.transform, "Apartment Right", buildingSprite, new Vector3(12f, 0.12f, -18.5f), 1.9f);
 
                 AddTree(root.transform, treeSprite, new Vector3(-20f, 0.12f, 15f), 0.36f);
                 AddTree(root.transform, treeSprite, new Vector3(-7f, 0.12f, 17f), 0.32f);
@@ -274,7 +276,7 @@ namespace IsekaiTruck.Editor
                     new Vector3(5f, 0.045f, -17f),
                     new Vector3(34f, 0.05f, 12f),
                     sidewalkMaterial);
-                AddBillboard(root.transform, "Modern School", schoolSprite, new Vector3(-9f, 0.12f, -18f), 2.2f, 2);
+                AddBillboard(root.transform, "Modern School", schoolSprite, new Vector3(-9f, 0.12f, -18f), 2.2f);
 
                 AddTree(root.transform, treeSprite, new Vector3(-20f, 0.12f, 15f), 0.34f);
                 AddTree(root.transform, treeSprite, new Vector3(-7f, 0.12f, 16f), 0.31f);
@@ -314,7 +316,7 @@ namespace IsekaiTruck.Editor
                     new Vector3(-10f, 0.045f, -17f),
                     new Vector3(24f, 0.05f, 12f),
                     sidewalkMaterial);
-                AddBillboard(root.transform, "Modern Church", churchSprite, new Vector3(-11f, 0.12f, -18f), 2.1f, 2);
+                AddBillboard(root.transform, "Modern Church", churchSprite, new Vector3(-11f, 0.12f, -18f), 2.1f);
 
                 AddTree(root.transform, treeSprite, new Vector3(13f, 0.12f, -17f), 0.36f);
                 AddTree(root.transform, treeSprite, new Vector3(21f, 0.12f, -13f), 0.32f);
@@ -484,7 +486,7 @@ namespace IsekaiTruck.Editor
 
         private static void AddTree(Transform parent, Sprite sprite, Vector3 position, float scale)
         {
-            AddBillboard(parent, "Street Tree", sprite, position, scale * 1.3f, 3);
+            AddBillboard(parent, "Street Tree", sprite, position, scale * 1.3f);
         }
 
         private static SpriteRenderer AddBillboard(
@@ -492,21 +494,31 @@ namespace IsekaiTruck.Editor
             string name,
             Sprite sprite,
             Vector3 position,
-            float scale,
-            int sortingOrder)
+            float scale)
         {
+            GameObject anchorObject = new GameObject($"{name} Ground Anchor");
+            anchorObject.transform.SetParent(parent, false);
+            position.y = AssetDatabase.GetAssetPath(sprite) == TreeTexturePath ? 0.02f : 0.08f;
+            anchorObject.transform.localPosition = position;
+
             GameObject billboardObject = new GameObject(name);
-            billboardObject.transform.SetParent(parent, false);
-            float groundedHeight = sprite.bounds.extents.y * scale * 0.72f;
-            billboardObject.transform.localPosition = position + Vector3.up * groundedHeight;
+            billboardObject.transform.SetParent(anchorObject.transform, false);
+            billboardObject.transform.localPosition = Vector3.zero;
             billboardObject.transform.localScale = Vector3.one * scale;
 
             SpriteRenderer spriteRenderer = billboardObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
-            spriteRenderer.sortingOrder = sortingOrder;
+            spriteRenderer.sortingOrder = 0;
             spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
 
             billboardObject.AddComponent<BillboardSpriteView>();
+            WorldSpriteDepthOrder depthOrder = anchorObject.AddComponent<WorldSpriteDepthOrder>();
+            depthOrder.Configure(spriteRenderer, 0);
+            ModernCityVisualGroundingSetup.CreateContactShadow(
+                anchorObject.transform,
+                spriteRenderer,
+                billboardObject.transform.localScale,
+                contactShadowMaterial);
             return spriteRenderer;
         }
 
@@ -750,6 +762,7 @@ namespace IsekaiTruck.Editor
             importer.filterMode = FilterMode.Bilinear;
             importer.textureCompression = TextureImporterCompression.CompressedHQ;
             importer.SaveAndReimport();
+            ModernCityVisualGroundingSetup.ConfigureSpriteBottomPivot(assetPath);
         }
 
         private static Sprite LoadSprite(string assetPath)
@@ -772,6 +785,7 @@ namespace IsekaiTruck.Editor
             poleMaterial = CreateMaterial(MaterialRoot + "/ModernCity_Metal.mat", new Color32(0x3f, 0x48, 0x53, 0xff));
             lampMaterial = CreateMaterial(MaterialRoot + "/ModernCity_Lamp.mat", new Color32(0xff, 0xd4, 0x73, 0xff));
             benchMaterial = CreateMaterial(MaterialRoot + "/ModernCity_Bench.mat", new Color32(0x9b, 0x65, 0x3f, 0xff));
+            contactShadowMaterial = ModernCityVisualGroundingSetup.GetOrCreateContactShadowMaterial();
         }
 
         private static Material CreateMaterial(string assetPath, Color color)

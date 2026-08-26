@@ -125,6 +125,8 @@ namespace IsekaiTruck.Config
             [SerializeField, Min(0)] private int countPerWantedLevel = 2;
             [SerializeField, Min(0)] private int minimumCountForTesting = 1;
             [SerializeField, Min(0f)] private float truckCollisionRadius = 1.3f;
+            [SerializeField, Range(0, 10)] private int wantedSpeedBoostLevel = 5;
+            [SerializeField, Min(1f)] private float wantedSpeedMultiplier = 2f;
             [FormerlySerializedAs("lowerScreenWarningDistance")]
             [SerializeField, Min(0f)] private float offscreenWarningDistance = 25f;
             [SerializeField, Min(0.05f)] private float warningBlinkInterval = 0.35f;
@@ -132,6 +134,8 @@ namespace IsekaiTruck.Config
             public int CountPerWantedLevel => countPerWantedLevel;
             public int MinimumCountForTesting => minimumCountForTesting;
             public float TruckCollisionRadius => truckCollisionRadius;
+            public int WantedSpeedBoostLevel => wantedSpeedBoostLevel;
+            public float WantedSpeedMultiplier => wantedSpeedMultiplier;
             public float OffscreenWarningDistance => offscreenWarningDistance;
             public float WarningBlinkInterval => warningBlinkInterval;
         }
@@ -140,6 +144,19 @@ namespace IsekaiTruck.Config
         public sealed class SpawnSettings
         {
             [SerializeField, Min(0)] private int targetCount = 100;
+            [SerializeField, Min(0)] private int targetCountPerWantedLevel = 50;
+            [SerializeField] private WantedSpawnWeightRule[] wantedWeightRules =
+            {
+                new WantedSpawnWeightRule("man", 0f),
+                new WantedSpawnWeightRule("salesman", -1f),
+                new WantedSpawnWeightRule("policeman", 2f),
+                new WantedSpawnWeightRule("samurai", 1f),
+                new WantedSpawnWeightRule("jeon_woochi", 1f),
+                new WantedSpawnWeightRule("mascot", 1f),
+                new WantedSpawnWeightRule("ninja", 1f),
+                new WantedSpawnWeightRule("turtle", 0f, true, 0.5f),
+                new WantedSpawnWeightRule("wizard", 1f)
+            };
             [SerializeField, Min(0f)] private float minDistance = 35f;
             [SerializeField, Min(0f)] private float maxDistance = 70f;
             [SerializeField, Min(0f)] private float despawnDistance = 80f;
@@ -147,11 +164,61 @@ namespace IsekaiTruck.Config
             [SerializeField, Min(1)] private int spawnPerInterval = 1;
 
             public int TargetCount => targetCount;
+            public int TargetCountPerWantedLevel => targetCountPerWantedLevel;
             public float MinDistance => minDistance;
             public float MaxDistance => maxDistance;
             public float DespawnDistance => despawnDistance;
             public int SpawnIntervalMilliseconds => spawnIntervalMilliseconds;
             public int SpawnPerInterval => spawnPerInterval;
+
+            public int GetTargetCount(int wantedLevel)
+            {
+                return targetCount + Mathf.Max(0, wantedLevel) * targetCountPerWantedLevel;
+            }
+
+            public float GetSpawnWeight(string monsterTypeId, float baseWeight, int wantedLevel)
+            {
+                int safeWantedLevel = Mathf.Max(0, wantedLevel);
+                if (wantedWeightRules != null)
+                {
+                    for (int i = 0; i < wantedWeightRules.Length; i++)
+                    {
+                        WantedSpawnWeightRule rule = wantedWeightRules[i];
+                        if (rule != null && rule.MonsterTypeId == monsterTypeId)
+                        {
+                            return rule.GetWeight(baseWeight, safeWantedLevel);
+                        }
+                    }
+                }
+
+                return Mathf.Max(0f, baseWeight);
+            }
+        }
+
+        [Serializable]
+        public sealed class WantedSpawnWeightRule
+        {
+            [SerializeField] private string monsterTypeId;
+            [SerializeField] private float changePerLevel;
+            [SerializeField] private bool useFixedWeight;
+            [SerializeField, Min(0f)] private float fixedWeight;
+
+            public WantedSpawnWeightRule(string typeId, float perLevelChange, bool hasFixedWeight = false, float fixedValue = 0f)
+            {
+                monsterTypeId = typeId;
+                changePerLevel = perLevelChange;
+                useFixedWeight = hasFixedWeight;
+                fixedWeight = fixedValue;
+            }
+
+            public string MonsterTypeId => monsterTypeId;
+
+            public float GetWeight(float baseWeight, int wantedLevel)
+            {
+                return useFixedWeight
+                    ? Mathf.Max(0f, fixedWeight)
+                    : Mathf.Max(0f, baseWeight + changePerLevel * wantedLevel);
+            }
         }
 
         [Serializable]
@@ -175,7 +242,7 @@ namespace IsekaiTruck.Config
         [Serializable]
         public sealed class WantedSettings
         {
-            [SerializeField, Min(1)] private int killsPerLevel = 50;
+            [SerializeField, Min(1)] private int killsPerLevel = 100;
             [SerializeField, Range(1, 10)] private int maxLevel = 10;
             [SerializeField, Range(0, 10)] private int worldTravelUnlockLevel = 5;
 

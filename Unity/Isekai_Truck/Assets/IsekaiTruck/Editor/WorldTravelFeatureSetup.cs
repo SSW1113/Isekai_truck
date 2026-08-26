@@ -28,8 +28,8 @@ namespace IsekaiTruck.Editor
         private const string WorldFolder = "Assets/IsekaiTruck/Worlds";
         private const string DefinitionFolder = WorldFolder + "/Definitions";
         private const string CatalogPath = WorldFolder + "/WorldCatalog.asset";
-        private const string OriginalWorldPath = DefinitionFolder + "/OriginalWorld.asset";
-        private const string DarkWorldPath = DefinitionFolder + "/DarkWorld.asset";
+        private const string ModernCityWorldPath = DefinitionFolder + "/ModernCityWorld.asset";
+        private const string OldJapanWorldPath = DefinitionFolder + "/OldJapanWorld.asset";
         private const string VerificationSaveKey = "IsekaiTruck.WorldTravelVerification";
 
         [MenuItem("Isekai Truck/Setup World Travel Feature")]
@@ -38,23 +38,23 @@ namespace IsekaiTruck.Editor
             EnsureFolder(WorldFolder);
             EnsureFolder(DefinitionFolder);
 
-            WorldDefinition originalWorld = GetOrCreateWorld(
-                OriginalWorldPath,
-                "original_world",
-                "초원의 세계",
+            WorldDefinition modernCityWorld = GetOrCreateWorld(
+                ModernCityWorldPath,
+                "modern_city",
+                "현대 도시",
                 new Color32(0x87, 0xce, 0xeb, 0xff),
                 new Color32(0x87, 0xce, 0xeb, 0xff),
                 new Color32(0x3a, 0x7a, 0x2a, 0xff),
                 new Color32(0x2f, 0x66, 0x22, 0xff));
-            WorldDefinition darkWorld = GetOrCreateWorld(
-                DarkWorldPath,
-                "dark_world",
-                "어두운 세계",
-                new Color32(0x1b, 0x24, 0x32, 0xff),
-                new Color32(0x25, 0x31, 0x42, 0xff),
-                new Color32(0x25, 0x34, 0x2a, 0xff),
-                new Color32(0x19, 0x25, 0x1d, 0xff));
-            WorldCatalog catalog = GetOrCreateCatalog(originalWorld, darkWorld);
+            WorldDefinition oldJapanWorld = GetOrCreateWorld(
+                OldJapanWorldPath,
+                "old_japan",
+                "에도의 세계",
+                new Color32(0xb8, 0xd3, 0xdf, 0xff),
+                new Color32(0xd7, 0xc5, 0xce, 0xff),
+                new Color32(0x78, 0x93, 0x5c, 0xff),
+                new Color32(0x62, 0x7b, 0x4b, 0xff));
+            WorldCatalog catalog = GetOrCreateCatalog(modernCityWorld, oldJapanWorld);
 
             Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
@@ -102,9 +102,9 @@ namespace IsekaiTruck.Editor
             GameConfig config = AssetDatabase.LoadAssetAtPath<GameConfig>(ConfigPath);
             WorldCatalog catalog = AssetDatabase.LoadAssetAtPath<WorldCatalog>(CatalogPath);
             BlessingCatalog blessingCatalog = AssetDatabase.LoadAssetAtPath<BlessingCatalog>(BlessingCatalogPath);
-            WorldDefinition originalWorld = AssetDatabase.LoadAssetAtPath<WorldDefinition>(OriginalWorldPath);
-            WorldDefinition darkWorld = AssetDatabase.LoadAssetAtPath<WorldDefinition>(DarkWorldPath);
-            if (config == null || catalog == null || blessingCatalog == null || originalWorld == null || darkWorld == null)
+            WorldDefinition modernCityWorld = AssetDatabase.LoadAssetAtPath<WorldDefinition>(ModernCityWorldPath);
+            WorldDefinition oldJapanWorld = AssetDatabase.LoadAssetAtPath<WorldDefinition>(OldJapanWorldPath);
+            if (config == null || catalog == null || blessingCatalog == null || modernCityWorld == null || oldJapanWorld == null)
             {
                 throw new InvalidOperationException("World travel assets are missing.");
             }
@@ -145,7 +145,7 @@ namespace IsekaiTruck.Editor
             }
 
             VerifyTravelLogic(config, catalog);
-            VerifyWorldAppearance(config, originalWorld, darkWorld);
+            VerifyWorldAppearance(config, modernCityWorld, oldJapanWorld);
             VerifySave(config, blessingCatalog, catalog);
             Debug.Log("World travel feature verification passed.");
         }
@@ -161,7 +161,7 @@ namespace IsekaiTruck.Editor
                 travel.SetCatalog(catalog);
                 travel.Initialize(config, wanted);
 
-                int unlockKills = config.Wanted.KillsPerLevel * config.Wanted.WorldTravelUnlockLevel;
+                int unlockKills = wanted.GetRequiredTotalKillsForLevel(config.Wanted.WorldTravelUnlockLevel);
                 wanted.RestoreState(unlockKills - 1);
                 if (travel.CanTravel || travel.TryTravel(out _))
                 {
@@ -186,7 +186,7 @@ namespace IsekaiTruck.Editor
             }
         }
 
-        private static void VerifyWorldAppearance(GameConfig config, WorldDefinition originalWorld, WorldDefinition darkWorld)
+        private static void VerifyWorldAppearance(GameConfig config, WorldDefinition modernCityWorld, WorldDefinition oldJapanWorld)
         {
             GameObject root = new GameObject("World Appearance Verification");
             GameObject player = new GameObject("World Appearance Player");
@@ -195,19 +195,18 @@ namespace IsekaiTruck.Editor
             {
                 UnityEngine.Camera targetCamera = cameraObject.GetComponent<UnityEngine.Camera>();
                 WorldManager worldManager = root.AddComponent<WorldManager>();
-                worldManager.Initialize(config, player.transform, targetCamera, originalWorld);
-                worldManager.ApplyWorld(darkWorld);
+                worldManager.Initialize(config, player.transform, targetCamera, modernCityWorld);
+                worldManager.ApplyWorld(oldJapanWorld);
 
-                MeshRenderer tileRenderer = root.GetComponentInChildren<MeshRenderer>();
-                Texture2D groundTexture = tileRenderer != null ? tileRenderer.sharedMaterial.mainTexture as Texture2D : null;
-                if (worldManager.CurrentWorld != darkWorld || RenderSettings.fogColor != darkWorld.FogColor || targetCamera.backgroundColor != darkWorld.SkyColor || groundTexture == null)
+                int sideLength = config.World.BaseTileRadius * 2 + 1;
+                int expectedTileCount = sideLength * sideLength;
+                if (worldManager.CurrentWorld != oldJapanWorld ||
+                    RenderSettings.fogColor != oldJapanWorld.FogColor ||
+                    targetCamera.backgroundColor != oldJapanWorld.SkyColor ||
+                    !worldManager.UsesChunkPrefabs ||
+                    worldManager.ActiveTileCount != expectedTileCount)
                 {
-                    throw new InvalidOperationException("Dark world appearance was not applied.");
-                }
-
-                if (groundTexture.GetPixel(0, 0) != darkWorld.GroundColor || groundTexture.GetPixel(1, 0) != darkWorld.GroundPatternColor)
-                {
-                    throw new InvalidOperationException("Dark world ground colors were not applied.");
+                    throw new InvalidOperationException("Old Japan world appearance was not applied.");
                 }
             }
             finally
@@ -226,7 +225,7 @@ namespace IsekaiTruck.Editor
             try
             {
                 SaveSystems first = CreateSaveSystems(source, config, blessingCatalog, worldCatalog);
-                int unlockKills = config.Wanted.KillsPerLevel * config.Wanted.WorldTravelUnlockLevel;
+                int unlockKills = first.Wanted.GetRequiredTotalKillsForLevel(config.Wanted.WorldTravelUnlockLevel);
                 first.Wanted.RestoreState(unlockKills);
                 if (!first.Travel.TryTravel(out WorldTravelResult result))
                 {
@@ -302,7 +301,7 @@ namespace IsekaiTruck.Editor
             return definition;
         }
 
-        private static WorldCatalog GetOrCreateCatalog(WorldDefinition originalWorld, WorldDefinition darkWorld)
+        private static WorldCatalog GetOrCreateCatalog(WorldDefinition modernCityWorld, WorldDefinition oldJapanWorld)
         {
             WorldCatalog catalog = AssetDatabase.LoadAssetAtPath<WorldCatalog>(CatalogPath);
             if (catalog == null)
@@ -311,11 +310,11 @@ namespace IsekaiTruck.Editor
                 AssetDatabase.CreateAsset(catalog, CatalogPath);
             }
 
-            List<WorldDefinition> worlds = new List<WorldDefinition> { originalWorld, darkWorld };
+            List<WorldDefinition> worlds = new List<WorldDefinition> { modernCityWorld, oldJapanWorld };
             for (int i = 0; i < catalog.Worlds.Count; i++)
             {
                 WorldDefinition existingWorld = catalog.Worlds[i];
-                if (existingWorld != null && existingWorld.Id != originalWorld.Id && existingWorld.Id != darkWorld.Id)
+                if (existingWorld != null && existingWorld.Id != modernCityWorld.Id && existingWorld.Id != oldJapanWorld.Id)
                 {
                     worlds.Add(existingWorld);
                 }
@@ -345,7 +344,7 @@ namespace IsekaiTruck.Editor
             statusRect.sizeDelta = new Vector2(390f, 54f);
             statusPanel.GetComponent<Image>().raycastTarget = false;
 
-            Text currentWorldText = CreateText("Current World Text", statusPanel.transform, font, "현재 세계: 초원의 세계", 20, TextAnchor.MiddleCenter);
+            Text currentWorldText = CreateText("Current World Text", statusPanel.transform, font, "현재 세계: 현대 도시", 20, TextAnchor.MiddleCenter);
             StretchWithOffsets(currentWorldText.rectTransform, 10f, 10f, 4f, 4f);
             statusPanel.SetActive(false);
 

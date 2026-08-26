@@ -11,6 +11,7 @@ namespace IsekaiTruck.Audio
     public sealed class GameSfxPlayer : MonoBehaviour
     {
         private const string CollisionClipPath = "Audio/SFX/TruckMonsterCollision";
+        private const string TruckDamageClipPath = "Audio/SFX/TruckDamage";
         private const string LevelUpClipPath = "Audio/SFX/LevelUp";
         private const string UIButtonClipPath = "Audio/SFX/UIButtonClick";
         private const string FlyerClipPath = "Audio/SFX/FlyerPaperBalanced";
@@ -49,6 +50,7 @@ namespace IsekaiTruck.Audio
         private AudioSource audioSource;
         private AudioSource bgmAudioSource;
         private AudioClip collisionClip;
+        private AudioClip truckDamageClip;
         private AudioClip levelUpClip;
         private AudioClip uiButtonClip;
         private AudioClip flyerClip;
@@ -76,6 +78,11 @@ namespace IsekaiTruck.Audio
         public static void PlayTruckMonsterCollision()
         {
             instance?.PlayOneShot(instance.collisionClip);
+        }
+
+        public static void PlayTruckDamage()
+        {
+            instance?.PlayOneShot(instance.truckDamageClip);
         }
 
         public static void PlayLevelUp()
@@ -152,6 +159,7 @@ namespace IsekaiTruck.Audio
             bgmAudioSource.volume = BgmVolume;
 
             collisionClip = Resources.Load<AudioClip>(CollisionClipPath);
+            truckDamageClip = Resources.Load<AudioClip>(TruckDamageClipPath);
             levelUpClip = Resources.Load<AudioClip>(LevelUpClipPath);
             uiButtonClip = Resources.Load<AudioClip>(UIButtonClipPath);
             flyerClip = Resources.Load<AudioClip>(FlyerClipPath);
@@ -223,7 +231,7 @@ namespace IsekaiTruck.Audio
 
         private void ValidateClips()
         {
-            if (collisionClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
+            if (collisionClip == null || truckDamageClip == null || levelUpClip == null || uiButtonClip == null || flyerClip == null ||
                 rebirthClip == null || ninjaSubstitutionClip == null || wizardTeleportClip == null ||
                 jeonWoochiSpellClip == null || bgmClip == null ||
                 samuraiChargeClips == null || System.Array.Exists(samuraiChargeClips, clip => clip == null) ||

@@ -21,6 +21,11 @@ namespace IsekaiTruck.Enemies
 
         public void UpdateEnemy(float deltaTime, bool isWorldPaused)
         {
+            UpdateEnemy(deltaTime, isWorldPaused, 1f);
+        }
+
+        public void UpdateEnemy(float deltaTime, bool isWorldPaused, float speedMultiplier)
+        {
             enemyView?.SetPaused(isWorldPaused);
             if (isWorldPaused || deltaTime <= 0f)
             {
@@ -36,10 +41,11 @@ namespace IsekaiTruck.Enemies
             }
 
             direction /= distance;
-            float moveDistance = Mathf.Min(type.MoveSpeed * deltaTime, distance);
+            float moveSpeed = type.MoveSpeed * Mathf.Max(0f, speedMultiplier);
+            float moveDistance = Mathf.Min(moveSpeed * deltaTime, distance);
             transform.position += direction * moveDistance;
             transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            enemyView?.SetMovement(direction, type.MoveSpeed);
+            enemyView?.SetMovement(direction, moveSpeed);
         }
     }
 }

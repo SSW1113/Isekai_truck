@@ -270,7 +270,7 @@ MonoBehaviour:
   displayName: "\uACBD\uCC30\uCC28"
   size: 2
   collisionRadius: 0.5
-  moveSpeed: 6
+  moveSpeed: 9
   contactDamage: 1
   spawnWeight: 1
 --- !u!114 &5521382110736103351

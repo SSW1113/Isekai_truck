@@ -11,8 +11,7 @@ namespace IsekaiTruck.Editor
     public static class ModernCityWorldIntegrationSetup
     {
         private const string ConfigPath = "Assets/IsekaiTruck/Config/GameConfig.asset";
-        private const string OriginalWorldPath = "Assets/IsekaiTruck/Worlds/Definitions/OriginalWorld.asset";
-        private const string DarkWorldPath = "Assets/IsekaiTruck/Worlds/Definitions/DarkWorld.asset";
+        private const string WorldPath = "Assets/IsekaiTruck/Worlds/Definitions/ModernCityWorld.asset";
         private const int CrossroadInterval = 4;
 
         private static readonly string[] PrefabPaths =
@@ -28,8 +27,7 @@ namespace IsekaiTruck.Editor
         public static void Setup()
         {
             ModernCityChunkPrototype[] prefabs = LoadPrefabs();
-            ApplyToWorld(OriginalWorldPath, prefabs);
-            ApplyToWorld(DarkWorldPath, prefabs);
+            ApplyToWorld(WorldPath, prefabs);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -39,7 +37,7 @@ namespace IsekaiTruck.Editor
             {
                 EditorUtility.DisplayDialog(
                     "Isekai Truck",
-                    "현재 현대 도시 프리팹 5종을 월드 생성 시스템에 연결했습니다.",
+                    "현재 현대 도시 프리팹 5종을 첫 번째 월드에 연결했습니다.",
                     "확인");
             }
         }
@@ -48,9 +46,8 @@ namespace IsekaiTruck.Editor
         public static void Verify()
         {
             ModernCityChunkPrototype[] prefabs = LoadPrefabs();
-            WorldDefinition originalWorld = VerifyWorldDefinition(OriginalWorldPath, prefabs);
-            VerifyWorldDefinition(DarkWorldPath, prefabs);
-            VerifyRuntimeLayout(originalWorld);
+            WorldDefinition modernCityWorld = VerifyWorldDefinition(WorldPath, prefabs);
+            VerifyRuntimeLayout(modernCityWorld);
             Debug.Log("Modern city world integration verification passed.");
         }
 

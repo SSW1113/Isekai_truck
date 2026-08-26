@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using IsekaiTruck.Config;
 using IsekaiTruck.Monsters;
+using IsekaiTruck.Wanted;
 using UnityEngine;
 
 namespace IsekaiTruck.Spawn
@@ -10,20 +11,29 @@ namespace IsekaiTruck.Spawn
     {
         private GameConfig.SpawnSettings settings;
         private MonsterManager monsterManager;
+        private WantedLevelSystem wantedLevelSystem;
         private Transform truck;
         private float lastSpawnTime;
 
+        public int TargetCount => settings.GetTargetCount(wantedLevelSystem?.Level ?? 0);
+
         public void Initialize(GameConfig gameConfig, MonsterManager manager, Transform truckTransform)
+        {
+            Initialize(gameConfig, manager, truckTransform, null);
+        }
+
+        public void Initialize(GameConfig gameConfig, MonsterManager manager, Transform truckTransform, WantedLevelSystem wanted)
         {
             settings = gameConfig.Spawn;
             monsterManager = manager;
+            wantedLevelSystem = wanted;
             truck = truckTransform;
             lastSpawnTime = 0f;
         }
 
         public void FillInitial()
         {
-            while (monsterManager.Monsters.Count < settings.TargetCount)
+            while (monsterManager.Monsters.Count < TargetCount)
             {
                 Spawn();
             }
@@ -41,12 +51,12 @@ namespace IsekaiTruck.Spawn
             lastSpawnTime = nowMilliseconds;
 
             int currentCount = monsterManager.Monsters.Count;
-            if (currentCount >= settings.TargetCount)
+            if (currentCount >= TargetCount)
             {
                 return;
             }
 
-            int needCount = settings.TargetCount - currentCount;
+            int needCount = TargetCount - currentCount;
             int spawnCount = Mathf.Min(needCount, settings.SpawnPerInterval);
 
             for (int i = 0; i < spawnCount; i++)
@@ -67,18 +77,36 @@ namespace IsekaiTruck.Spawn
             IReadOnlyDictionary<string, MonsterData> types = monsterManager.Types;
             float totalWeight = 0f;
             string firstTypeId = null;
+            int wantedLevel = wantedLevelSystem?.Level ?? 0;
 
             foreach (KeyValuePair<string, MonsterData> entry in types)
             {
+                float weight = settings.GetSpawnWeight(entry.Key, entry.Value.SpawnWeight, wantedLevel);
+                if (weight <= 0f)
+                {
+                    continue;
+                }
+
                 firstTypeId ??= entry.Key;
-                totalWeight += entry.Value.SpawnWeight;
+                totalWeight += weight;
+            }
+
+            if (firstTypeId == null || totalWeight <= 0f)
+            {
+                return firstTypeId;
             }
 
             float random = Random.value * totalWeight;
 
             foreach (KeyValuePair<string, MonsterData> entry in types)
             {
-                random -= entry.Value.SpawnWeight;
+                float weight = settings.GetSpawnWeight(entry.Key, entry.Value.SpawnWeight, wantedLevel);
+                if (weight <= 0f)
+                {
+                    continue;
+                }
+
+                random -= weight;
 
                 if (random <= 0f)
                 {

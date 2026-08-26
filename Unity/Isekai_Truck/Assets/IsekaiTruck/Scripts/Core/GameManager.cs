@@ -99,7 +99,7 @@ namespace IsekaiTruck.Core
             joystickInput.SetViewport(cameraController.ViewportRect);
             worldManager.Initialize(config, playerTarget, cameraController.TargetCamera, worldTravelSystem.CurrentWorld);
             monsterManager.Initialize(config, playerTarget);
-            enemyManager.Initialize(config, playerTarget, truckHealthController);
+            enemyManager.Initialize(config, playerTarget, truckHealthController, wantedLevelSystem);
             enemyWarningUIController.Initialize(config, enemyManager, cameraController.TargetCamera, playerTarget);
             blessingEffectSystem.Initialize(blessingLoadoutSystem, truckController, cameraController, monsterManager, enemyManager);
             blessingInput.Initialize(blessingEffectSystem);
@@ -118,8 +118,9 @@ namespace IsekaiTruck.Core
             monsterManager.MonsterCollisionBatchCompleted += HandleMonsterCollisionBatch;
             truckHealthController.DamageTaken += HandleTruckDamageTaken;
             truckHealthController.Defeated += HandleTruckDefeated;
+            rebirthSystem.RebirthCompleted += HandleRebirthCompleted;
             worldTravelSystem.WorldChanged += HandleWorldChanged;
-            monsterSpawner.Initialize(config, monsterManager, playerTarget);
+            monsterSpawner.Initialize(config, monsterManager, playerTarget, wantedLevelSystem);
             monsterSpawner.FillInitial();
             enemySpawner.Initialize(config, enemyManager, wantedLevelSystem, playerTarget);
             enemySpawner.FillInitial();
@@ -208,22 +209,34 @@ namespace IsekaiTruck.Core
             if (result.AppliedDamage > 0)
             {
                 cameraController.PlayDamageShake();
+                GameSfxPlayer.PlayTruckDamage();
             }
         }
 
         private void HandleTruckDefeated()
         {
             playerState.ForfeitCurrentExperience();
-            truckController.Respawn(truckRespawnPosition, truckRespawnYaw);
-            truckHealthController.Respawn();
+            RespawnTruckWithFullHealth();
             Debug.Log("트럭이 파괴되어 보유 경험치를 잃고 리스폰했습니다.", this);
+        }
+
+        private void HandleRebirthCompleted(RebirthResult result)
+        {
+            RespawnTruckWithFullHealth();
         }
 
         private void HandleWorldChanged(WorldDefinition world)
         {
             worldManager.ApplyWorld(world);
+            RespawnTruckWithFullHealth();
             enemySpawner.ReconcileCount();
             enemyWarningUIController.Hide();
+        }
+
+        private void RespawnTruckWithFullHealth()
+        {
+            truckController.Respawn(truckRespawnPosition, truckRespawnYaw);
+            truckHealthController.Respawn();
         }
 
         private void OnDestroy()
@@ -238,6 +251,11 @@ namespace IsekaiTruck.Core
             {
                 truckHealthController.DamageTaken -= HandleTruckDamageTaken;
                 truckHealthController.Defeated -= HandleTruckDefeated;
+            }
+
+            if (rebirthSystem != null)
+            {
+                rebirthSystem.RebirthCompleted -= HandleRebirthCompleted;
             }
 
             if (worldTravelSystem != null)

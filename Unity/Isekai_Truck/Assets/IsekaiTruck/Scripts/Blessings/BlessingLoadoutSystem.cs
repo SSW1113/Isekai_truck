@@ -17,8 +17,14 @@ namespace IsekaiTruck.Blessings
 
         public void Initialize(GameConfig gameConfig, BlessingSystem blessings)
         {
+            if (blessingSystem != null)
+            {
+                blessingSystem.BlessingAcquired -= HandleBlessingAcquired;
+            }
+
             blessingSystem = blessings;
             equippedIds = new string[gameConfig.Blessing.SlotCount];
+            blessingSystem.BlessingAcquired += HandleBlessingAcquired;
         }
 
         public BlessingDefinition GetEquipped(int slotIndex)
@@ -107,6 +113,31 @@ namespace IsekaiTruck.Blessings
             }
 
             StateChanged?.Invoke();
+        }
+
+        private void HandleBlessingAcquired(BlessingDefinition blessing)
+        {
+            if (blessing == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < SlotCount; i++)
+            {
+                if (string.IsNullOrEmpty(equippedIds[i]))
+                {
+                    TryEquip(i, blessing.Id);
+                    return;
+                }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (blessingSystem != null)
+            {
+                blessingSystem.BlessingAcquired -= HandleBlessingAcquired;
+            }
         }
     }
 }

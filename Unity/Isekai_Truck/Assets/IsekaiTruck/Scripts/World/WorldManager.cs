@@ -9,14 +9,22 @@ namespace IsekaiTruck.World
     {
         private sealed class ActiveChunk
         {
-            public ActiveChunk(GameObject instance, int prefabIndex)
+            public ActiveChunk(
+                GameObject instance,
+                int prefabIndex,
+                ModernCityChunkPrototype chunk,
+                WorldModelFadeVolume[] fadeVolumes)
             {
                 Instance = instance;
                 PrefabIndex = prefabIndex;
+                Chunk = chunk;
+                FadeVolumes = fadeVolumes;
             }
 
             public GameObject Instance { get; }
             public int PrefabIndex { get; }
+            public ModernCityChunkPrototype Chunk { get; }
+            public WorldModelFadeVolume[] FadeVolumes { get; }
         }
 
         private static readonly int BaseColorProperty = Shader.PropertyToID("_BaseColor");
@@ -117,6 +125,8 @@ namespace IsekaiTruck.World
 
         public void UpdateWorld(float zoomMultiplier)
         {
+            UpdateActiveChunkFades(Time.deltaTime);
+
             float fogMultiplier = 1f + (zoomMultiplier - 1f) * settings.FogScaleStrength;
             RenderSettings.fogStartDistance = settings.BaseFogNear * fogMultiplier;
             RenderSettings.fogEndDistance = settings.BaseFogFar * fogMultiplier;
@@ -386,6 +396,8 @@ namespace IsekaiTruck.World
                     }
                 }
             }
+
+            RefreshActiveChunkVisualDepth();
         }
 
         private void AcquireChunk(Vector2Int coordinates)
@@ -402,13 +414,47 @@ namespace IsekaiTruck.World
                 Quaternion.identity);
             ApplyChunkGroundColor(instance);
             instance.SetActive(true);
-            activeChunks.Add(coordinates, new ActiveChunk(instance, prefabIndex));
+            ModernCityChunkPrototype chunk = instance.GetComponent<ModernCityChunkPrototype>();
+            WorldModelFadeVolume[] fadeVolumes = instance.GetComponentsInChildren<WorldModelFadeVolume>(true);
+            activeChunks.Add(coordinates, new ActiveChunk(instance, prefabIndex, chunk, fadeVolumes));
+        }
+
+        private void UpdateActiveChunkFades(float deltaTime)
+        {
+            if (!usesChunkPrefabs || player == null || targetCamera == null)
+            {
+                return;
+            }
+
+            Vector3 truckPosition = player.position;
+            Vector3 cameraPosition = targetCamera.transform.position;
+            foreach (KeyValuePair<Vector2Int, ActiveChunk> pair in activeChunks)
+            {
+                WorldModelFadeVolume[] fadeVolumes = pair.Value.FadeVolumes;
+                for (int index = 0; index < fadeVolumes.Length; index++)
+                {
+                    fadeVolumes[index].UpdateFade(truckPosition, cameraPosition, deltaTime);
+                }
+            }
+        }
+
+        private void RefreshActiveChunkVisualDepth()
+        {
+            foreach (KeyValuePair<Vector2Int, ActiveChunk> pair in activeChunks)
+            {
+                pair.Value.Chunk.RefreshVisualDepth(targetCamera);
+            }
         }
 
         private void ReleaseChunk(Vector2Int coordinates)
         {
             ActiveChunk chunk = activeChunks[coordinates];
             activeChunks.Remove(coordinates);
+            for (int index = 0; index < chunk.FadeVolumes.Length; index++)
+            {
+                chunk.FadeVolumes[index].RestoreImmediate();
+            }
+
             chunk.Instance.SetActive(false);
             chunkPools[chunk.PrefabIndex].Push(chunk.Instance);
         }

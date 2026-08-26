@@ -19,6 +19,7 @@ namespace IsekaiTruck.Blessings
         public int TotalOwnedCount { get; private set; }
 
         public event Action StateChanged;
+        public event Action<BlessingDefinition> BlessingAcquired;
 
         public void Initialize()
         {
@@ -66,6 +67,7 @@ namespace IsekaiTruck.Blessings
             ownedCounts[selected.Id] = count + 1;
             TotalOwnedCount++;
             pendingCandidates.Clear();
+            BlessingAcquired?.Invoke(selected);
             StateChanged?.Invoke();
             return selected;
         }
