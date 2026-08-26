@@ -295,8 +295,8 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   size: 0.9
   speed: 0.1
-  fleeDistance: 30
-  exp: 150
+  fleeDistance: 15
+  exp: 100
   soul: 10
   spawnWeight: 6
 --- !u!114 &7828439876373995236

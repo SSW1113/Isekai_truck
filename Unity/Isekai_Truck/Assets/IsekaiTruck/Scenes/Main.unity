@@ -24701,6 +24701,8 @@ MonoBehaviour:
   monsterCatalog: {fileID: 11400000, guid: 0185b02620e7df143a28cc15355279fa, type: 2}
   monsterDataFile: {fileID: 4900000, guid: b29ca14da4665f845977b2ab9e5994c0, type: 3}
   monsterRoot: {fileID: 0}
+  stunEffectPrefab: {fileID: 5805882379239534587, guid: 32f7b4b68743feb4385898aeefe4b166, type: 3}
+  stunEffectHeight: 0.15
 --- !u!4 &1394702530
 Transform:
   m_ObjectHideFlags: 0

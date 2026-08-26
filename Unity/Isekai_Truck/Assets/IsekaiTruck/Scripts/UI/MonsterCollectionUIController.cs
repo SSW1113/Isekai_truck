@@ -148,8 +148,7 @@ namespace IsekaiTruck.UI
             MonsterData monster = entry.Definition.CreateData();
             string detail =
                 $"<b>특징</b>\n{entry.BehaviorDescription}\n\n" +
-                $"<b>전송 보상</b>\nEXP +{monster.Exp}    영혼 +{monster.Soul}\n\n" +
-                $"<b>전송 팁</b>\n{entry.DefeatDescription}";
+                $"<b>전송 보상</b>\nEXP +{monster.Exp}    영혼 +{monster.Soul}";
             yield return bookView.PlaySelection(card, entry, detail);
             isTransitioning = false;
             transitionRoutine = null;

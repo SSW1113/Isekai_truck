@@ -18,8 +18,8 @@ MonoBehaviour:
     acceleration: 0.003
     friction: 0.94
     turnSpeed: 0.2
-    speedPerUpgrade: 0.01
-    sizePerUpgrade: 0.1
+    speedPerUpgrade: 0.02
+    sizePerUpgrade: 0.2
     maxHealth: 3
     damageInvulnerabilityDuration: 2
     damageFlashInterval: 0.12

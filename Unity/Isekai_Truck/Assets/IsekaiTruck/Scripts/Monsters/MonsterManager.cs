@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using IsekaiTruck.Config;
 using IsekaiTruck.Truck;
+using IsekaiTruck.Visuals;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -13,6 +14,8 @@ namespace IsekaiTruck.Monsters
         [SerializeField] private MonsterPrefabCatalog monsterCatalog;
         [SerializeField] private TextAsset monsterDataFile;
         [SerializeField] private Transform monsterRoot;
+        [SerializeField] private SpriteSequenceEffect stunEffectPrefab;
+        [SerializeField, Min(0f)] private float stunEffectHeight = 0.15f;
 
         private readonly List<MonsterController> monsters = new List<MonsterController>();
         private readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
@@ -146,7 +149,21 @@ namespace IsekaiTruck.Monsters
             }
 
             nearest.ApplyStun(duration);
+            PlayStunEffect(nearest, duration);
             return true;
+        }
+
+        private void PlayStunEffect(MonsterController monster, float duration)
+        {
+            if (stunEffectPrefab == null || monster == null)
+            {
+                return;
+            }
+
+            Vector3 effectPosition = monster.transform.position + Vector3.up * stunEffectHeight;
+            SpriteSequenceEffect effect = Instantiate(stunEffectPrefab, effectPosition, Quaternion.identity);
+            effect.transform.SetParent(monster.transform, true);
+            effect.PlayForDuration(duration);
         }
 
         private float GetMonsterTimeMilliseconds()
@@ -334,6 +351,12 @@ namespace IsekaiTruck.Monsters
         public void SetDataFile(TextAsset dataFile)
         {
             monsterDataFile = dataFile;
+        }
+
+        public void SetStunEffect(SpriteSequenceEffect effectPrefab, float height)
+        {
+            stunEffectPrefab = effectPrefab;
+            stunEffectHeight = Mathf.Max(0f, height);
         }
 #endif
     }
