@@ -8227,7 +8227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &495225509
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10881,7 +10881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &719322558
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13725,7 +13725,6 @@ MonoBehaviour:
   upgradePointText: {fileID: 1173086656}
   speedLevelText: {fileID: 373762122}
   sizeLevelText: {fileID: 786118222}
-  sizeStatText: {fileID: 719322559}
   openButton: {fileID: 454845703}
   closeButton: {fileID: 841415482}
   speedButton: {fileID: 1791600648}
