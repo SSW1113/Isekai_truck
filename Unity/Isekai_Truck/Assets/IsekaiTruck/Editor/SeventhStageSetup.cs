@@ -116,7 +116,7 @@ namespace IsekaiTruck.Editor
             string[] requiredProperties =
             {
                 "leftPanel", "gameArea", "rightPanel", "upgradePanel", "levelText", "expText", "expFill", "soulText", "speedText", "pointText",
-                "upgradePointText", "speedLevelText", "sizeLevelText", "speedStatText", "sizeStatText",
+                "upgradePointText", "speedLevelText", "sizeLevelText", "sizeStatText",
                 "openButton", "closeButton", "speedButton", "sizeButton", "collectionButton", "settingsButton",
                 "collectionNotificationBadge", "upgradeAvailableIndicator",
                 "levelFeedback", "soulFeedback", "upgradeFeedback", "speedFeedback", "goddessDialogue"
@@ -578,10 +578,6 @@ namespace IsekaiTruck.Editor
             speedLevelText.raycastTarget = false;
             speedLevelText.fontStyle = FontStyles.Bold;
 
-            TMP_Text speedStatText = CreateText("Speed Stat", upgradeBox.transform, font, "최대 속도: 0.100", 19, TextAlignmentOptions.Center);
-            SetTopRect(speedStatText.rectTransform, 178f, 30f, 22f);
-            speedStatText.color = outlineColor;
-
             Button sizeButton = CreateButton("Size Upgrade Button", upgradeBox.transform, font, "크기 업그레이드", 24);
             SetTopRect(sizeButton.GetComponent<RectTransform>(), 225f, 58f, 22f);
             TMP_Text sizeLevelText = CreateText("Size Level", sizeButton.transform, font, "Lv.0", 20, TextAlignmentOptions.MidlineRight);
@@ -678,7 +674,6 @@ namespace IsekaiTruck.Editor
                 upgradePointText,
                 speedLevelText,
                 sizeLevelText,
-                speedStatText,
                 sizeStatText,
                 openButton,
                 closeButton,

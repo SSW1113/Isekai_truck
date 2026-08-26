@@ -25,7 +25,6 @@ namespace IsekaiTruck.UI
         [SerializeField] private TMP_Text upgradePointText;
         [SerializeField] private TMP_Text speedLevelText;
         [SerializeField] private TMP_Text sizeLevelText;
-        [SerializeField] private TMP_Text speedStatText;
         [SerializeField] private TMP_Text sizeStatText;
         [SerializeField] private Button openButton;
         [SerializeField] private Button closeButton;
@@ -136,7 +135,6 @@ namespace IsekaiTruck.UI
             upgradePointText.text = $"남은 포인트: {player.UpgradePoints}";
             speedLevelText.text = $"Lv.{truck.SpeedLevel}";
             sizeLevelText.text = $"Lv.{truck.SizeLevel}";
-            speedStatText.text = $"최대 속도: {truck.MaxSpeed:F3}";
             sizeStatText.text = $"트럭 크기: {Mathf.RoundToInt(truck.SizeScale * 100f)}%";
             RefreshSpeedTarget();
         }
@@ -425,7 +423,6 @@ namespace IsekaiTruck.UI
             TMP_Text targetUpgradePointText,
             TMP_Text targetSpeedLevelText,
             TMP_Text targetSizeLevelText,
-            TMP_Text targetSpeedStatText,
             TMP_Text targetSizeStatText,
             Button targetOpenButton,
             Button targetCloseButton,
@@ -455,7 +452,6 @@ namespace IsekaiTruck.UI
             upgradePointText = targetUpgradePointText;
             speedLevelText = targetSpeedLevelText;
             sizeLevelText = targetSizeLevelText;
-            speedStatText = targetSpeedStatText;
             sizeStatText = targetSizeStatText;
             openButton = targetOpenButton;
             closeButton = targetCloseButton;
