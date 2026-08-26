@@ -150,6 +150,13 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Enemy feature scene systems are missing.");
             }
 
+            SerializedObject serializedHealthUI = new SerializedObject(healthUI);
+            Text healthText = (Text)serializedHealthUI.FindProperty("healthText").objectReferenceValue;
+            if (healthText == null || healthText.font != CartoonUIStyle.LoadFont())
+            {
+                throw new InvalidOperationException("Truck health text is not using the WebGL-safe HUD font.");
+            }
+
             SerializedObject serializedGameManager = new SerializedObject(gameManager);
             if (serializedGameManager.FindProperty("truckHealthController").objectReferenceValue != truckHealth
                 || serializedGameManager.FindProperty("truckDamageFlash").objectReferenceValue != damageFlash
@@ -599,7 +606,7 @@ namespace IsekaiTruck.Editor
 
         private static TruckHealthUIController CreateHealthUI(Transform parent)
         {
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            Font font = CartoonUIStyle.LoadFont();
             GameObject panel = new GameObject("Truck Health UI", typeof(RectTransform), typeof(Image));
             panel.transform.SetParent(parent, false);
             RectTransform panelRect = panel.GetComponent<RectTransform>();

@@ -192,6 +192,7 @@ namespace IsekaiTruck.Editor
                 return;
             }
 
+            healthText.font = CartoonUIStyle.LoadFont();
             healthText.fontStyle = FontStyle.Bold;
             healthText.fontSize = 23;
             healthText.alignment = TextAnchor.MiddleCenter;
@@ -870,6 +871,12 @@ namespace IsekaiTruck.Editor
             }
 
             SerializedObject serializedHealthUI = new SerializedObject(healthUI);
+            Text healthText = (Text)serializedHealthUI.FindProperty("healthText").objectReferenceValue;
+            if (healthText == null || healthText.font != CartoonUIStyle.LoadFont())
+            {
+                throw new InvalidOperationException("Truck health text is not using the WebGL-safe HUD font.");
+            }
+
             if (serializedHealthUI.FindProperty("feedbackEffect").objectReferenceValue == null)
             {
                 throw new InvalidOperationException("Truck health feedback effect is missing.");
@@ -907,6 +914,7 @@ namespace IsekaiTruck.Editor
                 TruckHealthController health = truckObject.AddComponent<TruckHealthController>();
                 TruckHealthUIController healthUI = uiObject.AddComponent<TruckHealthUIController>();
                 Text healthText = uiObject.GetComponent<Text>();
+                healthText.font = CartoonUIStyle.LoadFont();
                 UIFeedbackEffect feedback = uiObject.AddComponent<UIFeedbackEffect>();
                 healthUI.SetReferences(healthText, feedback);
                 health.Initialize(config, damageFlash);
