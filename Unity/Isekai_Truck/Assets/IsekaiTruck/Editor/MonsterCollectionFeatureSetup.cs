@@ -40,63 +40,63 @@ namespace IsekaiTruck.Editor
         private static readonly CollectionSource[] Sources =
         {
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Man.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/1. Man.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/OrdinaryPerson5DirectionWalk.png",
                 "Man_Down_0",
                 "그저 날씨가 좋아 산책하러 나온 평범한 주민입니다.",
                 "도망갈 방향을 예상해 트럭으로 한 번 접촉하면 이세계 전송이 완료됩니다."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Salesman.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/2. Salesman.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Salesman5DirectionWalk.png",
                 "Salesman_Down_0",
                 "항상 일에 치여 사는 불쌍한 직장인입니다.",
                 "이동 경로를 미리 예상하거나, 가속한 상태로 따라가 접촉하세요."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Policeman.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/3. Unemployed.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Unemployed5DirectionWalk.png",
                 "Unemployed_Down_0",
                 "오랜만에 방구석을 벗어나 문밖을 나선 무직백수입니다.",
                 "특별한 회피 능력은 없으므로 한 번 접촉하면 전송됩니다. 보상이 큰 만큼 보이면 우선 찾아보세요."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Samurai.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/4. Samurai.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Samurai5DirectionWalk.png",
                 "Samurai_Down_0",
                 "그 무엇도 두려워하지 않는 용맹한 전사입니다. 사악한 트럭을 물리치기 위해 돌진합니다.",
                 "다가오는 경로를 예상해 정면에서 접촉하거나, 측면으로 비켜 지나간 뒤 방향을 바꿔 접촉하세요."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Ninja.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/7. Ninja.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Ninja5DirectionWalk.png",
                 "Ninja_Down_0",
                 "숙련된 닌자는 통나무 바꿔치기술로 위기를 회피할 수 있지만, 여러 번 사용하지는 못하는 모양입니다.",
                 "첫 접촉에서는 분신술만 발동합니다. 순간이동한 닌자를 다시 따라가 두 번째로 접촉하면 전송됩니다."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/JeonWoochi.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/5. JeonWoochi.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/JeonWoochi5DirectionWalk.png",
                 "JeonWoochi_Down_0",
                 "지나가는 곳마다 속도가 느려지는 안개를 깔고 다니는 한량한 도사입니다. 안개를 조심하세요.",
                 "안개 자국을 그대로 따라가지 말고 측면에서 접근해 접촉하세요. 감속 영역에서는 먼저 빠져나온 뒤 다시 가속하는 것이 안전합니다."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Mascot.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/6. Mascot.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Mascot5DirectionWalk.png",
                 "Mascot_Down_0",
                 "오늘도 두꺼운 전단지 세트를 나눠주고 있습니다. 전단지가 날아가버린다면 큰일나겠네요.",
                 "한 번 접촉하면 전송됩니다. 전송 직후 화면이 가려질 수 있으므로 장애물과 다른 주민이 적은 곳에서 접근하세요."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Turtle.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/8. Turtle.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Turtle5DirectionWalk.png",
                 "Turtle_Down_0",
                 "아킬레우스는 평생 그 거북이를 따라잡을 수 없었습니다.",
                 "트럭 크기를 키워 접촉 범위를 늘리거나, 멈춤 효과로 거리 유지를 잠시 끊은 뒤 접촉하세요."
             ),
             new CollectionSource(
-                "Assets/IsekaiTruck/Prefabs/Monsters/Wizard.prefab",
+                "Assets/IsekaiTruck/Prefabs/Monsters/9. Wizard.prefab",
                 "Assets/IsekaiTruck/Art/Sprites/Wizard5DirectionWalk.png",
                 "Wizard_Down_0",
                 "텔레포트 마법의 달인이지만, 무한히 사용할 순 없는 법이죠.",
@@ -149,6 +149,16 @@ namespace IsekaiTruck.Editor
             {
                 EditorUtility.DisplayDialog("Isekai Truck", "처치 기반 몬스터 도감을 Main 씬에 연결했습니다.", "확인");
             }
+        }
+
+        [MenuItem("Isekai Truck/Refresh Monster Collection Content")]
+        public static void RefreshContent()
+        {
+            EnsureFolder(CatalogFolder);
+            MonsterCollectionCatalog collectionCatalog = CreateCatalog();
+            RefreshCollectionFont(collectionCatalog);
+            AssetDatabase.SaveAssets();
+            Debug.Log("Monster collection content refresh passed.");
         }
 
         public static void Verify()
@@ -710,12 +720,7 @@ namespace IsekaiTruck.Editor
 
         private static TMP_FontAsset GetOrCreateCollectionFont(MonsterCollectionCatalog catalog)
         {
-            string characters = "주민도감전송기록이있는카드를눌러정보를확인하세요닫기특징보상팁EXP+영혼???";
-            for (int i = 0; i < catalog.Entries.Count; i++)
-            {
-                MonsterCollectionEntry entry = catalog.Entries[i];
-                characters += entry.DisplayName + entry.BehaviorDescription + entry.DefeatDescription;
-            }
+            string characters = BuildCollectionFontCharacters(catalog);
 
             TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
             if (font != null)
@@ -780,6 +785,43 @@ namespace IsekaiTruck.Editor
             EditorUtility.SetDirty(font.atlasTexture);
             AssetDatabase.SaveAssets();
             return font;
+        }
+
+        private static void RefreshCollectionFont(MonsterCollectionCatalog catalog)
+        {
+            TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
+            if (font == null)
+            {
+                GetOrCreateCollectionFont(catalog);
+                return;
+            }
+
+            AtlasPopulationMode populationMode = font.atlasPopulationMode;
+            font.atlasPopulationMode = AtlasPopulationMode.Dynamic;
+            if (!font.TryAddCharacters(BuildCollectionFontCharacters(catalog), out string missingCharacters))
+            {
+                font.atlasPopulationMode = populationMode;
+                throw new InvalidOperationException($"도감 폰트에 추가하지 못한 문자가 있습니다: {missingCharacters}");
+            }
+
+            font.atlasPopulationMode = populationMode;
+            EditorUtility.SetDirty(font);
+            if (font.atlasTexture != null)
+            {
+                EditorUtility.SetDirty(font.atlasTexture);
+            }
+        }
+
+        private static string BuildCollectionFontCharacters(MonsterCollectionCatalog catalog)
+        {
+            string characters = "주민도감전송기록이있는카드를눌러정보를확인하세요닫기특징보상팁EXP+영혼???";
+            for (int i = 0; i < catalog.Entries.Count; i++)
+            {
+                MonsterCollectionEntry entry = catalog.Entries[i];
+                characters += entry.DisplayName + entry.BehaviorDescription + entry.DefeatDescription;
+            }
+
+            return characters;
         }
 
         private static string FindMissingCharacters(TMP_FontAsset font, string characters)
