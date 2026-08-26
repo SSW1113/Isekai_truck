@@ -69,7 +69,7 @@ namespace IsekaiTruck.Editor
             PlayerProgressSaveSystem saveSystem = systemsObject.AddComponent<PlayerProgressSaveSystem>();
             blessingSystem.SetCatalog(catalog);
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            Font font = CartoonUIStyle.LoadFont();
             RebirthUIController uiController = CreateUI(canvas.transform, font);
             uiController.transform.SetAsLastSibling();
             gameManager.SetRebirthSystems(blessingSystem, rebirthSystem, saveSystem, uiController);
@@ -440,21 +440,28 @@ namespace IsekaiTruck.Editor
 
             GameObject panel = CreatePanel("Rebirth Panel", gameArea, new Color(0f, 0f, 0f, 0.7f));
             Stretch(panel.GetComponent<RectTransform>());
+            CartoonUIStyle.StyleScrim(panel);
 
-            GameObject box = CreatePanel("Rebirth Box", panel.transform, new Color(0.08f, 0.08f, 0.1f, 0.98f));
+            GameObject box = CreatePanel("Rebirth Box", panel.transform, HudColorPalette.ModalFace);
             RectTransform boxRect = box.GetComponent<RectTransform>();
             boxRect.anchorMin = new Vector2(0.5f, 0.5f);
             boxRect.anchorMax = new Vector2(0.5f, 0.5f);
             boxRect.pivot = new Vector2(0.5f, 0.5f);
-            boxRect.sizeDelta = new Vector2(620f, 1050f);
+            boxRect.sizeDelta = new Vector2(620f, 900f);
+            CartoonUIStyle.StylePanel(box, HudColorPalette.ModalFace, HudColorPalette.UpgradeDepth);
+            ResponsivePanelFitter boxFitter = box.AddComponent<ResponsivePanelFitter>();
+            boxFitter.Configure(boxRect.sizeDelta, 28f, 24f);
 
             Text title = CreateText("Title", box.transform, font, "환생과 여신의 축복", 34, TextAnchor.MiddleCenter);
             SetTopRect(title.rectTransform, 20f, 55f, 24f);
+            CartoonUIStyle.StyleText(title, HudColorPalette.DarkInk, true);
             Text statusText = CreateText("Status", box.transform, font, string.Empty, 20, TextAnchor.MiddleCenter);
             SetTopRect(statusText.rectTransform, 80f, 42f, 20f);
+            CartoonUIStyle.StyleText(statusText, HudColorPalette.DarkInk);
             Text guideText = CreateText("Guide", box.transform, font, string.Empty, 19, TextAnchor.MiddleCenter);
             guideText.horizontalOverflow = HorizontalWrapMode.Wrap;
             SetTopRect(guideText.rectTransform, 128f, 82f, 28f);
+            CartoonUIStyle.StyleText(guideText, HudColorPalette.DarkInk);
 
             GameObject tierPanel = CreateUIObject("Tier Panel", box.transform);
             SetRect(tierPanel.GetComponent<RectTransform>(), new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(28f, 145f), new Vector2(-28f, -225f));
@@ -469,6 +476,7 @@ namespace IsekaiTruck.Editor
                 RectTransform rect = tierButtons[i].GetComponent<RectTransform>();
                 SetRect(rect, new Vector2(column * 0.5f, 0.8f - top), new Vector2((column + 1) * 0.5f, 1f - top), new Vector2(6f, 7f), new Vector2(-6f, -7f));
                 tierLabels[i] = tierButtons[i].GetComponentInChildren<Text>();
+                CartoonUIStyle.StyleButton(tierButtons[i], HudColorPalette.ModalInset, HudColorPalette.LevelDepth, HudColorPalette.DarkInk);
             }
 
             Button confirmButton = CreateButton("Confirm Rebirth Button", box.transform, font, "선택한 단계로 환생", 24);
@@ -476,6 +484,8 @@ namespace IsekaiTruck.Editor
 
             Button closeButton = CreateButton("Close Rebirth Button", box.transform, font, "닫기", 21);
             SetBottomRect(closeButton.GetComponent<RectTransform>(), 15f, 46f, 190f);
+            CartoonUIStyle.StyleButton(confirmButton, HudColorPalette.Upgrade, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
+            CartoonUIStyle.StyleButton(closeButton, HudColorPalette.Cream, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
 
             BlessingSelectionUI blessingSelectionUI = CreateBlessingSelectionUI(uiObject.transform, font);
 
@@ -504,17 +514,20 @@ namespace IsekaiTruck.Editor
             GameObject overlay = CreatePanel("Blessing Selection Overlay", parent, new Color(0.01f, 0.015f, 0.025f, 0.58f));
             Stretch(overlay.GetComponent<RectTransform>());
             overlay.GetComponent<Image>().raycastTarget = true;
+            CartoonUIStyle.StyleScrim(overlay, 0.72f);
 
             Text title = CreateText("Title", overlay.transform, font, "여신의 축복 선택", 42, TextAnchor.MiddleCenter);
             SetRect(title.rectTransform, new Vector2(0.20f, 0.82f), new Vector2(0.80f, 0.91f), Vector2.zero, Vector2.zero);
             title.fontStyle = FontStyle.Bold;
-            title.color = new Color(0.94f, 0.90f, 1f, 1f);
+            title.color = HudColorPalette.Cream;
 
             GameObject cardContainer = CreateUIObject("Card Row", overlay.transform);
             RectTransform cardContainerRect = cardContainer.GetComponent<RectTransform>();
             SetRect(cardContainerRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             cardContainerRect.sizeDelta = new Vector2(900f, 500f);
             cardContainerRect.anchoredPosition = new Vector2(0f, -30f);
+            ResponsivePanelFitter cardRowFitter = cardContainer.AddComponent<ResponsivePanelFitter>();
+            cardRowFitter.Configure(cardContainerRect.sizeDelta, 50f, 80f);
 
             BlessingCardView[] cards = new BlessingCardView[3];
             for (int i = 0; i < cards.Length; i++)
@@ -529,8 +542,8 @@ namespace IsekaiTruck.Editor
 
         private static BlessingCardView CreateBlessingCard(Transform parent, Font font, int index)
         {
-            Color cardColor = new Color(0.035f, 0.06f, 0.075f, 0.98f);
-            Color borderColor = new Color(0.73f, 0.65f, 0.88f, 0.88f);
+            Color cardColor = HudColorPalette.ModalInset;
+            Color borderColor = HudColorPalette.LevelDepth;
             GameObject cardObject = CreatePanel($"Blessing Card {index + 1}", parent, cardColor);
             RectTransform cardRect = cardObject.GetComponent<RectTransform>();
             SetRect(cardRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
@@ -544,7 +557,7 @@ namespace IsekaiTruck.Editor
             border.effectColor = borderColor;
             border.effectDistance = new Vector2(2f, -2f);
             Shadow shadow = cardObject.AddComponent<Shadow>();
-            shadow.effectColor = new Color(0.22f, 0.12f, 0.20f, 0.30f);
+            shadow.effectColor = new Color(HudColorPalette.LevelDepth.r, HudColorPalette.LevelDepth.g, HudColorPalette.LevelDepth.b, 0.22f);
             shadow.effectDistance = new Vector2(0f, -5f);
 
             GameObject hoverHighlight = CreatePanel("Hover Highlight", cardObject.transform, new Color(0.76f, 0.68f, 1f, 0f));
@@ -577,18 +590,18 @@ namespace IsekaiTruck.Editor
             Text nameText = CreateText("Name Text", cardObject.transform, font, string.Empty, 24, TextAnchor.MiddleCenter);
             SetRect(nameText.rectTransform, new Vector2(0.08f, 0.44f), new Vector2(0.92f, 0.59f), Vector2.zero, Vector2.zero);
             nameText.fontStyle = FontStyle.Bold;
-            nameText.color = new Color(0.96f, 0.93f, 1f, 1f);
+            nameText.color = HudColorPalette.DarkInk;
             nameText.horizontalOverflow = HorizontalWrapMode.Wrap;
 
             Text descriptionText = CreateText("Description Text", cardObject.transform, font, string.Empty, 18, TextAnchor.UpperCenter);
             SetRect(descriptionText.rectTransform, new Vector2(0.10f, 0.12f), new Vector2(0.90f, 0.42f), Vector2.zero, Vector2.zero);
-            descriptionText.color = new Color(0.78f, 0.82f, 0.86f, 1f);
+            descriptionText.color = HudColorPalette.DarkInk;
             descriptionText.horizontalOverflow = HorizontalWrapMode.Wrap;
             descriptionText.verticalOverflow = VerticalWrapMode.Truncate;
 
             Text ownedText = CreateText("Owned Text", cardObject.transform, font, string.Empty, 16, TextAnchor.MiddleCenter);
             SetRect(ownedText.rectTransform, new Vector2(0.12f, 0.04f), new Vector2(0.88f, 0.10f), Vector2.zero, Vector2.zero);
-            ownedText.color = new Color(0.64f, 0.70f, 0.74f, 1f);
+            ownedText.color = HudColorPalette.SoulDepth;
 
             BlessingCardView cardView = cardObject.AddComponent<BlessingCardView>();
             cardView.SetReferences(cardRect, iconRect, background, icon, spotlight, border, gradeText, nameText, descriptionText, ownedText);
@@ -621,6 +634,8 @@ namespace IsekaiTruck.Editor
             GameObject panel = CreateUIObject(name, parent);
             Image image = panel.AddComponent<Image>();
             image.color = color;
+            image.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            image.type = Image.Type.Sliced;
             return panel;
         }
 
@@ -632,19 +647,20 @@ namespace IsekaiTruck.Editor
             text.text = value;
             text.fontSize = fontSize;
             text.alignment = alignment;
-            text.color = Color.white;
+            text.color = HudColorPalette.DarkInk;
             text.raycastTarget = false;
             return text;
         }
 
         private static Button CreateButton(string name, Transform parent, Font font, string label, int fontSize)
         {
-            GameObject buttonObject = CreatePanel(name, parent, new Color(0.88f, 0.88f, 0.88f, 1f));
+            GameObject buttonObject = CreatePanel(name, parent, HudColorPalette.ModalInset);
             Button button = buttonObject.AddComponent<Button>();
             button.targetGraphic = buttonObject.GetComponent<Image>();
             Text text = CreateText("Label", buttonObject.transform, font, label, fontSize, TextAnchor.MiddleCenter);
-            text.color = new Color(0.08f, 0.08f, 0.08f, 1f);
+            text.color = HudColorPalette.DarkInk;
             StretchWithOffsets(text.rectTransform, 8f, 8f, 4f, 4f);
+            CartoonUIStyle.StyleButton(button, HudColorPalette.ModalInset, HudColorPalette.UpgradeDepth, HudColorPalette.DarkInk);
             return button;
         }
 
@@ -655,11 +671,28 @@ namespace IsekaiTruck.Editor
             image.type = Image.Type.Sliced;
             image.color = HudColorPalette.Soul;
 
-            Outline outline = button.gameObject.AddComponent<Outline>();
+            Outline outline = button.GetComponent<Outline>();
+            if (outline == null)
+            {
+                outline = button.gameObject.AddComponent<Outline>();
+            }
             outline.effectColor = new Color(HudColorPalette.SoulDepth.r, HudColorPalette.SoulDepth.g, HudColorPalette.SoulDepth.b, 0.84f);
             outline.effectDistance = new Vector2(2f, -2f);
 
-            Shadow shadow = button.gameObject.AddComponent<Shadow>();
+            Shadow shadow = null;
+            Shadow[] existingShadows = button.GetComponents<Shadow>();
+            for (int i = 0; i < existingShadows.Length; i++)
+            {
+                if (existingShadows[i].GetType() == typeof(Shadow))
+                {
+                    shadow = existingShadows[i];
+                    break;
+                }
+            }
+            if (shadow == null)
+            {
+                shadow = button.gameObject.AddComponent<Shadow>();
+            }
             shadow.effectColor = new Color(HudColorPalette.SoulDepth.r, HudColorPalette.SoulDepth.g, HudColorPalette.SoulDepth.b, 0.32f);
             shadow.effectDistance = new Vector2(0f, -4f);
 
@@ -673,7 +706,11 @@ namespace IsekaiTruck.Editor
             colors.fadeDuration = 0.12f;
             button.colors = colors;
 
-            CartoonButtonPressEffect interaction = button.gameObject.AddComponent<CartoonButtonPressEffect>();
+            CartoonButtonPressEffect interaction = button.GetComponent<CartoonButtonPressEffect>();
+            if (interaction == null)
+            {
+                interaction = button.gameObject.AddComponent<CartoonButtonPressEffect>();
+            }
             interaction.Configure((RectTransform)button.transform, null, 1.04f, 0.97f, 1.2f);
 
             Text label = button.GetComponentInChildren<Text>();

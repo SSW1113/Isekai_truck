@@ -90,7 +90,11 @@ namespace IsekaiTruck.Editor
 
         private static void HideCentralHud(RectTransform gameArea, Transform canvas)
         {
-            SetInactive(gameArea.Find("Speed HUD"));
+            Transform speedHud = gameArea.Find("Speed HUD");
+            if (speedHud != null)
+            {
+                speedHud.gameObject.SetActive(true);
+            }
 
             Transform legacyGameArea = gameArea.Find("Game Area UI");
             if (legacyGameArea != null)
@@ -188,6 +192,7 @@ namespace IsekaiTruck.Editor
                 return;
             }
 
+            healthText.font = CartoonUIStyle.LoadFont();
             healthText.fontStyle = FontStyle.Bold;
             healthText.fontSize = 23;
             healthText.alignment = TextAnchor.MiddleCenter;
@@ -373,13 +378,6 @@ namespace IsekaiTruck.Editor
                 HudColorPalette.UpgradeDepth,
                 DarkInk
             );
-            PolishButton(
-                (Button)serializedGameUI.FindProperty("settingsButton").objectReferenceValue,
-                Cream,
-                HudColorPalette.UpgradeDepth,
-                DarkInk
-            );
-
             ConfigureFeedback(
                 (UIFeedbackEffect)serializedGameUI.FindProperty("levelFeedback").objectReferenceValue,
                 0.18f,
@@ -786,10 +784,14 @@ namespace IsekaiTruck.Editor
             RectTransform rightPanel = (RectTransform)serializedGameUI.FindProperty("rightPanel").objectReferenceValue;
 
             Transform legacyGameArea = gameArea.Find("Game Area UI");
-            if (gameArea.Find("Speed HUD").gameObject.activeSelf ||
-                legacyGameArea != null && legacyGameArea.Find("Player HUD").gameObject.activeSelf)
+            if (legacyGameArea != null && legacyGameArea.Find("Player HUD").gameObject.activeSelf)
             {
                 throw new InvalidOperationException("Central HUD is still visible.");
+            }
+
+            if (!gameArea.Find("Speed HUD").gameObject.activeSelf)
+            {
+                throw new InvalidOperationException("Speed HUD is not visible in the game area.");
             }
 
             VerifyWantedHud(gameArea);
@@ -869,6 +871,12 @@ namespace IsekaiTruck.Editor
             }
 
             SerializedObject serializedHealthUI = new SerializedObject(healthUI);
+            Text healthText = (Text)serializedHealthUI.FindProperty("healthText").objectReferenceValue;
+            if (healthText == null || healthText.font != CartoonUIStyle.LoadFont())
+            {
+                throw new InvalidOperationException("Truck health text is not using the WebGL-safe HUD font.");
+            }
+
             if (serializedHealthUI.FindProperty("feedbackEffect").objectReferenceValue == null)
             {
                 throw new InvalidOperationException("Truck health feedback effect is missing.");
@@ -906,6 +914,7 @@ namespace IsekaiTruck.Editor
                 TruckHealthController health = truckObject.AddComponent<TruckHealthController>();
                 TruckHealthUIController healthUI = uiObject.AddComponent<TruckHealthUIController>();
                 Text healthText = uiObject.GetComponent<Text>();
+                healthText.font = CartoonUIStyle.LoadFont();
                 UIFeedbackEffect feedback = uiObject.AddComponent<UIFeedbackEffect>();
                 healthUI.SetReferences(healthText, feedback);
                 health.Initialize(config, damageFlash);

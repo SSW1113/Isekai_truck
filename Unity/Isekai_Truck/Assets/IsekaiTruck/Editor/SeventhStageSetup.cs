@@ -60,8 +60,7 @@ namespace IsekaiTruck.Editor
             scaler.matchWidthOrHeight = 0.5f;
 
             TMP_FontAsset font = GetOrCreateCartoonFontAsset();
-            GoddessDialogueMockData dialogueData = GetOrCreateGoddessDialogueMockData();
-            GameUIController uiController = CreateUI(canvas.transform, font, dialogueData);
+            GameUIController uiController = CreateUI(canvas.transform, font);
             MainHudLayoutSetup.ApplyToLoadedScene();
             Transform rebirthUI = canvas.transform.Find("Rebirth UI");
             if (rebirthUI != null)
@@ -117,9 +116,9 @@ namespace IsekaiTruck.Editor
             {
                 "leftPanel", "gameArea", "rightPanel", "upgradePanel", "levelText", "expText", "expFill", "soulText", "speedText", "pointText",
                 "upgradePointText", "speedLevelText", "sizeLevelText",
-                "openButton", "closeButton", "speedButton", "sizeButton", "collectionButton", "settingsButton",
+                "openButton", "closeButton", "speedButton", "sizeButton", "collectionButton",
                 "collectionNotificationBadge", "upgradeAvailableIndicator",
-                "levelFeedback", "soulFeedback", "upgradeFeedback", "speedFeedback", "goddessDialogue"
+                "levelFeedback", "soulFeedback", "upgradeFeedback", "speedFeedback", "speedHudView"
             };
 
             for (int i = 0; i < requiredProperties.Length; i++)
@@ -140,8 +139,8 @@ namespace IsekaiTruck.Editor
                 leftPanel.Find("Secondary Navigation/Collection Button/Label") == null ||
                 leftPanel.Find("Secondary Navigation/Collection Button/NotificationBadge") == null ||
                 rightPanel.Find("Goddess Area/Portrait Frame/Portrait Background/Goddess Silhouette/Head") == null ||
-                rightPanel.Find("Goddess Area/Speech Bubble/Goddess Message") == null ||
-                rightPanel.Find("System Navigation/Settings Button/Gear Icon") == null ||
+                rightPanel.Find("Goddess Area/Speech Bubble") != null ||
+                rightPanel.Find("System Navigation") != null || rightPanel.Find("Settings Button") != null ||
                 rightPanel.Find("Soul Chip") == null || gameArea.Find("Speed HUD/Speed Text") == null ||
                 rightPanel.Find("SpeedCard") != null || leftPanel.Find("LevelCard") != null || leftPanel.Find("ExpCard") != null)
             {
@@ -178,19 +177,28 @@ namespace IsekaiTruck.Editor
                 config.Camera.ViewportAspect,
                 config.Camera.ViewportHorizontalCenter
             );
-            uiController.SetViewport(wideViewport);
-            if (leftPanel.anchorMin != Vector2.zero || leftPanel.anchorMax != new Vector2(wideViewport.xMin, 1f) ||
-                gameArea.anchorMin != wideViewport.min || gameArea.anchorMax != wideViewport.max ||
-                rightPanel.anchorMin != new Vector2(wideViewport.xMax, 0f) || rightPanel.anchorMax != Vector2.one)
-            {
-                throw new InvalidOperationException("사이드 패널과 중앙 게임 영역이 카메라 Viewport에 맞춰지지 않았습니다.");
-            }
+            VerifyViewportLayout(uiController, leftPanel, gameArea, rightPanel, wideViewport, "1920x1080");
 
             if (!Mathf.Approximately(wideViewport.xMin, 0.19f) || !Mathf.Approximately(wideViewport.width, 0.60f) ||
                 !Mathf.Approximately(1f - wideViewport.xMax, 0.21f))
             {
                 throw new InvalidOperationException("1920x1080 HUD 비율이 Left 19% / Game 60% / Right 21%가 아닙니다.");
             }
+
+            Rect compactViewport = CameraController.CalculateViewportRect(
+                960f / 600f,
+                config.Camera.ViewportAspect,
+                config.Camera.ViewportHorizontalCenter
+            );
+            VerifyViewportLayout(uiController, leftPanel, gameArea, rightPanel, compactViewport, "960x600");
+
+            Rect fourByThreeViewport = CameraController.CalculateViewportRect(
+                4f / 3f,
+                config.Camera.ViewportAspect,
+                config.Camera.ViewportHorizontalCenter
+            );
+            VerifyViewportLayout(uiController, leftPanel, gameArea, rightPanel, fourByThreeViewport, "4:3");
+            uiController.SetViewport(wideViewport);
 
             GameObject truckObject = new GameObject("UI Verification Truck");
             GameObject playerObject = new GameObject("UI Verification Player");
@@ -213,14 +221,27 @@ namespace IsekaiTruck.Editor
                 TMP_Text soulText = (TMP_Text)serializedUI.FindProperty("soulText").objectReferenceValue;
                 TMP_Text pointText = (TMP_Text)serializedUI.FindProperty("pointText").objectReferenceValue;
                 TMP_Text speedText = (TMP_Text)serializedUI.FindProperty("speedText").objectReferenceValue;
+                TMP_Text upgradePointText = (TMP_Text)serializedUI.FindProperty("upgradePointText").objectReferenceValue;
+                TMP_Text speedLevelText = (TMP_Text)serializedUI.FindProperty("speedLevelText").objectReferenceValue;
+                TMP_Text sizeLevelText = (TMP_Text)serializedUI.FindProperty("sizeLevelText").objectReferenceValue;
                 Image expFill = (Image)serializedUI.FindProperty("expFill").objectReferenceValue;
                 TMP_FontAsset cartoonFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(CartoonFontAssetPath);
 
+                GameObject upgradePanel = (GameObject)serializedUI.FindProperty("upgradePanel").objectReferenceValue;
+                TMP_Text upgradeTitle = upgradePanel.transform.Find("Upgrade Box/Title").GetComponent<TMP_Text>();
+                TMP_Text speedButtonLabel = speedButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
+                Button sizeButton = (Button)serializedUI.FindProperty("sizeButton").objectReferenceValue;
+                TMP_Text sizeButtonLabel = sizeButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
+                if (!IsCentered(upgradeTitle) || !IsCentered(upgradePointText) || !IsCentered(speedLevelText) ||
+                    !IsCentered(sizeLevelText) ||
+                    !IsCentered(speedButtonLabel) || !IsCentered(sizeButtonLabel))
+                {
+                    throw new InvalidOperationException("업그레이드 팝업 글자가 가운데 정렬되지 않았습니다.");
+                }
+
                 Button collectionButton = (Button)serializedUI.FindProperty("collectionButton").objectReferenceValue;
-                Button settingsButton = (Button)serializedUI.FindProperty("settingsButton").objectReferenceValue;
                 if (levelText.font != cartoonFont || openButton.GetComponent<CartoonButtonPressEffect>() == null ||
-                    collectionButton.GetComponent<CartoonButtonPressEffect>() == null ||
-                    settingsButton.GetComponent<CartoonButtonPressEffect>() == null)
+                    collectionButton.GetComponent<CartoonButtonPressEffect>() == null)
                 {
                     throw new InvalidOperationException("카툰 HUD 폰트 또는 버튼 상호작용 효과가 연결되지 않았습니다.");
                 }
@@ -294,6 +315,29 @@ namespace IsekaiTruck.Editor
 
             Image image = panel.GetComponent<Image>();
             return image != null && image.sprite != null && image.type == Image.Type.Sliced;
+        }
+
+        private static bool IsCentered(TMP_Text text)
+        {
+            return text != null && text.alignment == TextAlignmentOptions.Center;
+        }
+
+        private static void VerifyViewportLayout(
+            GameUIController uiController,
+            RectTransform leftPanel,
+            RectTransform gameArea,
+            RectTransform rightPanel,
+            Rect viewport,
+            string resolutionLabel
+        )
+        {
+            uiController.SetViewport(viewport);
+            if (leftPanel.anchorMin != Vector2.zero || leftPanel.anchorMax != new Vector2(viewport.xMin, 1f) ||
+                gameArea.anchorMin != viewport.min || gameArea.anchorMax != viewport.max ||
+                rightPanel.anchorMin != new Vector2(viewport.xMax, 0f) || rightPanel.anchorMax != Vector2.one)
+            {
+                throw new InvalidOperationException($"{resolutionLabel} HUD가 카메라 Viewport에 맞춰지지 않았습니다.");
+            }
         }
 
         private static TMP_FontAsset GetOrCreateCartoonFontAsset()
@@ -442,11 +486,7 @@ namespace IsekaiTruck.Editor
             EditorUtility.SetDirty(settings);
         }
 
-        private static GameUIController CreateUI(
-            Transform canvas,
-            TMP_FontAsset font,
-            GoddessDialogueMockData dialogueData
-        )
+        private static GameUIController CreateUI(Transform canvas, TMP_FontAsset font)
         {
             Color outlineColor = new Color(0.25f, 0.12f, 0.25f, 1f);
             Color sidePanelColor = HudColorPalette.SidePanel;
@@ -548,7 +588,9 @@ namespace IsekaiTruck.Editor
             AddTextOutline(speedText, outlineColor, 1.5f);
             UIFeedbackEffect speedFeedback = speedText.gameObject.AddComponent<UIFeedbackEffect>();
             speedFeedback.Configure(0.18f, 0.025f);
-            speedHud.SetActive(false);
+            SpeedHUDView speedHudView = speedHud.AddComponent<SpeedHUDView>();
+            speedHudView.SetReferences(speedHudRect, speedText);
+            speedHud.SetActive(true);
 
             GameObject upgradePanel = CreatePanel("Upgrade Panel", gameArea, new Color(0.25f, 0.15f, 0.28f, 0.58f));
             Stretch(upgradePanel.GetComponent<RectTransform>());
@@ -560,6 +602,8 @@ namespace IsekaiTruck.Editor
             upgradeBoxRect.pivot = new Vector2(0.5f, 0.5f);
             upgradeBoxRect.sizeDelta = new Vector2(340f, 430f);
             upgradeBoxRect.anchoredPosition = Vector2.zero;
+            ResponsivePanelFitter upgradeBoxFitter = upgradeBox.AddComponent<ResponsivePanelFitter>();
+            upgradeBoxFitter.Configure(upgradeBoxRect.sizeDelta, 24f, 24f);
 
             TMP_Text title = CreateText("Title", upgradeBox.transform, font, "트럭 업그레이드", 30, TextAlignmentOptions.Center);
             SetTopRect(title.rectTransform, 18f, 48f, 16f);
@@ -573,17 +617,23 @@ namespace IsekaiTruck.Editor
 
             Button speedButton = CreateButton("Speed Upgrade Button", upgradeBox.transform, font, "속도 업그레이드", 24);
             SetTopRect(speedButton.GetComponent<RectTransform>(), 115f, 58f, 22f);
-            TMP_Text speedLevelText = CreateText("Speed Level", speedButton.transform, font, "Lv.0", 20, TextAlignmentOptions.MidlineRight);
-            StretchWithOffsets(speedLevelText.rectTransform, 12f, 12f, 0f, 0f);
+            TMP_Text speedLevelText = CreateText("Speed Level", speedButton.transform, font, "Lv.0", 17, TextAlignmentOptions.Center);
+            SetRect(speedLevelText.rectTransform, new Vector2(0.12f, 0.02f), new Vector2(0.88f, 0.38f), Vector2.zero, Vector2.zero);
             speedLevelText.raycastTarget = false;
             speedLevelText.fontStyle = FontStyles.Bold;
 
+            TMP_Text speedButtonLabel = speedButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
+            SetRect(speedButtonLabel.rectTransform, new Vector2(0.08f, 0.34f), new Vector2(0.92f, 0.96f), Vector2.zero, Vector2.zero);
+
             Button sizeButton = CreateButton("Size Upgrade Button", upgradeBox.transform, font, "크기 업그레이드", 24);
             SetTopRect(sizeButton.GetComponent<RectTransform>(), 225f, 58f, 22f);
-            TMP_Text sizeLevelText = CreateText("Size Level", sizeButton.transform, font, "Lv.0", 20, TextAlignmentOptions.MidlineRight);
-            StretchWithOffsets(sizeLevelText.rectTransform, 12f, 12f, 0f, 0f);
+            TMP_Text sizeLevelText = CreateText("Size Level", sizeButton.transform, font, "Lv.0", 17, TextAlignmentOptions.Center);
+            SetRect(sizeLevelText.rectTransform, new Vector2(0.12f, 0.02f), new Vector2(0.88f, 0.38f), Vector2.zero, Vector2.zero);
             sizeLevelText.raycastTarget = false;
             sizeLevelText.fontStyle = FontStyles.Bold;
+
+            TMP_Text sizeButtonLabel = sizeButton.transform.Find("Button Face/Label").GetComponent<TMP_Text>();
+            SetRect(sizeButtonLabel.rectTransform, new Vector2(0.08f, 0.34f), new Vector2(0.92f, 0.96f), Vector2.zero, Vector2.zero);
 
             Button closeButton = CreateButton("Close Button", upgradeBox.transform, font, "닫기", 22);
             SetTopRect(closeButton.GetComponent<RectTransform>(), 342f, 54f, 22f);
@@ -622,21 +672,6 @@ namespace IsekaiTruck.Editor
             SetRect(rightArm.GetComponent<RectTransform>(), new Vector2(0.66f, 0.30f), new Vector2(0.82f, 0.70f), Vector2.zero, Vector2.zero);
             rightArm.transform.localRotation = Quaternion.Euler(0f, 0f, 12f);
 
-            GameObject speechBubble = CreateSpeechBubble("Speech Bubble", goddessArea.transform, creamColor, outlineColor);
-            RectTransform speechBubbleRect = speechBubble.GetComponent<RectTransform>();
-            SetRect(speechBubbleRect, new Vector2(0.50f, 0.25f), new Vector2(0.50f, 0.25f), Vector2.zero, Vector2.zero);
-            speechBubbleRect.sizeDelta = new Vector2(300f, 84f);
-            TMP_Text goddessMessage = CreateText("Goddess Message", speechBubble.transform, font, "여신이 지켜보고 있습니다", 18, TextAlignmentOptions.Center);
-            StretchWithOffsets(goddessMessage.rectTransform, 14f, 14f, 7f, 7f);
-            goddessMessage.color = outlineColor;
-            goddessMessage.fontStyle = FontStyles.Normal;
-            goddessMessage.textWrappingMode = TextWrappingModes.Normal;
-            GoddessSpeechBubble speechBubbleController = goddessArea.AddComponent<GoddessSpeechBubble>();
-            speechBubbleController.SetReferences(speechBubbleRect, goddessMessage, rightPanel, string.Empty);
-            GoddessDialogueMockController goddessDialogue = goddessArea.AddComponent<GoddessDialogueMockController>();
-            goddessDialogue.SetReferences(dialogueData, speechBubbleController);
-            speechBubble.SetActive(false);
-
             GameObject soulSection = CreatePanel("Soul Chip", rightPanel, soulColor);
             SetRect(soulSection.GetComponent<RectTransform>(), new Vector2(0.18f, 0.22f), new Vector2(0.82f, 0.31f), Vector2.zero, Vector2.zero);
             AddSoftOutline(soulSection, soulDepth);
@@ -651,10 +686,6 @@ namespace IsekaiTruck.Editor
             AddTextOutline(soulText, outlineColor, 1.5f);
             UIFeedbackEffect soulFeedback = soulText.gameObject.AddComponent<UIFeedbackEffect>();
             soulFeedback.Configure(0.22f, 0.08f);
-
-            GameObject systemNavigation = CreateUIObject("System Navigation", rightPanel);
-            Stretch(systemNavigation.GetComponent<RectTransform>());
-            Button settingsButton = CreateSettingsButton(systemNavigation.transform, creamColor, outlineColor);
 
             controller.SetReferences(
                 leftPanel,
@@ -675,15 +706,17 @@ namespace IsekaiTruck.Editor
                 speedButton,
                 sizeButton,
                 collectionButton,
-                settingsButton,
                 collectionNotificationBadge,
                 upgradeIndicator,
                 levelFeedback,
                 soulFeedback,
                 upgradeFeedback,
                 speedFeedback,
-                goddessDialogue
+                speedHudView
             );
+
+            MonsterCollectionUIController existingCollectionUI = canvas.GetComponentInChildren<MonsterCollectionUIController>(true);
+            existingCollectionUI?.SetOpenButton(collectionButton);
 
             upgradePanel.SetActive(false);
             return controller;
@@ -798,54 +831,6 @@ namespace IsekaiTruck.Editor
 
             leftPage.GetComponent<Image>().raycastTarget = false;
             rightPage.GetComponent<Image>().raycastTarget = false;
-        }
-
-        private static Button CreateSettingsButton(Transform parent, Color faceColor, Color outlineColor)
-        {
-            GameObject buttonObject = CreatePanel("Settings Button", parent, faceColor);
-            RectTransform buttonRect = buttonObject.GetComponent<RectTransform>();
-            SetRect(buttonRect, Vector2.one, Vector2.one, Vector2.zero, Vector2.zero);
-            buttonRect.sizeDelta = new Vector2(60f, 60f);
-            buttonRect.anchoredPosition = new Vector2(-52f, -52f);
-            AddSoftOutline(buttonObject, outlineColor);
-
-            Button button = buttonObject.AddComponent<Button>();
-            button.targetGraphic = buttonObject.GetComponent<Image>();
-            ConfigureSoftButtonColors(
-                button,
-                new Color(1f, 0.98f, 0.91f, 1f),
-                new Color(0.94f, 0.88f, 0.76f, 1f),
-                new Color(0.72f, 0.68f, 0.60f, 0.72f)
-            );
-
-            GameObject gearIcon = CreateUIObject("Gear Icon", buttonObject.transform);
-            RectTransform gearRect = gearIcon.GetComponent<RectTransform>();
-            SetRect(gearRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
-            gearRect.sizeDelta = new Vector2(42f, 42f);
-
-            for (int i = 0; i < 8; i++)
-            {
-                GameObject tooth = CreatePanel($"Tooth {i + 1}", gearIcon.transform, outlineColor);
-                RectTransform toothRect = tooth.GetComponent<RectTransform>();
-                SetRect(toothRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
-                toothRect.sizeDelta = new Vector2(8f, 38f);
-                toothRect.localRotation = Quaternion.Euler(0f, 0f, i * 45f);
-                tooth.GetComponent<Image>().raycastTarget = false;
-            }
-
-            GameObject gearBody = CreateCirclePanel("Gear Body", gearIcon.transform, outlineColor);
-            RectTransform gearBodyRect = gearBody.GetComponent<RectTransform>();
-            SetRect(gearBodyRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
-            gearBodyRect.sizeDelta = new Vector2(30f, 30f);
-
-            GameObject gearCenter = CreateCirclePanel("Gear Center", gearIcon.transform, faceColor);
-            RectTransform gearCenterRect = gearCenter.GetComponent<RectTransform>();
-            SetRect(gearCenterRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
-            gearCenterRect.sizeDelta = new Vector2(12f, 12f);
-
-            CartoonButtonPressEffect interaction = buttonObject.AddComponent<CartoonButtonPressEffect>();
-            interaction.Configure(buttonRect, gearRect, 1.025f, 0.97f, 0.5f, 1.08f, 8f);
-            return button;
         }
 
         private static void ConfigureSoftButtonColors(Button button, Color highlighted, Color pressed, Color disabled)

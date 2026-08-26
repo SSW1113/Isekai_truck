@@ -62,9 +62,24 @@ namespace IsekaiTruck.Wanted
             return new WantedLevelSnapshot(totalKills, level);
         }
 
+        public int GetRequiredTotalKillsForLevel(int targetLevel)
+        {
+            int safeLevel = Mathf.Clamp(targetLevel, 0, settings.MaxLevel);
+            long requiredKills = (long)settings.KillsPerLevel * safeLevel * (safeLevel + 1) / 2;
+            return requiredKills >= int.MaxValue ? int.MaxValue : (int)requiredKills;
+        }
+
         private int CalculateLevel(int kills)
         {
-            return Mathf.Min(kills / settings.KillsPerLevel, settings.MaxLevel);
+            for (int targetLevel = 1; targetLevel <= settings.MaxLevel; targetLevel++)
+            {
+                if (kills < GetRequiredTotalKillsForLevel(targetLevel))
+                {
+                    return targetLevel - 1;
+                }
+            }
+
+            return settings.MaxLevel;
         }
     }
 

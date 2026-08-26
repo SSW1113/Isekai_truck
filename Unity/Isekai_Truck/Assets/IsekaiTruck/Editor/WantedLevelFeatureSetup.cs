@@ -97,7 +97,9 @@ namespace IsekaiTruck.Editor
         {
             GameConfig config = AssetDatabase.LoadAssetAtPath<GameConfig>(ConfigPath);
             BlessingCatalog catalog = AssetDatabase.LoadAssetAtPath<BlessingCatalog>(CatalogPath);
-            if (config == null || catalog == null || config.Wanted.KillsPerLevel != 50 || config.Wanted.MaxLevel != 10)
+            if (config == null || catalog == null || config.Wanted.KillsPerLevel != 100 || config.Wanted.MaxLevel != 10 ||
+                config.Spawn.TargetCountPerWantedLevel != 50 || config.Enemy.WantedSpeedBoostLevel != 5 ||
+                !Mathf.Approximately(config.Enemy.WantedSpeedMultiplier, 2f))
             {
                 throw new InvalidOperationException("Wanted level configuration is incorrect.");
             }
@@ -141,6 +143,7 @@ namespace IsekaiTruck.Editor
             }
 
             VerifyLevelProgression(config);
+            VerifyResidentScaling(config);
             VerifyUI(config);
             VerifyRebirthRetention(config, catalog);
             VerifySave(config, catalog);
@@ -156,27 +159,39 @@ namespace IsekaiTruck.Editor
                 WantedLevelSystem wanted = systemObject.AddComponent<WantedLevelSystem>();
                 wanted.Initialize(config);
 
-                for (int i = 0; i < 49; i++) wanted.RegisterKill();
-                if (wanted.TotalKills != 49 || wanted.Level != 0)
+                for (int i = 0; i < 99; i++) wanted.RegisterKill();
+                if (wanted.TotalKills != 99 || wanted.Level != 0)
                 {
                     throw new InvalidOperationException("Wanted level increased before the first threshold.");
                 }
 
                 wanted.RegisterKill();
-                if (wanted.TotalKills != 50 || wanted.Level != 1)
+                if (wanted.TotalKills != 100 || wanted.Level != 1)
                 {
-                    throw new InvalidOperationException("Wanted level did not increase at 50 kills.");
+                    throw new InvalidOperationException("Wanted level did not increase at 100 kills.");
                 }
 
-                wanted.RestoreState(499);
+                wanted.RestoreState(299);
+                if (wanted.Level != 1)
+                {
+                    throw new InvalidOperationException("Wanted level increased before the second cumulative threshold.");
+                }
+
+                wanted.RestoreState(300);
+                if (wanted.Level != 2)
+                {
+                    throw new InvalidOperationException("Wanted level 2 cumulative threshold is incorrect.");
+                }
+
+                wanted.RestoreState(4500);
                 if (wanted.Level != 9)
                 {
                     throw new InvalidOperationException("Wanted level 9 boundary is incorrect.");
                 }
 
-                wanted.RestoreState(500);
+                wanted.RestoreState(5500);
                 wanted.RegisterKill();
-                if (wanted.TotalKills != 501 || wanted.Level != 10)
+                if (wanted.TotalKills != 5501 || wanted.Level != 10)
                 {
                     throw new InvalidOperationException("Wanted level did not remain capped at 10.");
                 }
@@ -211,7 +226,7 @@ namespace IsekaiTruck.Editor
                     throw new InvalidOperationException("Wanted level 0 UI was not hidden.");
                 }
 
-                wanted.RestoreState(50);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(1));
                 if (statusText.text != "비상! 지명수배" ||
                     levelText.text != "LV.1" ||
                     !HudColorPalette.Matches(bannerFace.color, HudColorPalette.Wanted) ||
@@ -223,14 +238,14 @@ namespace IsekaiTruck.Editor
                 }
 
                 presentation.CompleteAnimationsImmediately();
-                wanted.RestoreState(250);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(5));
                 presentation.CompleteAnimationsImmediately();
                 if (presentation.VisibleStarCount != 5 || !presentation.IsContinuousBeaconActive)
                 {
                     throw new InvalidOperationException("Wanted level 5 continuous alert state is incorrect.");
                 }
 
-                wanted.RestoreState(500);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(10));
                 presentation.CompleteAnimationsImmediately();
                 if (levelText.text != "LV.10" || presentation.VisibleStarCount != MaxStarCount)
                 {
@@ -245,7 +260,7 @@ namespace IsekaiTruck.Editor
                         throw new InvalidOperationException($"Wanted level {level} star count is incorrect.");
                     }
 
-                    VerifyStageLabelGap(presentation);
+                    VerifyCenteredStars(presentation);
                 }
 
                 wanted.ResetForWorldTravel();
@@ -258,7 +273,7 @@ namespace IsekaiTruck.Editor
                 restoredSystemObject.transform.SetParent(uiRoot.transform, false);
                 WantedLevelSystem restoredWanted = restoredSystemObject.AddComponent<WantedLevelSystem>();
                 restoredWanted.Initialize(config);
-                restoredWanted.RestoreState(250);
+                restoredWanted.RestoreState(restoredWanted.GetRequiredTotalKillsForLevel(5));
                 WantedLevelUIController restoredUI = CreateUI(uiRoot.GetComponent<RectTransform>(), cartoonFont);
                 restoredUI.Initialize(restoredWanted);
                 SerializedObject serializedRestoredUI = new SerializedObject(restoredUI);
@@ -275,11 +290,32 @@ namespace IsekaiTruck.Editor
             }
         }
 
-        private static void VerifyStageLabelGap(WantedLevelUIPresentation presentation)
+        private static void VerifyResidentScaling(GameConfig config)
+        {
+            if (config.Spawn.GetTargetCount(0) != 100 || config.Spawn.GetTargetCount(5) != 350 || config.Spawn.GetTargetCount(10) != 600)
+            {
+                throw new InvalidOperationException("Wanted resident target count scaling is incorrect.");
+            }
+
+            const int level = 5;
+            if (!Mathf.Approximately(config.Spawn.GetSpawnWeight("man", 60f, level), 60f) ||
+                !Mathf.Approximately(config.Spawn.GetSpawnWeight("salesman", 20f, level), 15f) ||
+                !Mathf.Approximately(config.Spawn.GetSpawnWeight("policeman", 10f, level), 20f) ||
+                !Mathf.Approximately(config.Spawn.GetSpawnWeight("samurai", 6f, level), 11f) ||
+                !Mathf.Approximately(config.Spawn.GetSpawnWeight("jeon_woochi", 1f, level), 6f) ||
+                !Mathf.Approximately(config.Spawn.GetSpawnWeight("turtle", 0.1f, level), 0.5f) ||
+                !Mathf.Approximately(config.Spawn.GetSpawnWeight("wizard", 0.9f, level), 5.9f))
+            {
+                throw new InvalidOperationException("Wanted resident spawn weight scaling is incorrect.");
+            }
+        }
+
+        private static void VerifyCenteredStars(WantedLevelUIPresentation presentation)
         {
             SerializedObject serializedPresentation = new SerializedObject(presentation);
             SerializedProperty stars = serializedPresentation.FindProperty("starIcons");
             RectTransform stageText = (RectTransform)serializedPresentation.FindProperty("stageText").objectReferenceValue;
+            float leftmostEdge = float.MaxValue;
             float rightmostEdge = float.MinValue;
 
             for (int i = 0; i < stars.arraySize; i++)
@@ -287,14 +323,14 @@ namespace IsekaiTruck.Editor
                 RectTransform star = (RectTransform)stars.GetArrayElementAtIndex(i).objectReferenceValue;
                 if (star.gameObject.activeSelf)
                 {
+                    leftmostEdge = Mathf.Min(leftmostEdge, star.anchoredPosition.x - star.sizeDelta.x * 0.5f);
                     rightmostEdge = Mathf.Max(rightmostEdge, star.anchoredPosition.x + star.sizeDelta.x * 0.5f);
                 }
             }
 
-            float labelLeftEdge = stageText.anchoredPosition.x - stageText.sizeDelta.x * 0.5f;
-            if (!Mathf.Approximately(labelLeftEdge - rightmostEdge, StageGap))
+            if (stageText.gameObject.activeSelf || !Mathf.Approximately((leftmostEdge + rightmostEdge) * 0.5f, 0f))
             {
-                throw new InvalidOperationException("Wanted stage label spacing is inconsistent.");
+                throw new InvalidOperationException("Wanted stars are not centered without the stage label.");
             }
         }
 
@@ -307,12 +343,13 @@ namespace IsekaiTruck.Editor
             try
             {
                 SaveSystems first = CreateSaveSystems(source, config, catalog);
-                first.Wanted.RestoreState(175);
+                int savedKills = first.Wanted.GetRequiredTotalKillsForLevel(3) + 75;
+                first.Wanted.RestoreState(savedKills);
                 first.Save.Save();
                 Object.DestroyImmediate(first.Save);
 
                 SaveSystems second = CreateSaveSystems(restored, config, catalog);
-                if (second.Wanted.TotalKills != 175 || second.Wanted.Level != 3)
+                if (second.Wanted.TotalKills != savedKills || second.Wanted.Level != 3)
                 {
                     throw new InvalidOperationException("Wanted level progress was not restored from save data.");
                 }
@@ -345,8 +382,9 @@ namespace IsekaiTruck.Editor
                 wanted.Initialize(config);
 
                 player.RestoreState(10, 0, 0, 0, 0f, 0f);
-                wanted.RestoreState(175);
-                if (!rebirth.BeginRebirth(0) || !rebirth.CompleteRebirth(0, out RebirthResult result) || wanted.TotalKills != 175 || wanted.Level != 3)
+                int retainedKills = wanted.GetRequiredTotalKillsForLevel(3) + 75;
+                wanted.RestoreState(retainedKills);
+                if (!rebirth.BeginRebirth(0) || !rebirth.CompleteRebirth(0, out RebirthResult result) || wanted.TotalKills != retainedKills || wanted.Level != 3)
                 {
                     throw new InvalidOperationException("Wanted level progress did not survive rebirth.");
                 }

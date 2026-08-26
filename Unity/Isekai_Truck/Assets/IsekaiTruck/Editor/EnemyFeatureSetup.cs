@@ -124,7 +124,9 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("Enemy feature assets are missing.");
             }
 
-            if (config.Truck.MaxHealth != 3 || !Mathf.Approximately(config.Truck.DamageInvulnerabilityDuration, 2f) || config.Enemy.CountPerWantedLevel != 2)
+            if (config.Truck.MaxHealth != 3 || !Mathf.Approximately(config.Truck.DamageInvulnerabilityDuration, 2f) ||
+                config.Enemy.CountPerWantedLevel != 2 || config.Enemy.WantedSpeedBoostLevel != 5 ||
+                !Mathf.Approximately(config.Enemy.WantedSpeedMultiplier, 2f))
             {
                 throw new InvalidOperationException("Enemy feature configuration is incorrect.");
             }
@@ -146,6 +148,13 @@ namespace IsekaiTruck.Editor
             if (gameManager == null || truckHealth == null || damageFlash == null || healthUI == null || enemyManager == null || enemySpawner == null || warningUI == null)
             {
                 throw new InvalidOperationException("Enemy feature scene systems are missing.");
+            }
+
+            SerializedObject serializedHealthUI = new SerializedObject(healthUI);
+            Text healthText = (Text)serializedHealthUI.FindProperty("healthText").objectReferenceValue;
+            if (healthText == null || healthText.font != CartoonUIStyle.LoadFont())
+            {
+                throw new InvalidOperationException("Truck health text is not using the WebGL-safe HUD font.");
             }
 
             SerializedObject serializedGameManager = new SerializedObject(gameManager);
@@ -247,11 +256,11 @@ namespace IsekaiTruck.Editor
                 TruckDamageFlash flash = truck.AddComponent<TruckDamageFlash>();
                 TruckHealthController health = truck.AddComponent<TruckHealthController>();
                 health.Initialize(config, flash);
-                EnemyManager manager = managerObject.AddComponent<EnemyManager>();
-                manager.SetCatalog(catalog);
-                manager.Initialize(config, truck.transform, health);
                 WantedLevelSystem wanted = wantedObject.AddComponent<WantedLevelSystem>();
                 wanted.Initialize(config);
+                EnemyManager manager = managerObject.AddComponent<EnemyManager>();
+                manager.SetCatalog(catalog);
+                manager.Initialize(config, truck.transform, health, wanted);
                 EnemySpawner spawner = spawnerObject.AddComponent<EnemySpawner>();
                 spawner.Initialize(config, manager, wanted, truck.transform);
 
@@ -263,7 +272,7 @@ namespace IsekaiTruck.Editor
                         $"Wanted level 0 enemy count mismatch. Expected {levelZeroTarget}, got {manager.Enemies.Count}.");
                 }
 
-                wanted.RestoreState(config.Wanted.KillsPerLevel);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(1));
                 spawner.FillInitial();
                 int levelOneTarget = Mathf.Max(
                     config.Enemy.MinimumCountForTesting,
@@ -281,7 +290,7 @@ namespace IsekaiTruck.Editor
                     throw new InvalidOperationException("A despawned enemy was not replenished.");
                 }
 
-                wanted.RestoreState(config.Wanted.KillsPerLevel * 2);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(2));
                 spawner.FillInitial();
                 int levelTwoTarget = Mathf.Max(
                     config.Enemy.MinimumCountForTesting,
@@ -290,6 +299,25 @@ namespace IsekaiTruck.Editor
                 {
                     throw new InvalidOperationException(
                         $"Wanted level 2 enemy count mismatch. Expected {levelTwoTarget}, got {manager.Enemies.Count}.");
+                }
+
+                EnemyController speedTestEnemy = manager.Enemies[0];
+                float baseMoveSpeed = speedTestEnemy.Type.MoveSpeed;
+                truck.transform.position = Vector3.zero;
+                speedTestEnemy.transform.position = new Vector3(0f, speedTestEnemy.transform.position.y, 20f);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(4));
+                manager.UpdateEnemies(0.5f);
+                if (!Mathf.Approximately(speedTestEnemy.transform.position.z, 20f - baseMoveSpeed * 0.5f))
+                {
+                    throw new InvalidOperationException("Police car speed increased before wanted level 5.");
+                }
+
+                speedTestEnemy.transform.position = new Vector3(0f, speedTestEnemy.transform.position.y, 20f);
+                wanted.RestoreState(wanted.GetRequiredTotalKillsForLevel(5));
+                manager.UpdateEnemies(0.5f);
+                if (!Mathf.Approximately(speedTestEnemy.transform.position.z, 20f - baseMoveSpeed * config.Enemy.WantedSpeedMultiplier * 0.5f))
+                {
+                    throw new InvalidOperationException("Police car speed did not double at wanted level 5.");
                 }
 
                 manager.SetWorldPaused(true);
@@ -521,7 +549,7 @@ namespace IsekaiTruck.Editor
             try
             {
                 EnemyDefinition definition = root.AddComponent<EnemyDefinition>();
-                definition.Configure("basic_enemy", "기본 적", 1f, 0.5f, 6f, 1, 1f);
+                definition.Configure("basic_enemy", "경찰차", 2f, 0.5f, 6f, 1, 1f);
                 root.AddComponent<EnemyController>();
 
                 GameObject visual = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -578,7 +606,7 @@ namespace IsekaiTruck.Editor
 
         private static TruckHealthUIController CreateHealthUI(Transform parent)
         {
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            Font font = CartoonUIStyle.LoadFont();
             GameObject panel = new GameObject("Truck Health UI", typeof(RectTransform), typeof(Image));
             panel.transform.SetParent(parent, false);
             RectTransform panelRect = panel.GetComponent<RectTransform>();

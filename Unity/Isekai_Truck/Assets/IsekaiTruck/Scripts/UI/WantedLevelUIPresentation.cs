@@ -19,7 +19,7 @@ namespace IsekaiTruck.UI
         [SerializeField] private RectTransform[] starIcons;
         [SerializeField] private CanvasGroup[] starCanvasGroups;
         [SerializeField] private RectTransform stageText;
-        [SerializeField] private float starClusterCenter = -38f;
+        [SerializeField] private float starClusterCenter;
         [SerializeField, Min(18f)] private float starSpacing = 24f;
         [SerializeField, Min(0f)] private float stageGap = 8f;
         [SerializeField, Min(0.1f)] private float starAnimationDuration = 0.34f;
@@ -285,7 +285,7 @@ namespace IsekaiTruck.UI
             visibleStarCount = clampedLevel;
             CalculateStarTargets();
             ApplyStarTargets();
-            stageText.gameObject.SetActive(clampedLevel > 0);
+            stageText.gameObject.SetActive(false);
         }
 
         private void InsertStarAtCenter(int starIndex)

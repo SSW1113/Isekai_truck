@@ -91,7 +91,9 @@ namespace IsekaiTruck.Editor
             playerState.Initialize(config);
             manager.MonsterDefeated += type => playerState.AddRewards(type.Exp, type.Soul);
 
-            MonsterController escapingMonster = manager.CreateMonster("man", 1.77f, 0f);
+            MonsterData manType = manager.Types["man"];
+            const float escapeStartX = 1.77f;
+            MonsterController escapingMonster = manager.CreateMonster("man", escapeStartX, 0f);
             manager.UpdateMonsters(referenceDeltaTime);
 
             if (manager.Monsters.Count != 1)
@@ -99,15 +101,21 @@ namespace IsekaiTruck.Editor
                 throw new InvalidOperationException("AI 이동 후 충돌 검사 순서 검증에 실패했습니다.");
             }
 
-            AssertApproximately(escapingMonster.transform.position.x, 1.81f, "충돌 전 도망 이동");
+            AssertApproximately(
+                escapingMonster.transform.position.x,
+                escapeStartX + manType.Speed,
+                "충돌 전 도망 이동");
             manager.Remove(escapingMonster);
 
             truckObject.transform.localScale = Vector3.one * 2f;
-            manager.CreateMonster("man", 3.5f, 0f);
+            float collisionDistance = config.Monster.CollisionDistance *
+                truckObject.transform.localScale.x;
+            float rewardMonsterSpawnX = collisionDistance - manType.Speed - 0.05f;
+            manager.CreateMonster("man", rewardMonsterSpawnX, 0f);
             manager.UpdateMonsters(referenceDeltaTime);
             AssertPlayerState(playerState, 1, 50, 100, 2, 0, "첫 처치 보상");
 
-            manager.CreateMonster("man", 3.5f, 0f);
+            manager.CreateMonster("man", rewardMonsterSpawnX, 0f);
             manager.UpdateMonsters(referenceDeltaTime);
             AssertPlayerState(playerState, 2, 0, 283, 4, 1, "레벨업 보상");
 

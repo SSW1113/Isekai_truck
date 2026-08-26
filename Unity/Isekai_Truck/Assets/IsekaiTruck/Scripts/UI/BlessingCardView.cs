@@ -22,10 +22,10 @@ namespace IsekaiTruck.UI
         [SerializeField, Min(1f)] private float transitionSpeed = 12f;
         [SerializeField, Range(1f, 1.1f)] private float hoverScale = 1.045f;
 
-        private readonly Color normalBackground = new Color(0.035f, 0.06f, 0.075f, 0.98f);
-        private readonly Color hoverBackground = new Color(0.075f, 0.12f, 0.15f, 0.99f);
-        private readonly Color normalSpotlight = new Color(0.76f, 0.68f, 1f, 0f);
-        private readonly Color hoverSpotlight = new Color(0.76f, 0.68f, 1f, 0.22f);
+        private readonly Color normalBackground = new Color32(0xFF, 0xF4, 0xD8, 0xFF);
+        private readonly Color hoverBackground = new Color32(0xF5, 0xC5, 0xDC, 0xFF);
+        private readonly Color normalSpotlight = new Color(1f, 0.83f, 0.42f, 0f);
+        private readonly Color hoverSpotlight = new Color(1f, 0.83f, 0.42f, 0.22f);
 
         private int candidateIndex = -1;
         private bool isHovered;

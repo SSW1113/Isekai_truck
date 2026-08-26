@@ -133,6 +133,9 @@ namespace IsekaiTruck.Editor
         private static void ValidateInitialMonsters(GameConfig config, MonsterManager manager, Transform truck)
         {
             AssertCount(manager, config.Spawn.TargetCount, "초기 몬스터 수");
+            AssertSpawnWeight(manager, "man");
+            AssertSpawnWeight(manager, "salesman");
+            AssertSpawnWeight(manager, "policeman");
 
             int manCount = 0;
             int salesmanCount = 0;
@@ -159,10 +162,25 @@ namespace IsekaiTruck.Editor
                 }
             }
 
-            if (manCount < 60 || manCount > 90 || salesmanCount < 10 || salesmanCount > 35 || policemanCount < 1 || policemanCount > 15)
+            if (manCount == 0 || salesmanCount == 0 || policemanCount == 0)
             {
                 throw new InvalidOperationException(
-                    $"spawnWeight 분포 검증 실패: man {manCount}, salesman {salesmanCount}, policeman {policemanCount}"
+                    $"동일 spawnWeight 스폰 검증 실패: man {manCount}, salesman {salesmanCount}, policeman {policemanCount}"
+                );
+            }
+        }
+
+        private static void AssertSpawnWeight(MonsterManager manager, string typeId)
+        {
+            if (!manager.Types.TryGetValue(typeId, out MonsterData type))
+            {
+                throw new InvalidOperationException($"몬스터 타입을 찾지 못했습니다: {typeId}");
+            }
+
+            if (!Mathf.Approximately(type.SpawnWeight, MonsterDefinition.DefaultSpawnWeight))
+            {
+                throw new InvalidOperationException(
+                    $"spawnWeight 검증 실패: {typeId}, expected {MonsterDefinition.DefaultSpawnWeight}, actual {type.SpawnWeight}"
                 );
             }
         }

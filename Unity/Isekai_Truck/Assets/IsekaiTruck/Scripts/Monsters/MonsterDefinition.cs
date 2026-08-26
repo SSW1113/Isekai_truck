@@ -12,7 +12,7 @@ namespace IsekaiTruck.Monsters
 
         [Header("Identity")]
         [SerializeField] private string typeId = "new_monster";
-        [SerializeField] private string displayName = "새 몬스터";
+        [SerializeField] private string displayName = "새 주민";
         [SerializeField] private Color color = Color.white;
 
         [Header("Stats")]

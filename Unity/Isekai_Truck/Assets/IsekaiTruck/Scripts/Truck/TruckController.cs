@@ -24,6 +24,7 @@ namespace IsekaiTruck.Truck
         public float CurrentSpeed => speed * environmentSpeedMultiplier;
         public float CurrentFrameDistance { get; private set; }
         public float CurrentSpeedPerSecond { get; private set; }
+        public float CurrentMaxSpeedPerSecond => maxSpeed * referenceFrameRate;
         public float CurrentInputMagnitude { get; private set; }
         public float EnvironmentSpeedMultiplier => environmentSpeedMultiplier;
 

@@ -12,21 +12,39 @@ namespace IsekaiTruck.Editor
     {
         private const string SpritePath = "Assets/IsekaiTruck/Art/Sprites/Wizard5DirectionWalk.png";
         private const string SpritePrefix = "Wizard";
+        private const string TeleportSpritePath =
+            "Assets/IsekaiTruck/Art/Sprites/WizardTeleportEffect.png";
+        private const string TeleportSpritePrefix = "WizardTeleport";
+        private const string TeleportEffectPrefabPath =
+            "Assets/IsekaiTruck/Prefabs/Effects/WizardTeleportEffect.prefab";
         private const string WizardPrefabPath = "Assets/IsekaiTruck/Prefabs/Monsters/Wizard.prefab";
         private const string CatalogPath = "Assets/IsekaiTruck/Config/MonsterPrefabCatalog.asset";
         private const float PixelsPerUnit = 112f;
+        private const float TeleportPixelsPerUnit = 100f;
         private const float VisualScale = 1.5f;
+        private const float TeleportVisualScale = 2f;
         private const float AnimationFramesPerSecond = 12f;
+        private const float TeleportFramesPerSecond = 12f;
         private const float TeleportInterval = 3f;
+        private const int TeleportColumns = 3;
+        private const int TeleportRows = 3;
+        private const int TeleportFrameCount = 9;
+
+        private static readonly int[] TeleportSafeMin = { 0, 168, 334 };
+        private static readonly int[] TeleportSafeMaxExclusive = { 166, 332, 500 };
 
         [MenuItem("Isekai Truck/Setup Wizard Monster")]
         public static void Setup()
         {
             AssetDatabase.Refresh();
             DirectionalMonsterSpriteSheetUtility.ConfigureImporter(SpritePath, SpritePrefix, PixelsPerUnit);
+            ConfigureTeleportImporter();
 
             Sprite[] frames = DirectionalMonsterSpriteSheetUtility.LoadFrames(SpritePath, SpritePrefix);
-            CreateOrUpdatePrefab(frames);
+            Sprite[] teleportFrames = LoadTeleportFrames();
+            SpriteSequenceEffect teleportEffectPrefab =
+                CreateOrUpdateTeleportEffectPrefab(teleportFrames);
+            CreateOrUpdatePrefab(frames, teleportEffectPrefab);
 
             MonsterPrefabCatalog catalog = AssetDatabase.LoadAssetAtPath<MonsterPrefabCatalog>(CatalogPath);
             if (catalog == null)
@@ -47,10 +65,16 @@ namespace IsekaiTruck.Editor
         public static void Verify()
         {
             TextureImporter importer = AssetImporter.GetAtPath(SpritePath) as TextureImporter;
+            TextureImporter teleportImporter =
+                AssetImporter.GetAtPath(TeleportSpritePath) as TextureImporter;
             Sprite[] frames = DirectionalMonsterSpriteSheetUtility.LoadFrames(SpritePath, SpritePrefix);
+            Sprite[] teleportFrames = LoadTeleportFrames();
+            SpriteSequenceEffect teleportEffectPrefab =
+                AssetDatabase.LoadAssetAtPath<SpriteSequenceEffect>(TeleportEffectPrefabPath);
             GameObject wizardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(WizardPrefabPath);
             MonsterPrefabCatalog catalog = AssetDatabase.LoadAssetAtPath<MonsterPrefabCatalog>(CatalogPath);
-            if (importer == null || wizardPrefab == null || catalog == null)
+            if (importer == null || teleportImporter == null || teleportEffectPrefab == null ||
+                wizardPrefab == null || catalog == null)
             {
                 throw new InvalidOperationException("Wizard monster assets are missing.");
             }
@@ -61,6 +85,17 @@ namespace IsekaiTruck.Editor
                 !Mathf.Approximately(importer.spritePixelsPerUnit, PixelsPerUnit))
             {
                 throw new InvalidOperationException("Wizard walk sheet importer is not configured as expected.");
+            }
+
+            if (teleportImporter.textureType != TextureImporterType.Sprite ||
+                teleportImporter.spriteImportMode != SpriteImportMode.Multiple ||
+                !teleportImporter.alphaIsTransparency ||
+                !Mathf.Approximately(
+                    teleportImporter.spritePixelsPerUnit,
+                    TeleportPixelsPerUnit))
+            {
+                throw new InvalidOperationException(
+                    "Wizard teleport sheet importer is not configured as expected.");
             }
 
             MonsterDefinition definition = wizardPrefab.GetComponent<MonsterDefinition>();
@@ -82,7 +117,8 @@ namespace IsekaiTruck.Editor
                 !Mathf.Approximately(definition.Speed, MonsterDefinition.DefaultSpeed) ||
                 !Mathf.Approximately(definition.FleeDistance, MonsterDefinition.DefaultFleeDistance) ||
                 !Mathf.Approximately(definition.SpawnWeight, MonsterDefinition.DefaultSpawnWeight) ||
-                !Mathf.Approximately(teleportBehavior.TeleportInterval, TeleportInterval))
+                !Mathf.Approximately(teleportBehavior.TeleportInterval, TeleportInterval) ||
+                teleportBehavior.TeleportEffectPrefab != teleportEffectPrefab)
             {
                 throw new InvalidOperationException("Wizard gameplay settings are incorrect.");
             }
@@ -101,14 +137,146 @@ namespace IsekaiTruck.Editor
             }
 
             VerifyDirectionalFrames(directionalAnimator, frames);
+            VerifyTeleportEffect(teleportEffectPrefab, teleportFrames);
             VerifyCatalog(catalog, controller);
-            VerifyTeleportFrameRates(wizardPrefab);
-            VerifyReadyCooldownFrameRates(wizardPrefab);
-            VerifyPausedTeleportTimer(wizardPrefab);
+            try
+            {
+                VerifyTeleportEffectPlacement(wizardPrefab, teleportEffectPrefab);
+                VerifyTeleportFrameRates(wizardPrefab);
+                VerifyReadyCooldownFrameRates(wizardPrefab);
+                VerifyPausedTeleportTimer(wizardPrefab);
+            }
+            finally
+            {
+                DestroySceneTeleportEffects(teleportEffectPrefab);
+            }
             Debug.Log("Wizard monster setup verification passed.");
         }
 
-        private static void CreateOrUpdatePrefab(Sprite[] frames)
+        private static void ConfigureTeleportImporter()
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(TeleportSpritePath) as TextureImporter;
+            if (importer == null)
+            {
+                throw new InvalidOperationException("Wizard teleport sheet importer was not created.");
+            }
+
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Multiple;
+            importer.spritePixelsPerUnit = TeleportPixelsPerUnit;
+            importer.npotScale = TextureImporterNPOTScale.None;
+            importer.mipmapEnabled = false;
+            importer.filterMode = FilterMode.Bilinear;
+            importer.alphaSource = TextureImporterAlphaSource.FromInput;
+            importer.alphaIsTransparency = true;
+            importer.sRGBTexture = true;
+            importer.maxTextureSize = 1024;
+
+#pragma warning disable CS0618
+            importer.spritesheet = BuildTeleportMetadata();
+#pragma warning restore CS0618
+            importer.SaveAndReimport();
+        }
+
+        private static SpriteMetaData[] BuildTeleportMetadata()
+        {
+            SpriteMetaData[] metadata = new SpriteMetaData[TeleportFrameCount];
+            for (int frameIndex = 0; frameIndex < metadata.Length; frameIndex++)
+            {
+                int column = frameIndex % TeleportColumns;
+                int rowFromTop = frameIndex / TeleportColumns;
+                int rowFromBottom = TeleportRows - rowFromTop - 1;
+                int minX = TeleportSafeMin[column];
+                int maxX = TeleportSafeMaxExclusive[column];
+                int minY = TeleportSafeMin[rowFromBottom];
+                int maxY = TeleportSafeMaxExclusive[rowFromBottom];
+
+                metadata[frameIndex] = new SpriteMetaData
+                {
+                    name = GetTeleportSpriteName(frameIndex),
+                    rect = new Rect(minX, minY, maxX - minX, maxY - minY),
+                    alignment = (int)SpriteAlignment.Center,
+                    pivot = new Vector2(0.5f, 0.5f),
+                    border = Vector4.zero
+                };
+            }
+
+            return metadata;
+        }
+
+        private static Sprite[] LoadTeleportFrames()
+        {
+            Object[] assets = AssetDatabase.LoadAllAssetsAtPath(TeleportSpritePath);
+            Sprite[] frames = new Sprite[TeleportFrameCount];
+            for (int frameIndex = 0; frameIndex < frames.Length; frameIndex++)
+            {
+                string spriteName = GetTeleportSpriteName(frameIndex);
+                for (int assetIndex = 0; assetIndex < assets.Length; assetIndex++)
+                {
+                    if (assets[assetIndex] is Sprite sprite && sprite.name == spriteName)
+                    {
+                        frames[frameIndex] = sprite;
+                        break;
+                    }
+                }
+
+                if (frames[frameIndex] == null)
+                {
+                    throw new InvalidOperationException(
+                        $"Wizard teleport frame is missing: {spriteName}");
+                }
+            }
+
+            return frames;
+        }
+
+        private static string GetTeleportSpriteName(int frameIndex)
+        {
+            return $"{TeleportSpritePrefix}_{frameIndex}";
+        }
+
+        private static SpriteSequenceEffect CreateOrUpdateTeleportEffectPrefab(Sprite[] frames)
+        {
+            GameObject root = new GameObject("WizardTeleportEffect");
+            try
+            {
+                root.transform.localScale = Vector3.one * TeleportVisualScale;
+                SpriteRenderer spriteRenderer = root.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = frames[0];
+                spriteRenderer.color = Color.white;
+                spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
+                spriteRenderer.sortingOrder = 3;
+                spriteRenderer.shadowCastingMode = ShadowCastingMode.Off;
+                spriteRenderer.receiveShadows = false;
+                root.AddComponent<BillboardSpriteView>();
+                SpriteSequenceEffect sequenceEffect = root.AddComponent<SpriteSequenceEffect>();
+                sequenceEffect.Configure(
+                    spriteRenderer,
+                    frames,
+                    TeleportFramesPerSecond,
+                    true);
+
+                GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, TeleportEffectPrefabPath);
+                SpriteSequenceEffect prefabEffect = prefab != null
+                    ? prefab.GetComponent<SpriteSequenceEffect>()
+                    : null;
+                if (prefabEffect == null)
+                {
+                    throw new InvalidOperationException(
+                        "Wizard teleport effect prefab could not be saved.");
+                }
+
+                return prefabEffect;
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        private static void CreateOrUpdatePrefab(
+            Sprite[] frames,
+            SpriteSequenceEffect teleportEffectPrefab)
         {
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(WizardPrefabPath);
             bool isNewPrefab = prefab == null;
@@ -145,6 +313,11 @@ namespace IsekaiTruck.Editor
                     serializedTeleport.FindProperty("teleportDistanceMultiplier").floatValue = 1f;
                     serializedTeleport.ApplyModifiedPropertiesWithoutUndo();
                 }
+
+                SerializedObject serializedTeleportEffect = new SerializedObject(teleportBehavior);
+                serializedTeleportEffect.FindProperty("teleportEffectPrefab").objectReferenceValue =
+                    teleportEffectPrefab;
+                serializedTeleportEffect.ApplyModifiedPropertiesWithoutUndo();
 
                 MonsterView monsterView = GetOrAddComponent<MonsterView>(root);
                 MeshRenderer legacyRenderer = root.GetComponent<MeshRenderer>();
@@ -233,6 +406,151 @@ namespace IsekaiTruck.Editor
                 if (framesProperty.GetArrayElementAtIndex(frameIndex).objectReferenceValue != expectedFrames[frameIndex])
                 {
                     throw new InvalidOperationException($"Wizard directional frame reference is incorrect: {frameIndex}");
+                }
+            }
+        }
+
+        private static void VerifyTeleportEffect(
+            SpriteSequenceEffect effectPrefab,
+            Sprite[] expectedFrames)
+        {
+            SpriteRenderer spriteRenderer = effectPrefab.GetComponent<SpriteRenderer>();
+            BillboardSpriteView billboard = effectPrefab.GetComponent<BillboardSpriteView>();
+            if (spriteRenderer == null || billboard == null ||
+                effectPrefab.FrameCount != TeleportFrameCount ||
+                !Mathf.Approximately(effectPrefab.FramesPerSecond, TeleportFramesPerSecond) ||
+                !Mathf.Approximately(
+                    effectPrefab.Duration,
+                    TeleportFrameCount / TeleportFramesPerSecond) ||
+                !effectPrefab.DestroyOnComplete ||
+                effectPrefab.transform.localScale != Vector3.one * TeleportVisualScale ||
+                spriteRenderer.sprite != expectedFrames[0] ||
+                spriteRenderer.sortingOrder != 3)
+            {
+                throw new InvalidOperationException("Wizard teleport effect prefab is incomplete.");
+            }
+
+            SerializedObject serializedEffect = new SerializedObject(effectPrefab);
+            SerializedProperty framesProperty = serializedEffect.FindProperty("frames");
+            if (framesProperty == null || framesProperty.arraySize != expectedFrames.Length)
+            {
+                throw new InvalidOperationException("Wizard teleport effect frames are incomplete.");
+            }
+
+            for (int frameIndex = 0; frameIndex < expectedFrames.Length; frameIndex++)
+            {
+                if (framesProperty.GetArrayElementAtIndex(frameIndex).objectReferenceValue !=
+                    expectedFrames[frameIndex])
+                {
+                    throw new InvalidOperationException(
+                        $"Wizard teleport frame reference is incorrect: {frameIndex}");
+                }
+            }
+        }
+
+        private static void VerifyTeleportEffectPlacement(
+            GameObject wizardPrefab,
+            SpriteSequenceEffect teleportEffectPrefab)
+        {
+            DestroySceneTeleportEffects(teleportEffectPrefab);
+            GameObject truckObject = new GameObject("Wizard Teleport Effect Verification Truck");
+            GameObject instance = PrefabUtility.InstantiatePrefab(wizardPrefab) as GameObject;
+            try
+            {
+                float deltaTime = 1f / 60f;
+                float frameScale = deltaTime * 60f;
+                int cooldownFrameCount = Mathf.CeilToInt(TeleportInterval / deltaTime);
+                instance.transform.position = new Vector3(5f, 0f, 0f);
+                truckObject.transform.position = new Vector3(1000f, 0f, 0f);
+
+                MonsterDefinition definition = instance.GetComponent<MonsterDefinition>();
+                MonsterController controller = instance.GetComponent<MonsterController>();
+                controller.Initialize(definition.CreateData(), truckObject.transform, 0f, 60f);
+
+                for (int frameIndex = 0; frameIndex < cooldownFrameCount; frameIndex++)
+                {
+                    controller.UpdateMonster(
+                        (frameIndex + 1) * deltaTime * 1000f,
+                        0f,
+                        3.096f,
+                        frameScale,
+                        deltaTime,
+                        0f,
+                        1f,
+                        false
+                    );
+                }
+
+                truckObject.transform.position = instance.transform.position - Vector3.right * 5f;
+                Vector3 originPosition = instance.transform.position;
+                controller.UpdateMonster(
+                    (cooldownFrameCount + 1) * deltaTime * 1000f,
+                    0f,
+                    3.096f,
+                    frameScale,
+                    deltaTime,
+                    0f,
+                    1f,
+                    false
+                );
+                Vector3 destinationPosition = instance.transform.position;
+
+                SpriteSequenceEffect[] spawnedEffects = Object.FindObjectsByType<SpriteSequenceEffect>(
+                    FindObjectsInactive.Include,
+                    FindObjectsSortMode.None);
+                int matchingEffectCount = 0;
+                bool hasOriginEffect = false;
+                bool hasDestinationEffect = false;
+                for (int effectIndex = 0; effectIndex < spawnedEffects.Length; effectIndex++)
+                {
+                    SpriteSequenceEffect effect = spawnedEffects[effectIndex];
+                    if (!effect.gameObject.scene.IsValid() ||
+                        !effect.name.StartsWith(teleportEffectPrefab.name, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    matchingEffectCount++;
+                    hasOriginEffect |= Vector3.Distance(
+                        effect.transform.position,
+                        originPosition) <= 0.001f;
+                    hasDestinationEffect |= Vector3.Distance(
+                        effect.transform.position,
+                        destinationPosition) <= 0.1f;
+                }
+
+                if (Vector3.Distance(originPosition, destinationPosition) <= 1f ||
+                    matchingEffectCount != 2 ||
+                    !hasOriginEffect ||
+                    !hasDestinationEffect)
+                {
+                    throw new InvalidOperationException(
+                        "Wizard teleport effect was not placed at both teleport positions. " +
+                        $"Distance={Vector3.Distance(originPosition, destinationPosition)}, " +
+                        $"Count={matchingEffectCount}, Origin={hasOriginEffect}, " +
+                        $"Destination={hasDestinationEffect}");
+                }
+            }
+            finally
+            {
+                DestroySceneTeleportEffects(teleportEffectPrefab);
+                Object.DestroyImmediate(instance);
+                Object.DestroyImmediate(truckObject);
+            }
+        }
+
+        private static void DestroySceneTeleportEffects(SpriteSequenceEffect teleportEffectPrefab)
+        {
+            SpriteSequenceEffect[] effects = Object.FindObjectsByType<SpriteSequenceEffect>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            for (int effectIndex = 0; effectIndex < effects.Length; effectIndex++)
+            {
+                SpriteSequenceEffect effect = effects[effectIndex];
+                if (effect.gameObject.scene.IsValid() &&
+                    effect.name.StartsWith(teleportEffectPrefab.name, StringComparison.Ordinal))
+                {
+                    Object.DestroyImmediate(effect.gameObject);
                 }
             }
         }
