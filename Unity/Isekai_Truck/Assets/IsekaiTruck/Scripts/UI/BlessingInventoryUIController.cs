@@ -23,6 +23,9 @@ namespace IsekaiTruck.UI
         [SerializeField] private Text[] activeSlotLabels;
         [SerializeField] private Button[] inventoryButtons;
         [SerializeField] private Text[] inventoryLabels;
+        [SerializeField] private GameObject activeSlotHud;
+        [SerializeField] private Image[] activeSlotBackgrounds;
+        [SerializeField] private Image[] activeSlotFills;
 
         private BlessingSystem blessingSystem;
         private BlessingLoadoutSystem loadoutSystem;
@@ -32,6 +35,13 @@ namespace IsekaiTruck.UI
         private string[] inventoryBlessingIds;
         private int selectedSlotIndex;
         private string selectedBlessingId;
+
+        private static readonly Color EmptySlotColor = new Color32(0x70, 0x62, 0x68, 0xD9);
+        private static readonly Color PassiveSlotColor = new Color32(0x70, 0x85, 0x87, 0xF2);
+        private static readonly Color AvailableSlotColor = new Color32(0xED, 0xC6, 0x7F, 0xF2);
+        private static readonly Color ActiveSlotColor = new Color32(0xE9, 0x82, 0xB8, 0xF2);
+        private static readonly Color DarkTextColor = new Color32(0x4C, 0x38, 0x45, 0xFF);
+        private static readonly Color LightTextColor = new Color32(0xFF, 0xFB, 0xF2, 0xFF);
 
         public bool IsPanelOpen => inventoryPanel != null && inventoryPanel.activeSelf;
 
@@ -73,6 +83,7 @@ namespace IsekaiTruck.UI
             }
 
             inventoryPanel.SetActive(false);
+            activeSlotHud.SetActive(true);
             SetViewport(cameraController.ViewportRect);
             Refresh();
         }
@@ -92,24 +103,86 @@ namespace IsekaiTruck.UI
                 return;
             }
 
-            for (int i = 0; i < activeSlotLabels.Length; i++)
+            int slotCount = Mathf.Min(activeSlotLabels.Length, loadoutSystem.SlotCount);
+            for (int i = 0; i < slotCount; i++)
             {
                 BlessingDefinition definition = loadoutSystem.GetEquipped(i);
                 if (definition == null)
                 {
-                    activeSlotLabels[i].text = $"{i + 1}  비어 있음";
+                    ApplyActiveSlot(i, $"<b>{i + 1}번 슬롯</b>\n비어 있음", EmptySlotColor, LightTextColor, 0f);
                     continue;
                 }
 
                 if (definition.ActivationType == BlessingActivationType.Passive)
                 {
-                    activeSlotLabels[i].text = $"{i + 1}  [{definition.Grade}] {definition.DisplayName} (패시브)";
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n패시브",
+                        PassiveSlotColor,
+                        LightTextColor,
+                        1f
+                    );
                     continue;
                 }
 
                 float remaining = effectSystem.GetRemainingDuration(i);
-                string state = remaining > 0f ? $"{remaining:F1}초" : "사용 가능";
-                activeSlotLabels[i].text = $"{i + 1}  [{definition.Grade}] {definition.DisplayName} ({state})";
+                if (remaining > 0f)
+                {
+                    float durationRatio = definition.Duration > 0f ? remaining / definition.Duration : 0f;
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n{remaining:F1}초",
+                        ActiveSlotColor,
+                        LightTextColor,
+                        durationRatio
+                    );
+                }
+                else if (effectSystem.CanActivate(i))
+                {
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n사용 가능",
+                        AvailableSlotColor,
+                        DarkTextColor,
+                        1f
+                    );
+                }
+                else
+                {
+                    ApplyActiveSlot(
+                        i,
+                        $"<b>{i + 1}번 슬롯</b>\n[{definition.Grade}] {definition.DisplayName}\n사용 불가",
+                        EmptySlotColor,
+                        LightTextColor,
+                        0f
+                    );
+                }
+            }
+
+            for (int i = slotCount; i < activeSlotLabels.Length; i++)
+            {
+                ApplyActiveSlot(i, $"<b>{i + 1}번 슬롯</b>\n비어 있음", EmptySlotColor, LightTextColor, 0f);
+            }
+        }
+
+        private void ApplyActiveSlot(int slotIndex, string label, Color backgroundColor, Color textColor, float fillRatio)
+        {
+            activeSlotLabels[slotIndex].text = label;
+            activeSlotLabels[slotIndex].color = textColor;
+
+            if (slotIndex < activeSlotBackgrounds.Length && activeSlotBackgrounds[slotIndex] != null)
+            {
+                activeSlotBackgrounds[slotIndex].color = backgroundColor;
+            }
+
+            if (slotIndex < activeSlotFills.Length && activeSlotFills[slotIndex] != null)
+            {
+                Image fill = activeSlotFills[slotIndex];
+                fill.color = new Color(textColor.r, textColor.g, textColor.b, 0.24f);
+                Vector2 anchorMax = fill.rectTransform.anchorMax;
+                anchorMax.x = Mathf.Clamp01(fillRatio);
+                fill.rectTransform.anchorMax = anchorMax;
+                fill.gameObject.SetActive(fillRatio > 0f);
             }
         }
 
@@ -265,6 +338,9 @@ namespace IsekaiTruck.UI
             Button[] targetSlotButtons,
             Text[] targetSlotLabels,
             Text[] targetActiveSlotLabels,
+            GameObject targetActiveSlotHud,
+            Image[] targetActiveSlotBackgrounds,
+            Image[] targetActiveSlotFills,
             Button[] targetInventoryButtons,
             Text[] targetInventoryLabels
         )
@@ -280,6 +356,9 @@ namespace IsekaiTruck.UI
             slotButtons = targetSlotButtons;
             slotLabels = targetSlotLabels;
             activeSlotLabels = targetActiveSlotLabels;
+            activeSlotHud = targetActiveSlotHud;
+            activeSlotBackgrounds = targetActiveSlotBackgrounds;
+            activeSlotFills = targetActiveSlotFills;
             inventoryButtons = targetInventoryButtons;
             inventoryLabels = targetInventoryLabels;
         }

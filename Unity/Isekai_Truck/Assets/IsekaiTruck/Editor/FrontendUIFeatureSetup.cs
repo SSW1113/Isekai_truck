@@ -18,6 +18,7 @@ namespace IsekaiTruck.Editor
             MonsterCollectionFeatureSetup.Setup();
             MainHudLayoutSetup.Setup();
             SystemGuideFeatureSetup.Setup();
+            StoryIntroFeatureSetup.Setup();
 
             if (!Application.isBatchMode)
             {
